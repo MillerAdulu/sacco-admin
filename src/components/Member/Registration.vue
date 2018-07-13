@@ -180,9 +180,7 @@
           })
         ).then(response => {
           this.$store.commit('loadNewMemberId', response.data.memberId)
-          this.$store.commit('setCurrentTab', 'Address')
         }).catch( error => {
-          console.log(error)
           alert(error)
           this.apiErrors.push(error.response)
         })

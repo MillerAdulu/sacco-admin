@@ -6,20 +6,26 @@
         <v-card-text>
           <v-subheader> What county does the member reside in? </v-subheader>
           <v-autocomplete
+          item-text="countyName"
+          item-value="countyId"
             :items="counties.items"
             v-model="county"/>
         </v-card-text>
         <v-card-text>
           <v-subheader> What constituency does the member reside in? </v-subheader>
           <v-autocomplete
+          item-text="constituencyName"
+          item-value="constituencyId"
             :items="constituencies.items"
-            v-model="county"/>
+            v-model="constituency"/>
         </v-card-text>
         <v-card-text>
           <v-subheader> What locality does the member reside in? </v-subheader>
           <v-autocomplete
+          item-text="localityName"
+          item-value="localityId"
             :items="localities.items"
-            v-model="county"/>
+            v-model="locality"/>
         </v-card-text>
       </v-card>
       <v-layout row>
@@ -46,6 +52,11 @@
             v-model="houseNumber"/>
         </v-flex>
       </v-layout>
+      <v-layout row>
+        <v-flex xs12>
+          <v-btn block color="success" @click="addAddress">Add Address</v-btn>
+        </v-flex>
+      </v-layout>
     </v-form>
   </v-container>
 </template>
@@ -53,28 +64,22 @@
 <script>
   import HTTP from '../../config'
   import collect from 'collect.js'
-  import VTextField from "vuetify/src/components/VTextField/VTextField";
 
   export default {
     name: "Address",
-    components: {VTextField},
     data() {
       return {
-        county: '1',
-        constituency: '',
-        locality: '',
-        street: '',
-        buildingName: '',
-        floor: '',
-        houseNumber: '',
+        county: null,
+        constituency: null,
+        locality: null,
+        street: null,
+        buildingName: null,
+        floor: null,
+        houseNumber: null,
 
         counties: [],
         constituencies: [],
         localities: [],
-
-        countyCollection: [],
-        constituencyCollection: [],
-        localityCollection: [],
 
         apiErrors: []
       }
@@ -82,28 +87,33 @@
     created() {
       HTTP.get('counties')
         .then(response => {
-          this.countyCollection = collect(response.data)
-          this.counties = this.countyCollection.pluck('countyName')
+          this.counties = collect(response.data)
         })
         .catch(error => {
           this.apiErrors.push(error)
         })
-      HTTP.get('constituencies')
+
+        HTTP.get('constituencies')
         .then(response => {
-          this.constituencyCollection = collect(response.data)
-          this.constituencies = this.constituencyCollection.pluck('constituencyName')
+          this.constituencies = collect(response.data)
         })
         .catch(error => {
           this.apiErrors.push(error)
         })
-      HTTP.get('localities')
+        
+        HTTP.get('localities')
         .then(response => {
-          this.localityCollection = collect(response.data)
-          this.localities = this.localityCollection.pluck('localityName')
+          this.localities = collect(response.data)
         })
         .catch(error => {
           this.apiErrors.push(error)
         })
+    
+    },
+    methods: {
+      addAddress() {
+        
+      }
     }
   }
 </script>

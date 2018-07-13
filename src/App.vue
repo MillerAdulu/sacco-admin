@@ -51,6 +51,7 @@
 
         </v-list-group>
       </v-list>
+      <router-view/>
     </v-navigation-drawer>
     <v-toolbar
             app
@@ -83,18 +84,21 @@
 <script>
   import Registration from './components/Member/Registration'
   import Address from './components/Member/Address'
+  import List from './components/Member/List'
 
   export default {
     name: 'App',
     components: {
       Registration,
-      Address
+      Address,
+      List
     },
     data () {
       return {
         tabs: [
           Registration,
-          Address
+          Address,
+          List
         ],
         clipped: false,
         drawer: true,
@@ -111,6 +115,7 @@
               {
                 action: 'add_circle',
                 title: 'Register Member',
+                url: 'register',
                 tab: 'Registration'
               },
               {

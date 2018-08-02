@@ -36,11 +36,14 @@
 
           <v-list-tile
                   v-for="subItem in item.items"
-                  :key="subItem.title"
-                  @click="setTab(subItem.tab)">
+                  :key="subItem.title">
 
             <v-list-tile-content>
-              <v-list-tile-title>{{ subItem.title }}</v-list-tile-title>
+              <v-list-tile-title>
+                <router-link :to='{ name: subItem.routerName }'>
+                {{ subItem.title }}
+                </router-link>
+                </v-list-tile-title>
             </v-list-tile-content>
 
             <v-list-tile-action>
@@ -51,7 +54,6 @@
 
         </v-list-group>
       </v-list>
-      <router-view/>
     </v-navigation-drawer>
     <v-toolbar
             app
@@ -72,7 +74,7 @@
     </v-toolbar>
     <v-content>
 
-      <component :is="currentTab"></component>
+      <router-view/>
 
     </v-content>
     <v-footer :fixed="fixed" app>
@@ -82,24 +84,11 @@
 </template>
 
 <script>
-  import Registration from './components/Member/Registration'
-  import Address from './components/Member/Address'
-  import List from './components/Member/List'
 
   export default {
     name: 'App',
-    components: {
-      Registration,
-      Address,
-      List
-    },
     data () {
       return {
-        tabs: [
-          Registration,
-          Address,
-          List
-        ],
         clipped: false,
         drawer: true,
         fixed: false,
@@ -111,26 +100,13 @@
               {
                 action: 'list',
                 title: 'All Members',
+                routerName: 'MemberList'
               },
               {
                 action: 'add_circle',
                 title: 'Register Member',
-                url: 'register',
-                tab: 'Registration'
+                routerName: 'Registration'
               },
-              {
-                action: 'how_to_reg',
-                title: 'View Member',
-                tab: 'Address'
-              },
-              {
-                action: 'gesture',
-                title: 'Update Details'
-              },
-              {
-                action: 'remove_circle',
-                title: 'Delete Member'
-              }
             ]
           },
           {
@@ -139,20 +115,18 @@
             items: [
               {
                 action: 'list',
-                title: 'All Accounts'
+                title: 'Member Accounts'
               },
               {
                 action: 'assignment_turned_in',
-                title: 'View Contribution'
+                title: 'Member Contributions',
+                routerName: 'Contributions'
               },
               {
-                action: 'gesture',
-                title: 'Update Contribution'
+                action: 'add_circle',
+                title: 'Add Contribution',
+                routerName: 'AddContribution'
               },
-              {
-                action: 'remove_circle',
-                title: 'Delete Contribution'
-              }
             ]
           },
           {
@@ -166,14 +140,6 @@
               {
                 action: 'add_circle',
                 title: 'Issue Loan'
-              },
-              {
-                action: 'assignment_turned_in',
-                title: 'View Loan Details'
-              },
-              {
-                action: 'gesture',
-                title: 'Update Loan'
               },
               {
                 action: 'remove_circle',
@@ -258,16 +224,6 @@
         ],
         miniVariant: false,
         title: 'Sacco'
-      }
-    },
-    methods: {
-      setTab (tabName) {
-        this.$store.commit('setCurrentTab', tabName)
-      }
-    },
-    computed: {
-      currentTab () {
-        return this.$store.getters.currentTab
       }
     }
   }

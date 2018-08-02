@@ -8,6 +8,7 @@
           <v-autocomplete
           item-text="countyName"
           item-value="countyId"
+          @input="getConstituencies(county)"
             :items="counties.items"
             v-model="county"/>
         </v-card-text>
@@ -16,6 +17,7 @@
           <v-autocomplete
           item-text="constituencyName"
           item-value="constituencyId"
+          @input="getLocalities(constituency)"
             :items="constituencies.items"
             v-model="constituency"/>
         </v-card-text>
@@ -27,6 +29,23 @@
             :items="localities.items"
             v-model="locality"/>
         </v-card-text>
+        <v-layout row>
+          <v-flex xs6>
+            <v-card-text>
+          <v-subheader> What is the member's post office? </v-subheader>
+          <v-autocomplete
+          item-text="postOfficeName"
+          item-value="postOfficeId"
+            :items="postOffices.items"
+            v-model="postOfficeId"/>
+        </v-card-text>
+          </v-flex>
+          <v-flex xs6>
+            <v-text-field
+            label="Post Office Address"
+            v-model="postalAddress"/>
+          </v-flex>
+        </v-layout>
       </v-card>
       <v-layout row>
         <v-flex xs6 mx-2>
@@ -63,61 +82,97 @@
 
 <script>
   import HTTP from '../../config'
+  import queryString from 'querystring'
   import collect from 'collect.js'
 
   export default {
-    name: "Address",
+    name: "AddAddress",
     data() {
       return {
-        county: null,
-        constituency: null,
-        locality: null,
+        memberId: '',
+        county: '',
+        constituency: '',
+        locality: '',
         street: null,
         buildingName: null,
         floor: null,
         houseNumber: null,
+        postOfficeId: null,
+        postalAddress: null,
 
         counties: [],
         constituencies: [],
         localities: [],
+        postOffices: [],
 
         apiErrors: []
       }
     },
     created() {
-      HTTP.get('counties')
+      this.getCounties();
+      this.getPostOffices();
+    },
+    methods: {
+      getCounties() {
+        HTTP.get('counties')
         .then(response => {
           this.counties = collect(response.data)
         })
         .catch(error => {
           this.apiErrors.push(error)
         })
-
-        HTTP.get('constituencies')
+      },
+      getConstituencies(county) {
+        HTTP.get(`constituencies/county/${county}`)
         .then(response => {
           this.constituencies = collect(response.data)
         })
         .catch(error => {
           this.apiErrors.push(error)
         })
-        
-        HTTP.get('localities')
+      },
+      getLocalities(constituency) {
+        HTTP.get(`localities/constituency/${constituency}`)
         .then(response => {
           this.localities = collect(response.data)
         })
         .catch(error => {
           this.apiErrors.push(error)
         })
-    
-    },
-    methods: {
+      },
+      getPostOffices(){
+        HTTP.get(`postoffices`)
+        .then(response => {
+          this.postOffices = collect(response.data)
+        })
+        .catch(error => {
+          console.log(error)
+        }) 
+      },
       addAddress() {
-        
+        HTTP.post(
+          "addressdetails",
+          queryString.stringify({
+            member_id: this.$store.getters.memberId,
+            county_id: this.county,
+            constituency_id: this.constituency,
+            locality_id: this.locality,
+            street: this.street,
+            building_name: this.buildingName,
+            floor: this.floor,
+            house_number: this.houseNumber,
+            post_office_id: this.postOfficeId,
+            postal_address: this.postalAddress
+          })
+          )
+          .then(response => {
+            console.log(response)
+            this.$store.commit('setStepperStatus', false)
+          })
+          .then(error => {
+            console.log(error)
+          })
       }
     }
   }
 </script>
-
-<style scoped>
-
-</style>

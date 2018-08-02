@@ -9,8 +9,6 @@ import Vuex from 'vuex'
 import App from './App.vue'
 import router from './router'
 
-
-
 Vue.config.productionTip = false
 
 Vue.use(Vuetify)
@@ -19,33 +17,30 @@ Vue.use(Vuex)
 
 const vuexStore = new Vuex.Store({
   state: {
-    currentTab: 'List',
     administratorId: null,
     administratorLevel: null,
-    newMemberId: null
+    memberId: 1,
+    stepperContinueEnabled: true,
   },
-  getters: {
-    currentTab: state => state.currentTab,
-    
+  getters: {    
     administratorId: state => state.administratorId,
-    
     administratorLevel: state => state.administratorLevel,
-    
-    newMemberId: state => state.newMemberId
+    memberId: state => state.memberId,
+    stepperContinueEnabled: state => state.stepperContinueEnabled,
   },
   mutations: {
-    setCurrentTab: (state, payload) => {
-      state.currentTab = payload
-    },
     loadAdminId: (state, payload) => {
       state.administratorId = payload
     },
     loadAdminLevel: (state, payload) => {
       state.administratorLevel = payload
     },
-    loadNewMemberId: (state, payload) => {
-      state.newMemberId = payload
+    setMemberId: (state, payload) => {
+      state.memberId = payload
     },
+    setStepperStatus: (state, payload) => {
+      state.stepperContinueEnabled = payload
+    }
   },
 })
 

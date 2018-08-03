@@ -16,15 +16,18 @@
       :rows-per-page-items="[20, 30, 40]"
       :headers="headers"
       :search="search"
-      item-key="memberContributionId"
+      item-key="member.memberId"
       :items="accounts"
       >
 
       <v-progress-linear slot="progress" color="blue" indeterminate />
 
       <template slot="items" slot-scope="props">
-
-        <td>
+        <td>{{ props.item.member.lastName }}</td>
+        <td>{{ props.item.member.firstName }}</td>
+        <td>{{ props.item.member.otherName }}</td>
+        <td>{{ props.item.contributionTotal }}</td>
+        <!-- <td>
           <router-link :to='{name: `Member`, params: {
             memberId: props.item.memberContributionId}
             }'>
@@ -40,7 +43,7 @@
           edit
           </v-icon>
           </router-link>
-        </td>        
+        </td>         -->
       </template>
 
       </v-data-table>
@@ -56,16 +59,24 @@ export default {
   name: `Accounts`,
   data() {
     return {
-      search: '',
+      search: "",
       dataLoading: false,
       headers:[
         {
-          text: `Member`,
+          text: `Last Name`,
           value: `member.lastName`,
         },
         {
-          text: `Payment Method`,
-          value: `paymentMethod.paymentMethod`
+          text: `First Name`,
+          value: `member.firstName`,
+        },
+        {
+          text: `Other Name`,
+          value: `member.otherName`,
+        },
+        {
+          text: `Total Contribution`,
+          value: `contributionTotal`
         },
         
       ],
@@ -73,7 +84,17 @@ export default {
     }
   },
   methods: {
-    fetchAccountData(){},
+    fetchAccountData(){
+      this.dataLoading = true
+      HTTP.get(`membercontributions/members/accounts/all`)
+      .then(response => {
+        this.accounts = response.data
+        this.dataLoading = false
+      })
+      .catch(error => {
+        console.log(error)
+      })
+    },
   },
   created(){
     this.fetchAccountData()

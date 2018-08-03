@@ -10,6 +10,7 @@ import AddNominee from '@/components/Nominees/AddNominee'
 import AddAddress from '@/components/AddressDetails/AddAddress'
 import Contributions from '@/components/Contributions/Contributions'
 import AddContribution from '@/components/Contributions/AddContribution'
+import MemberAccounts from '@/components/Contributions/Accounts'
 
 Vue.use(Router)
 
@@ -59,6 +60,11 @@ export default new Router({
       path: `/addcontribution`,
       name: `AddContribution`,
       component: AddContribution
+    },
+    {
+      path: `/memberaccounts`,
+      name: `MemberAccounts`,
+      component: MemberAccounts
     }
   ]
 })

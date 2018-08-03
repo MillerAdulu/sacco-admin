@@ -115,7 +115,8 @@
             items: [
               {
                 action: 'list',
-                title: 'Member Accounts'
+                title: 'Member Accounts',
+                routerName: 'MemberAccounts'
               },
               {
                 action: 'assignment_turned_in',

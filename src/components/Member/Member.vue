@@ -16,7 +16,7 @@
     </v-flex>
     <v-flex xs5 pr-1>
       <img
-        src="@/assets/milleradulu.png"
+        :src="member.idFileUrl"
       />
     </v-flex>
   </v-layout>
@@ -41,7 +41,7 @@
           <Contributions :contributions="contributions" />
         </v-tab-item>
         <v-tab-item>
-          Loan History
+          <MemberLoans :memberLoans="loans" />
         </v-tab-item>
         <v-tab-item>
           <ShowNominees :nominees="nominees" />
@@ -61,14 +61,17 @@ import Addresses from '@/components/AddressDetails/Address'
 import PaymentDetails from '@/components/PaymentDetails/PaymentDetails'
 import ShowNominees from '@/components/Nominees/ShowNominees'
 import Contributions from '@/components/Contributions/MemberContributions'
+import MemberLoans from '@/components/MemberLoans/MemberLoans'
 
 export default {
   data() {
     return {
+      memberId: this.$route.params.memberId,
       member: {},
       addressdetails: [],
       paymentdetails: [],
       contributions: [],
+      loans: [],
       nominees: [],
       activeTab: null,
       tabs: [
@@ -84,10 +87,11 @@ export default {
     PaymentDetails,
     ShowNominees,
     Contributions,
+    MemberLoans,
   },
   methods: {
     fetchMember() {
-      HTTP.get(`members/${this.$route.params.memberId}`)
+      HTTP.get(`members/${this.memberId}`)
         .then(response => {
           this.member = response.data;
         })
@@ -96,7 +100,7 @@ export default {
         });
     },
     fetchAddressDetails() {
-      HTTP.get(`/addressdetails/members/${this.$route.params.memberId}`)
+      HTTP.get(`/addressdetails/members/${this.memberId}`)
         .then(response => {
           this.addressdetails = response.data;
         })
@@ -105,7 +109,7 @@ export default {
         });
     },
     fetchPaymentDetails() {
-      HTTP.get(`/paymentdetails/members/${this.$route.params.memberId}`)
+      HTTP.get(`/paymentdetails/members/${this.memberId}`)
       .then(response => {
         this.paymentdetails = response.data
       })
@@ -114,7 +118,7 @@ export default {
       }) 
     },
     fetchNominees() {
-      HTTP.get(`/nominees/members/${this.$route.params.memberId}`)
+      HTTP.get(`/nominees/members/${this.memberId}`)
       .then(response => {
         this.nominees = response.data
       })
@@ -123,9 +127,18 @@ export default {
       })
     },
     fetchContributions() {
-      HTTP.get(`/membercontributions/members/${this.$route.params.memberId}`)
+      HTTP.get(`/membercontributions/members/${this.memberId}`)
       .then(response => {
         this.contributions = response.data
+      })
+      .catch(error => {
+        console.log(error)
+      })
+    },
+    fetchLoans() {
+      HTTP.get(`loans/member/${this.memberId}`)
+      .then(response => {
+        this.loans = response.data
       })
       .catch(error => {
         console.log(error)
@@ -138,6 +151,7 @@ export default {
     this.fetchPaymentDetails()
     this.fetchNominees()
     this.fetchContributions()
+    this.fetchLoans()
   }
 };
 </script>

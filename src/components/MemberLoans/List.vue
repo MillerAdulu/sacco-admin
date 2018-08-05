@@ -25,10 +25,8 @@
 
       <template slot="items" slot-scope="props">
         <td>{{ props.item.memberLoanId }}</td>
-        <td>{{ props.item.member.memberId }}</td>
         <td>{{ props.item.member.lastName }}</td>
         <td>{{ props.item.loanType.loanTypeName }}</td>
-        <td>{{ props.item.loanPurpose }}</td>
         <td>{{ props.item.loanAmount }}</td>
         <td>{{ props.item.repaymentPeriod }}</td>
         <td>{{ props.item.loanRepaymentStatus.loanRepaymentStatus }}</td>
@@ -65,20 +63,12 @@ export default {
           value: `memberLoanId`
         },
         {
-          text: `Member ID`,
-          value: `member.memberId`
-        },
-        {
           text: `Last Name`,
           value: `member.lastName`
         },
         {
           text: `Loan Type`,
           value: `loanType.loanTypeName`
-        },
-        {
-          text: `Purpose`,
-          value: `loanPurpose`
         },
         {
           text: `Loan Amount`,

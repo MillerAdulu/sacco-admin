@@ -27,23 +27,23 @@
         <td>{{ props.item.member.firstName }}</td>
         <td>{{ props.item.member.otherName }}</td>
         <td>{{ props.item.contributionTotal }}</td>
-        <!-- <td>
+        <td>
           <router-link :to='{name: `Member`, params: {
-            memberId: props.item.memberContributionId}
+            memberId: props.item.member.memberId}
             }'>
           <v-icon>
           list
           </v-icon>
           </router-link>
 
-          <router-link :to='{name: `MemberUpdate`, params: {
+          <!-- <router-link :to='{name: `MemberUpdate`, params: {
             memberId: props.item.memberContributionId
             }}'>
           <v-icon>
           edit
           </v-icon>
-          </router-link>
-        </td>         -->
+          </router-link> -->
+        </td>
       </template>
 
       </v-data-table>
@@ -78,6 +78,10 @@ export default {
           text: `Total Contribution`,
           value: `contributionTotal`
         },
+        {
+          text: `Actions`,
+          value: `name`
+        }
         
       ],
       accounts: []

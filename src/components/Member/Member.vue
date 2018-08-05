@@ -3,7 +3,6 @@
 
 <v-card>
   <v-layout row>
-    <v-flex xs7>
       <v-card-title primary-title>
         <div>
           <div class="display-1">{{ member.lastName }}, {{ member.firstName }} {{ member.otherName }}</div>
@@ -13,12 +12,10 @@
             <div class="subheading"> Member ID: {{ member.memberId }} </div>
         </div>
       </v-card-title>
-    </v-flex>
-    <v-flex xs5 pr-1>
+      <v-spacer />
       <img
         :src="member.idFileUrl"
       />
-    </v-flex>
   </v-layout>
   <v-divider light></v-divider>
   <v-card-actions class="pa-3">

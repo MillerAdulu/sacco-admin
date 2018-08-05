@@ -13,7 +13,7 @@
       />
     </v-card-title>
     <v-data-table
-    :loading=dataLoading
+    :loading="dataLoading"
     :rows-per-page-items="[20, 30, 40]"
     :headers="headers"
     :search="search"
@@ -23,7 +23,7 @@
     <v-progress-linear slot="progress" color="blue" indeterminate />
 
     <template slot="items" slot-scope="props">
-        <td>{{ props.item.memberId }} </td>
+        <td>{{ props.item.memberId }}</td>
         <td>{{ props.item.identificationNumber }}</td>
         <td>{{ props.item.firstName }}</td>
         <td>{{ props.item.lastName }}</td>

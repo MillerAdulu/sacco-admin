@@ -4,15 +4,13 @@
 :rows-per-page-items="rowsPerPageItems"
 content-tag="v-layout"
 row
-wrap
->
+wrap>
 <v-flex
 slot="item"
 slot-scope="props"
-xs6
->
+xs6>
 <v-card>
-  <v-card-title><h4>{{ props.item.lastName}}, {{ props.item.firstName }} {{ props.item.otherName }}</h4></v-card-title>
+  <v-card-title><h4>{{ props.item.lastName }}, {{ props.item.firstName }} {{ props.item.otherName }}</h4></v-card-title>
   <v-divider />
   <v-list dense>
     <v-list-tile>

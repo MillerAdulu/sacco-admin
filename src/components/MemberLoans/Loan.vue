@@ -44,18 +44,25 @@
               </v-list-tile-content>
             </v-list-tile>
           </v-list>
+          <v-divider />
+          <h3>Guarantors</h3>
+          <Guarantors />
   </v-card>
 </template>
 
 <script>
 import HTTP from '../../config'
+import Guarantors from '@/components/MemberLoans/Guarantors'
 
 export default {
   name: `LoanDetails`,
   data() {
     return {
-      loanDetails: null,
+      loanDetails: {},
     }
+  },
+  components: {
+    Guarantors,
   },
   methods: {
     getLoanDetails() {

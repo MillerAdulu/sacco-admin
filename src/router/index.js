@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
+import Dashboard from '@/components/Dashboard'
 import Registration from '@/components/Member/Registration'
 import MemberList from '@/components/Member/List'
 import Member from '@/components/Member/Member'
@@ -11,6 +12,8 @@ import AddAddress from '@/components/AddressDetails/AddAddress'
 import Contributions from '@/components/Contributions/Contributions'
 import AddContribution from '@/components/Contributions/AddContribution'
 import MemberAccounts from '@/components/Contributions/Accounts'
+import MemberLoans from '@/components/MemberLoans/List'
+import LoanDetails from '@/components/MemberLoans/Loan'
 
 Vue.use(Router)
 
@@ -65,6 +68,21 @@ export default new Router({
       path: `/memberaccounts`,
       name: `MemberAccounts`,
       component: MemberAccounts
+    },
+    {
+      path: `/memberloans`,
+      name: `MemberLoans`,
+      component: MemberLoans
+    },
+    {
+      path: `/memberloans/:memberLoanId`,
+      name: `LoanDetails`,
+      component: LoanDetails
+    },
+    {
+      path: `/dashboard`,
+      name: `Dashboard`,
+      component: Dashboard
     }
   ]
 })

@@ -19,7 +19,9 @@
         <v-list-tile>
           <v-icon>dashboard</v-icon>
           <v-list-tile-content>
+            <router-link to="/dashboard">
             Dashboard
+            </router-link>
           </v-list-tile-content>
         </v-list-tile>
         <v-list-group
@@ -78,7 +80,7 @@
 
     </v-content>
     <v-footer :fixed="fixed" app>
-      <span>&copy; 2017</span>
+      <span>&copy; Frog Technologies</span>
     </v-footer>
   </v-app>
 </template>
@@ -136,16 +138,13 @@
             items: [
               {
                 action: 'list',
-                title: 'All Loans'
+                title: 'All Loans',
+                routerName: `MemberLoans`
               },
               {
                 action: 'add_circle',
                 title: 'Issue Loan'
               },
-              {
-                action: 'remove_circle',
-                title: 'Delete Loan'
-              }
             ]
           },
           {

@@ -10,7 +10,11 @@
     slot-scope="props"
     xs6>
   <v-card>
-    <v-card-title><h4>Loan {{ props.item.memberLoanId }}</h4></v-card-title>
+    <v-card-title>
+      <h4>Loan {{ props.item.memberLoanId }}</h4>
+      <v-spacer />
+      <v-btn color="primary" small :to="`/memberloans/${ props.item.memberLoanId }`">View</v-btn>
+      </v-card-title>
     <v-divider />
     <v-list dense>
       <v-list-tile>

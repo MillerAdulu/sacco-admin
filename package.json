@@ -11,6 +11,8 @@
     "axios": "^0.18.0",
     "axios-retry": "^3.1.1",
     "collect.js": "^4.0.22",
+    "laue": "^0.1.0",
+    "moment": "^2.22.2",
     "simple-backoff": "^1.1.0",
     "vee-validate": "^2.1.0-beta.6",
     "vue": "^2.5.16",

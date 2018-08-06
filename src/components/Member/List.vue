@@ -38,13 +38,13 @@
           </v-icon>
           </router-link>
 
-          <router-link :to='{name: `MemberUpdate`, params: {
+          <!-- <router-link :to='{name: `MemberUpdate`, params: {
             memberId: props.item.memberId
             }}'>
           <v-icon>
           edit
           </v-icon>
-          </router-link>
+          </router-link> -->
         </td>
     </template>
     </v-data-table>

@@ -6,23 +6,28 @@ import Registration from '@/components/Member/Registration'
 import MemberList from '@/components/Member/List'
 import Member from '@/components/Member/Member'
 import MemberUpdate from '@/components/Member/Update'
-import AddPay from '@/components/PaymentDetails/AddPaymentDetail'
-import AddNominee from '@/components/Nominees/AddNominee'
-import AddAddress from '@/components/AddressDetails/AddAddress'
+import PaymentDetailsCapture from '@/components/PaymentDetails/PaymentDetailsCapture'
+import NomineeDetailsCapture from '@/components/Nominees/NomineeDetailsCapture'
+import AddressDetailsCapture from '@/components/AddressDetails/AddressDetailsCapture'
 import Contributions from '@/components/Contributions/Contributions'
 import AddContribution from '@/components/Contributions/AddContribution'
 import MemberAccounts from '@/components/Contributions/Accounts'
 import MemberLoans from '@/components/MemberLoans/List'
 import LoanDetails from '@/components/MemberLoans/Loan'
+import Up from '@/components/Member/UploadMemberImages'
 
 Vue.use(Router)
 
 export default new Router({
   routes: [
     {
+      path: `/up`,
+      component: Up,
+    },
+    {
       path: `/addaddress`,
       name: `AddAddress`,
-      component: AddAddress,
+      component: AddressDetailsCapture,
     },
     {
       path: `/register`,
@@ -46,13 +51,13 @@ export default new Router({
     },
     {
       path: `/addpay`,
-      name: `AddPay`,
-      component: AddPay
+      name: `PaymentDetailsCapture`,
+      component: PaymentDetailsCapture
     },
     {
       path: `/addnominee`,
       name: `AddNominee`,
-      component: AddNominee
+      component: NomineeDetailsCapture
     },
     {
       path: `/membercontributions`,

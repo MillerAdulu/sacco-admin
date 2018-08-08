@@ -23,10 +23,6 @@ xs6
       <v-list-tile-content >Bank Account:</v-list-tile-content>
       <v-list-tile-content class="align-end">{{ props.item.bankAccountNumber }}</v-list-tile-content>
     </v-list-tile>
-    <v-list-tile v-if="props.item.bankName">
-      <v-list-tile-content >Bank Name:</v-list-tile-content>
-      <v-list-tile-content class="align-end">{{ props.item.bankName }}</v-list-tile-content>
-    </v-list-tile>
     <v-list-tile v-if="props.item.cardNumber">
       <v-list-tile-content >Bank Card Number:</v-list-tile-content>
       <v-list-tile-content class="align-end">{{ props.item.cardNumber }}</v-list-tile-content>

@@ -81,19 +81,19 @@
           <v-btn block color="success" @click="register" :disabled="btnRegisterDisabled" :loading="btnLoading">Register Member</v-btn>
         </v-flex>
       </v-layout>
-
     </v-form>
 </template>
 
 <script>
-import HTTP from "../../config";
-import queryString from "querystring";
+import HTTP from '../../config'
+import Parsers from '../../parsers'
+import queryString from 'querystring'
 
 export default {
   $_veeValidate: {
     validator: "new"
   },
-  name: `AddNominee`,
+  name: `NomineeDetails`,
   data() {
     return {
       relationships: [],
@@ -119,22 +119,22 @@ export default {
     };
   },
   methods: {
-    register() {
+    async register() {
       this.btnLoading = true;
       this.$validator.validateAll();
-
+      let nominee = await Parsers.prepareDataObject({
+        member_id: this.$store.getters.newMemberId,
+        identification_number: this.identificationNumber,
+        relationship_id: this.relationshipId,
+        first_name: this.firstName,
+        last_name: this.lastName,
+        other_name: this.otherName,
+        phone_number: this.phoneNumber,
+        email: this.email
+      })
       HTTP.post(
         "nominees",
-        queryString.stringify({
-          member_id: this.$store.getters.memberId,
-          identification_number: this.identificationNumber,
-          relationship_id: this.relationshipId,
-          first_name: this.firstName,
-          last_name: this.lastName,
-          other_name: this.otherName,
-          phone_number: this.phoneNumber,
-          email: this.email
-        })
+        queryString.stringify(nominee)
       )
         .then(response => {
           this.btnLoading = false;

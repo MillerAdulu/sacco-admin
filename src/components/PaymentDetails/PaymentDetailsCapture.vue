@@ -51,6 +51,8 @@
 
 <script>
 import HTTP from '../../config'
+import Parsers from '../../parsers'
+
 import queryString from 'querystring'
 
 export default {
@@ -80,10 +82,18 @@ export default {
         }
     },
     async addPaymentDetail() {
-      let apiPostData = await this.prepareDataObject()
+      let paymentDetails = await  Parsers.prepareDataObject({
+        payment_method_id: this.paymentMethod,
+        member_id: this.$store.getters.memberId,
+        bank_name: this.bankName,
+        bank_account_number: this.bankAccountNumber,
+        card_number: this.bankCardNumber,
+        provider: this.provider,
+        phone_number: this.phoneNumber
+      })
       HTTP.post(
         "paymentdetails",
-        queryString.stringify(apiPostData)
+        queryString.stringify(paymentDetails)
         )
         .then(response => {
           console.log(response)
@@ -93,28 +103,10 @@ export default {
           console.log(error)
         })
     },
-    prepareDataObject() {
-      let bulkyObj = {
-        payment_method_id: this.paymentMethod,
-        member_id: this.$store.getters.memberId,
-        bank_name: this.bankName,
-        bank_account_number: this.bankAccountNumber,
-        card_number: this.bankCardNumber,
-        provider: this.provider,
-        phone_number: this.phoneNumber
-      }
-      let lightObj = {}
-      Object.keys(bulkyObj).forEach(prop => {
-        if(bulkyObj[prop]) {
-          lightObj[prop] = bulkyObj[prop]
-        }
-      })
-      return lightObj
-    },
+
     getPaymentMethods() {
       HTTP.get("paymentmethods")
     .then(response => {
-      console.log(response)
       this.paymentMethods = response.data
     })
     .catch(error => {

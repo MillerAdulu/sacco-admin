@@ -21,13 +21,13 @@ const vuexStore = new Vuex.Store({
   state: {
     administratorId: null,
     administratorLevel: null,
-    memberId: 1,
+    newMemberRecordKey: null,
     stepperContinueEnabled: true,
   },
-  getters: {    
+  getters: {
     administratorId: state => state.administratorId,
     administratorLevel: state => state.administratorLevel,
-    memberId: state => state.memberId,
+    newMemberRecordKey: state => state.newMemberRecordKey,
     stepperContinueEnabled: state => state.stepperContinueEnabled,
   },
   mutations: {
@@ -37,8 +37,8 @@ const vuexStore = new Vuex.Store({
     loadAdminLevel: (state, payload) => {
       state.administratorLevel = payload
     },
-    setMemberId: (state, payload) => {
-      state.memberId = payload
+    setNewMemberRecordKey: (state, payload) => {
+      state.newMemberRecordKey = payload
     },
     setStepperStatus: (state, payload) => {
       state.stepperContinueEnabled = payload

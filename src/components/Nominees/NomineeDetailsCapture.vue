@@ -18,6 +18,7 @@
           item-value="relationshipId"
           :items="relationships"
           v-model="relationshipId"
+          label="Relationship to the member"
           />
         </v-flex>
       </v-layout>
@@ -77,10 +78,26 @@
       </v-layout>
 
       <v-layout row>
-        <v-flex xs12>
-          <v-btn block color="success" @click="register" :disabled="btnRegisterDisabled" :loading="btnLoading">Register Member</v-btn>
-        </v-flex>
+          <v-btn color="success" @click="addNominee" :disabled="btnRegisterDisabled" :loading="btnLoading">Add Nominee</v-btn>
+          <v-btn color="error" @click="clearNominee" :disabled="btnRegisterDisabled">Clear Nominee</v-btn>
       </v-layout>
+
+      <v-snackbar
+              v-model="relationshipProgress"
+              :bottom="true"
+      >
+        {{ relationshipProgressText }}
+        <v-progress-circular indeterminate v-if="relationshipProgress" />
+        <v-btn
+        v-if="success"
+        color="pink"
+        flat
+        @click=" relationshipProgress = false"
+      >
+        Close
+      </v-btn>
+      </v-snackbar>
+
     </v-form>
 </template>
 
@@ -88,14 +105,33 @@
 import HTTP from '../../config'
 import Parsers from '../../parsers'
 import queryString from 'querystring'
+import { Validator } from 'vee-validate'
+
+const dictionary = {
+  en: {
+    attributes: {
+      identificationNumber: 'ID/Passport Number',
+        firstName: 'first name',
+        lastName: 'last name',
+        otherName: 'other name',
+        phoneNumber: 'phone number',
+        proposedMonthlyContribution: 'proposed monthly contribution'
+    }
+  }
+}
+
+Validator.localize(dictionary)
 
 export default {
   $_veeValidate: {
     validator: "new"
   },
-  name: `NomineeDetails`,
+  name: `NomineeDetailsCapture`,
   data() {
     return {
+      success: ``,
+      relationshipProgress: ``,
+      relationshipProgressText: ``,
       relationships: [],
       identificationNumber: "",
       relationshipId: "",
@@ -119,11 +155,12 @@ export default {
     };
   },
   methods: {
-    async register() {
-      this.btnLoading = true;
+    async addNominee() {
+      this.relationshipProgress = true
+      this.relationshipProgressText = `Adding ${ this.lastName } to nominees`
       this.$validator.validateAll();
       let nominee = await Parsers.prepareDataObject({
-        member_id: this.$store.getters.newMemberId,
+        member_id: this.$store.getters.newMemberRecordKey,
         identification_number: this.identificationNumber,
         relationship_id: this.relationshipId,
         first_name: this.firstName,
@@ -140,6 +177,9 @@ export default {
           this.btnLoading = false;
           this.$store.commit("setStepperStatus", false);
           this.btnRegisterDisabled = true;
+          this.success = true
+          this.relationshipProgressText = `You can add another nominee`
+          this.clearNominee()
         })
         .catch(error => {
           alert(error);
@@ -148,13 +188,25 @@ export default {
         });
     },
     getRelationships() {
+      this.relationshipProgress = true
+      this.relationshipProgressText = `Fetching relationships ...`
       HTTP.get(`relationships`)
         .then(response => {
           this.relationships = response.data;
+          this.relationshipProgress = false
         })
         .catch(error => {
           console.log(error);
         });
+    },
+    clearNominee() {
+      this.identificationNumber = ``
+      this.relationshipId = ``
+      this.firstName = ``
+      this.lastName = ``
+      this.otherName = ``
+      this.phoneNumber = ``
+      this.email = ``
     }
   },
   created() {

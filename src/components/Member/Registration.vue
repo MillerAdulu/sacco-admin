@@ -12,7 +12,7 @@
     </v-stepper-header>
     <v-stepper-items>
       <v-stepper-content step="1">
-        <BasicDetails />
+        <BasicDetailsCapture />
           <v-btn
           color="primary"
           @click="next(2)"
@@ -22,7 +22,7 @@
       </v-stepper-content>
       <v-stepper-content step="2">
 
-        <AddAddress />
+        <AddressDetailsCapture />
         
         <v-btn
           color="primary"
@@ -33,7 +33,7 @@
       </v-stepper-content>
       <v-stepper-content step="3">
         
-        <AddPaymentDetails />
+        <PaymentDetailsCapture />
 
         <v-btn
           color="primary"
@@ -44,24 +44,34 @@
       </v-stepper-content>
       <v-stepper-content step="4">
 
-        <AddNominee />
+        <NomineeDetailsCapture />
 
         <v-btn
           color="primary"
-          href="/memberlist"
+          :to='{name: `Member`, params: {
+            memberId: this.$store.getters.newMemberRecordKey }
+            }'
           :disabled="this.$store.getters.stepperContinueEnabled">
           Finish
         </v-btn>
+
+        <v-btn
+          color="green"
+          to="/register"
+          :disabled="this.$store.getters.stepperContinueEnabled">
+          Add New Member
+        </v-btn>
+
       </v-stepper-content>
     </v-stepper-items>
   </v-stepper>
 </template>
 
 <script>
-import BasicDetails from '@/components/Member/Register'
-import AddAddress from '@/components/AddressDetails/AddAddress'
-import AddPaymentDetails from '@/components/PaymentDetails/AddPaymentDetail'
-import AddNominee from '@/components/Nominees/AddNominee'
+import BasicDetailsCapture from '@/components/Member/BasicDetailsCapture'
+import AddressDetailsCapture from '@/components/AddressDetails/AddressDetailsCapture'
+import PaymentDetailsCapture from '@/components/PaymentDetails/PaymentDetailsCapture'
+import NomineeDetailsCapture from '@/components/Nominees/NomineeDetailsCapture'
 
 export default {
   data() {
@@ -74,10 +84,10 @@ export default {
     msg: String
   },
   components: {
-    BasicDetails,
-    AddAddress,
-    AddPaymentDetails,
-    AddNominee,
+    BasicDetailsCapture,
+    AddressDetailsCapture,
+    PaymentDetailsCapture,
+    NomineeDetailsCapture,
   },
   methods: {
     next(next) {

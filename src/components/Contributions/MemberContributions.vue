@@ -1,47 +1,19 @@
 <template>
-<v-layout>
-  <!-- <v-layout row>
-  <la-cartesian :data="contributions" :width="width" :height="height">
-    <la-line dot curve prop="contributionAmount" />
-    <la-x-axis prop="createdAt"/>
-    <la-tooltip />
-  </la-cartesian>
-  </v-layout> -->
-  <v-layout row>
-    <v-data-iterator
+    <v-data-table
+    :headers="headers"
     :items="contributions"
     :rows-per-page-items="rowsPerPageItems"
     content-tag="v-layout"
     row
     wrap
     >
-    <v-flex
-    slot="item"
-    slot-scope="props"
-    xs6
-    >
-    <v-card>
-      <v-card-title><h4>Contribution {{ props.item.memberContributionId}}</h4></v-card-title>
-      <v-divider />
-      <v-list dense>
-        <v-list-tile>
-          <v-list-tile-content>Payment Method:</v-list-tile-content>
-          <v-list-tile-content class="align-end">{{ props.item.paymentMethod.paymentMethod }}</v-list-tile-content>
-        </v-list-tile>
-        <v-list-tile>
-          <v-list-tile-content>Contribution Amount:</v-list-tile-content>
-          <v-list-tile-content class="align-end">{{ props.item.contributionAmount }}</v-list-tile-content>
-        </v-list-tile>
-        <v-list-tile>
-          <v-list-tile-content>Date:</v-list-tile-content>
-          <v-list-tile-content class="align-end">{{ moment(props.item.createdAt).format('MMMM Do YYYY, h:mm:ss a') }}</v-list-tile-content>
-        </v-list-tile>
-      </v-list>
-    </v-card>
-    </v-flex>
-    </v-data-iterator>
-  </v-layout>
-</v-layout>
+    <template slot="items" slot-scope="props">
+      <td>{{ props.item.memberContributionId }}</td>
+      <td>{{ props.item.paymentMethod.paymentMethod }}</td>
+      <td>{{ props.item.contributionAmount }}</td>
+      <td>{{ moment(props.item.createdAt).format('MMMM Do YYYY, h:mm:ss a') }}</td>
+    </template>
+    </v-data-table>
 </template>
 <script>
 import moment from 'moment'
@@ -52,6 +24,24 @@ export default {
       width: 600,
       height: 300,
       moment,
+      headers: [
+        {
+          text: `Contribution ID`,
+          value: `memberContributionId`
+        },
+        {
+          text: `Payment Method`,
+          value: `paymentMethod.paymentMethod`
+        },
+        {
+          text: `Contribution Amount`,
+          value: `contributionAmount`
+        },
+        {
+          text: `Date`,
+          value: `createdAt`
+        }
+      ],
       rowsPerPageItems: [4, 8, 12],
       pagination: {
         rowsPerPage: 3

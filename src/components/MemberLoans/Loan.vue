@@ -3,7 +3,9 @@
     <v-card-title><h4>Loan {{ loanDetails.memberLoanId }}</h4></v-card-title>
           <v-divider></v-divider>
           <v-list dense>
-            <v-list-tile>
+            <v-layout row>
+              <v-flex xs6>
+                <v-list-tile>
               <v-list-tile-content>Member:</v-list-tile-content>
               <v-list-tile-content class="align-end">{{ loanDetails.member.lastName }}, {{ loanDetails.member.firstName }}</v-list-tile-content>
             </v-list-tile>
@@ -19,7 +21,9 @@
               <v-list-tile-content>Loan Amount:</v-list-tile-content>
               <v-list-tile-content class="align-end">{{ loanDetails.loanAmount }}</v-list-tile-content>
             </v-list-tile>
-            <v-list-tile>
+              </v-flex>
+              <v-flex xs6>
+                <v-list-tile>
               <v-list-tile-content>Repayment Method:</v-list-tile-content>
               <v-list-tile-content class="align-end">{{ loanDetails.repaymentPeriod }}</v-list-tile-content>
             </v-list-tile>
@@ -43,7 +47,11 @@
                 </v-chip>
               </v-list-tile-content>
             </v-list-tile>
+              </v-flex>
+            </v-layout>
           </v-list>
+          <v-divider />
+          
           <v-divider />
           <h3>Guarantors</h3>
           <Guarantors />

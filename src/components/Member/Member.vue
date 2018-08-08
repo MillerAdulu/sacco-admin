@@ -10,11 +10,13 @@
             <div>Email: {{ member.email }}</div>
             <v-divider light/>
             <div class="subheading"> Member ID: {{ member.memberId }} </div>
+            <div class="subheading"> Gender: {{ member.gender ? `Male` : `Female` }} </div>
+            <div class="subheading" v-if="member.maritalStatus.maritalStatus"> Marital Status: {{ member.maritalStatus.maritalStatus }} </div>
         </div>
       </v-card-title>
       <v-spacer />
       <img
-        :src="member.idFileUrl"
+        :src="member.passportPhoto"
       />
   </v-layout>
   <v-divider light></v-divider>
@@ -22,6 +24,7 @@
     <v-tabs
       grow
       v-model="activeTab"
+      fixed-tabs
       >
       <v-tab
       v-for="tab in tabs"

@@ -2,18 +2,21 @@ import axios from 'axios'
 import axiosRetry from 'axios-retry'
 import { ExponentialBackoff } from 'simple-backoff'
 
+const token = localStorage.getItem('loggedInUser') ? JSON.parse(localStorage.getItem('loggedInUser')).token : null
+
 let backoff = new ExponentialBackoff({
   min: 10,
   factor: 2,
   jitter: 0
 })
 
-console.log(configVars)
 const HTTP = axios.create({
-  baseURL: `https://sedcapi.herokuapp.com/api/`,
+  baseURL: `http://localhost:8000/api`,
+  // baseURL: `https://sedcapi.herokuapp.com/api/`,
   headers: {
     'Content-Type': 'application/x-www-form-urlencoded',
-    'Accept': 'application/json'
+    'Accept': 'application/json',
+    'Authorization' : `Bearer ${ token }`,
   }
 })
 

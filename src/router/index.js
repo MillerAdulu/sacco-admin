@@ -14,11 +14,13 @@ import AddContribution from '@/components/Contributions/AddContribution'
 import MemberAccounts from '@/components/Contributions/Accounts'
 import MemberLoans from '@/components/MemberLoans/List'
 import LoanDetails from '@/components/MemberLoans/Loan'
+import Login from '@/components/Login'
 import Up from '@/components/Member/UploadMemberImages'
 
 Vue.use(Router)
 
-export default new Router({
+const router = new Router({
+  mode: 'history',
   routes: [
     {
       path: `/up`,
@@ -28,66 +30,96 @@ export default new Router({
       path: `/addaddress`,
       name: `AddAddress`,
       component: AddressDetailsCapture,
+      
     },
     {
       path: `/register`,
       name: `Registration`,
       component: Registration,
+      
     },
     {
       path: `/memberlist`,
       name: `MemberList`,
-      component: MemberList
+      component: MemberList,
+      
     },
     {
       path: `/member/:memberId`,
       name: `Member`,
-      component: Member
+      component: Member,
+      
     },
     {
       path: `/member/:memberId/edit`,
       name: `MemberUpdate`,
-      component: MemberUpdate
+      component: MemberUpdate,
+      
     },
     {
       path: `/addpay`,
       name: `PaymentDetailsCapture`,
-      component: PaymentDetailsCapture
+      component: PaymentDetailsCapture,
+      
     },
     {
       path: `/addnominee`,
       name: `AddNominee`,
-      component: NomineeDetailsCapture
+      component: NomineeDetailsCapture,
+      
     },
     {
       path: `/membercontributions`,
       name: `Contributions`,
-      component: Contributions
+      component: Contributions,
+      
     },
     {
       path: `/addcontribution`,
       name: `AddContribution`,
-      component: AddContribution
+      component: AddContribution,
+      
     },
     {
       path: `/memberaccounts`,
       name: `MemberAccounts`,
-      component: MemberAccounts
+      component: MemberAccounts,
+      
     },
     {
       path: `/memberloans`,
       name: `MemberLoans`,
-      component: MemberLoans
+      component: MemberLoans,
+      
     },
     {
       path: `/memberloans/:memberLoanId`,
       name: `LoanDetails`,
-      component: LoanDetails
+      component: LoanDetails,
+      
     },
     {
-      path: `/dashboard`,
+      path: `/`,
       name: `Dashboard`,
-      component: Dashboard
+      component: Dashboard,
+      
+    }, 
+    {
+      path: `/login`,
+      name: `Login`,
+      component: Login,
     }
   ]
 })
+
+router.beforeEach((to, from, next) => {
+
+  if(to.path === `/login`) next()
+
+  if(!JSON.parse(localStorage.getItem('loggedInUser'))) next(`/login`)
+
+  next()
+
+})
+
+export default router

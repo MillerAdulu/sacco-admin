@@ -1,5 +1,6 @@
 <template>
-  <v-app>
+<div>
+  <v-app v-if="loggedInState">
     <v-navigation-drawer
             persistent
             :mini-variant="miniVariant"
@@ -20,7 +21,7 @@
           <v-icon>dashboard</v-icon>
           <v-list-tile-content>
             <router-link to="/dashboard">
-            Dashboard
+              Dashboard
             </router-link>
           </v-list-tile-content>
         </v-list-tile>
@@ -43,9 +44,9 @@
             <v-list-tile-content>
               <v-list-tile-title>
                 <router-link :to='{ name: subItem.routerName }'>
-                {{ subItem.title }}
+                  {{ subItem.title }}
                 </router-link>
-                </v-list-tile-title>
+              </v-list-tile-title>
             </v-list-tile-content>
 
             <v-list-tile-action>
@@ -73,6 +74,7 @@
       </v-btn>
       <v-toolbar-title v-text="title"></v-toolbar-title>
       <v-spacer></v-spacer>
+      <v-btn color="danger" @click="logOut">Log Out</v-btn>
     </v-toolbar>
     <v-content>
 
@@ -83,9 +85,15 @@
       <span>&copy; Frog Technologies</span>
     </v-footer>
   </v-app>
+  <v-app v-else>
+    <Login />
+  </v-app>
+</div>
 </template>
 
 <script>
+
+import Login from '@/components/Login'
 
   export default {
     name: 'App',
@@ -94,6 +102,7 @@
         clipped: false,
         drawer: true,
         fixed: false,
+        loggedInState: JSON.parse(localStorage.getItem('loggedInUser')),
         items: [
           {
             action: 'account_circle',
@@ -225,6 +234,20 @@
         miniVariant: false,
         title: 'Sacco'
       }
+    },
+    components: {
+      Login
+    },
+    methods: {
+      logOut() {
+        localStorage.removeItem('loggedInUser')
+        this.$router.push(`/`)
+      }
     }
+    // watch: {
+    //   loggedInState: function () {
+    //     this.$router.push('/')
+    //   }
+    // }
   }
 </script>

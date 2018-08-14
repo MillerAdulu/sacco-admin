@@ -33,6 +33,6 @@ export default new Vuex.Store({
     },
     setLoggedInUser: (state, payload) => {
       state.loggedInUser = payload
-    }
+    },
   },
 })

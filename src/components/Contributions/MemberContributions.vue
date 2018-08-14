@@ -11,6 +11,7 @@
       <td>{{ props.item.memberContributionId }}</td>
       <td>{{ props.item.paymentMethod.paymentMethod }}</td>
       <td>{{ props.item.contributionAmount }}</td>
+      <td>{{ props.item.comment }}</td>
       <td>{{ moment(props.item.createdAt).format('MMMM Do YYYY, h:mm:ss a') }}</td>
     </template>
     </v-data-table>
@@ -36,6 +37,10 @@ export default {
         {
           text: `Contribution Amount`,
           value: `contributionAmount`
+        },
+        {
+          text: `Comment`,
+          value: `comment`
         },
         {
           text: `Date`,

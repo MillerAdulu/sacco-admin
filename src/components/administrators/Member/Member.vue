@@ -29,7 +29,7 @@
           <v-tab
               v-for="tab in tabs"
               :key="tabs.indexOf(tab)"
-          > {{ tab}} </v-tab>
+          > {{ tab }} </v-tab>
           <v-tabs-items>
             <v-tab-item>
               <Addresses :addresses="addressdetails" />

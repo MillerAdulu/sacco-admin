@@ -21,6 +21,7 @@
     :items="members">
 
     <v-progress-linear slot="progress" color="blue" indeterminate />
+
     <template slot="items" slot-scope="props">
         <td>{{ props.item.memberId }}</td>
         <td>{{ props.item.identificationNumber }}</td>
@@ -46,11 +47,6 @@
           </router-link> -->
         </td>
     </template>
-    <template slot="no-data">
-      <v-alert :value="true" color="error" icon="warning">
-        You don't have permissions to view this section
-      </v-alert>
-    </template>
     </v-data-table>
 
     <v-snackbar v-model="snack" :timeout="3000" :color="snackColor">
@@ -62,8 +58,8 @@
 </v-container>
 </template>
 <script>
-import HTTP from "../../config";
-import queryString from "querystring";
+import HTTP from '../../config'
+import queryString from 'querystring'
 
 export default {
   name: "MemberList",
@@ -115,21 +111,6 @@ export default {
       this.snackColor = "success";
       this.snackText = "Data saved";
     },
-    getMembers() {
-      if (this.$can("read", "Member")) {
-        HTTP.get("members")
-          .then(response => {
-            this.members = response.data;
-            this.stopLoading()
-          })
-          .catch(error => {
-            this.apiErrors.push(error);
-          });
-      } else {
-        console.log(`You don't have permissions to view this section`)
-        this.stopLoading()
-      }
-    },
     apiCall(memberId, dataItem) {
       return new Promise((resolved, rejected) => {
         HTTP.put(`members/${memberId}`, queryString.stringify(dataItem))
@@ -161,16 +142,16 @@ export default {
 
     //   this.dataLoading = false
     // },
-
-    startLoading() {
-      this.dataLoading = true
-    },
-    stopLoading() {
-      this.dataLoading = false
-    }
   },
   created() {
-    this.getMembers();
+    HTTP.get("members")
+      .then(response => {
+        this.members = response.data;
+        this.dataLoading = false;
+      })
+      .catch(error => {
+        this.apiErrors.push(error);
+      });
   }
 };
 </script>

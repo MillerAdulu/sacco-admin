@@ -634,16 +634,6 @@
     lodash "^4.17.5"
     to-fast-properties "^2.0.0"
 
-"@casl/ability@^2.4.2":
-  version "2.4.2"
-  resolved "https://registry.yarnpkg.com/@casl/ability/-/ability-2.4.2.tgz#16a161b4895281ecd678739e955dad99e394896b"
-  dependencies:
-    sift "^6.0.0"
-
-"@casl/vue@^0.4.3":
-  version "0.4.3"
-  resolved "https://registry.yarnpkg.com/@casl/vue/-/vue-0.4.3.tgz#db212759a7b1ed05e2cd57d27b6f6cbee28645e5"
-
 "@intervolga/optimize-cssnano-plugin@^1.0.5":
   version "1.0.6"
   resolved "https://registry.yarnpkg.com/@intervolga/optimize-cssnano-plugin/-/optimize-cssnano-plugin-1.0.6.tgz#be7c7846128b88f6a9b1d1261a0ad06eb5c0fdf8"
@@ -5895,10 +5885,6 @@ shell-quote@^1.6.1:
     array-reduce "~0.0.0"
     jsonify "~0.0.0"
 
-sift@^6.0.0:
-  version "6.0.0"
-  resolved "https://registry.yarnpkg.com/sift/-/sift-6.0.0.tgz#f93a778e5cbf05a5024ebc391e6b32511a6d1f82"
-
 signal-exit@^3.0.0, signal-exit@^3.0.2:
   version "3.0.2"
   resolved "https://registry.yarnpkg.com/signal-exit/-/signal-exit-3.0.2.tgz#b5fdc08f1287ea1178628e415e25132b73646c6d"
@@ -6710,9 +6696,9 @@ vue@^2.5.16:
   version "2.5.16"
   resolved "https://registry.yarnpkg.com/vue/-/vue-2.5.16.tgz#07edb75e8412aaeed871ebafa99f4672584a0085"
 
-vuetify@^1.2.0-beta.2:
-  version "1.2.0-beta.2"
-  resolved "https://registry.yarnpkg.com/vuetify/-/vuetify-1.2.0-beta.2.tgz#f0c2575b46672e068ff4031d3b0b998bb37e8157"
+vuetify@^1.1.9:
+  version "1.1.9"
+  resolved "https://registry.yarnpkg.com/vuetify/-/vuetify-1.1.9.tgz#3eb497cc89d318ee6865bbebd081f5830f83f8ba"
 
 vuex@^3.0.1:
   version "3.0.1"

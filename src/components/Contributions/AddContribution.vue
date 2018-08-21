@@ -1,36 +1,27 @@
 <template>
   <v-form>
     <v-layout row>
-      <v-flex xs6 mx-2>
+      <v-flex xs4 mx-2>
         <v-autocomplete
-        label="Payment Method"
         item-text="paymentMethod"
         item-value="paymentMethodId"
         :items="paymentMethods"
         v-model="paymentMethodId"
         />
       </v-flex>
-      <v-flex xs6 mx-2>
+      <v-flex xs4 mx-2>
         <v-autocomplete
         item-text="memberId"
         item-value="memberId"
         :items="members"
         v-model="memberId"
-        label="Member ID"
         />
       </v-flex>
-    </v-layout>
-    <v-layout row>
-      <v-flex xs6 mx-2>
+      <v-flex xs4 mx-2>
         <v-text-field
         label="Member Contribution"
         v-model="contributionAmount"
         />
-      </v-flex>
-      <v-flex xs6 mx-2>
-        <v-text-field
-        label="Comment"
-        v-model="comment" />
       </v-flex>
     </v-layout>
     <v-layout>
@@ -49,7 +40,6 @@ export default {
       memberId: '',
       contributionAmount: '',
       paymentMethodId: '',
-      comment: '',
 
       members: [],
       paymentMethods: [],
@@ -62,8 +52,7 @@ export default {
         queryString.stringify({
           member_id: this.memberId,
           contribution_amount: this.contributionAmount,
-          payment_method_id: this.paymentMethodId,
-          comment: this.comment
+          payment_method_id: this.paymentMethodId
         })
         )
       .then(response => {

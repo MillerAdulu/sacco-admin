@@ -89,7 +89,6 @@ export default {
   },
   methods: {
     fetchAccountData(){
-      if(this.$can('create', 'MemberAccount')){
       this.dataLoading = true
       HTTP.get(`membercontributions/members/accounts/all`)
       .then(response => {
@@ -99,10 +98,6 @@ export default {
       .catch(error => {
         console.log(error)
       })
-      } else {
-        console.log(`You dont' have permission to view this section`)
-        this.dataLoading = false
-      }
     },
   },
   created(){

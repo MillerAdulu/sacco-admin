@@ -8,6 +8,8 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "@casl/ability": "^2.4.2",
+    "@casl/vue": "^0.4.3",
     "axios": "^0.18.0",
     "axios-retry": "^3.1.1",
     "collect.js": "^4.0.22",
@@ -17,7 +19,7 @@
     "vee-validate": "^2.1.0-beta.6",
     "vue": "^2.5.16",
     "vue-router": "^3.0.1",
-    "vuetify": "^1.1.9",
+    "vuetify": "^1.2.0-beta.2",
     "vuex": "^3.0.1"
   },
   "devDependencies": {

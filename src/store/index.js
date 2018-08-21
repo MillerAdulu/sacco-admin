@@ -3,6 +3,8 @@ import Vuex from 'vuex'
 
 Vue.use(Vuex)
 
+const set = property => (store, payload) => (store[property] = payload)
+
 export default new Vuex.Store({
   state: {
     administratorId: null,
@@ -10,6 +12,10 @@ export default new Vuex.Store({
     newMemberRecordKey: null,
     stepperContinueEnabled: true,
     loggedInUser: null,
+    
+    isLoading: false,
+    isReady: false,
+    snackbar: {},
   },
   getters: {
     administratorId: state => state.administratorId,
@@ -34,5 +40,11 @@ export default new Vuex.Store({
     setLoggedInUser: (state, payload) => {
       state.loggedInUser = payload
     },
+    
+    
+    setIsReady: set('isReady'),
+    setIsLoading: set('isLoading'),
+    setUser: set('user'),
+    setSnackbar: set('snackbar')
   },
 })

@@ -4,27 +4,27 @@
 
 <script>
 
-import HTTP from '../../config'
+  import HTTP from '../../../config'
 
-export default {
-  data() {
-    return {
+  export default {
+    data() {
+      return {
 
+      }
+    },
+    methods: {
+      fetchMember() {
+        HTTP.get('members/'+this.$route.params.memberId)
+          .then(response => {
+
+          })
+          .catch(error => {
+
+          })
+      }
+    },
+    created() {
+      this.fetchMember()
     }
-  },
-  methods: {
-    fetchMember() {
-      HTTP.get('members/'+this.$route.params.memberId)
-      .then(response => {
-
-      })
-      .catch(error => {
-        
-      })
-    }
-  },
-  created() {
-    this.fetchMember()
   }
-}
 </script>

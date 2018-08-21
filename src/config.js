@@ -2,8 +2,6 @@ import axios from 'axios'
 import axiosRetry from 'axios-retry'
 import { ExponentialBackoff } from 'simple-backoff'
 
-const token = localStorage.getItem('loggedInUser') ? JSON.parse(localStorage.getItem('loggedInUser')).token : null
-
 let backoff = new ExponentialBackoff({
   min: 10,
   factor: 2,
@@ -16,7 +14,7 @@ const HTTP = axios.create({
   headers: {
     'Content-Type': 'application/x-www-form-urlencoded',
     'Accept': 'application/json',
-    'Authorization' : `Bearer ${ token }`,
+    'Authorization' : `Bearer ${ localStorage.getItem('loggedInUser') ? JSON.parse(localStorage.getItem('loggedInUser')).token : null }`,
   }
 })
 

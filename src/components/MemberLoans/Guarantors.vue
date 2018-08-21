@@ -1,67 +1,67 @@
 <template>
   <v-data-iterator
-:items="loanGuarantors"
-:rows-per-page-items="rowsPerPageItems"
-content-tag="v-layout"
-row
-wrap>
-<v-flex
-slot="item"
-slot-scope="props"
-xs6>
-<v-card>
-  <v-card-title><h4>{{ props.item.lastName }}, {{ props.item.firstName }} {{ props.item.otherName }}</h4></v-card-title>
-  <v-divider />
-  <v-list dense>
-    <v-list-tile>
-      <v-list-tile-content>Phone Number:</v-list-tile-content>
-      <v-list-tile-content class="align-end">{{ props.item.phoneNumber }}</v-list-tile-content>
-    </v-list-tile>
-    <v-list-tile>
-      <v-list-tile-content>ID/Passport Number:</v-list-tile-content>
-      <v-list-tile-content class="align-end">{{ props.item.identificationNumber }}</v-list-tile-content>
-    </v-list-tile>
-    <v-list-tile>
-      <v-list-tile-content>Phone Number:</v-list-tile-content>
-      <v-list-tile-content class="align-end">{{ props.item.phoneNumber }}</v-list-tile-content>
-    </v-list-tile>
-    <v-list-tile>
-      <v-list-tile-content>Email:</v-list-tile-content>
-      <v-list-tile-content class="align-end">{{ props.item.email }}</v-list-tile-content>
-    </v-list-tile>
-  </v-list>
-</v-card>
-</v-flex>
-</v-data-iterator>
+      :items="loanGuarantors"
+      :rows-per-page-items="rowsPerPageItems"
+      content-tag="v-layout"
+      row
+      wrap>
+    <v-flex
+        slot="item"
+        slot-scope="props"
+        xs6>
+      <v-card>
+        <v-card-title><h4>{{ props.item.lastName }}, {{ props.item.firstName }} {{ props.item.otherName }}</h4></v-card-title>
+        <v-divider />
+        <v-list dense>
+          <v-list-tile>
+            <v-list-tile-content>Phone Number:</v-list-tile-content>
+            <v-list-tile-content class="align-end">{{ props.item.phoneNumber }}</v-list-tile-content>
+          </v-list-tile>
+          <v-list-tile>
+            <v-list-tile-content>ID/Passport Number:</v-list-tile-content>
+            <v-list-tile-content class="align-end">{{ props.item.identificationNumber }}</v-list-tile-content>
+          </v-list-tile>
+          <v-list-tile>
+            <v-list-tile-content>Phone Number:</v-list-tile-content>
+            <v-list-tile-content class="align-end">{{ props.item.phoneNumber }}</v-list-tile-content>
+          </v-list-tile>
+          <v-list-tile>
+            <v-list-tile-content>Email:</v-list-tile-content>
+            <v-list-tile-content class="align-end">{{ props.item.email }}</v-list-tile-content>
+          </v-list-tile>
+        </v-list>
+      </v-card>
+    </v-flex>
+  </v-data-iterator>
 </template>
 
 <script>
-import HTTP from '../../config'
+  import HTTP from '../../../config'
 
-export default {
-  name: `Guarantors`,
-  data() {
-    return {
-      loanGuarantors: [],
-      rowsPerPageItems: [4, 8, 12],
-      pagination: {
-        rowsPerPage: 3
-      },
+  export default {
+    name: `Guarantors`,
+    data() {
+      return {
+        loanGuarantors: [],
+        rowsPerPageItems: [4, 8, 12],
+        pagination: {
+          rowsPerPage: 3
+        },
+      }
+    },
+    methods: {
+      fetchGuarantors() {
+        HTTP.get(`loans/loan/${ this.$route.params.memberLoanId }`)
+          .then(response => {
+            this.loanGuarantors = response.data
+          })
+          .catch(error => {
+            console.log(error)
+          })
+      }
+    },
+    created() {
+      this.fetchGuarantors()
     }
-  },
-  methods: {
-    fetchGuarantors() {
-      HTTP.get(`loans/loan/${ this.$route.params.memberLoanId }`)
-      .then(response => {
-        this.loanGuarantors = response.data
-      })
-      .catch(error => {
-        console.log(error)
-      })
-    }
-  },
-  created() {
-    this.fetchGuarantors()
   }
-}
 </script>

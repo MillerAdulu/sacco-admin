@@ -13,32 +13,32 @@
     <v-stepper-items>
       <v-stepper-content step="1">
         <BasicDetailsCapture />
-          <v-btn
-          color="primary"
-          @click="next(2)"
-          :disabled="this.$store.getters.stepperContinueEnabled">
+        <v-btn
+            color="primary"
+            @click="next(2)"
+            :disabled="this.$store.getters.stepperContinueEnabled">
           Continue
         </v-btn>
       </v-stepper-content>
       <v-stepper-content step="2">
 
         <AddressDetailsCapture />
-        
+
         <v-btn
-          color="primary"
-          @click="next(3)"
-          :disabled="this.$store.getters.stepperContinueEnabled">
+            color="primary"
+            @click="next(3)"
+            :disabled="this.$store.getters.stepperContinueEnabled">
           Continue
         </v-btn>
       </v-stepper-content>
       <v-stepper-content step="3">
-        
+
         <PaymentDetailsCapture />
 
         <v-btn
-          color="primary"
-          @click="next(4)"
-          :disabled="this.$store.getters.stepperContinueEnabled">
+            color="primary"
+            @click="next(4)"
+            :disabled="this.$store.getters.stepperContinueEnabled">
           Continue
         </v-btn>
       </v-stepper-content>
@@ -47,18 +47,18 @@
         <NomineeDetailsCapture />
 
         <v-btn
-          color="primary"
-          :to='{name: `Member`, params: {
+            color="primary"
+            :to='{name: `Member`, params: {
             memberId: this.$store.getters.newMemberRecordKey }
             }'
-          :disabled="this.$store.getters.stepperContinueEnabled">
+            :disabled="this.$store.getters.stepperContinueEnabled">
           Finish
         </v-btn>
 
         <v-btn
-          color="green"
-          to="/register"
-          :disabled="this.$store.getters.stepperContinueEnabled">
+            color="green"
+            to="/register"
+            :disabled="this.$store.getters.stepperContinueEnabled">
           Add New Member
         </v-btn>
 
@@ -68,32 +68,32 @@
 </template>
 
 <script>
-import BasicDetailsCapture from '@/components/Member/BasicDetailsCapture'
-import AddressDetailsCapture from '@/components/AddressDetails/AddressDetailsCapture'
-import PaymentDetailsCapture from '@/components/PaymentDetails/PaymentDetailsCapture'
-import NomineeDetailsCapture from '@/components/Nominees/NomineeDetailsCapture'
+  import BasicDetailsCapture from '@/components/administrators/Member/BasicDetailsCapture'
+  import AddressDetailsCapture from '@/components/administrators/AddressDetails/AddressDetailsCapture'
+  import PaymentDetailsCapture from '@/components/administrators/PaymentDetails/PaymentDetailsCapture'
+  import NomineeDetailsCapture from '@/components/administrators/Nominees/NomineeDetailsCapture'
 
-export default {
-  data() {
-    return {
-      e1: 0
-    };
-  },
-  name: "RegistrationStepper",
-  props: {
-    msg: String
-  },
-  components: {
-    BasicDetailsCapture,
-    AddressDetailsCapture,
-    PaymentDetailsCapture,
-    NomineeDetailsCapture,
-  },
-  methods: {
-    next(next) {
-      this.e1 = next
-      this.$store.commit('setStepperStatus', true)
+  export default {
+    data() {
+      return {
+        e1: 0
+      };
+    },
+    name: "RegistrationStepper",
+    props: {
+      msg: String
+    },
+    components: {
+      BasicDetailsCapture,
+      AddressDetailsCapture,
+      PaymentDetailsCapture,
+      NomineeDetailsCapture,
+    },
+    methods: {
+      next(next) {
+        this.e1 = next
+        this.$store.commit('setStepperStatus', true)
+      }
     }
-  }
-};
+  };
 </script>

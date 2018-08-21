@@ -3,26 +3,50 @@
     <v-layout row>
       <v-flex xs4 mx-2>
         <v-autocomplete
+<<<<<<< Updated upstream:src/components/Contributions/AddContribution.vue~Updated upstream
         item-text="paymentMethod"
         item-value="paymentMethodId"
         :items="paymentMethods"
         v-model="paymentMethodId"
+=======
+            label="Payment Method"
+            item-text="paymentMethod"
+            item-value="paymentMethodId"
+            :items="paymentMethods"
+            v-model="paymentMethodId"
+>>>>>>> Stashed changes:src/components/administrators/Contributions/AddContribution.vue
         />
       </v-flex>
       <v-flex xs4 mx-2>
         <v-autocomplete
+<<<<<<< Updated upstream:src/components/Contributions/AddContribution.vue~Updated upstream
         item-text="memberId"
         item-value="memberId"
         :items="members"
         v-model="memberId"
+=======
+            item-text="memberId"
+            item-value="memberId"
+            :items="members"
+            v-model="memberId"
+            label="Member ID"
+>>>>>>> Stashed changes:src/components/administrators/Contributions/AddContribution.vue
         />
       </v-flex>
       <v-flex xs4 mx-2>
         <v-text-field
-        label="Member Contribution"
-        v-model="contributionAmount"
+            label="Member Contribution"
+            v-model="contributionAmount"
         />
       </v-flex>
+<<<<<<< Updated upstream:src/components/Contributions/AddContribution.vue~Updated upstream
+=======
+      <v-flex xs6 mx-2>
+        <v-text-field
+            label="Comment"
+            v-model="comment" />
+      </v-flex>
+>>>>>>> Stashed changes:src/components/administrators/Contributions/AddContribution.vue
     </v-layout>
     <v-layout>
       <v-btn block color="success" @click="addMemberContribution">Add Member Contribution</v-btn>
@@ -31,9 +55,10 @@
 </template>
 
 <script>
-import HTTP from '../../config'
-import queryString from 'querystring'
+  import HTTP from '../../../config'
+  import queryString from 'querystring'
 
+<<<<<<< Updated upstream:src/components/Contributions/AddContribution.vue~Updated upstream
 export default {
   data() {
     return {
@@ -70,20 +95,60 @@ export default {
       .catch(error => {
         console.log(error)
       })
+=======
+  export default {
+    data() {
+      return {
+        memberId: '',
+        contributionAmount: '',
+        paymentMethodId: '',
+        comment: '',
+
+        members: [],
+        paymentMethods: [],
+      }
+>>>>>>> Stashed changes:src/components/administrators/Contributions/AddContribution.vue
     },
-    fetchPaymentMethods() {
-      HTTP.get(`paymentmethods`)
-      .then(response => {
-        this.paymentMethods = response.data
-      })
-      .catch(error => {
-        console.log(error)
-      })
+    methods: {
+      addMemberContribution() {
+        HTTP.post(
+          `membercontributions`,
+          queryString.stringify({
+            member_id: this.memberId,
+            contribution_amount: this.contributionAmount,
+            payment_method_id: this.paymentMethodId,
+            comment: this.comment
+          })
+        )
+          .then(response => {
+            console.log(response)
+          })
+          .catch(error => {
+            console.log(error)
+          })
+      },
+      fetchMembers() {
+        HTTP.get(`members`)
+          .then(response => {
+            this.members = response.data
+          })
+          .catch(error => {
+            console.log(error)
+          })
+      },
+      fetchPaymentMethods() {
+        HTTP.get(`paymentmethods`)
+          .then(response => {
+            this.paymentMethods = response.data
+          })
+          .catch(error => {
+            console.log(error)
+          })
+      },
     },
-  },
-  created() {
-    this.fetchMembers()
-    this.fetchPaymentMethods()
+    created() {
+      this.fetchMembers()
+      this.fetchPaymentMethods()
+    }
   }
-}
 </script>

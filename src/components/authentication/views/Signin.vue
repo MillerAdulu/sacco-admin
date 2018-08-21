@@ -112,8 +112,8 @@ export default {
             type: "success",
             msg: `Successfully signed in user ${this.username}`
           });
-          if(user.accessLevel == `MEMBER`) this.$router.push(`/member/dashboard`)
-          else this.$router.push(`/admin/dashboard`)
+          if(user.accessLevel == `MEMBER`) this.$router.push(`/admin/dashboard`)
+          else this.$router.push(`/member/dashboard`)
         })
         .catch(error => {
           console.log(error);

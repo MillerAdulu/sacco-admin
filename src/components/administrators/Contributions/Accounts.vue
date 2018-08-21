@@ -55,7 +55,6 @@
   import HTTP from '../../../config'
   import queryString from 'querystring'
 
-<<<<<<< Updated upstream:src/components/Contributions/Accounts.vue
 export default {
   name: `Accounts`,
   data() {
@@ -99,39 +98,6 @@ export default {
       .catch(error => {
         console.log(error)
       })
-=======
-  export default {
-    name: `Accounts`,
-    data() {
-      return {
-        search: "",
-        dataLoading: false,
-        headers:[
-          {
-            text: `Last Name`,
-            value: `member.lastName`,
-          },
-          {
-            text: `First Name`,
-            value: `member.firstName`,
-          },
-          {
-            text: `Other Name`,
-            value: `member.otherName`,
-          },
-          {
-            text: `Total Contribution`,
-            value: `contributionTotal`
-          },
-          {
-            text: `Actions`,
-            value: `name`
-          }
-
-        ],
-        accounts: []
-      }
->>>>>>> Stashed changes:src/components/administrators/Contributions/Accounts.vue
     },
     methods: {
       fetchAccountData(){
@@ -155,5 +121,6 @@ export default {
       this.fetchAccountData()
     }
   }
+}
 </script>
 

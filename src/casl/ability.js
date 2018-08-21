@@ -8,7 +8,61 @@ export default AbilityBuilder.define(can => {
   switch ('SUPER_ADMIN') {
     case 'MEMBER':
 
-      can('read', 'Member')
+    const memberPermissions = ['read']
+
+    can(memberPermissions,'Member')
+    can(memberPermissions, 'MemberAccount')
+    can(memberPermissions, 'AddressDetails')
+    can(memberPermissions, 'BusinessNature')
+    can(memberPermissions, 'Business')
+    can(memberPermissions, 'Constituency')
+    can(memberPermissions, 'County')
+    can(memberPermissions, 'Employer')
+    can(memberPermissions, 'JobTitle')
+    can(memberPermissions, 'LoanGuarantor')
+    can(memberPermissions, 'LoanIssuingStatus')
+    can(memberPermissions, 'LoanRepaymentStatus')
+    can(memberPermissions, 'LoanType')
+    can(memberPermissions, 'Locality')
+    can(memberPermissions, 'MaritalStatus')
+    can(memberPermissions, 'MemberContribution')
+    can(memberPermissions, 'MemberContributionTotal')
+    can(memberPermissions, 'MemberLoan')
+    can(memberPermissions, 'Nominee')
+    can(memberPermissions, 'PaymentDetails')
+    can(memberPermissions, 'PaymentMethod')
+    can(memberPermissions, 'PostOffice')
+    can(memberPermissions, 'Relationship')
+    can(memberPermissions, 'User')
+
+      break
+
+    case 'CLERK':
+    const clerkPermissions = ['read', 'create']
+
+    can(clerkPermissions,'Member')
+    can(clerkPermissions, 'MemberAccount')
+    can(clerkPermissions, 'AddressDetails')
+    can(clerkPermissions, 'BusinessNature')
+    can(clerkPermissions, 'Business')
+    can(clerkPermissions, 'Constituency')
+    can(clerkPermissions, 'County')
+    can(clerkPermissions, 'Employer')
+    can(clerkPermissions, 'JobTitle')
+    can(clerkPermissions, 'LoanGuarantor')
+    can(clerkPermissions, 'LoanIssuingStatus')
+    can(clerkPermissions, 'LoanRepaymentStatus')
+    can(clerkPermissions, 'LoanType')
+    can(clerkPermissions, 'Locality')
+    can(clerkPermissions, 'MaritalStatus')
+    can(clerkPermissions, 'MemberContribution')
+    can(clerkPermissions, 'MemberContributionTotal')
+    can(clerkPermissions, 'MemberLoan')
+    can(clerkPermissions, 'Nominee')
+    can(clerkPermissions, 'PaymentDetails')
+    can(clerkPermissions, 'PaymentMethod')
+    can(clerkPermissions, 'PostOffice')
+    can(clerkPermissions, 'Relationship')
 
       break
 

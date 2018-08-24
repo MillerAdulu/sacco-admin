@@ -19,7 +19,7 @@ const HTTP = axios.create({
 })
 
 axiosRetry(HTTP, {
-  retries: 5,
+  retries: 3,
   retryDelay: function delay() {
     return backoff.next()
   }

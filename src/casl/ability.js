@@ -5,12 +5,12 @@ const accessLevel = localStorage.getItem('loggedInUser') ? JSON.parse(
 ).accessLevel : ''
 
 export default AbilityBuilder.define(can => {
-  switch ('SUPER_ADMIN') {
+  switch (accessLevel) {
     case 'MEMBER':
 
     const memberPermissions = ['read']
 
-    can(memberPermissions,'Member')
+    can(memberPermissions, 'Member')
     can(memberPermissions, 'MemberAccount')
     can(memberPermissions, 'AddressDetails')
     can(memberPermissions, 'BusinessNature')

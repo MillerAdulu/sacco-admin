@@ -16,6 +16,7 @@ import MemberAccounts from '@/components/administrators/Contributions/Accounts'
 import MemberLoans from '@/components/administrators/MemberLoans/List'
 import LoanDetails from '@/components/administrators/MemberLoans/Loan'
 import Addresses from '@/components/administrators/AddressDetails/Address'
+import EditAddress from '@/components/administrators/AddressDetails/EditAddress'
 import PaymentDetails from '@/components/administrators/PaymentDetails/PaymentDetails'
 
 import Administrator from '@/components/administrators/Administrator'
@@ -33,7 +34,7 @@ const router = new Router({
   mode: 'history',
   routes: [
     {
-      path: `/admin/:path`,
+      path: `/admin`,
       component: Administrator,
       children: [
         {
@@ -101,18 +102,18 @@ const router = new Router({
           name: `Dashboard`,
           component: Dashboard,
         },
-        // {
-        //   path: '',
-        //   component: Dashboard
-        // }
+        {
+          path: 'editaddress',
+          component: EditAddress,
+        }
       ]
     },
     {
-      path: `/member/:path`,
+      path: `/member`,
       component: MemberArea,
       children: [
         {
-          path: `dashboard`,
+          path: ``,
           name: `MemberDashboard`,
           component: MemberDashboard,
         },

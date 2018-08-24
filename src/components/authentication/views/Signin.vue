@@ -4,7 +4,7 @@
       <v-card-text class="pa-5">
         <div class="text-xs-center mb-5">
           <v-img
-            :src="require('@/assets/logo.svg')"
+            :src="require('@/assets/logo.png')"
             class="mb-3 mx-auto"
             style="width: 40px"
           />
@@ -107,13 +107,13 @@ export default {
         .then(response => {
           const user = response.data
           localStorage.setItem("loggedInUser", JSON.stringify(user));
-          this.$store.commit('loggedInUser', response.data)
+          this.$store.commit('setLoggedInUser', response.data)
           this.setSnackbar({
             type: "success",
             msg: `Successfully signed in user ${this.username}`
           });
-          if(user.accessLevel == `MEMBER`) this.$router.push(`/admin/dashboard`)
-          else this.$router.push(`/member/dashboard`)
+          if(user.accessLevel == `MEMBER`) this.$router.push(`/member`)
+          else this.$router.push(`/admin`)
         })
         .catch(error => {
           console.log(error);

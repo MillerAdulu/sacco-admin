@@ -37,43 +37,55 @@
     </v-list>
   </v-card>
   </v-flex>
+  <base-snackbar />
    </v-data-iterator>  
 </template>
 
 <script>
-import moment from 'moment'
+import moment from "moment";
 
-import HTTP from '../../../config'
+import HTTP from "../../../config";
 
 export default {
   name: `ContributionProfile`,
 
   data() {
     return {
-        moment,
-        member: JSON.parse(localStorage.getItem('loggedInUser')),
-        contributions: [],
-        rowsPerPageItems: [4, 8, 12],
-        pagination: {
-          rowsPerPage: 3
-        },
+      moment,
+      member: JSON.parse(localStorage.getItem("loggedInUser")),
+      contributions: [],
+      rowsPerPageItems: [4, 8, 12],
+      pagination: {
+        rowsPerPage: 3
       }
+    };
   },
   methods: {
     fetchContributions() {
-      HTTP.get(`membercontributions/members/${this.member.memberId}`)
-      .then(response => {
-        this.contributions = response.data
-      })
-      .catch(error => {
-        console.log(error.message)
-      })
+      if (this.$can(`read`, `MemberContribution`)) {
+        HTTP.get(`membercontributions/members/${this.member.memberId}`)
+          .then(response => {
+            this.contributions = response.data;
+          })
+          .catch(error => {
+            this.$store.commit(`setSnackbar`, {
+              msg: `Unable to fetch your contributions at this time`,
+              type: `error`,
+              model: true
+            });
+          });
+      } else {
+        this.$store.commit(`setSnackbar`, {
+          msg: `You don't have permissions to view member contributions`,
+          type: `error`,
+          model: true
+        });
+      }
     }
   },
 
   created() {
-    this.fetchContributions()
+    this.fetchContributions();
   }
-
-}
+};
 </script>

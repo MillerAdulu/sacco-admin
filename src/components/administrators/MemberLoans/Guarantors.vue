@@ -32,6 +32,7 @@
         </v-list>
       </v-card>
     </v-flex>
+    <base-snackbar />
   </v-data-iterator>
 </template>
 
@@ -51,13 +52,27 @@
     },
     methods: {
       fetchGuarantors() {
+        if(this.$can(`read`, `LoanGuarantor`)) {
         HTTP.get(`loans/loan/${ this.$route.params.memberLoanId }`)
           .then(response => {
             this.loanGuarantors = response.data
           })
           .catch(error => {
-            console.log(error)
+             this.$store.commit(`setSnackbar`, {
+            msg: `Unable to fetch loan guarantors at this moment`,
+            type: `error`,
+            model: true,
           })
+          })
+        } else {
+
+          this.$store.commit(`setSnackbar`, {
+            msg: `You don't have permissions to view loan guarantors`,
+            type: `error`,
+            model: true,
+          })
+
+        }
       }
     },
     created() {

@@ -72,9 +72,9 @@ import BaseFooter from "@/components/authentication/components/BaseFooter";
 import PartialEmail from "@/components/authentication/components/PartialEmail";
 import PartialPassword from "@/components/authentication/components/PartialPassword";
 
-import { mapMutations } from "vuex"
-import axios from "axios"
-import queryString from "querystring"
+import { mapMutations } from "vuex";
+import axios from "axios";
+import queryString from "querystring";
 
 export default {
   components: {
@@ -105,18 +105,17 @@ export default {
         })
       })
         .then(response => {
-          const user = response.data
+          const user = response.data;
           localStorage.setItem("loggedInUser", JSON.stringify(user));
-          this.$store.commit('setLoggedInUser', response.data)
+          this.$store.commit("setLoggedInUser", response.data);
           this.setSnackbar({
             type: "success",
             msg: `Successfully signed in user ${this.username}`
           });
-          if(user.accessLevel == `MEMBER`) this.$router.push(`/member`)
-          else this.$router.push(`/admin`)
+          if (user.accessLevel == `MEMBER`) this.$router.push(`/member`);
+          else this.$router.push(`/admin`);
         })
         .catch(error => {
-          console.log(error);
           this.setSnackbar({
             type: "error",
             msg: error.message

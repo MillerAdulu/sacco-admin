@@ -45,36 +45,49 @@
         </v-list>
       </v-card>
   </v-flex>
+  <base-snackbar />
   </v-data-iterator>
 </template>
 
 <script>
-  import moment from 'moment'
+import moment from "moment";
 
-  export default {
-    name: `MemberLoansProfile`,
-    data() {
-      return {
-        moment,
-        rowsPerPageItems: [4, 8, 12],
-        pagination: {
-          rowsPerPage: 4
-        },
-        memberloans: [],
-        member: JSON.parse(localStorage.getItem('loggedInUser'))
-      }
-    },
-    methods: {
-      fetchLoans() {
+export default {
+  name: `MemberLoansProfile`,
+  data() {
+    return {
+      moment,
+      rowsPerPageItems: [4, 8, 12],
+      pagination: {
+        rowsPerPage: 4
+      },
+      memberloans: [],
+      member: JSON.parse(localStorage.getItem("loggedInUser"))
+    };
+  },
+  methods: {
+    fetchLoans() {
+      if (this.$can(`read`, `MemberLoan`)) {
         HTTP.get(`loans/member/${this.member.memberId}`)
           .then(response => {
-            this.memberloans = response.data
+            this.memberloans = response.data;
           })
           .catch(error => {
-            console.log(error)
-          })
+            this.$store.commit(`setSnackbar`, {
+              msg: `Unable to display your loans at this time`,
+              type: `error`,
+              model: true
+            });
+          });
+      } else {
+        this.$store.commit(`setSnackbar`, {
+          msg: `You don't have permissions to view member loans`,
+          type: `error`,
+          model: true
+        });
       }
     }
   }
+};
 </script>
 

@@ -11,6 +11,10 @@ import App from './components/App'
 import router from './router'
 import store from './store'
 import ability from './casl/ability'
+import BaseSnackBar from './components/authentication/components/BaseSnackbar'
+
+Vue.component('base-snackbar', BaseSnackBar)
+Vue.component('Can', Can)
 
 Vue.config.productionTip = false
 Vue.config.devtools = true
@@ -19,7 +23,6 @@ Vue.use(Vuetify)
 Vue.use(VeeValidate)
 Vue.use(Laue)
 Vue.use(abilitiesPlugin, ability)
-Vue.use('Can', Can)
 
 new Vue({
   render: h => h(App),

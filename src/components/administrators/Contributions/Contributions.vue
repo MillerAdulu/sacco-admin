@@ -28,6 +28,7 @@
           <td>{{ props.item.contributionAmount }}</td>
           <td>{{ props.item.createdAt }}</td>
           <td>
+            <Can I="read" a="Member">
             <router-link :to='{name: `Member`, params: {
             memberId: props.item.memberContributionId}
             }'>
@@ -35,7 +36,8 @@
                 list
               </v-icon>
             </router-link>
-
+            </Can>
+            <Can I="update" a="Member">
             <router-link :to='{name: `MemberUpdate`, params: {
             memberId: props.item.memberContributionId
             }}'>
@@ -43,63 +45,84 @@
                 edit
               </v-icon>
             </router-link>
+            </Can>
           </td>
         </template>
 
       </v-data-table>
     </v-card>
+    <base-snackbar />
   </v-container>
 </template>
 
 <script>
-  import HTTP from '../../../config'
-  import queryString from 'querystring'
+import HTTP from "../../../config";
+import queryString from "querystring";
 
-  export default {
-    name: `Contributions`,
-    data() {
-      return {
-        search: '',
-        dataLoading: false,
-        headers:[
-          {
-            text: `Member`,
-            value: `member.lastName`,
-          },
-          {
-            text: `Payment Method`,
-            value: `paymentMethod.paymentMethod`
-          },
-          {
-            text: `Contribution Amount`,
-            value: `contributionAmount`
-          },
-          {
-            text: `Date`,
-            value: `createdAt`
-          }
-        ],
-        contributions: []
-      }
-    },
-    methods: {
-      fetchAccountData(){
-        this.dataLoading = true
+export default {
+  name: `Contributions`,
+  data() {
+    return {
+      search: "",
+      dataLoading: false,
+      headers: [
+        {
+          text: `Member`,
+          value: `member.lastName`
+        },
+        {
+          text: `Payment Method`,
+          value: `paymentMethod.paymentMethod`
+        },
+        {
+          text: `Contribution Amount`,
+          value: `contributionAmount`
+        },
+        {
+          text: `Date`,
+          value: `createdAt`
+        }
+      ],
+      contributions: []
+    };
+  },
+  methods: {
+    fetchAccountData() {
+      if (this.$can(`read`, `MemberContribution`)) {
+        this.startLoading();
+
         HTTP.get(`membercontributions`)
           .then(response => {
-            this.contributions = response.data
-            this.dataLoading = false
+            this.contributions = response.data;
+            this.stopLoading();
           })
           .catch(error => {
-            console.log(error)
-            this.dataLoading = false
-          })
-      },
+            this.$store.commit(`setSnackbar`, {
+              msg: `Unable to fetch member contributions at this time`,
+              type: `error`,
+              model: true
+            });
+
+            this.stopLoading();
+          });
+      } else {
+        this.$store.commit(`setSnackbar`, {
+          msg: `You don't have permissions to view contributions`,
+          type: `error`,
+          model: true
+        });
+      }
     },
-    created(){
-      this.dataLoading = true
-      this.fetchAccountData()
+    startLoading() {
+      this.dataLoading = true;
+    },
+    stopLoading() {
+      this.dataLoading = false;
     }
+  },
+  created() {
+    this.fetchAccountData();
   }
+};
 </script>
 

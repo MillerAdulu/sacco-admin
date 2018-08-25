@@ -2,7 +2,7 @@
   <v-snackbar
     v-model="model"
     :color="snackbar.type"
-    :timeout="snackbar.timeout"
+    :timeout="5000"
     right
   >
     <v-icon
@@ -32,7 +32,7 @@
 
   export default {
     data: () => ({
-      model: false
+      model: mapState(['snackbar']).model,
     }),
 
     computed: {

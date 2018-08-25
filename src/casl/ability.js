@@ -70,7 +70,7 @@ export default AbilityBuilder.define(can => {
 
       const allPermissions = ['read', 'create', 'update', 'delete']
 
-      can(allPermissions,'Member')
+      can(allPermissions, 'Member')
       can(allPermissions, 'MemberAccount')
       can(allPermissions, 'AddressDetails')
       can(allPermissions, 'BusinessNature')

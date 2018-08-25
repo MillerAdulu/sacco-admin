@@ -68,6 +68,7 @@
         <v-icon>account_balance_wallet</v-icon>
       </v-btn>
     </v-bottom-nav>
+    <base-snackbar />
   </v-app>
 </template>
 
@@ -86,22 +87,46 @@ export default {
   },
   methods: {
     fetchAddresses() {
-      HTTP.get(`/addressdetails/members/${this.member.memberId}`)
-        .then(response => {
-          this.addresses = response.data;
-        })
-        .catch(error => {
-          console.log(error);
+      if (this.$can(`read`, `AddressDetails`)) {
+        HTTP.get(`/addressdetails/members/${this.member.memberId}`)
+          .then(response => {
+            this.addresses = response.data;
+          })
+          .catch(error => {
+            this.$store.commit(`setSnackbar`, {
+              msg: `Unable to load address details at this time`,
+              type: `error`,
+              model: true
+            });
+          });
+      } else {
+        this.$store.commit(`setSnackbar`, {
+          msg: `You don't have permissions to view address details`,
+          type: `error`,
+          model: true
         });
+      }
     },
     fetchPaymentDetails() {
-      HTTP.get(`/paymentdetails/members/${this.member.memberId}`)
-        .then(response => {
-          this.paymentDetails = response.data;
-        })
-        .catch(error => {
-          console.log(error);
+      if (this.$can(`read`, `PaymentDetails`)) {
+        HTTP.get(`/paymentdetails/members/${this.member.memberId}`)
+          .then(response => {
+            this.paymentDetails = response.data;
+          })
+          .catch(error => {
+            this.$store.commit(`setSnackbar`, {
+              msg: `Unable to load payment details at this time`,
+              type: `error`,
+              model: true
+            });
+          });
+      } else {
+        this.$store.commit(`setSnackbar`, {
+          msg: `You don't have permissions to view payment details`,
+          type: `error`,
+          model: true
         });
+      }
     },
     logOut() {
       localStorage.removeItem("loggedInUser");

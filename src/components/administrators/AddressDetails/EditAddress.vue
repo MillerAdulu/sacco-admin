@@ -3,7 +3,7 @@
     <v-card>
       <v-card-title>Residential Address</v-card-title>
       <v-card-text>
-        <v-subheader>What county does the member reside in? </v-subheader>
+        <v-subheader>What county does the member reside in?</v-subheader>
         <v-autocomplete
             item-text="countyName"
             item-value="countyId"
@@ -13,7 +13,7 @@
             v-model="county"/>
       </v-card-text>
       <v-card-text v-if="county">
-        <v-subheader>What constituency does the member reside in? </v-subheader>
+        <v-subheader>What constituency does the member reside in?</v-subheader>
         <v-autocomplete
             item-text="constituencyName"
             item-value="constituencyId"
@@ -23,7 +23,7 @@
             v-model="constituency"/>
       </v-card-text>
       <v-card-text v-if="constituency">
-        <v-subheader>What locality does the member reside in? </v-subheader>
+        <v-subheader>What locality does the member reside in?</v-subheader>
         <v-autocomplete
             item-text="localityName"
             item-value="localityId"
@@ -34,7 +34,7 @@
       <v-layout row>
         <v-flex xs6>
           <v-card-text>
-            <v-subheader>What is the member's post office? </v-subheader>
+            <v-subheader>What is the member's post office?</v-subheader>
             <v-autocomplete
                 label="Select Post Office"
                 item-text="postOfficeName"
@@ -45,7 +45,7 @@
         </v-flex>
         <v-flex xs6>
           <v-card-text>
-            <v-subheader>What is the member's postal address? </v-subheader>
+            <v-subheader>What is the member's postal address?</v-subheader>
             <v-text-field
                 label="Post Office Address"
                 data-vv-name="postalAddress"
@@ -97,70 +97,67 @@
     </v-card>
 
     <v-layout row>
-      <v-btn color="success" @click="addAddress">Add Address</v-btn>
-      <v-btn color="error" @click="clearAddress">Clear Address</v-btn>
+      <v-btn color="success" @click="editAddress">Edit Address</v-btn>
+      <v-btn color="error" @click="cancelEdit">Cancel</v-btn>
     </v-layout>
 
-    <base-snackbar />
-
-  </v-form>
+  </v-form>  
 </template>
 
 <script>
-import HTTP from "../../../config";
-import Parsers from "../../../parsers";
-import queryString from "querystring";
-import { Validator } from "vee-validate";
+  import HTTP from '../../../config'
+  import Parsers from '../../../parsers'
+  import queryString from 'querystring'
+  import { Validator } from 'vee-validate'
+  import { mapState } from 'vuex';
 
-const dictionary = {
-  en: {
-    attributes: {
-      buildingName: `building name`,
-      houseNumber: `house number`,
-      postalAddress: `postal address`
+  const dictionary = {
+    en: {
+      attributes: {
+        buildingName: `building name`,
+        houseNumber: `house number`,
+        postalAddress: `postal address`
+      }
     }
   }
-};
 
-Validator.localize(dictionary);
+  Validator.localize(dictionary)
 
-export default {
-  $_veeValidate: {
-    validator: `new`
-  },
-  name: `AddressDetailsCapture`,
-  data() {
-    return {
-      county: ``,
-      constituency: ``,
-      locality: ``,
-      street: null,
-      buildingName: null,
-      floor: null,
-      houseNumber: null,
-      postOfficeId: null,
-      postalAddress: null,
+  export default {
+    $_veeValidate: {
+      validator: `new`
+    },
+    name: `EditAddress`,
+    data() {
+      return {
+        address: {},
+        county: address.county,
+        constituency: address.constituency,
+        locality: address.locality,
+        street: address.street,
+        buildingName: address.buildingName,
+        floor: address.floor,
+        houseNumber: address.houseNumber,
+        postOfficeId: address.postOfficeId,
+        postalAddress: address.postalAddress,
 
-      counties: [],
-      constituencies: [],
-      localities: [],
-      postOffices: [],
+        counties: [],
+        constituencies: [],
+        localities: [],
+        postOffices: [],
 
-      validations: {
-        street: `required|alpha_num|min:3`,
-        buildingName: `required|alpha_num|min:3`,
-        floor: `required|numeric`,
-        houseNumber: `required|alpha_num|min:1`,
-        postalAddress: `numeric`
+        apiErrors: [],
+        validations: {
+          street: `required|alpha_num|min:3`,
+          buildingName: `required|alpha_num|min:3`,
+          floor: `required|numeric`,
+          houseNumber: `required|alpha_num|min:1`,
+          postalAddress: `numeric`,
+        }
       }
-    };
-  },
-  created() {
-    this.getCounties();
-    this.getPostOffices();
-  },
-  methods: {
-    getCounties() {
+    },
+    methods: {
+       getCounties() {
       if (this.$can(`read`, `County`)) {
         HTTP.get("counties")
           .then(response => {
@@ -244,56 +241,41 @@ export default {
         });
       }
     },
-    async addAddress() {
-      if (this.$can(`create`, `AddressDetails`)) {
-        let address = await Parsers.prepareDataObject({
-          member_id: this.$store.getters.newMemberRecordKey,
-          county_id: this.county,
-          constituency_id: this.constituency,
-          locality_id: this.locality,
-          street: this.street,
-          building_name: this.buildingName,
-          floor: this.floor,
-          house_number: this.houseNumber,
-          post_office_id: this.postOfficeId,
-          postal_address: this.postalAddress
-        });
-        HTTP.post("addressdetails", queryString.stringify(address))
+      getAddressToEdit() {
+        if(this.$can(`update`, `AddressDetails`)) {
+          
+          HTTP.get(`addressdetails/${ this.$route.params.address }`)
           .then(response => {
-            this.$store.commit(`setSnackbar`, {
-              msg: `Added! You can add more addresses`,
-              type: `success`,
-              model: true
-            });
-            this.$store.commit("setStepperStatus", false);
-            this.clearAddress();
+            
+            this.address = response.data
+
           })
-          .then(error => {
-            this.$store.commit(`setSnackbar`, {
-              msg: `Unable to add addresses at this time`,
+          .catch(error => {
+            let snackbar = {
+              msg: `Unable to fetch this address`,
               type: `error`,
-              model: true
-            });
-          });
-      } else {
-        this.$store.commit(`setSnackbar`, {
-          msg: `You don't have permissions to add address details`,
-          type: `error`,
-          model: true
-        });
+              model: true,
+            }
+            this.$store.commit(`setSnackbar`, snackbar)
+          })
+
+        } else {
+          let snackbar = {
+            msg: `You don't have permissions to edit this address`,
+            type: `error`,
+            model: true,
+          }
+          this.$store.commit(`setSnackbar`, snackbar)
+        }
+      },
+      editAddress() {},
+      cancelEdit() {
+        this.$router.go(-1)
       }
     },
-    clearAddress() {
-      this.county = ``;
-      this.constituency = ``;
-      this.locality = ``;
-      this.street = null;
-      this.buildingName = null;
-      this.floor = null;
-      this.houseNumber = null;
-      this.postOfficeId = null;
-      this.postalAddress = null;
-    }
+    created() {
+      this.getCounties();
+      this.getPostOffices();
+    },
   }
-};
 </script>

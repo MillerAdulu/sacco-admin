@@ -30,6 +30,7 @@
         <td>{{ props.item.phoneNumber }}</td>
         <td>{{ props.item.proposedMonthlyContribution }}</td>
         <td>
+          <Can I="read" a="Member">
           <router-link :to='{name: `Member`, params: {
             memberId: props.item.memberId}
             }'>
@@ -37,29 +38,26 @@
                 list
               </v-icon>
             </router-link>
-
-          <!-- <router-link :to='{name: `MemberUpdate`, params: {
+          </Can>
+          <Can I="update" a="Member">
+          <router-link :to='{name: `MemberUpdate`, params: {
             memberId: props.item.memberId
             }}'>
           <v-icon>
           edit
           </v-icon>
-          </router-link> -->
+          </router-link>
+          </Can>
         </td>
     </template>
     </v-data-table>
-
-      <v-snackbar v-model="snack" :timeout="3000" :color="snackColor">
-        {{ snackText }}
-        <v-btn flat @click="snack = false">Close</v-btn>
-      </v-snackbar>
-
     </v-card>
+    <base-snackbar />
   </v-container>
 </template>
 <script>
-import HTTP from '../../../config'
-import queryString from 'querystring'
+import HTTP from "../../../config";
+import queryString from "querystring";
 
 export default {
   name: "MemberList",
@@ -106,52 +104,41 @@ export default {
     };
   },
   methods: {
-    save() {
-      this.snack = true;
-      this.snackColor = "success";
-      this.snackText = "Data saved";
-    },
-    apiCall(memberId, dataItem) {
-      return new Promise((resolved, rejected) => {
-        HTTP.put(`members/${memberId}`, queryString.stringify(dataItem))
+    fetchMembers() {
+      if (this.$can(`read`, `Member`)) {
+        this.startLoading();
+
+        HTTP.get("members")
           .then(response => {
-            this.dataLoading = false;
-            this.apiErrors.push(response);
-            resolved(true);
+            this.members = response.data;
+            this.stopLoading();
           })
           .catch(error => {
-            this.dataLoading = false;
-            this.apiErrors.push(error);
-            rejected(false);
+            this.$store.commit(`setSnackbar`, {
+              msg: `Unable to fetch members at this time`,
+              type: `error`,
+              model: true
+            });
+
+            this.stopLoading();
           });
-      });
+      } else {
+        this.$store.commit(`setSnackbar`, {
+          msg: `You don't have permissions to view members`,
+          type: `error`,
+          model: true
+        });
+      }
     },
-    // deleteMember(member) {
-    //   this.dataLoading = true
-    //  //confirm('Are you sure you want to delete this member?')
-
-      //   HTTP.delete(`members/${member}`)
-      //   .then(response => {
-      //     console.log(response)
-      //     this.apiErrors.push(response)
-      //   })
-      //   .catch(error => {
-      //     console.log(error)
-      //     this.apiErrors.push(error)
-      //   })
-
-    //   this.dataLoading = false
-    // },
+    startLoading() {
+      this.dataLoading = true;
+    },
+    stopLoading() {
+      this.dataLoading = false;
+    }
   },
   created() {
-    HTTP.get("members")
-      .then(response => {
-        this.members = response.data;
-        this.dataLoading = false;
-      })
-      .catch(error => {
-        this.apiErrors.push(error);
-      });
+    this.fetchMembers();
   }
 };
 </script>

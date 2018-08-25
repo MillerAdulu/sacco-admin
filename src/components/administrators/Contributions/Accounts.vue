@@ -28,6 +28,7 @@
           <td>{{ props.item.member.otherName }}</td>
           <td>{{ props.item.contributionTotal }}</td>
           <td>
+            <Can I="read" a="Member">
             <router-link :to='{name: `Member`, params: {
             memberId: props.item.member.memberId}
             }'>
@@ -35,19 +36,23 @@
                 list
               </v-icon>
             </router-link>
+            </Can>
 
-            <!-- <router-link :to='{name: `MemberUpdate`, params: {
+            <Can I="update" a="Member">
+              <router-link :to='{name: `MemberUpdate`, params: {
               memberId: props.item.memberContributionId
               }}'>
             <v-icon>
             edit
             </v-icon>
-            </router-link> -->
+            </router-link>
+            </Can>
           </td>
         </template>
 
       </v-data-table>
     </v-card>
+    <base-snackbar />
   </v-container>
 </template>
 
@@ -87,40 +92,53 @@ export default {
       accounts: []
     }
   },
-  methods: {
-    fetchAccountData(){
-      this.dataLoading = true
-      HTTP.get(`membercontributions/members/accounts/all`)
-      .then(response => {
-        this.accounts = response.data
-        this.dataLoading = false
-      })
-      .catch(error => {
-        console.log(error)
-      })
-    },
     methods: {
       fetchAccountData(){
-        if(this.$can('create', 'MemberAccount')){
-          this.dataLoading = true
+        if(this.$can('read', 'MemberAccount')) {
+          
+          this.startLoading()
+
           HTTP.get(`membercontributions/members/accounts/all`)
             .then(response => {
+
               this.accounts = response.data
-              this.dataLoading = false
+
+              this.stopLoading()
             })
             .catch(error => {
-              console.log(error)
+
+              this.$store.commit(`setSnackbar`, {
+                msg: `Unable to fetch these accounts at the moment`,
+                type: `error`,
+                model: true
+              })
+
+              this.stopLoading()
             })
+
         } else {
-          console.log(`You dont' have permission to view this section`)
-          this.dataLoading = false
+
+          this.$store.commit(`setSnackbar`, {
+            msg: `You dont' have permission to view this section`,
+            type: `error`,
+            model: true,
+          })
+          
+          this.stopLoading()
+
         }
+
       },
+      startLoading() {
+        this.dataLoading = true
+      },
+      stopLoading() {
+        this.dataLoading = false
+      }
     },
     created(){
       this.fetchAccountData()
     }
   }
-}
 </script>
 

@@ -66,33 +66,46 @@
         </v-flex>
       </v-layout>
     </v-card-text>
+    <base-snackbar />
   </v-card>
 </template>
 
 <script>
-import HTTP from '../../../config'
+import HTTP from "../../../config";
 
 export default {
   name: `MemberDashboard`,
   data() {
     return {
       loggedInMember: JSON.parse(localStorage.getItem("loggedInUser")),
-      member: null,
-    }
+      member: null
+    };
   },
   methods: {
     fetchMemberData() {
-      HTTP.get(`members/${ this.loggedInMember.memberId }`)
-      .then(response => {
-        this.member = response.data
-      })
-      .catch(error => {
-        console.log(error)
-      })
+      if (this.$can(`read`, `Member`)) {
+        HTTP.get(`members/${this.loggedInMember.memberId}`)
+          .then(response => {
+            this.member = response.data;
+          })
+          .catch(error => {
+            this.$store.commit(`setSnackbar`, {
+              msg: `Unable to load your data at this time`,
+              type: `error`,
+              model: true
+            });
+          });
+      } else {
+        this.$store.commit(`setSnackbar`, {
+          msg: `You don't have permissions to view member details`,
+          type: `error`,
+          model: true
+        });
+      }
     }
   },
   created() {
-    this.fetchMemberData()
+    this.fetchMemberData();
   }
 };
 </script>

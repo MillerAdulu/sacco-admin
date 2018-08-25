@@ -82,82 +82,64 @@
       <v-btn color="error" @click="clearNominee" :disabled="btnRegisterDisabled">Clear Nominee</v-btn>
     </v-layout>
 
-    <v-snackbar
-        v-model="relationshipProgress"
-        :bottom="true"
-    >
-      {{ relationshipProgressText }}
-      <v-progress-circular indeterminate v-if="relationshipProgress" />
-      <v-btn
-          v-if="success"
-          color="pink"
-          flat
-          @click=" relationshipProgress = false"
-      >
-        Close
-      </v-btn>
-    </v-snackbar>
+    <base-snackbar />
 
   </v-form>
 </template>
 
 <script>
-  import HTTP from '../../../config'
-  import Parsers from '../../../parsers'
-  import queryString from 'querystring'
-  import { Validator } from 'vee-validate'
+import HTTP from "../../../config";
+import Parsers from "../../../parsers";
+import queryString from "querystring";
+import { Validator } from "vee-validate";
 
-  const dictionary = {
-    en: {
-      attributes: {
-        identificationNumber: 'ID/Passport Number',
-        firstName: 'first name',
-        lastName: 'last name',
-        otherName: 'other name',
-        phoneNumber: 'phone number',
-        proposedMonthlyContribution: 'proposed monthly contribution'
-      }
+const dictionary = {
+  en: {
+    attributes: {
+      identificationNumber: "ID/Passport Number",
+      firstName: "first name",
+      lastName: "last name",
+      otherName: "other name",
+      phoneNumber: "phone number",
+      proposedMonthlyContribution: "proposed monthly contribution"
     }
   }
+};
 
-  Validator.localize(dictionary)
+Validator.localize(dictionary);
 
-  export default {
-    $_veeValidate: {
-      validator: "new"
-    },
-    name: `NomineeDetailsCapture`,
-    data() {
-      return {
-        success: ``,
-        relationshipProgress: ``,
-        relationshipProgressText: ``,
-        relationships: [],
-        identificationNumber: "",
-        relationshipId: "",
-        firstName: "",
-        lastName: "",
-        otherName: "",
-        phoneNumber: "",
-        email: "",
-        apiErrors: [],
-        validations: {
-          identificationNumber: "required|alpha_num|min:5",
-          relationshipId: "required",
-          firstName: "required|alpha_num|min:3",
-          lastName: "required|alpha_num|min:3",
-          otherName: "alpha_num|min:3",
-          phoneNumber: "required|numeric|min:9",
-          email: "email"
-        },
-        btnLoading: false,
-        btnRegisterDisabled: false
-      };
-    },
-    methods: {
-      async addNominee() {
-        this.relationshipProgress = true
-        this.relationshipProgressText = `Adding ${ this.lastName } to nominees`
+export default {
+  $_veeValidate: {
+    validator: "new"
+  },
+  name: `NomineeDetailsCapture`,
+  data() {
+    return {
+      relationships: [],
+      identificationNumber: "",
+      relationshipId: "",
+      firstName: "",
+      lastName: "",
+      otherName: "",
+      phoneNumber: "",
+      email: "",
+      apiErrors: [],
+      validations: {
+        identificationNumber: "required|alpha_num|min:5",
+        relationshipId: "required",
+        firstName: "required|alpha_num|min:3",
+        lastName: "required|alpha_num|min:3",
+        otherName: "alpha_num|min:3",
+        phoneNumber: "required|numeric|min:9",
+        email: "email"
+      },
+      btnLoading: false,
+      btnRegisterDisabled: false
+    };
+  },
+  methods: {
+    async addNominee() {
+      if (this.$can(`create`, `Nominee`)) {
         this.$validator.validateAll();
         let nominee = await Parsers.prepareDataObject({
           member_id: this.$store.getters.newMemberRecordKey,
@@ -168,49 +150,77 @@
           other_name: this.otherName,
           phone_number: this.phoneNumber,
           email: this.email
-        })
-        HTTP.post(
-          "nominees",
-          queryString.stringify(nominee)
-        )
+        });
+        HTTP.post("nominees", queryString.stringify(nominee))
           .then(response => {
-            this.btnLoading = false;
+            this.$store.commit(`setSnackbar`, {
+              msg: `${
+                this.lastName
+              } added successfully. You can add another one`,
+              type: `success`,
+              model: true
+            });
+            this.stopLoading();
+
             this.$store.commit("setStepperStatus", false);
             this.btnRegisterDisabled = true;
-            this.success = true
-            this.relationshipProgressText = `You can add another nominee`
-            this.clearNominee()
+            this.clearNominee();
           })
           .catch(error => {
-            alert(error);
-            this.apiErrors.push(error.response);
-            this.btnLoading = false;
+            this.$store.commit(`setSnackbar`, {
+              msg: `Unable to add this nominee at this time`,
+              type: `error`,
+              model: true
+            });
+            this.stopLoading();
           });
-      },
-      getRelationships() {
-        this.relationshipProgress = true
-        this.relationshipProgressText = `Fetching relationships ...`
+      } else {
+        this.$store.commit(`setSnackbar`, {
+          msg: `You don't have permissions to add nominees`,
+          type: `error`,
+          model: true
+        });
+      }
+    },
+    getRelationships() {
+      if (this.$can(`read`, `Relationship`)) {
         HTTP.get(`relationships`)
           .then(response => {
             this.relationships = response.data;
-            this.relationshipProgress = false
           })
           .catch(error => {
-            console.log(error);
+            this.$store.commit(`setSnackbar`, {
+              msg: `Unable to load member relationships at this time`,
+              type: `error`,
+              model: true
+            });
           });
-      },
-      clearNominee() {
-        this.identificationNumber = ``
-        this.relationshipId = ``
-        this.firstName = ``
-        this.lastName = ``
-        this.otherName = ``
-        this.phoneNumber = ``
-        this.email = ``
+      } else {
+        this.$store.commit(`setSnackbar`, {
+          msg: `You don't have permissions to view member relationships`,
+          type: `error`,
+          model: true
+        });
       }
     },
-    created() {
-      this.getRelationships();
+    clearNominee() {
+      this.identificationNumber = ``;
+      this.relationshipId = ``;
+      this.firstName = ``;
+      this.lastName = ``;
+      this.otherName = ``;
+      this.phoneNumber = ``;
+      this.email = ``;
+    },
+    startLoading() {
+      this.btnLoading = true;
+    },
+    stopLoading() {
+      this.btnLoading = false;
     }
-  };
+  },
+  created() {
+    this.getRelationships();
+  }
+};
 </script>

@@ -133,93 +133,86 @@
       <v-btn color="error" @click="clearForm" :disabled="btnRegisterDisabled" :loading="btnLoading">Clear</v-btn>
     </v-layout>
 
-    <v-snackbar
-        v-model="basicDetailsProgress"
-        :bottom="true"
-    >
-      {{ basicDetailsSnackBarText }}
-      <v-progress-circular indeterminate v-if="basicDetailsProgress" />
-    </v-snackbar>
+    <base-snackbar />
 
   </v-form>
 </template>
 
 <script>
-  import HTTP from '../../../config'
-  import Parsers from '../../../parsers'
-  import queryString from 'querystring'
-  import { Validator } from 'vee-validate'
+import HTTP from "../../../config";
+import Parsers from "../../../parsers";
+import queryString from "querystring";
+import { Validator } from "vee-validate";
 
-  const dictionary = {
-    en: {
-      attributes: {
-        identificationNumber: 'ID/Passport Number',
-        firstName: 'first name',
-        lastName: 'last name',
-        otherName: 'other name',
-        phoneNumber: 'phone number',
-        proposedMonthlyContribution: 'proposed monthly contribution',
-        kraPin: 'KRA pin'
-      }
+const dictionary = {
+  en: {
+    attributes: {
+      identificationNumber: "ID/Passport Number",
+      firstName: "first name",
+      lastName: "last name",
+      otherName: "other name",
+      phoneNumber: "phone number",
+      proposedMonthlyContribution: "proposed monthly contribution",
+      kraPin: "KRA pin"
     }
   }
+};
 
-  Validator.localize(dictionary)
-  export default {
-    $_veeValidate: {
-      validator: `new`
-    },
+Validator.localize(dictionary);
+export default {
+  $_veeValidate: {
+    validator: `new`
+  },
 
-    name: `BasicDetailsCapture`,
+  name: `BasicDetailsCapture`,
 
-    data() {
-      return {
-        basicDetailsProgress: false,
-        basicDetailsSnackBarText: ``,
-        identificationNumber: "",
-        dateOfBirth: "",
-        firstName: "",
-        lastName: "",
-        otherName: "",
-        phoneNumber: "",
-        proposedMonthlyContribution: "",
-        email: "",
-        kraPin: ``,
-        maritalStatus: ``,
-        gender: ``,
-        menu: false,
-        maritalStatuses:[],
-        apiErrors: [],
-        validations: {
-          identificationNumber: `required|alpha_num|min:5`,
-          dateOfBirth: `required`,
-          firstName: `required|alpha|min:3`,
-          lastName: `required|alpha|min:3`,
-          otherName: `alpha|min:3`,
-          phoneNumber: `required|numeric|min:9`,
-          proposedMonthlyContribution: `required|numeric`,
-          email: `email`,
-          kraPin: `min:5`
-        },
-        btnLoading: false,
-        btnRegisterDisabled: false,
-      }
-    },
-
-    watch: {
-      menu(val) {
-        val && this.$nextTick(() => (this.$refs.picker.activePicker = "YEAR"))
-      }
-    },
-
-    methods: {
-      save(date) {
-        this.$refs.menu.save(date);
+  data() {
+    return {
+      basicDetailsProgress: false,
+      basicDetailsSnackBarText: ``,
+      identificationNumber: "",
+      dateOfBirth: "",
+      firstName: "",
+      lastName: "",
+      otherName: "",
+      phoneNumber: "",
+      proposedMonthlyContribution: "",
+      email: "",
+      kraPin: ``,
+      maritalStatus: ``,
+      gender: ``,
+      menu: false,
+      maritalStatuses: [],
+      apiErrors: [],
+      validations: {
+        identificationNumber: `required|alpha_num|min:5`,
+        dateOfBirth: `required`,
+        firstName: `required|alpha|min:3`,
+        lastName: `required|alpha|min:3`,
+        otherName: `alpha|min:3`,
+        phoneNumber: `required|numeric|min:9`,
+        proposedMonthlyContribution: `required|numeric`,
+        email: `email`,
+        kraPin: `min:5`
       },
-      async registerMember() {
-        this.btnLoading = true;
-        this.basicDetailsProgress = true
-        this.basicDetailsSnackBarText = `Saving ${this.lastName}'s details`
+      btnLoading: false,
+      btnRegisterDisabled: false
+    };
+  },
+
+  watch: {
+    menu(val) {
+      val && this.$nextTick(() => (this.$refs.picker.activePicker = "YEAR"));
+    }
+  },
+
+  methods: {
+    save(date) {
+      this.$refs.menu.save(date);
+    },
+
+    async registerMember() {
+      if (this.$can(`create`, `Member`)) {
         await this.$validator.validateAll();
 
         let newMember = await Parsers.prepareDataObject({
@@ -233,53 +226,84 @@
           email: this.email,
           kra_pin: this.kraPin,
           marital_status_id: this.maritalStatus,
-          gender: this.gender,
-        })
-        HTTP.post(
-          "members",
-          queryString.stringify(newMember)
-        )
+          gender: this.gender
+        });
+
+        HTTP.post("members", queryString.stringify(newMember))
           .then(response => {
-            this.basicDetailsSnackBarText = `Member ${this.lastName} has been saved`
-            this.basicDetailsProgress = false
-            this.btnLoading = false
-            this.$store.commit("setNewMemberRecordKey", response.data.memberId)
-            this.$store.commit('setStepperStatus', false)
-            this.clearForm()
-            this.btnRegisterDisabled = true
+            this.$store.commit(`setSnackbar`, {
+              msg: `${this.lastName} has been added successfully`,
+              type: `success`,
+              model: true
+            });
+
+            this.$store.commit("setNewMemberRecordKey", response.data.memberId);
+            this.$store.commit("setStepperStatus", false);
+            this.clearForm();
+            this.btnRegisterDisabled = true;
           })
           .catch(error => {
-            this.apiErrors.push(error.response);
-            this.btnLoading = false;
-          })
-      },
-      clearForm() {
-        this.identificationNumber = ``
-        this.dateOfBirth = ``
-        this.firstName = ``
-        this.lastName = ``
-        this.otherName = ``
-        this.phoneNumber = ``
-        this.email = ``
-        this.proposedMonthlyContribution = ``
-        this.maritalStatus = ``
-        this.gender = ``
-        this.kraPin = ``
-        this.$validator.reset()
-      },
-      getMaritalStatuses() {
-        HTTP.get(`maritalstatuses`)
-          .then(response => {
-            this.maritalStatuses = response.data
-          })
-          .catch(error => {
-            console.log(error)
-          })
+            this.$store.commit(`setSnackbar`, {
+              msg: `You are unable to add this member at this time`,
+              type: `error`,
+              model: true
+            });
+
+            this.stopLoading();
+          });
+      } else {
+        this.$store.commit(`setSnackbar`, {
+          msg: `You don't have permissions to add members`,
+          type: `error`,
+          model: true
+        });
       }
     },
-    created() {
-      this.getMaritalStatuses()
+    clearForm() {
+      this.identificationNumber = ``;
+      this.dateOfBirth = ``;
+      this.firstName = ``;
+      this.lastName = ``;
+      this.otherName = ``;
+      this.phoneNumber = ``;
+      this.email = ``;
+      this.proposedMonthlyContribution = ``;
+      this.maritalStatus = ``;
+      this.gender = ``;
+      this.kraPin = ``;
+      this.$validator.reset();
+    },
+    getMaritalStatuses() {
+      if (this.$can(`read`, `MaritalStatus`)) {
+        HTTP.get(`maritalstatuses`)
+          .then(response => {
+            this.maritalStatuses = response.data;
+          })
+          .catch(error => {
+            this.$store.commit(`setSnackbar`, {
+              msg: `Unable to fetch marriage statuses at this time`,
+              type: `error`,
+              model: true
+            });
+          });
+      } else {
+        this.$store.commit(`setSnackbar`, {
+          msg: `You don't have permissions to view marital statuses`,
+          type: `error`,
+          model: true
+        });
+      }
+    },
+    startLoading() {
+      this.btnLoading = true;
+    },
+    stopLoading() {
+      this.btnLoading = false;
     }
-  };
+  },
+  created() {
+    this.getMaritalStatuses();
+  }
+};
 </script>
 

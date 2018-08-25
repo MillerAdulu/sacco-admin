@@ -55,39 +55,92 @@
             <v-list-tile-content class="align-end">{{ props.item.postalAddress }}</v-list-tile-content>
           </v-list-tile>
           <v-list-tile>
-            <v-icon medium>edit</v-icon>
-            <v-icon medium @click="deleteAddress(address.addressDetailId)">delete</v-icon>
+            <Can I="update" a="AddressDetails">
+              <v-btn  @click="editAddress(props.item.addressDetailId)" :loading="btnLoading">Edit</v-btn>
+            </Can>
+            <Can I="delete" a="AddressDetails">
+              <v-btn  @click="deleteAddress(props.item)" :loading="btnLoading">Delete</v-btn>
+            </Can>
           </v-list-tile>
         </v-list>
       </v-card>
     </v-flex>
+    <base-snackbar />
   </v-data-iterator>
 </template>
 
 <script>
-  import HTTP from "../../../config"
-  export default {
-    data() {
-      return {
-        rowsPerPageItems: [4, 8, 12],
-        pagination: {
-          rowsPerPage: 3
-        }
-      };
-    },
-    props: {
-      addresses: Array
-    },
-    methods: {
-      deleteAddress(address) {
-        HTTP.delete(`addressdetails/${address}`)
+import HTTP from "../../../config";
+import { mapMutations } from "vuex";
+export default {
+  data() {
+    return {
+      btnLoading: false,
+      rowsPerPageItems: [4, 8, 12],
+      pagination: {
+        rowsPerPage: 3
+      }
+    };
+  },
+  props: {
+    addresses: Array
+  },
+  methods: {
+    deleteAddress(address) {
+      if (this.$can(`delete`, `AddressDetails`)) {
+        this.startLoading();
+
+        HTTP.delete(`addressdetails/${address.addressDetailId}`)
           .then(response => {
-            console.log(response);
+            let snackbar = {
+              msg: response
+                ? `This address has been deleted`
+                : response.statusText,
+              type: `success`,
+              model: true
+            };
+            this.$store.commit(`setSnackbar`, snackbar);
+            this.addresses.pop(address);
+            this.stopLoading();
           })
           .catch(error => {
-            console.log(error);
+            let snackbar = {
+              msg: `Currently unable to delete this address`,
+              type: `error`,
+              model: true
+            };
+            this.$store.commit(`setSnackbar`, snackbar);
+            this.stopLoading();
           });
+      } else {
+        let snackbar = {
+          msg: `You don't have permissions to delete this address`,
+          type: `error`,
+          model: true
+        };
+
+        this.$store.commit(`setSnackbar`, snackbar);
       }
+    },
+    editAddress(address) {
+      if (this.$can(`update`, `AddressDetails`)) {
+        this.$router.push(`/admin/editaddress/${address}`);
+      } else {
+        let snackbar = {
+          msg: `You don't have permissions to edit this address`,
+          type: `error`,
+          model: true
+        };
+
+        this.$store.commit(`setSnackbar`, snackbar);
+      }
+    },
+    startLoading() {
+      this.btnLoading = true;
+    },
+    stopLoading() {
+      this.btnLoading = false;
     }
   }
+};
 </script>

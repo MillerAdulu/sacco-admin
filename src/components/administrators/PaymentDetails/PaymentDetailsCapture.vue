@@ -45,64 +45,49 @@
       <v-btn color="error" @click="clearPaymentDetails">Clear Payment Details</v-btn>
     </v-layout>
 
-    <v-snackbar
-        v-model="paymentDetailsProgress"
-        :bottom="true"
-    >
-      {{ paymentDetailsProgressText }}
-      <v-progress-circular indeterminate v-if="paymentDetailsProgress" />
-      <v-btn
-          v-if="success"
-          color="pink"
-          flat
-          @click=" paymentDetailsProgress = false"
-      >
-        Close
-      </v-btn>
-    </v-snackbar>
+    <base-snackbar />
 
   </v-form>
 
 </template>
 
 <script>
-  import HTTP from '../../../config'
-  import Parsers from '../../../parsers'
+import HTTP from "../../../config";
+import Parsers from "../../../parsers";
 
-  import queryString from 'querystring'
+import queryString from "querystring";
 
-  export default {
-    name: `PaymentDetailsCapture`,
-    data() {
-      return {
-        success: ``,
-        paymentDetailsProgress: ``,
-        paymentDetailsProgressText: ``,
-        paymentMethod: null,
-        paymentMethods: [],
-        bankName: null,
-        bankAccountNumber: null,
-        bankCardNumber: null,
-        provider:null,
-        phoneNumber: null,
-        viewBank: false,
-        viewPhone: false,
+export default {
+  name: `PaymentDetailsCapture`,
+  data() {
+    return {
+      success: ``,
+      paymentMethod: null,
+      paymentMethods: [],
+      bankName: null,
+      bankAccountNumber: null,
+      bankCardNumber: null,
+      provider: null,
+      phoneNumber: null,
+      viewBank: false,
+      viewPhone: false
+    };
+  },
+  methods: {
+    displayMethodForm(method) {
+      if (method === 1) {
+        this.viewBank = true;
+        this.viewPhone = false;
+      }
+
+      if (method === 2) {
+        this.viewPhone = true;
+        this.viewBank = false;
       }
     },
-    methods: {
-      displayMethodForm(method) {
-        if(method === 1) {
-          this.viewBank = true
-          this.viewPhone = false
-        }
-
-        if(method === 2) {
-          this.viewPhone = true
-          this.viewBank = false
-        }
-      },
-      async addPaymentDetails() {
-        let paymentDetails = await  Parsers.prepareDataObject({
+    async addPaymentDetails() {
+      if (this.$can(`create`, `PaymentDetails`)) {
+        let paymentDetails = await Parsers.prepareDataObject({
           payment_method_id: this.paymentMethod,
           member_id: this.$store.getters.newMemberRecordKey,
           bank_name: this.bankName,
@@ -110,47 +95,66 @@
           card_number: this.bankCardNumber,
           provider: this.provider,
           phone_number: this.phoneNumber
-        })
-        HTTP.post(
-          "paymentdetails",
-          queryString.stringify(paymentDetails)
-        )
+        });
+        HTTP.post("paymentdetails", queryString.stringify(paymentDetails))
           .then(response => {
-            console.log(response)
-            this.$store.commit('setStepperStatus', false)
-            this.clearPaymentDetails()
+            this.$store.commit("setStepperStatus", false);
+            this.clearPaymentDetails();
+            this.$store.commit(`setSnackbar`, {
+              msg: `Added! You can add other payment details`,
+              type: `success`,
+              model: true
+            });
           })
           .catch(error => {
-            console.log(error)
-          })
-      },
-
-      clearPaymentDetails(){
-        this.paymentMethod = null,
-          this.bankName = null
-        this.bankAccountNumber = null
-        this.bankCardNumber = null
-        this.provider = null
-        this.phoneNumber = null
-      },
-
-      getPaymentMethods() {
-        this.paymentDetailsProgress = true
-        this.paymentDetailsProgressText = `Fetching payment methods ...`
-        HTTP.get("paymentmethods")
-          .then(response => {
-            this.paymentMethods = response.data
-            this.paymentDetailsProgress = false
-            this.success = true
-          })
-          .catch(error => {
-            console.log(error)
-          })
+            this.$store.commit(`setSnackbar`, {
+              msg: `Unable to add payment details at this time`,
+              type: `error`,
+              model: true
+            });
+          });
+      } else {
+        this.$store.commit(`setSnackbar`, {
+          msg: `You don't have permissions to add payment details`,
+          type: `error`,
+          model: true
+        });
       }
     },
-    created() {
-      this.getPaymentMethods()
+
+    clearPaymentDetails() {
+      (this.paymentMethod = null), (this.bankName = null);
+      this.bankAccountNumber = null;
+      this.bankCardNumber = null;
+      this.provider = null;
+      this.phoneNumber = null;
+    },
+
+    getPaymentMethods() {
+      if (this.$can(`read`, `PaymentMethod`)) {
+        HTTP.get("paymentmethods")
+          .then(response => {
+            this.paymentMethods = response.data;
+          })
+          .catch(error => {
+            this.$store.commit(`setSnackbar`, {
+              msg: `Unable to fetch payment methods at this time`,
+              type: `error`,
+              model: true
+            });
+          });
+      } else {
+        this.$store.commit(`setSnackbar`, {
+          msg: `You don't have permissions to view payment methods`,
+          type: `error`,
+          model: true
+        });
+      }
     }
+  },
+  created() {
+    this.getPaymentMethods();
   }
+};
 </script>
 

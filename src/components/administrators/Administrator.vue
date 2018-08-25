@@ -23,7 +23,7 @@
           </v-list-tile-action>
           <v-list-tile-content>
             <v-list-tile-title>
-              <router-link to="/admin/dashboard">
+              <router-link to="/admin/">
                 Dashboard
               </router-link>
             </v-list-tile-title>

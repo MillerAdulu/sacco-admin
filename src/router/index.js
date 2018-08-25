@@ -103,7 +103,7 @@ const router = new Router({
           component: Dashboard,
         },
         {
-          path: 'editaddress',
+          path: 'editaddress/:address',
           component: EditAddress,
         }
       ]

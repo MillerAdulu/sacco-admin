@@ -9,8 +9,8 @@ let backoff = new ExponentialBackoff({
 })
 
 const HTTP = axios.create({
-  baseURL: `http://localhost:8000/api`,
-  // baseURL: `https://sedcapi.herokuapp.com/api/`,
+  // baseURL: `http://localhost:8000/api`,
+  baseURL: `https://sedcapi.herokuapp.com/api/`,
   headers: {
     'Content-Type': 'application/x-www-form-urlencoded',
     'Accept': 'application/json',

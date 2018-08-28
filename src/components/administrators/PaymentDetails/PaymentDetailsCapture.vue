@@ -41,7 +41,7 @@
       </v-card-text>
     </v-card>
     <v-layout>
-      <v-btn color="success" @click="addPaymentDetails">Add Payment Details</v-btn>
+      <v-btn color="success" :loading="btnLoading" @click="addPaymentDetails">Add Payment Details</v-btn>
       <v-btn color="error" @click="clearPaymentDetails">Clear Payment Details</v-btn>
     </v-layout>
 
@@ -70,7 +70,8 @@ export default {
       provider: null,
       phoneNumber: null,
       viewBank: false,
-      viewPhone: false
+      viewPhone: false,
+      btnLoading: false,
     };
   },
   methods: {
@@ -87,6 +88,9 @@ export default {
     },
     async addPaymentDetails() {
       if (this.$can(`create`, `PaymentDetails`)) {
+        
+        this.startLoading()
+
         let paymentDetails = await Parsers.prepareDataObject({
           payment_method_id: this.paymentMethod,
           member_id: this.$store.getters.newMemberRecordKey,
@@ -105,6 +109,9 @@ export default {
               type: `success`,
               model: true
             });
+
+            this.stopLoading()
+            
           })
           .catch(error => {
             this.$store.commit(`setSnackbar`, {
@@ -112,6 +119,9 @@ export default {
               type: `error`,
               model: true
             });
+            
+            this.stopLoading()
+
           });
       } else {
         this.$store.commit(`setSnackbar`, {
@@ -150,6 +160,12 @@ export default {
           model: true
         });
       }
+    },
+    startLoading() {
+      this.btnLoading = true;
+    },
+    stopLoading() {
+      this.btnLoading = false;
     }
   },
   created() {

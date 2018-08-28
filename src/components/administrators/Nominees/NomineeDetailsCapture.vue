@@ -140,6 +140,9 @@ export default {
   methods: {
     async addNominee() {
       if (this.$can(`create`, `Nominee`)) {
+        
+        this.startLoading()
+
         this.$validator.validateAll();
         let nominee = await Parsers.prepareDataObject({
           member_id: this.$store.getters.newMemberRecordKey,

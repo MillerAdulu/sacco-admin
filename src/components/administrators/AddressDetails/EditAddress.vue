@@ -105,59 +105,59 @@
 </template>
 
 <script>
-  import HTTP from '../../../config'
-  import Parsers from '../../../parsers'
-  import queryString from 'querystring'
-  import { Validator } from 'vee-validate'
-  import { mapState } from 'vuex';
+import HTTP from "../../../config";
+import Parsers from "../../../parsers";
+import queryString from "querystring";
+import { Validator } from "vee-validate";
+import { mapState } from "vuex";
 
-  const dictionary = {
-    en: {
-      attributes: {
-        buildingName: `building name`,
-        houseNumber: `house number`,
-        postalAddress: `postal address`
-      }
+const dictionary = {
+  en: {
+    attributes: {
+      buildingName: `building name`,
+      houseNumber: `house number`,
+      postalAddress: `postal address`
     }
   }
+};
 
-  Validator.localize(dictionary)
+Validator.localize(dictionary);
 
-  export default {
-    $_veeValidate: {
-      validator: `new`
-    },
-    name: `EditAddress`,
-    data() {
-      return {
-        address: {},
-        county: address.county,
-        constituency: address.constituency,
-        locality: address.locality,
-        street: address.street,
-        buildingName: address.buildingName,
-        floor: address.floor,
-        houseNumber: address.houseNumber,
-        postOfficeId: address.postOfficeId,
-        postalAddress: address.postalAddress,
+export default {
+  $_veeValidate: {
+    validator: `new`
+  },
+  name: `EditAddress`,
+  data() {
+    return {
+      // address: {},
+      // county: address.county,
+      // constituency: address.constituency,
+      // locality: address.locality,
+      // street: address.street,
+      // buildingName: address.buildingName,
+      // floor: address.floor,
+      // houseNumber: address.houseNumber,
+      // postOfficeId: address.postOfficeId,
+      // postalAddress: address.postalAddress,
 
-        counties: [],
-        constituencies: [],
-        localities: [],
-        postOffices: [],
+      counties: [],
+      constituencies: [],
+      localities: [],
+      postOffices: [],
 
-        apiErrors: [],
-        validations: {
-          street: `required|alpha_num|min:3`,
-          buildingName: `required|alpha_num|min:3`,
-          floor: `required|numeric`,
-          houseNumber: `required|alpha_num|min:1`,
-          postalAddress: `numeric`,
-        }
+      apiErrors: [],
+      validations: {
+        street: `required|alpha_num|min:3`,
+        buildingName: `required|alpha_num|min:3`,
+        floor: `required|numeric`,
+        houseNumber: `required|alpha_num|min:1`,
+        postalAddress: `numeric`
       }
-    },
-    methods: {
-       getCounties() {
+    };
+  },
+  methods: {
+    getCounties() {
       if (this.$can(`read`, `County`)) {
         HTTP.get("counties")
           .then(response => {
@@ -241,41 +241,37 @@
         });
       }
     },
-      getAddressToEdit() {
-        if(this.$can(`update`, `AddressDetails`)) {
-          
-          HTTP.get(`addressdetails/${ this.$route.params.address }`)
+    getAddressToEdit() {
+      if (this.$can(`update`, `AddressDetails`)) {
+        HTTP.get(`addressdetails/${this.$route.params.address}`)
           .then(response => {
-            
-            this.address = response.data
-
+            this.address = response.data;
           })
           .catch(error => {
             let snackbar = {
               msg: `Unable to fetch this address`,
               type: `error`,
-              model: true,
-            }
-            this.$store.commit(`setSnackbar`, snackbar)
-          })
-
-        } else {
-          let snackbar = {
-            msg: `You don't have permissions to edit this address`,
-            type: `error`,
-            model: true,
-          }
-          this.$store.commit(`setSnackbar`, snackbar)
-        }
-      },
-      editAddress() {},
-      cancelEdit() {
-        this.$router.go(-1)
+              model: true
+            };
+            this.$store.commit(`setSnackbar`, snackbar);
+          });
+      } else {
+        let snackbar = {
+          msg: `You don't have permissions to edit this address`,
+          type: `error`,
+          model: true
+        };
+        this.$store.commit(`setSnackbar`, snackbar);
       }
     },
-    created() {
-      this.getCounties();
-      this.getPostOffices();
-    },
+    editAddress() {},
+    cancelEdit() {
+      this.$router.go(-1);
+    }
+  },
+  created() {
+    this.getCounties();
+    this.getPostOffices();
   }
+};
 </script>

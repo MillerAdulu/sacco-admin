@@ -97,7 +97,7 @@
     </v-card>
 
     <v-layout row>
-      <v-btn color="success" @click="addAddress">Add Address</v-btn>
+      <v-btn color="success" :loading="btnLoading" @click="addAddress">Add Address</v-btn>
       <v-btn color="error" @click="clearAddress">Clear Address</v-btn>
     </v-layout>
 
@@ -140,6 +140,7 @@ export default {
       houseNumber: null,
       postOfficeId: null,
       postalAddress: null,
+      btnLoading: false,
 
       counties: [],
       constituencies: [],
@@ -152,7 +153,7 @@ export default {
         floor: `required|numeric`,
         houseNumber: `required|alpha_num|min:1`,
         postalAddress: `numeric`
-      }
+      },
     };
   },
   created() {
@@ -246,6 +247,9 @@ export default {
     },
     async addAddress() {
       if (this.$can(`create`, `AddressDetails`)) {
+        
+        this.startLoading()
+
         let address = await Parsers.prepareDataObject({
           member_id: this.$store.getters.newMemberRecordKey,
           county_id: this.county,
@@ -267,6 +271,7 @@ export default {
             });
             this.$store.commit("setStepperStatus", false);
             this.clearAddress();
+            this.stopLoading()
           })
           .then(error => {
             this.$store.commit(`setSnackbar`, {
@@ -274,6 +279,7 @@ export default {
               type: `error`,
               model: true
             });
+            this.stopLoading()
           });
       } else {
         this.$store.commit(`setSnackbar`, {
@@ -293,6 +299,12 @@ export default {
       this.houseNumber = null;
       this.postOfficeId = null;
       this.postalAddress = null;
+    },
+    startLoading() {
+      this.btnLoading = true;
+    },
+    stopLoading() {
+      this.btnLoading = false;
     }
   }
 };

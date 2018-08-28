@@ -130,7 +130,7 @@
 
     <v-layout row>
       <v-btn  color="success" @click="registerMember" :disabled="btnRegisterDisabled" :loading="btnLoading">Register Member</v-btn>
-      <v-btn color="error" @click="clearForm" :disabled="btnRegisterDisabled" :loading="btnLoading">Clear</v-btn>
+      <v-btn color="error" @click="clearForm" :disabled="btnRegisterDisabled">Clear</v-btn>
     </v-layout>
 
     <base-snackbar />
@@ -213,6 +213,9 @@ export default {
 
     async registerMember() {
       if (this.$can(`create`, `Member`)) {
+        
+        this.startLoading()
+
         await this.$validator.validateAll();
 
         let newMember = await Parsers.prepareDataObject({
@@ -241,6 +244,7 @@ export default {
             this.$store.commit("setStepperStatus", false);
             this.clearForm();
             this.btnRegisterDisabled = true;
+            this.stopLoading()
           })
           .catch(error => {
             this.$store.commit(`setSnackbar`, {

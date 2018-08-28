@@ -58,7 +58,6 @@
 
 <script>
   import HTTP from '../../../config'
-  import queryString from 'querystring'
 
 export default {
   name: `Accounts`,

@@ -1,11 +1,11 @@
 import { AbilityBuilder } from '@casl/ability'
 
-const accessLevel = localStorage.getItem('loggedInUser') ? JSON.parse(
-  localStorage.getItem('loggedInUser')
-).accessLevel : ''
-
 export default AbilityBuilder.define(can => {
-  switch (accessLevel) {
+  switch (
+    localStorage.getItem('loggedInUser') ? JSON.parse(
+      localStorage.getItem('loggedInUser')
+    ).accessLevel : ''
+  ) {
     case 'MEMBER':
 
     const memberPermissions = ['read']

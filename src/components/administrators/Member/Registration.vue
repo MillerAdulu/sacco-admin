@@ -57,7 +57,7 @@
 
         <v-btn
             color="green"
-            to="/register"
+            to="/admin/register"
             :disabled="this.$store.getters.stepperContinueEnabled">
           Add New Member
         </v-btn>

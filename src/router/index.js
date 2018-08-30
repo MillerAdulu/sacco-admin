@@ -143,17 +143,21 @@ const router = new Router({
       
     },
     {
-      path: `/:path`,
+      path: `/`,
       component: Auth,
       children: [
         {
-          path: `/login`,
+          path: `login`,
           component: SignIn,
         },
       ]
     },
     {
       path: `*`, redirect: `/login`
+    },
+    {
+      path: `/`,
+      redirect: `/login`
     }
   ]
 })

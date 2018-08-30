@@ -11,7 +11,7 @@ app.use(
   )
 )
 
-const port = process.env.APP_PORT || 80
+const port = process.env.APP_PORT || 5000
 
 app.listen(port, function() {
   console.log(`Sacco app is running`)

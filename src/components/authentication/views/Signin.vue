@@ -112,8 +112,7 @@ export default {
             type: "success",
             msg: `Successfully signed in user ${this.username}`
           });
-          if (user.accessLevel == `MEMBER`) this.$router.push(`/member`);
-          else this.$router.push(`/admin`);
+          this.redirectToDashboard(user.accessLevel)
         })
         .catch(error => {
           this.setSnackbar({
@@ -122,7 +121,27 @@ export default {
           });
         })
         .finally(this.setIsLoading);
+    },
+    redirectToDashboard(accessLevel) {
+      if (accessLevel == `MEMBER`) this.$router.push(`/member`);
+          else this.$router.push(`/admin`);
+    },
+    checkValidation() {
+      if(JSON.parse(
+        localStorage.getItem(`loggedInUser`)) &&
+        JSON.parse(
+        localStorage.getItem(`loggedInUser`)).token
+        ) {
+        this.redirectToDashboard(
+          JSON.parse(
+            localStorage.getItem(`loggedInUser`)
+            ).accessLevel
+        )
+      }
     }
+  },
+  created() {
+    this.checkValidation()
   }
 };
 </script>

@@ -56,7 +56,7 @@
           </v-list-tile>
           <v-list-tile>
             <Can I="update" a="AddressDetails">
-              <v-btn  @click="editAddress(props.item.addressDetailId)" :loading="btnLoading">Edit</v-btn>
+              <v-btn  @click="editAddress(props.item.addressDetailId)">Edit</v-btn>
             </Can>
             <Can I="delete" a="AddressDetails">
               <v-btn  @click="deleteAddress(props.item)" :loading="btnLoading">Delete</v-btn>

@@ -107,7 +107,7 @@ export default {
       if (this.$can(`read`, `Member`)) {
         this.startLoading();
 
-        HTTP.get("members")
+        HTTP.get(`members`)
           .then(response => {
             this.members = response.data;
             this.stopLoading();

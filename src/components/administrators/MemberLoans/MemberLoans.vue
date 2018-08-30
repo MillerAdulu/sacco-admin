@@ -12,7 +12,7 @@
       <td>{{ props.item.repaymentPeriod }}</td>
       <td>{{ moment(props.item.createdAt).format('MMMM Do YYYY, h:mm:ss a') }}</td>
       <td>
-        <router-link :to="`/memberloans/${ props.item.memberLoanId }`"><v-icon>list</v-icon></router-link>
+        <router-link :to="`/admin/memberloans/${ props.item.memberLoanId }`"><v-icon>list</v-icon></router-link>
       </td>
     </template>
   </v-data-table>

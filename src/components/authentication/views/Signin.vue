@@ -61,7 +61,7 @@
         </v-tabs-items>
       </v-card-text>
     </base-card>
-
+    <base-snackbar />
     <base-footer />
   </div>
 </template>
@@ -91,7 +91,7 @@ export default {
   }),
 
   methods: {
-    ...mapMutations(["setIsLoading", "setSnackbar"]),
+    ...mapMutations([`setIsLoading`]),
     submit() {
       this.hasError = false;
       this.setIsLoading(true);
@@ -106,18 +106,20 @@ export default {
       })
         .then(response => {
           const user = response.data;
-          localStorage.setItem("loggedInUser", JSON.stringify(user));
-          this.$store.commit("setLoggedInUser", response.data);
-          this.setSnackbar({
-            type: "success",
-            msg: `Successfully signed in user ${this.username}`
+          localStorage.setItem(`loggedInUser`, JSON.stringify(user));
+          this.$store.commit(`setLoggedInUser`, response.data);
+          this.$store.commit(`setSnackbar`, {
+            type: `success`,
+            msg: `Successfully signed in user ${this.username}`,
+            model: true
           });
           this.redirectToDashboard(user.accessLevel)
         })
         .catch(error => {
-          this.setSnackbar({
-            type: "error",
-            msg: error.message
+          this.$store.commit(`setSnackbar`, {
+            type: `error`,
+            msg: `Unable to log you in`,
+            model: true
           });
         })
         .finally(this.setIsLoading);

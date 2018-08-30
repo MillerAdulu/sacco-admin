@@ -7,7 +7,7 @@ const app = express()
 
 app.use(
   serveStatic(
-    path.join(__dirname, `dist`)
+    path.join(__dirname, '/dist')
   )
 )
 

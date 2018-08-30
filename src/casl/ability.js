@@ -6,7 +6,7 @@ export default AbilityBuilder.define(can => {
     localStorage.getItem('loggedInUser')
   ).accessLevel : ''
   ) {
-    case 'MEMBER':
+    case 'MEMBER': {
 
       const memberPermissions = ['read']
 
@@ -36,8 +36,8 @@ export default AbilityBuilder.define(can => {
       can(memberPermissions, 'User')
 
       break
-
-    case 'CLERK':
+    }
+    case 'CLERK': {
       const clerkPermissions = ['read', 'create']
 
       can(clerkPermissions, 'Member')
@@ -65,8 +65,8 @@ export default AbilityBuilder.define(can => {
       can(clerkPermissions, 'Relationship')
 
       break
-
-    case 'SUPER_ADMIN':
+    }
+    case 'SUPER_ADMIN': {
 
       const allPermissions = ['read', 'create', 'update', 'delete']
 
@@ -96,7 +96,9 @@ export default AbilityBuilder.define(can => {
       can(allPermissions, 'User')
 
       break
-    default:
+    }
+    default: {
       break
+    }
   }
 })

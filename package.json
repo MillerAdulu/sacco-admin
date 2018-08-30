@@ -5,7 +5,9 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint --fix"
+    "lint": "vue-cli-service lint --fix",
+    "postinstall": "yarn run build",
+    "start": "node app.js"
   },
   "dependencies": {
     "@casl/ability": "^2.4.2",
@@ -13,6 +15,7 @@
     "axios": "^0.18.0",
     "axios-retry": "^3.1.1",
     "collect.js": "^4.0.22",
+    "dotenv": "^6.0.0",
     "laue": "^0.1.0",
     "moment": "^2.22.2",
     "simple-backoff": "^1.1.0",
@@ -27,7 +30,9 @@
     "@vue/cli-plugin-eslint": "^3.0.0-beta.15",
     "@vue/cli-service": "^3.0.0-beta.15",
     "css-loader": "^1.0.0",
+    "express": "^4.16.3",
     "material-design-icons-iconfont": "^3.0.3",
+    "serve-static": "^1.13.2",
     "style-loader": "^0.21.0",
     "stylus": "^0.54.5",
     "stylus-loader": "^3.0.2",

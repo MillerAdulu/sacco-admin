@@ -24,10 +24,10 @@
   } from 'vuex'
 
   const ICON_MAP = {
-    error: 'mdi-alert-octagon',
-    info: 'mdi-information',
-    success: 'mdi-check-circle',
-    warning: 'mdi-alert-circle'
+    error: 'error',
+    info: 'info',
+    success: 'success',
+    warning: 'warning'
   }
 
   export default {

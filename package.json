@@ -13,6 +13,8 @@
     "@casl/vue": "^0.4.3",
     "axios": "^0.18.0",
     "axios-retry": "^3.1.1",
+    "bugsnag-js": "^4.7.3",
+    "bugsnag-vue": "^1.0.1",
     "collect.js": "^4.0.22",
     "dotenv": "^6.0.0",
     "express": "^4.16.3",

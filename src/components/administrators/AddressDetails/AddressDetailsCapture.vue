@@ -262,7 +262,7 @@ export default {
           post_office_id: this.postOfficeId,
           postal_address: this.postalAddress
         });
-        HTTP.post("addressdetails", queryString.stringify(address))
+        HTTP.post(`addressdetails`, queryString.stringify(address))
           .then(response => {
             this.$store.commit(`setSnackbar`, {
               msg: `Added! You can add more addresses`,

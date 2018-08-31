@@ -17,7 +17,6 @@ Vue.component('base-snackbar', BaseSnackBar)
 Vue.component('Can', Can)
 
 Vue.config.productionTip = false
-Vue.config.devtools = true
 
 Vue.use(Vuetify)
 Vue.use(VeeValidate)

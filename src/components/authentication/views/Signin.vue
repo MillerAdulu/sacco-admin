@@ -131,7 +131,6 @@ export default {
             model: true
           });
         })
-        .finally(this.setIsLoading);
     },
     redirectToDashboard(accessLevel) {
       if (accessLevel == `MEMBER`) this.$router.push(`/member`);

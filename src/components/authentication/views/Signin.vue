@@ -49,7 +49,7 @@
           <v-tab-item>
             <partial-email
               v-model="username"
-              @next="tab = 1"
+              @next="checkUsername"
             />
           </v-tab-item>
           <v-tab-item>
@@ -98,7 +98,7 @@ export default {
 
       axios({
         method: `post`,
-        url: `${process.env.VUE_APP_API_BASE_URL_DEV}/login`,
+        url: `${process.env.VUE_APP_API_BASE_URL}/saccoapp/login`,
         data: queryString.stringify({
           username: this.username,
           password: this.password
@@ -106,6 +106,14 @@ export default {
       })
         .then(response => {
           const user = response.data;
+          if(!user) {
+            this.setIsLoading(false)
+            this.$store.commit(`setSnackbar`, {
+              type: `error`,
+              msg: `Wrong password`,
+              model: true
+            });
+          } else {
           localStorage.setItem(`loggedInUser`, JSON.stringify(user));
           this.$store.commit(`setLoggedInUser`, response.data);
           this.$store.commit(`setSnackbar`, {
@@ -113,7 +121,8 @@ export default {
             msg: `Successfully signed in user ${this.username}`,
             model: true
           });
-          this.redirectToDashboard(user.accessLevel)
+          this.redirectToDashboard(user.accessLevel);
+          }
         })
         .catch(error => {
           this.$store.commit(`setSnackbar`, {
@@ -126,24 +135,51 @@ export default {
     },
     redirectToDashboard(accessLevel) {
       if (accessLevel == `MEMBER`) this.$router.push(`/member`);
-          else this.$router.push(`/admin`);
+      else this.$router.push(`/admin`);
     },
     checkValidation() {
-      if(JSON.parse(
-        localStorage.getItem(`loggedInUser`)) &&
-        JSON.parse(
-        localStorage.getItem(`loggedInUser`)).token
-        ) {
+      if (
+        JSON.parse(localStorage.getItem(`loggedInUser`)) &&
+        JSON.parse(localStorage.getItem(`loggedInUser`)).token
+      ) {
         this.redirectToDashboard(
-          JSON.parse(
-            localStorage.getItem(`loggedInUser`)
-            ).accessLevel
-        )
+          JSON.parse(localStorage.getItem(`loggedInUser`)).accessLevel
+        );
       }
+    },
+    checkUsername() {
+      this.setIsLoading(true);
+      axios({
+        method: `post`,
+        url: `${process.env.VUE_APP_API_BASE_URL}/saccoapp/checkusername`,
+        data: queryString.stringify({
+          username: this.username
+        })
+      })
+        .then(response => {
+          this.setIsLoading(false);
+          if (!response.data) {
+            this.$store.commit(`setSnackbar`, {
+              type: `error`,
+              msg: `This username doesn't exists`,
+              model: true
+            });
+          } else {
+            this.tab = 1;
+          }
+        })
+        .catch(error => {
+          console.log(error)
+          this.$store.commit(`setSnackbar`, {
+            type: `error`,
+            msg: `Unable to log you in`,
+            model: true
+          });
+        });
     }
   },
   created() {
-    this.checkValidation()
+    this.checkValidation();
   }
 };
 </script>

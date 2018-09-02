@@ -88,8 +88,8 @@
 </template>
 
 <script>
-import HTTP from "../../../config";
-import Parsers from "../../../parsers";
+import HTTP from "../../../api";
+import Parsers from "../../../helpers/parsers";
 import queryString from "querystring";
 import { Validator } from "vee-validate";
 

@@ -52,7 +52,7 @@
 
 <script>
 import moment from "moment";
-import HTTP from "../../../config";
+import HTTP from "../../../api";
 
 export default {
   name: `MemberLoans`,

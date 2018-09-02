@@ -60,7 +60,7 @@
 </template>
 
 <script>
-import HTTP from "../../../config";
+import HTTP from "../../../api";
 import Guarantors from "@/components/administrators/MemberLoans/Guarantors";
 
 export default {

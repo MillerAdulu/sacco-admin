@@ -29,23 +29,23 @@
           <td>{{ props.item.contributionTotal }}</td>
           <td>
             <Can I="read" a="Member">
-            <router-link :to='{name: `Member`, params: {
+              <router-link :to='{name: `Member`, params: {
             memberId: props.item.member.memberId}
             }'>
-              <v-icon>
-                list
-              </v-icon>
-            </router-link>
+                <v-icon>
+                  list
+                </v-icon>
+              </router-link>
             </Can>
 
             <Can I="update" a="Member">
               <router-link :to='{name: `MemberUpdate`, params: {
               memberId: props.item.memberContributionId
               }}'>
-            <v-icon>
-            edit
-            </v-icon>
-            </router-link>
+                <v-icon>
+                  edit
+                </v-icon>
+              </router-link>
             </Can>
           </td>
         </template>
@@ -57,40 +57,40 @@
 </template>
 
 <script>
-  import HTTP from '../../../config'
+  import HTTP from '../../../api'
 
-export default {
-  name: `Accounts`,
-  data() {
-    return {
-      search: "",
-      dataLoading: false,
-      headers:[
-        {
-          text: `Last Name`,
-          value: `member.lastName`,
-        },
-        {
-          text: `First Name`,
-          value: `member.firstName`,
-        },
-        {
-          text: `Other Name`,
-          value: `member.otherName`,
-        },
-        {
-          text: `Total Contribution`,
-          value: `contributionTotal`
-        },
-        {
-          text: `Actions`,
-          value: `name`
-        }
+  export default {
+    name: `Accounts`,
+    data() {
+      return {
+        search: "",
+        dataLoading: false,
+        headers:[
+          {
+            text: `Last Name`,
+            value: `member.lastName`,
+          },
+          {
+            text: `First Name`,
+            value: `member.firstName`,
+          },
+          {
+            text: `Other Name`,
+            value: `member.otherName`,
+          },
+          {
+            text: `Total Contribution`,
+            value: `contributionTotal`
+          },
+          {
+            text: `Actions`,
+            value: `name`
+          }
         
-      ],
-      accounts: []
-    }
-  },
+        ],
+        accounts: []
+      }
+    },
     methods: {
       fetchAccountData(){
         if(this.$can('read', 'MemberAccount')) {

@@ -55,177 +55,177 @@
 </template>
 
 <script>
-import HTTP from "../../../config";
+  import HTTP from "../../../api";
 
-import Addresses from "@/components/administrators/AddressDetails/Address";
-import PaymentDetails from "@/components/administrators/PaymentDetails/PaymentDetails";
-import ShowNominees from "@/components/administrators/Nominees/ShowNominees";
-import Contributions from "@/components/administrators/Contributions/MemberContributions";
-import MemberLoans from "@/components/administrators/MemberLoans/MemberLoans";
+  import Addresses from "@/components/administrators/AddressDetails/Address";
+  import PaymentDetails from "@/components/administrators/PaymentDetails/PaymentDetails";
+  import ShowNominees from "@/components/administrators/Nominees/ShowNominees";
+  import Contributions from "@/components/administrators/Contributions/MemberContributions";
+  import MemberLoans from "@/components/administrators/MemberLoans/MemberLoans";
 
-export default {
-  data() {
-    return {
-      memberId: this.$route.params.memberId,
-      member: {},
-      addressdetails: [],
-      paymentdetails: [],
-      contributions: [],
-      loans: [],
-      nominees: [],
-      activeTab: null,
-      tabs: [
-        `Address(es)`,
-        `Payment Details`,
-        `Contribution History`,
-        `Loan History`,
-        `Nominees`
-      ],
-      apiErrors: []
-    };
-  },
-  components: {
-    Addresses,
-    PaymentDetails,
-    ShowNominees,
-    Contributions,
-    MemberLoans
-  },
-  methods: {
-    fetchMember() {
-      if (this.$can(`read`, `Member`)) {
-        HTTP.get(`members/${this.memberId}`)
-          .then(response => {
-            this.member = response.data;
-          })
-          .catch(error => {
-            this.$store.commit(`setSnackbar`, {
-              msg: `Unable to load this member at this time`,
-              type: `error`,
-              model: true
+  export default {
+    data() {
+      return {
+        memberId: this.$route.params.memberId,
+        member: {},
+        addressdetails: [],
+        paymentdetails: [],
+        contributions: [],
+        loans: [],
+        nominees: [],
+        activeTab: null,
+        tabs: [
+          `Address(es)`,
+          `Payment Details`,
+          `Contribution History`,
+          `Loan History`,
+          `Nominees`
+        ],
+        apiErrors: []
+      };
+    },
+    components: {
+      Addresses,
+      PaymentDetails,
+      ShowNominees,
+      Contributions,
+      MemberLoans
+    },
+    methods: {
+      fetchMember() {
+        if (this.$can(`read`, `Member`)) {
+          HTTP.get(`members/${this.memberId}`)
+            .then(response => {
+              this.member = response.data;
+            })
+            .catch(error => {
+              this.$store.commit(`setSnackbar`, {
+                msg: `Unable to load this member at this time`,
+                type: `error`,
+                model: true
+              });
             });
+        } else {
+          this.$store.commit(`setSnackbar`, {
+            msg: `You don't have permissions to view members`,
+            type: `error`,
+            model: true
           });
-      } else {
-        this.$store.commit(`setSnackbar`, {
-          msg: `You don't have permissions to view members`,
-          type: `error`,
-          model: true
-        });
+        }
+      },
+      fetchAddressDetails() {
+        if (this.$can(`read`, `AddressDetails`)) {
+          HTTP.get(`/addressdetails/members/${this.memberId}`)
+            .then(response => {
+              this.addressdetails = response.data;
+            })
+            .catch(error => {
+              this.$store.commit(`setSnackbar`, {
+                msg: `Unable to load this member's addresses at this time`,
+                type: `error`,
+                model: true
+              });
+            });
+        } else {
+          this.$store.commit(`setSnackbar`, {
+            msg: `You don't have permissions to view address details`,
+            type: `error`,
+            model: true
+          });
+        }
+      },
+      fetchPaymentDetails() {
+        if (this.$can(`read`, `PaymentDetails`)) {
+          HTTP.get(`/paymentdetails/members/${this.memberId}`)
+            .then(response => {
+              this.paymentdetails = response.data;
+            })
+            .catch(error => {
+              this.$store.commit(`setSnackbar`, {
+                msg: `Unable to load this member's payment details at this time`,
+                type: `error`,
+                model: true
+              });
+            });
+        } else {
+          this.$store.commit(`setSnackbar`, {
+            msg: `You don't have permissions to view payment details`,
+            type: `error`,
+            model: true
+          });
+        }
+      },
+      fetchNominees() {
+        if (this.$can(`read`, `Nominee`)) {
+          HTTP.get(`/nominees/members/${this.memberId}`)
+            .then(response => {
+              this.nominees = response.data;
+            })
+            .catch(error => {
+              this.$store.commit(`setSnackbar`, {
+                msg: `Unable to load this member's nominees at this time`,
+                type: `error`,
+                model: true
+              });
+            });
+        } else {
+          this.$store.commit(`setSnackbar`, {
+            msg: `You don't have permissions to view nominees`,
+            type: `error`,
+            model: true
+          });
+        }
+      },
+      fetchContributions() {
+        if (this.$can(`read`, `MemberContribution`)) {
+          HTTP.get(`/membercontributions/members/${this.memberId}`)
+            .then(response => {
+              this.contributions = response.data;
+            })
+            .catch(error => {
+              this.$store.commit(`setSnackbar`, {
+                msg: `Unable to load this member's contributions at this time`,
+                type: `error`,
+                model: true
+              });
+            });
+        } else {
+          this.$store.commit(`setSnackbar`, {
+            msg: `You don't have permissions to view member contributions`,
+            type: `error`,
+            model: true
+          });
+        }
+      },
+      fetchLoans() {
+        if (this.$can(`read`, `MemberLoan`)) {
+          HTTP.get(`loans/member/${this.memberId}`)
+            .then(response => {
+              this.loans = response.data;
+            })
+            .catch(error => {
+              this.$store.commit(`setSnackbar`, {
+                msg: `Unable to load this member's loans at this time`,
+                type: `error`,
+                model: true
+              });
+            });
+        } else {
+          this.$store.commit(`setSnackbar`, {
+            msg: `You don't have permissions to view member loans`,
+            type: `error`,
+            model: true
+          });
+        }
       }
     },
-    fetchAddressDetails() {
-      if (this.$can(`read`, `AddressDetails`)) {
-        HTTP.get(`/addressdetails/members/${this.memberId}`)
-          .then(response => {
-            this.addressdetails = response.data;
-          })
-          .catch(error => {
-            this.$store.commit(`setSnackbar`, {
-              msg: `Unable to load this member's addresses at this time`,
-              type: `error`,
-              model: true
-            });
-          });
-      } else {
-        this.$store.commit(`setSnackbar`, {
-          msg: `You don't have permissions to view address details`,
-          type: `error`,
-          model: true
-        });
-      }
-    },
-    fetchPaymentDetails() {
-      if (this.$can(`read`, `PaymentDetails`)) {
-        HTTP.get(`/paymentdetails/members/${this.memberId}`)
-          .then(response => {
-            this.paymentdetails = response.data;
-          })
-          .catch(error => {
-            this.$store.commit(`setSnackbar`, {
-              msg: `Unable to load this member's payment details at this time`,
-              type: `error`,
-              model: true
-            });
-          });
-      } else {
-        this.$store.commit(`setSnackbar`, {
-          msg: `You don't have permissions to view payment details`,
-          type: `error`,
-          model: true
-        });
-      }
-    },
-    fetchNominees() {
-      if (this.$can(`read`, `Nominee`)) {
-        HTTP.get(`/nominees/members/${this.memberId}`)
-          .then(response => {
-            this.nominees = response.data;
-          })
-          .catch(error => {
-            this.$store.commit(`setSnackbar`, {
-              msg: `Unable to load this member's nominees at this time`,
-              type: `error`,
-              model: true
-            });
-          });
-      } else {
-        this.$store.commit(`setSnackbar`, {
-          msg: `You don't have permissions to view nominees`,
-          type: `error`,
-          model: true
-        });
-      }
-    },
-    fetchContributions() {
-      if (this.$can(`read`, `MemberContribution`)) {
-        HTTP.get(`/membercontributions/members/${this.memberId}`)
-          .then(response => {
-            this.contributions = response.data;
-          })
-          .catch(error => {
-            this.$store.commit(`setSnackbar`, {
-              msg: `Unable to load this member's contributions at this time`,
-              type: `error`,
-              model: true
-            });
-          });
-      } else {
-        this.$store.commit(`setSnackbar`, {
-          msg: `You don't have permissions to view member contributions`,
-          type: `error`,
-          model: true
-        });
-      }
-    },
-    fetchLoans() {
-      if (this.$can(`read`, `MemberLoan`)) {
-        HTTP.get(`loans/member/${this.memberId}`)
-          .then(response => {
-            this.loans = response.data;
-          })
-          .catch(error => {
-            this.$store.commit(`setSnackbar`, {
-              msg: `Unable to load this member's loans at this time`,
-              type: `error`,
-              model: true
-            });
-          });
-      } else {
-        this.$store.commit(`setSnackbar`, {
-          msg: `You don't have permissions to view member loans`,
-          type: `error`,
-          model: true
-        });
-      }
+    created() {
+      this.fetchMember();
+      this.fetchAddressDetails();
+      this.fetchPaymentDetails();
+      this.fetchNominees();
+      this.fetchContributions();
+      this.fetchLoans();
     }
-  },
-  created() {
-    this.fetchMember();
-    this.fetchAddressDetails();
-    this.fetchPaymentDetails();
-    this.fetchNominees();
-    this.fetchContributions();
-    this.fetchLoans();
-  }
-};
+  };
 </script>

@@ -70,77 +70,77 @@
 </template>
 
 <script>
-import HTTP from "../../../config";
-import { mapMutations } from "vuex";
-export default {
-  data() {
-    return {
-      btnLoading: false,
-      rowsPerPageItems: [4, 8, 12],
-      pagination: {
-        rowsPerPage: 3
-      }
-    };
-  },
-  props: {
-    addresses: Array
-  },
-  methods: {
-    deleteAddress(address) {
-      if (this.$can(`delete`, `AddressDetails`)) {
-        this.startLoading();
-
-        HTTP.delete(`addressdetails/${address.addressDetailId}`)
-          .then(response => {
-            let snackbar = {
-              msg: response
-                ? `This address has been deleted`
-                : response.statusText,
-              type: `success`,
-              model: true
-            };
-            this.$store.commit(`setSnackbar`, snackbar);
-            this.addresses.pop(address);
-            this.stopLoading();
-          })
-          .catch(error => {
-            let snackbar = {
-              msg: `Currently unable to delete this address`,
-              type: `error`,
-              model: true
-            };
-            this.$store.commit(`setSnackbar`, snackbar);
-            this.stopLoading();
-          });
-      } else {
-        let snackbar = {
-          msg: `You don't have permissions to delete this address`,
-          type: `error`,
-          model: true
-        };
-
-        this.$store.commit(`setSnackbar`, snackbar);
-      }
+  import HTTP from "../../../api";
+  import { mapMutations } from "vuex";
+  export default {
+    data() {
+      return {
+        btnLoading: false,
+        rowsPerPageItems: [4, 8, 12],
+        pagination: {
+          rowsPerPage: 3
+        }
+      };
     },
-    editAddress(address) {
-      if (this.$can(`update`, `AddressDetails`)) {
-        this.$router.push(`/admin/editaddress/${address}`);
-      } else {
-        let snackbar = {
-          msg: `You don't have permissions to edit this address`,
-          type: `error`,
-          model: true
-        };
+    props: {
+      addresses: Array
+    },
+    methods: {
+      deleteAddress(address) {
+        if (this.$can(`delete`, `AddressDetails`)) {
+          this.startLoading();
 
-        this.$store.commit(`setSnackbar`, snackbar);
+          HTTP.delete(`addressdetails/${address.addressDetailId}`)
+            .then(response => {
+              let snackbar = {
+                msg: response
+                  ? `This address has been deleted`
+                  : response.statusText,
+                type: `success`,
+                model: true
+              };
+              this.$store.commit(`setSnackbar`, snackbar);
+              this.addresses.pop(address);
+              this.stopLoading();
+            })
+            .catch(error => {
+              let snackbar = {
+                msg: `Currently unable to delete this address`,
+                type: `error`,
+                model: true
+              };
+              this.$store.commit(`setSnackbar`, snackbar);
+              this.stopLoading();
+            });
+        } else {
+          let snackbar = {
+            msg: `You don't have permissions to delete this address`,
+            type: `error`,
+            model: true
+          };
+
+          this.$store.commit(`setSnackbar`, snackbar);
+        }
+      },
+      editAddress(address) {
+        if (this.$can(`update`, `AddressDetails`)) {
+          this.$router.push(`/admin/editaddress/${address}`);
+        } else {
+          let snackbar = {
+            msg: `You don't have permissions to edit this address`,
+            type: `error`,
+            model: true
+          };
+
+          this.$store.commit(`setSnackbar`, snackbar);
+        }
+      },
+      startLoading() {
+        this.btnLoading = true;
+      },
+      stopLoading() {
+        this.btnLoading = false;
       }
-    },
-    startLoading() {
-      this.btnLoading = true;
-    },
-    stopLoading() {
-      this.btnLoading = false;
     }
-  }
-};
+  };
 </script>

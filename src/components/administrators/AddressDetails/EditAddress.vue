@@ -101,177 +101,177 @@
       <v-btn color="error" @click="cancelEdit">Cancel</v-btn>
     </v-layout>
 
-  </v-form>  
+  </v-form>
 </template>
 
 <script>
-import HTTP from "../../../config";
-import Parsers from "../../../parsers";
-import queryString from "querystring";
-import { Validator } from "vee-validate";
-import { mapState } from "vuex";
+  import HTTP from "../../../api";
+  import Parsers from "../../../helpers/parsers";
+  import queryString from "querystring";
+  import { Validator } from "vee-validate";
+  import { mapState } from "vuex";
 
-const dictionary = {
-  en: {
-    attributes: {
-      buildingName: `building name`,
-      houseNumber: `house number`,
-      postalAddress: `postal address`
+  const dictionary = {
+    en: {
+      attributes: {
+        buildingName: `building name`,
+        houseNumber: `house number`,
+        postalAddress: `postal address`
+      }
     }
-  }
-};
+  };
 
-Validator.localize(dictionary);
+  Validator.localize(dictionary);
 
-export default {
-  $_veeValidate: {
-    validator: `new`
-  },
-  name: `EditAddress`,
-  data() {
-    return {
-      // address: {},
-      // county: address.county,
-      // constituency: address.constituency,
-      // locality: address.locality,
-      // street: address.street,
-      // buildingName: address.buildingName,
-      // floor: address.floor,
-      // houseNumber: address.houseNumber,
-      // postOfficeId: address.postOfficeId,
-      // postalAddress: address.postalAddress,
+  export default {
+    $_veeValidate: {
+      validator: `new`
+    },
+    name: `EditAddress`,
+    data() {
+      return {
+        // address: {},
+        // county: address.county,
+        // constituency: address.constituency,
+        // locality: address.locality,
+        // street: address.street,
+        // buildingName: address.buildingName,
+        // floor: address.floor,
+        // houseNumber: address.houseNumber,
+        // postOfficeId: address.postOfficeId,
+        // postalAddress: address.postalAddress,
 
-      counties: [],
-      constituencies: [],
-      localities: [],
-      postOffices: [],
+        counties: [],
+        constituencies: [],
+        localities: [],
+        postOffices: [],
 
-      apiErrors: [],
-      validations: {
-        street: `required|alpha_num|min:3`,
-        buildingName: `required|alpha_num|min:3`,
-        floor: `required|numeric`,
-        houseNumber: `required|alpha_num|min:1`,
-        postalAddress: `numeric`
-      }
-    };
-  },
-  methods: {
-    getCounties() {
-      if (this.$can(`read`, `County`)) {
-        HTTP.get("counties")
-          .then(response => {
-            this.counties = response.data;
-          })
-          .catch(error => {
-            this.$store.commit(`setSnackbar`, {
-              msg: `Unable to fetch counties at this time`,
-              type: `error`,
-              model: true
+        apiErrors: [],
+        validations: {
+          street: `required|alpha_num|min:3`,
+          buildingName: `required|alpha_num|min:3`,
+          floor: `required|numeric`,
+          houseNumber: `required|alpha_num|min:1`,
+          postalAddress: `numeric`
+        }
+      };
+    },
+    methods: {
+      getCounties() {
+        if (this.$can(`read`, `County`)) {
+          HTTP.get("counties")
+            .then(response => {
+              this.counties = response.data;
+            })
+            .catch(error => {
+              this.$store.commit(`setSnackbar`, {
+                msg: `Unable to fetch counties at this time`,
+                type: `error`,
+                model: true
+              });
             });
+        } else {
+          this.$store.commit(`setSnackbar`, {
+            msg: `You don't have permissions to view counties`,
+            type: `error`,
+            model: true
           });
-      } else {
-        this.$store.commit(`setSnackbar`, {
-          msg: `You don't have permissions to view counties`,
-          type: `error`,
-          model: true
-        });
-      }
-    },
-    getConstituencies(county) {
-      if (this.$can(`read`, `County`)) {
-        HTTP.get(`constituencies/county/${county}`)
-          .then(response => {
-            this.constituencies = response.data;
-          })
-          .catch(error => {
-            this.$store.commit(`setSnackbar`, {
-              msg: `Unable to fetch constituencies at this time`,
-              type: `error`,
-              model: true
+        }
+      },
+      getConstituencies(county) {
+        if (this.$can(`read`, `County`)) {
+          HTTP.get(`constituencies/county/${county}`)
+            .then(response => {
+              this.constituencies = response.data;
+            })
+            .catch(error => {
+              this.$store.commit(`setSnackbar`, {
+                msg: `Unable to fetch constituencies at this time`,
+                type: `error`,
+                model: true
+              });
             });
+        } else {
+          this.$store.commit(`setSnackbar`, {
+            msg: `You don't have permissions to view constituencies`,
+            type: `error`,
+            model: true
           });
-      } else {
-        this.$store.commit(`setSnackbar`, {
-          msg: `You don't have permissions to view constituencies`,
-          type: `error`,
-          model: true
-        });
-      }
-    },
-    getLocalities(constituency) {
-      if (this.$can(`read`, `Locality`)) {
-        HTTP.get(`localities/constituency/${constituency}`)
-          .then(response => {
-            this.localities = response.data;
-          })
-          .catch(error => {
-            this.$store.commit(`setSnackbar`, {
-              msg: `Unable to fetch localities at this time`,
-              type: `error`,
-              model: true
+        }
+      },
+      getLocalities(constituency) {
+        if (this.$can(`read`, `Locality`)) {
+          HTTP.get(`localities/constituency/${constituency}`)
+            .then(response => {
+              this.localities = response.data;
+            })
+            .catch(error => {
+              this.$store.commit(`setSnackbar`, {
+                msg: `Unable to fetch localities at this time`,
+                type: `error`,
+                model: true
+              });
             });
+        } else {
+          this.$store.commit(`setSnackbar`, {
+            msg: `You don't have permissions to view localities`,
+            type: `error`,
+            model: true
           });
-      } else {
-        this.$store.commit(`setSnackbar`, {
-          msg: `You don't have permissions to view localities`,
-          type: `error`,
-          model: true
-        });
-      }
-    },
-    getPostOffices() {
-      if (this.$can(`read`, `PostOffice`)) {
-        HTTP.get(`postoffices`)
-          .then(response => {
-            this.postOffices = response.data;
-          })
-          .catch(error => {
-            this.$store.commit(`setSnackbar`, {
-              msg: `Unable to fetch post offices at this time`,
-              type: `error`,
-              model: true
+        }
+      },
+      getPostOffices() {
+        if (this.$can(`read`, `PostOffice`)) {
+          HTTP.get(`postoffices`)
+            .then(response => {
+              this.postOffices = response.data;
+            })
+            .catch(error => {
+              this.$store.commit(`setSnackbar`, {
+                msg: `Unable to fetch post offices at this time`,
+                type: `error`,
+                model: true
+              });
             });
+        } else {
+          this.$store.commit(`setSnackbar`, {
+            msg: `You don't have permissions to view post offices`,
+            type: `error`,
+            model: true
           });
-      } else {
-        this.$store.commit(`setSnackbar`, {
-          msg: `You don't have permissions to view post offices`,
-          type: `error`,
-          model: true
-        });
+        }
+      },
+      getAddressToEdit() {
+        if (this.$can(`update`, `AddressDetails`)) {
+          HTTP.get(`addressdetails/${this.$route.params.address}`)
+            .then(response => {
+              this.address = response.data;
+            })
+            .catch(error => {
+              let snackbar = {
+                msg: `Unable to fetch this address`,
+                type: `error`,
+                model: true
+              };
+              this.$store.commit(`setSnackbar`, snackbar);
+            });
+        } else {
+          let snackbar = {
+            msg: `You don't have permissions to edit this address`,
+            type: `error`,
+            model: true
+          };
+          this.$store.commit(`setSnackbar`, snackbar);
+        }
+      },
+      editAddress() {},
+      cancelEdit() {
+        this.$router.go(-1);
       }
     },
-    getAddressToEdit() {
-      if (this.$can(`update`, `AddressDetails`)) {
-        HTTP.get(`addressdetails/${this.$route.params.address}`)
-          .then(response => {
-            this.address = response.data;
-          })
-          .catch(error => {
-            let snackbar = {
-              msg: `Unable to fetch this address`,
-              type: `error`,
-              model: true
-            };
-            this.$store.commit(`setSnackbar`, snackbar);
-          });
-      } else {
-        let snackbar = {
-          msg: `You don't have permissions to edit this address`,
-          type: `error`,
-          model: true
-        };
-        this.$store.commit(`setSnackbar`, snackbar);
-      }
-    },
-    editAddress() {},
-    cancelEdit() {
-      this.$router.go(-1);
+    created() {
+      this.getCounties();
+      this.getPostOffices();
     }
-  },
-  created() {
-    this.getCounties();
-    this.getPostOffices();
-  }
-};
+  };
 </script>

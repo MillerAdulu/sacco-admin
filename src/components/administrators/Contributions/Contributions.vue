@@ -29,22 +29,22 @@
           <td>{{ props.item.createdAt }}</td>
           <td>
             <Can I="read" a="Member">
-            <router-link :to='{name: `Member`, params: {
+              <router-link :to='{name: `Member`, params: {
             memberId: props.item.memberContributionId}
             }'>
-              <v-icon>
-                list
-              </v-icon>
-            </router-link>
+                <v-icon>
+                  list
+                </v-icon>
+              </router-link>
             </Can>
             <Can I="update" a="Member">
-            <router-link :to='{name: `MemberUpdate`, params: {
+              <router-link :to='{name: `MemberUpdate`, params: {
             memberId: props.item.memberContributionId
             }}'>
-              <v-icon>
-                edit
-              </v-icon>
-            </router-link>
+                <v-icon>
+                  edit
+                </v-icon>
+              </router-link>
             </Can>
           </td>
         </template>
@@ -56,73 +56,73 @@
 </template>
 
 <script>
-import HTTP from "../../../config";
-import queryString from "querystring";
+  import HTTP from "../../../api";
+  import queryString from "querystring";
 
-export default {
-  name: `Contributions`,
-  data() {
-    return {
-      search: "",
-      dataLoading: false,
-      headers: [
-        {
-          text: `Member`,
-          value: `member.lastName`
-        },
-        {
-          text: `Payment Method`,
-          value: `paymentMethod.paymentMethod`
-        },
-        {
-          text: `Contribution Amount`,
-          value: `contributionAmount`
-        },
-        {
-          text: `Date`,
-          value: `createdAt`
-        }
-      ],
-      contributions: []
-    };
-  },
-  methods: {
-    fetchAccountData() {
-      if (this.$can(`read`, `MemberContribution`)) {
-        this.startLoading();
+  export default {
+    name: `Contributions`,
+    data() {
+      return {
+        search: "",
+        dataLoading: false,
+        headers: [
+          {
+            text: `Member`,
+            value: `member.lastName`
+          },
+          {
+            text: `Payment Method`,
+            value: `paymentMethod.paymentMethod`
+          },
+          {
+            text: `Contribution Amount`,
+            value: `contributionAmount`
+          },
+          {
+            text: `Date`,
+            value: `createdAt`
+          }
+        ],
+        contributions: []
+      };
+    },
+    methods: {
+      fetchAccountData() {
+        if (this.$can(`read`, `MemberContribution`)) {
+          this.startLoading();
 
-        HTTP.get(`membercontributions`)
-          .then(response => {
-            this.contributions = response.data;
-            this.stopLoading();
-          })
-          .catch(error => {
-            this.$store.commit(`setSnackbar`, {
-              msg: `Unable to fetch member contributions at this time`,
-              type: `error`,
-              model: true
+          HTTP.get(`membercontributions`)
+            .then(response => {
+              this.contributions = response.data;
+              this.stopLoading();
+            })
+            .catch(error => {
+              this.$store.commit(`setSnackbar`, {
+                msg: `Unable to fetch member contributions at this time`,
+                type: `error`,
+                model: true
+              });
+
+              this.stopLoading();
             });
-
-            this.stopLoading();
+        } else {
+          this.$store.commit(`setSnackbar`, {
+            msg: `You don't have permissions to view contributions`,
+            type: `error`,
+            model: true
           });
-      } else {
-        this.$store.commit(`setSnackbar`, {
-          msg: `You don't have permissions to view contributions`,
-          type: `error`,
-          model: true
-        });
+        }
+      },
+      startLoading() {
+        this.dataLoading = true;
+      },
+      stopLoading() {
+        this.dataLoading = false;
       }
     },
-    startLoading() {
-      this.dataLoading = true;
-    },
-    stopLoading() {
-      this.dataLoading = false;
+    created() {
+      this.fetchAccountData();
     }
-  },
-  created() {
-    this.fetchAccountData();
-  }
-};
+  };
 </script>
 

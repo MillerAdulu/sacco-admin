@@ -1,6 +1,7 @@
 <template>
   <v-container>
     <v-layout row>
+
       <v-flex xs4>
         <v-card>
           <v-card-title>
@@ -13,6 +14,7 @@
           </v-card-text>
         </v-card>
       </v-flex>
+
       <v-flex xs4>
         <v-card>
           <v-card-title>
@@ -25,6 +27,7 @@
           </v-card-text>
         </v-card>
       </v-flex>
+
       <v-flex xs4>
         <v-card>
           <v-card-title>
@@ -37,13 +40,16 @@
           </v-card-text>
         </v-card>
       </v-flex>
+
     </v-layout>
+
     <base-snackbar />
+
   </v-container>
 </template>
 
 <script>
-import HTTP from "../../config";
+import HTTP from "../../api";
 export default {
   name: `Dashboard`,
   data() {

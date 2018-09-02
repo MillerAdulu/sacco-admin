@@ -2,8 +2,6 @@ import 'vuetify/dist/vuetify.min.css'
 import 'material-design-icons-iconfont/dist/material-design-icons.css'
 
 import bugsnag from 'bugsnag-js'
-const bugsnagClient = bugsnag('36dce60f50c734a61194e09802756103')
-
 import Vue from 'vue'
 import bugsnagVue from 'bugsnag-vue'
 import Vuetify from 'vuetify'
@@ -17,6 +15,7 @@ import store from './store'
 import ability from './casl/ability'
 import BaseSnackBar from './components/authentication/components/BaseSnackbar'
 
+const bugsnagClient = bugsnag('36dce60f50c734a61194e09802756103')
 bugsnagClient.use(bugsnagVue(Vue))
 Vue.component('base-snackbar', BaseSnackBar)
 Vue.component('Can', Can)

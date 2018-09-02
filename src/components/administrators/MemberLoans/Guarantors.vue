@@ -37,7 +37,7 @@
 </template>
 
 <script>
-  import HTTP from '../../../config'
+  import HTTP from '../../../api'
 
   export default {
     name: `Guarantors`,

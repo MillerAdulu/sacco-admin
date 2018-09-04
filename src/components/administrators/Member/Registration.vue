@@ -8,7 +8,9 @@
       <v-divider/>
       <v-stepper-step :complete="e1 > 3" step="3">Payment Details</v-stepper-step>
       <v-divider/>
-      <v-stepper-step step="4">Nominees</v-stepper-step>
+      <v-stepper-step :complete="e1 > 4" step="4">Passport Photo</v-stepper-step>
+      <v-divider/>
+      <v-stepper-step step="5">Nominees</v-stepper-step>
     </v-stepper-header>
     <v-stepper-items>
       <v-stepper-content step="1">
@@ -42,7 +44,20 @@
           Continue
         </v-btn>
       </v-stepper-content>
+
       <v-stepper-content step="4">
+
+        <UploadPassportPhoto />
+
+        <v-btn
+            color="primary"
+            @click="next(5)"
+            :disabled="this.$store.getters.stepperContinueEnabled">
+          Continue
+        </v-btn>
+      </v-stepper-content>
+
+      <v-stepper-content step="5">
 
         <NomineeDetailsCapture />
 
@@ -72,6 +87,7 @@
   import AddressDetailsCapture from '@/components/administrators/AddressDetails/AddressDetailsCapture'
   import PaymentDetailsCapture from '@/components/administrators/PaymentDetails/PaymentDetailsCapture'
   import NomineeDetailsCapture from '@/components/administrators/Nominees/NomineeDetailsCapture'
+  import UploadPassportPhoto from '@/components/administrators/Member/UploadPassportPhoto'
 
   export default {
     data() {
@@ -88,6 +104,7 @@
       AddressDetailsCapture,
       PaymentDetailsCapture,
       NomineeDetailsCapture,
+      UploadPassportPhoto
     },
     methods: {
       next(next) {

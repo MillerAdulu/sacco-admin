@@ -193,7 +193,7 @@
           phoneNumber: `required|numeric|min:9`,
           proposedMonthlyContribution: `required|numeric`,
           email: `email`,
-          kraPin: `min:5`
+          kraPin: `min:5`,
         },
         btnLoading: false,
         btnRegisterDisabled: false

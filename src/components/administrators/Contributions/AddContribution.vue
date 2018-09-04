@@ -72,7 +72,8 @@
               comment: this.comment
             })
           )
-            .then(response => {
+            .then(response => {                                                   
+              console.log(response.data)
               this.$store.commit("snackbar", {
                 msg: `Contribution added successfully`,
                 type: `success`,

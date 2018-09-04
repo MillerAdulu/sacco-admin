@@ -62,13 +62,13 @@ export default {
         rowsPerPage: 4
       },
       memberloans: [],
-      member: JSON.parse(localStorage.getItem("loggedInUser"))
+      loggedInUser: JSON.parse(localStorage.getItem("loggedInUser"))
     };
   },
   methods: {
     fetchLoans() {
       if (this.$can(`read`, `MemberLoan`)) {
-        HTTP.get(`loans/member/${this.member.memberId}`)
+        HTTP.get(`loans/member/${this.loggedInUser.member.memberId}`)
           .then(response => {
             this.memberloans = response.data;
           })

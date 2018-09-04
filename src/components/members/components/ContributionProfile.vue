@@ -52,7 +52,7 @@ export default {
   data() {
     return {
       moment,
-      member: JSON.parse(localStorage.getItem("loggedInUser")),
+      loggedInUser: JSON.parse(localStorage.getItem("loggedInUser")),
       contributions: [],
       rowsPerPageItems: [4, 8, 12],
       pagination: {
@@ -63,7 +63,7 @@ export default {
   methods: {
     fetchContributions() {
       if (this.$can(`read`, `MemberContribution`)) {
-        HTTP.get(`membercontributions/members/${this.member.memberId}`)
+        HTTP.get(`membercontributions/members/${this.loggedInUser.member.memberId}`)
           .then(response => {
             this.contributions = response.data;
           })

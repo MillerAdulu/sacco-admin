@@ -1,10 +1,47 @@
 <template>
-  <v-app>
-    <div class="headline text-xs-center pa-1">
+  <v-card height="200px" flat>
+    <div class="text-xs-center pa-0">
       <v-layout>
         <v-flex xs8>Your {{ bottomNav }}</v-flex>
         <v-flex xs-4>
           <v-btn @click="logOut">Log Out</v-btn>
+          <v-dialog
+      v-model="dialog"
+      width="500"
+    >
+      <v-btn
+        slot="activator"
+      >
+        Add Deposit
+      </v-btn>
+
+      <v-card>
+        <v-card-title
+          class="headline grey lighten-2"
+          primary-title
+        >
+          Add Deposit
+        </v-card-title>
+
+        <v-card-text>
+          This will allow you to add a deposit via mpesa <br>
+          <v-text-field v-model="depositAmount" />
+        </v-card-text>
+
+        <v-divider></v-divider>
+
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn
+            color="primary"
+            flat
+            @click="addDeposit"
+          >
+            Add
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
           </v-flex>
       </v-layout>
         <v-fade-transition appear>
@@ -15,8 +52,9 @@
     <v-bottom-nav
       :active.sync="bottomNav"
       :value="true"
-      color="filled"
-      fixed      
+      fixed
+      color="black"
+      app 
     >
       <v-btn
         color="teal"
@@ -34,7 +72,7 @@
         value="contributions"
         :to="{name: `ContributionProfile`}"
       >
-        <span>Contributions</span>
+        <span>Deposits</span>
         <v-icon>monetization_on</v-icon>
       </v-btn>
 
@@ -64,31 +102,61 @@
           paymentdetails: paymentDetails
         }}"
       >
-        <span>Payment Details</span>
+        <span>Payment Info</span>
         <v-icon>account_balance_wallet</v-icon>
       </v-btn>
     </v-bottom-nav>
     <base-snackbar />
-  </v-app>
+  </v-card>
 </template>
 
 <script>
 import HTTP from "../../api";
+import queryString from "querystring";
 
 export default {
   name: `MemberArea`,
   data() {
     return {
       bottomNav: "Dashboard",
-      member: JSON.parse(localStorage.getItem("loggedInUser")),
+      loggedInUser: JSON.parse(localStorage.getItem("loggedInUser")),
       addresses: [],
-      paymentDetails: []
+      paymentDetails: [],
+      dialog: false,
+      depositAmount: null,
     };
   },
   methods: {
+    addDeposit() {
+      let data = {
+        contribution_amount: this.depositAmount,
+        phone_number: this.loggedInUser.phoneNumber,
+        member_id: this.loggedInUser.member.memberId
+      };
+
+      HTTP.post(
+        `membercontributions/account/lipanampesa`,
+        queryString.stringify(data)
+      )
+        .then(response => {
+          this.$store.commit(`setSnackbar`, {
+            msg: `Please wait to confirm your payment`,
+            type: `success`,
+            model: true
+          });
+        })
+        .catch(error => {
+          this.$store.commit(`setSnackbar`, {
+            msg: `Unable to add contributions at this time`,
+            type: `error`,
+            model: true
+          });
+        });
+      this.dialog = false;
+    },
     fetchAddresses() {
       if (this.$can(`read`, `AddressDetails`)) {
-        HTTP.get(`/addressdetails/members/${this.member.memberId}`)
+        HTTP.get(`/addressdetails/members/${this.loggedInUser.member.memberId}`)
           .then(response => {
             this.addresses = response.data;
           })
@@ -109,7 +177,7 @@ export default {
     },
     fetchPaymentDetails() {
       if (this.$can(`read`, `PaymentDetails`)) {
-        HTTP.get(`/paymentdetails/members/${this.member.memberId}`)
+        HTTP.get(`/paymentdetails/members/${this.loggedInUser.member.memberId}`)
           .then(response => {
             this.paymentDetails = response.data;
           })
@@ -128,6 +196,27 @@ export default {
         });
       }
     },
+    fetchMemberData() {
+      if (this.$can(`read`, `Member`)) {
+        HTTP.get(`/members/${this.loggedInUser.member.memberId}`)
+          .then(response => {
+            this.member = response.data;
+          })
+          .catch(error => {
+            this.$store.commit(`setSnackbar`, {
+              msg: `Unable to load your details at this time`,
+              type: `error`,
+              model: true
+            });
+          });
+      } else {
+        this.$store.commit(`setSnackbar`, {
+          msg: `You don't have permissions to view member details`,
+          type: `error`,
+          model: true
+        });
+      }
+    },
     logOut() {
       localStorage.removeItem("loggedInUser");
       this.$router.push(`/`);
@@ -136,6 +225,7 @@ export default {
   created() {
     this.fetchAddresses();
     this.fetchPaymentDetails();
+    this.fetchMemberData();
   }
 };
 </script>

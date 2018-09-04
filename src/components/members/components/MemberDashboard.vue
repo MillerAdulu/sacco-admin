@@ -1,9 +1,9 @@
 <template>
   <v-card>
     <v-img
-    src="https://cdn.vuetifyjs.com/images/cards/desert.jpg"
+    :src="loggedInMember.member.passportPhoto"
     />
-    <v-card-title>Welcome back, {{ member.lastName }}</v-card-title>
+    <v-card-title>Welcome back, {{ loggedInMember.member.lastName }}</v-card-title>
     <v-card-text>
       <v-layout row>
         <v-flex xs8>
@@ -13,7 +13,7 @@
         </v-flex>
         <v-flex xs4>
           <p class="text-xs-right">
-            {{ member.memberId }}
+            {{ loggedInMember.member.memberId }}
           </p>
         </v-flex>
       </v-layout>
@@ -25,7 +25,7 @@
         </v-flex>
         <v-flex xs4>
           <p>
-            {{ member.phoneNumber }}
+            {{ loggedInMember.phoneNumber }}
           </p>
         </v-flex>
       </v-layout>
@@ -84,7 +84,7 @@ export default {
   methods: {
     fetchMemberData() {
       if (this.$can(`read`, `Member`)) {
-        HTTP.get(`members/${this.loggedInMember.memberId}`)
+        HTTP.get(`members/${this.loggedInMember.member.memberId}`)
           .then(response => {
             this.member = response.data;
           })

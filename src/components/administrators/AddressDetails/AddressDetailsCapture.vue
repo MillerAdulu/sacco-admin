@@ -273,7 +273,7 @@
               this.clearAddress();
               this.stopLoading()
             })
-            .then(error => {
+            .catch(error => {
               this.$store.commit(`setSnackbar`, {
                 msg: `Unable to add addresses at this time`,
                 type: `error`,

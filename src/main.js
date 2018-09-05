@@ -1,5 +1,6 @@
 import 'vuetify/dist/vuetify.min.css'
 import 'material-design-icons-iconfont/dist/material-design-icons.css'
+import colors from 'vuetify/es5/util/colors'
 
 import bugsnag from 'bugsnag-js'
 import Vue from 'vue'
@@ -22,7 +23,18 @@ Vue.component('Can', Can)
 
 Vue.config.productionTip = false
 
-Vue.use(Vuetify)
+Vue.use(Vuetify, {
+  theme: {
+    primary: colors.indigo.base,
+    secondary: colors.indigo.lighten2,
+    accent: colors.indigo.base,
+    error: colors.red.base,
+    warning: colors.yellow.base,
+    info: colors.blue.base,
+    success: colors.green.base
+  }
+})
+
 Vue.use(VeeValidate)
 Vue.use(Laue)
 Vue.use(abilitiesPlugin, ability)

@@ -19,6 +19,7 @@
 
       <base-btn
         :disabled="!value"
+        :loading="isLoading"
         prominent
         @click="$emit('next')"
       >
@@ -30,15 +31,22 @@
 
 <script>
   import ProxyValue from '@/components/authentication/mixins/proxy-value'
+  import { mapState } from 'vuex'
 
   import BaseBtn from '@/components/authentication/components/BaseBtn'
   import BaseLink from '@/components/authentication/components/BaseLink'
 
   export default {
+    computed: {
+      ...mapState(['isLoading'])
+    },
     mixins: [ProxyValue],
     components: {
       BaseBtn,
       BaseLink,
+    },
+    methods: {
+
     }
   }
 </script>

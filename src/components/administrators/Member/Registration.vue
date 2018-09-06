@@ -111,6 +111,9 @@
         this.e1 = next
         this.$store.commit('setStepperStatus', true)
       }
+    },
+    onCreated() {
+      this.$store.commit("setStepperStatus", true)
     }
   };
 </script>

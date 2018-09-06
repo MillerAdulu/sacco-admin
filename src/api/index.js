@@ -9,12 +9,16 @@ let backoff = new ExponentialBackoff({
   jitter: 0
 })
 
+const authHeader = {
+  'Authorization': `Bearer ${localStorage.getItem('loggedInUser') ? JSON.parse(localStorage.getItem('loggedInUser')).token : null}`,
+}
+
 const HTTP = axios.create({
-  baseURL: `${ process.env.VUE_APP_API_URL }`,
+  baseURL: `${process.env.VUE_APP_API_URL}`,
   headers: {
     'Content-Type': 'application/x-www-form-urlencoded',
     'Accept': 'application/json',
-    'Authorization' : `Bearer ${ localStorage.getItem('loggedInUser') ? JSON.parse(localStorage.getItem('loggedInUser')).token : null }`,
+    ...authHeader
   }
 })
 
@@ -26,3 +30,7 @@ axiosRetry(HTTP, {
 })
 
 export default HTTP
+
+export {
+  authHeader
+}

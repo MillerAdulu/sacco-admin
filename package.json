@@ -25,8 +25,8 @@
     "simple-backoff": "^1.1.0",
     "vee-validate": "^2.1.0-beta.6",
     "vue": "^2.5.16",
-    "vue-picture-input": "^2.1.6",
     "vue-router": "^3.0.1",
+    "vue2-dropzone": "^3.5.2",
     "vuetify": "^1.2.*",
     "vuex": "^3.0.1"
   },

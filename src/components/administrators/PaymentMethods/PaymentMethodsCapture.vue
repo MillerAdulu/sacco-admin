@@ -58,7 +58,7 @@ import Parsers from "../../../helpers/parsers";
 import queryString from "querystring";
 
 export default {
-  name: `PaymentDetailsCapture`,
+  name: `PaymentMethodsCaputure`,
   data() {
     return {
       success: ``,

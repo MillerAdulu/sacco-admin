@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <v-card>
-      <v-card-title>All Contributions
+      <v-card-title>All Deposits
         <v-spacer />
         <v-text-field
             v-model="search"
@@ -16,8 +16,8 @@
           :rows-per-page-items="[20, 30, 40]"
           :headers="headers"
           :search="search"
-          item-key="memberContributionId"
-          :items="contributions"
+          item-key="memberDepositId"
+          :items="deposits"
       >
 
         <v-progress-linear slot="progress" color="blue" indeterminate />
@@ -30,7 +30,7 @@
           <td>
             <Can I="read" a="Member">
               <router-link :to='{name: `Member`, params: {
-            memberId: props.item.memberContributionId}
+            memberId: props.item.memberDepositId}
             }'>
                 <v-icon>
                   list
@@ -39,7 +39,7 @@
             </Can>
             <Can I="update" a="Member">
               <router-link :to='{name: `MemberUpdate`, params: {
-            memberId: props.item.memberContributionId
+            memberId: props.item.memberDepositId
             }}'>
                 <v-icon>
                   edit
@@ -60,7 +60,7 @@
   import queryString from "querystring";
 
   export default {
-    name: `Contributions`,
+    name: `Deposits`,
     data() {
       return {
         search: "",
@@ -75,30 +75,30 @@
             value: `paymentMethod.paymentMethod`
           },
           {
-            text: `Contribution Amount`,
-            value: `contributionAmount`
+            text: `Deposit Amount`,
+            value: `depositAmount`
           },
           {
             text: `Date`,
             value: `createdAt`
           }
         ],
-        contributions: []
+        deposits: []
       };
     },
     methods: {
       fetchAccountData() {
-        if (this.$can(`read`, `MemberContribution`)) {
+        if (this.$can(`read`, `MemberDeposit`)) {
           this.startLoading();
 
-          HTTP.get(`membercontributions`)
+          HTTP.get(`memberdeposits`)
             .then(response => {
-              this.contributions = response.data;
+              this.deposits = response.data;
               this.stopLoading();
             })
             .catch(error => {
               this.$store.commit(`setSnackbar`, {
-                msg: `Unable to fetch member contributions at this time`,
+                msg: `Unable to fetch member deposits at this time`,
                 type: `error`,
                 model: true
               });
@@ -107,7 +107,7 @@
             });
         } else {
           this.$store.commit(`setSnackbar`, {
-            msg: `You don't have permissions to view contributions`,
+            msg: `You don't have permissions to view deposits`,
             type: `error`,
             model: true
           });

@@ -93,11 +93,11 @@
       <v-flex xs4 mx-2>
         <v-text-field
             required
-            data-vv-name="proposedMonthlyContribution"
-            label="Proposed Monthly Contribution"
-            :error-messages="errors.collect('proposedMonthlyContribution')"
-            v-validate="validations.proposedMonthlyContribution"
-            v-model="proposedMonthlyContribution"
+            data-vv-name="proposedMonthlyDeposit"
+            label="Proposed Monthly Deposit"
+            :error-messages="errors.collect('proposedMonthlyDeposit')"
+            v-validate="validations.proposedMonthlyDeposit"
+            v-model="proposedMonthlyDeposit"
             prepend-icon="attach_money" />
       </v-flex>
     </v-layout>
@@ -152,7 +152,7 @@
         lastName: "last name",
         otherName: "other name",
         phoneNumber: "phone number",
-        proposedMonthlyContribution: "proposed monthly contribution",
+        proposedMonthlyDeposit: "proposed monthly Deposit",
         kraPin: "KRA pin"
       }
     }
@@ -176,7 +176,7 @@
         lastName: "",
         otherName: "",
         phoneNumber: "",
-        proposedMonthlyContribution: "",
+        proposedMonthlyDeposit: "",
         email: "",
         kraPin: ``,
         maritalStatus: ``,
@@ -191,7 +191,7 @@
           lastName: `required|alpha|min:3`,
           otherName: `alpha|min:3`,
           phoneNumber: `required|numeric|min:9`,
-          proposedMonthlyContribution: `required|numeric`,
+          proposedMonthlyDeposit: `required|numeric`,
           email: `email`,
           kraPin: `min:5`,
         },
@@ -225,7 +225,7 @@
             last_name: this.lastName,
             other_name: this.otherName,
             phone_number: this.phoneNumber,
-            proposed_monthly_contribution: this.proposedMonthlyContribution,
+            proposed_monthly_deposit: this.proposedMonthlyDeposit,
             email: this.email,
             kra_pin: this.kraPin,
             marital_status_id: this.maritalStatus,
@@ -271,7 +271,7 @@
         this.otherName = ``;
         this.phoneNumber = ``;
         this.email = ``;
-        this.proposedMonthlyContribution = ``;
+        this.proposedMonthlyDeposit = ``;
         this.maritalStatus = ``;
         this.gender = ``;
         this.kraPin = ``;

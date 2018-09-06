@@ -7,23 +7,23 @@ import Registration from '@/components/administrators/Member/Registration'
 import MemberList from '@/components/administrators/Member/List'
 import Member from '@/components/administrators/Member/Member'
 import MemberUpdate from '@/components/administrators/Member/Update'
-import PaymentDetailsCapture from '@/components/administrators/PaymentDetails/PaymentDetailsCapture'
+import PaymentMethodsCapture from '@/components/administrators/PaymentMethods/PaymentMethodsCapture'
 import NomineeDetailsCapture from '@/components/administrators/Nominees/NomineeDetailsCapture'
 import AddressDetailsCapture from '@/components/administrators/AddressDetails/AddressDetailsCapture'
-import Contributions from '@/components/administrators/Contributions/Contributions'
-import AddContribution from '@/components/administrators/Contributions/AddContribution'
-import MemberAccounts from '@/components/administrators/Contributions/Accounts'
+import Deposits from '@/components/administrators/Deposits/Deposits'
+import AddDeposit from '@/components/administrators/Deposits/AddDeposit'
+import MemberAccounts from '@/components/administrators/Deposits/Accounts'
 import MemberLoans from '@/components/administrators/MemberLoans/List'
 import LoanDetails from '@/components/administrators/MemberLoans/Loan'
 import Addresses from '@/components/administrators/AddressDetails/Address'
 import EditAddress from '@/components/administrators/AddressDetails/EditAddress'
-import PaymentDetails from '@/components/administrators/PaymentDetails/PaymentDetails'
+import PaymentMethods from '@/components/administrators/PaymentMethods/PaymentMethods'
 import UploadPassportPhoto from '@/components/administrators/Member/UploadPassportPhoto'
 
 import Administrator from '@/components/administrators/Administrator'
 import MemberArea from '@/components/members/MemberArea'
 
-import ContributionProfile from '@/components/members/components/ContributionProfile'
+import DepositProfile from '@/components/members/components/DepositProfile'
 import LoanProfile from '@/components/members/components/LoanProfile'
 
 import Auth from '@/components/authentication/views/Auth'
@@ -65,8 +65,8 @@ const router = new Router({
         },
         {
           path: `addpay`,
-          name: `PaymentDetailsCapture`,
-          component: PaymentDetailsCapture,
+          name: `PaymentMethodsCapture`,
+          component: PaymentMethodsCapture,
         },
         {
           path: `addnominee`,
@@ -74,14 +74,14 @@ const router = new Router({
           component: NomineeDetailsCapture,
         },
         {
-          path: `membercontributions`,
-          name: `Contributions`,
-          component: Contributions,
+          path: `memberdeposits`,
+          name: `Deposits`,
+          component: Deposits,
         },
         {
-          path: `addcontribution`,
-          name: `AddContribution`,
-          component: AddContribution,
+          path: `adddeposit`,
+          name: `AddDeposit`,
+          component: AddDeposit,
         },
         {
           path: `memberaccounts`,
@@ -123,9 +123,9 @@ const router = new Router({
           component: MemberDashboard,
         },
         {
-          path: `contributions`,
-          name: `ContributionProfile`,
-          component: ContributionProfile,
+          path: `deposits`,
+          name: `DepositProfile`,
+          component: DepositProfile,
         },
         {
           path: `loans`,
@@ -140,8 +140,8 @@ const router = new Router({
         },
         {
           path: `paymentdetails`,
-          name: `PaymentDetailsProfile`,
-          component: PaymentDetails,
+          name: `PaymentMethodsProfile`,
+          component: PaymentMethods,
           props: true
         }
       ],

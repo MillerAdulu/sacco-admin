@@ -15,7 +15,7 @@
         lg3
       >
   <v-card>
-    <v-card-title><h5>Contribution ID: {{ props.item.memberContributionId }}</h5></v-card-title>
+    <v-card-title><h5>Deposit ID: {{ props.item.memberDepositId }}</h5></v-card-title>
     <v-divider />
     <v-list dense>
       <v-list-tile>
@@ -23,11 +23,11 @@
         <v-list-tile-content class="align-end">{{ props.item.paymentMethod.paymentMethod }}</v-list-tile-content>
       </v-list-tile>
       <v-list-tile>
-        <v-list-tile-content>Contribution Amount:</v-list-tile-content>
+        <v-list-tile-content>Deposit Amount:</v-list-tile-content>
         <v-list-tile-content class="align-end">{{ props.item.contributionAmount }}</v-list-tile-content>
       </v-list-tile>
       <v-list-tile>
-        <v-list-tile-content>Contribution Amount:</v-list-tile-content>
+        <v-list-tile-content>Deposit Amount:</v-list-tile-content>
         <v-list-tile-content class="align-end">{{ moment(props.item.createdAt).format('MMMM Do YYYY') }}</v-list-tile-content>
       </v-list-tile>
       <v-list-tile v-if="props.item.comment">
@@ -47,7 +47,7 @@ import moment from "moment";
 import HTTP from "../../../api";
 
 export default {
-  name: `ContributionProfile`,
+  name: `DepositProfile`,
 
   data() {
     return {
@@ -61,8 +61,8 @@ export default {
     };
   },
   methods: {
-    fetchContributions() {
-      if (this.$can(`read`, `MemberContribution`)) {
+    fetchDeposits() {
+      if (this.$can(`read`, `MemberDeposit`)) {
         HTTP.get(`membercontributions/members/${this.loggedInUser.member.memberId}`)
           .then(response => {
             this.contributions = response.data;
@@ -85,7 +85,7 @@ export default {
   },
 
   created() {
-    this.fetchContributions();
+    this.fetchDeposits();
   }
 };
 </script>

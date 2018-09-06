@@ -128,13 +128,13 @@ export default {
             },
             {
               action: "assignment_turned_in",
-              title: "Member Contributions",
-              routerName: "Contributions"
+              title: "Member Deposits",
+              routerName: "Deposits"
             },
             {
               action: "add_circle",
-              title: "Add Contribution",
-              routerName: "AddContribution"
+              title: "Add Deposit",
+              routerName: "AddDeposit"
             }
           ]
         },

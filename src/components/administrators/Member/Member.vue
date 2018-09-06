@@ -35,10 +35,10 @@
               <Addresses :addresses="addressdetails" />
             </v-tab-item>
             <v-tab-item>
-              <PaymentDetails :paymentdetails="paymentdetails" />
+              <PaymentMethods :paymentmethods="paymentmethods" />
             </v-tab-item>
             <v-tab-item>
-              <Contributions :contributions="contributions" />
+              <Deposits :deposits="deposits" />
             </v-tab-item>
             <v-tab-item>
               <MemberLoans :memberLoans="loans" />
@@ -58,9 +58,9 @@
   import HTTP from "../../../api";
 
   import Addresses from "@/components/administrators/AddressDetails/Address";
-  import PaymentDetails from "@/components/administrators/PaymentDetails/PaymentDetails";
+  import PaymentMethods from "@/components/administrators/PaymentMethods/PaymentMethods";
   import ShowNominees from "@/components/administrators/Nominees/ShowNominees";
-  import Contributions from "@/components/administrators/Contributions/MemberContributions";
+  import Deposits from "@/components/administrators/Deposits/MemberDeposits";
   import MemberLoans from "@/components/administrators/MemberLoans/MemberLoans";
 
   export default {
@@ -69,16 +69,16 @@
         memberId: this.$route.params.memberId,
         member: {},
         addressdetails: [],
-        paymentdetails: [],
-        contributions: [],
+        paymentmethods: [],
+        deposits: [],
         loans: [],
         nominees: [],
         activeTab: null,
         tabs: [
           `Address(es)`,
-          `Payment Details`,
-          `Contribution History`,
-          `Loan History`,
+          `Payment Methods`,
+          `Deposits`,
+          `Loans`,
           `Nominees`
         ],
         apiErrors: []
@@ -86,9 +86,9 @@
     },
     components: {
       Addresses,
-      PaymentDetails,
+      PaymentMethods,
       ShowNominees,
-      Contributions,
+      Deposits,
       MemberLoans
     },
     methods: {
@@ -134,22 +134,22 @@
           });
         }
       },
-      fetchPaymentDetails() {
-        if (this.$can(`read`, `PaymentDetails`)) {
-          HTTP.get(`/paymentdetails/members/${this.memberId}`)
+      fetchPaymentMethods() {
+        if (this.$can(`read`, `PaymentMethods`)) {
+          HTTP.get(`/paymentmethods/members/${this.memberId}`)
             .then(response => {
-              this.paymentdetails = response.data;
+              this.paymentmethods = response.data;
             })
             .catch(error => {
               this.$store.commit(`setSnackbar`, {
-                msg: `Unable to load this member's payment details at this time`,
+                msg: `Unable to load this member's payment methods at this time`,
                 type: `error`,
                 model: true
               });
             });
         } else {
           this.$store.commit(`setSnackbar`, {
-            msg: `You don't have permissions to view payment details`,
+            msg: `You don't have permissions to view payment methods`,
             type: `error`,
             model: true
           });
@@ -176,22 +176,22 @@
           });
         }
       },
-      fetchContributions() {
-        if (this.$can(`read`, `MemberContribution`)) {
-          HTTP.get(`/membercontributions/members/${this.memberId}`)
+      fetchDeposits() {
+        if (this.$can(`read`, `MemberDeposit`)) {
+          HTTP.get(`/memberdeposits/members/${this.memberId}`)
             .then(response => {
-              this.contributions = response.data;
+              this.deposits = response.data;
             })
             .catch(error => {
               this.$store.commit(`setSnackbar`, {
-                msg: `Unable to load this member's contributions at this time`,
+                msg: `Unable to load this member's deposits at this time`,
                 type: `error`,
                 model: true
               });
             });
         } else {
           this.$store.commit(`setSnackbar`, {
-            msg: `You don't have permissions to view member contributions`,
+            msg: `You don't have permissions to view member deposits`,
             type: `error`,
             model: true
           });
@@ -222,9 +222,9 @@
     created() {
       this.fetchMember();
       this.fetchAddressDetails();
-      this.fetchPaymentDetails();
+      this.fetchPaymentMethods();
       this.fetchNominees();
-      this.fetchContributions();
+      this.fetchDeposits();
       this.fetchLoans();
     }
   };

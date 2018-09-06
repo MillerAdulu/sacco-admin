@@ -69,8 +69,8 @@
       <v-btn
         color="teal"
         flat
-        value="contributions"
-        :to="{name: `ContributionProfile`}"
+        value="deposits"
+        :to="{name: `DepositProfile`}"
       >
         <span>Deposits</span>
         <v-icon>monetization_on</v-icon>
@@ -98,8 +98,8 @@
         color="teal"
         flat
         value="payment details"
-        :to="{name: `PaymentDetailsProfile`, params: {
-          paymentdetails: paymentDetails
+        :to="{name: `PaymentMethodsProfile`, params: {
+          paymentdetails: paymentMethods
         }}"
       >
         <span>Payment Info</span>
@@ -121,7 +121,7 @@ export default {
       bottomNav: "Dashboard",
       loggedInUser: JSON.parse(localStorage.getItem("loggedInUser")),
       addresses: [],
-      paymentDetails: [],
+      paymentMethods: [],
       dialog: false,
       depositAmount: null,
     };
@@ -129,13 +129,13 @@ export default {
   methods: {
     addDeposit() {
       let data = {
-        contribution_amount: this.depositAmount,
+        deposit_amount: this.depositAmount,
         phone_number: this.loggedInUser.phoneNumber,
         member_id: this.loggedInUser.member.memberId
       };
 
       HTTP.post(
-        `membercontributions/account/lipanampesa`,
+        `memberdeposits/account/lipanampesa`,
         queryString.stringify(data)
       )
         .then(response => {
@@ -147,7 +147,7 @@ export default {
         })
         .catch(error => {
           this.$store.commit(`setSnackbar`, {
-            msg: `Unable to add contributions at this time`,
+            msg: `Unable to add deposits at this time`,
             type: `error`,
             model: true
           });
@@ -175,11 +175,11 @@ export default {
         });
       }
     },
-    fetchPaymentDetails() {
-      if (this.$can(`read`, `PaymentDetails`)) {
+    fetchPaymentMethods() {
+      if (this.$can(`read`, `PaymentMethods`)) {
         HTTP.get(`/paymentdetails/members/${this.loggedInUser.member.memberId}`)
           .then(response => {
-            this.paymentDetails = response.data;
+            this.paymentMethods = response.data;
           })
           .catch(error => {
             this.$store.commit(`setSnackbar`, {
@@ -224,7 +224,7 @@ export default {
   },
   created() {
     this.fetchAddresses();
-    this.fetchPaymentDetails();
+    this.fetchPaymentMethods();
     this.fetchMemberData();
   }
 };

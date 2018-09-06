@@ -1,6 +1,6 @@
 <template>
   <v-data-iterator
-      :items="paymentdetails"
+      :items="paymentmethods"
       :rows-per-page-items="rowsPerPageItems"
       content-tag="v-layout"
       row
@@ -58,7 +58,7 @@
 
     },
     props: {
-      paymentdetails: Array
+      paymentmethods: Array
     }
   }
 </script>

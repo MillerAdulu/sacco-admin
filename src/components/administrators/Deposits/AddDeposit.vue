@@ -21,8 +21,8 @@
     <v-layout row>
       <v-flex xs6 mx-2>
         <v-text-field
-            label="Member Contribution"
-            v-model="contributionAmount"
+            label="Member Deposit"
+            v-model="depositAmount"
         />
       </v-flex>
       <v-flex xs6 mx-2>
@@ -33,7 +33,7 @@
       </v-flex>
     </v-layout>
     <v-layout>
-      <v-btn block color="success" :loading="btnLoading" @click="addMemberContribution">Add Member Contribution</v-btn>
+      <v-btn block color="success" :loading="btnLoading" @click="addMemberDeposit">Add Member Deposit</v-btn>
     </v-layout>
 
     <base-snackbar />
@@ -49,7 +49,7 @@
     data() {
       return {
         memberId: "",
-        contributionAmount: "",
+        depositAmount: "",
         paymentMethodId: "",
         comment: "",
         btnLoading: false,
@@ -59,15 +59,15 @@
       };
     },
     methods: {
-      addMemberContribution() {
-        if (this.$can(`create`, `MemberContribution`)) {
+      addMemberDeposit() {
+        if (this.$can(`create`, `MemberDeposit`)) {
           this.startLoading();
 
           HTTP.post(
-            `membercontributions`,
+            `memberdeposits`,
             queryString.stringify({
               member_id: this.memberId,
-              contribution_amount: this.contributionAmount,
+              deposit_amount: this.depositAmount,
               payment_method_id: this.paymentMethodId,
               comment: this.comment
             })
@@ -75,7 +75,7 @@
             .then(response => {                                                   
               console.log(response.data)
               this.$store.commit("snackbar", {
-                msg: `Contribution added successfully`,
+                msg: `Deposit added successfully`,
                 type: `success`,
                 model: true
               });
@@ -84,7 +84,7 @@
             })
             .catch(error => {
               this.$store.commit(`setSnackbar`, {
-                msg: `Unable to add this contribution at this moment`,
+                msg: `Unable to add this deposit at this moment`,
                 type: `error`,
                 model: true
               });
@@ -92,7 +92,7 @@
             });
         } else {
           this.$store.commit(`setSnackbar`, {
-            msg: `You don't have permissions to add a contribution`,
+            msg: `You don't have permissions to add a deposit`,
             type: `error`,
             model: true
           });

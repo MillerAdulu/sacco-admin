@@ -1,16 +1,16 @@
 <template>
   <v-data-table
       :headers="headers"
-      :items="contributions"
+      :items="deposits"
       :rows-per-page-items="rowsPerPageItems"
       content-tag="v-layout"
       row
       wrap
   >
     <template slot="items" slot-scope="props">
-      <td>{{ props.item.memberContributionId }}</td>
+      <td>{{ props.item.memberDepositId }}</td>
       <td>{{ props.item.paymentMethod.paymentMethod }}</td>
-      <td>{{ props.item.contributionAmount }}</td>
+      <td>{{ props.item.depositAmount }}</td>
       <td>{{ props.item.comment }}</td>
       <td>{{ moment(props.item.createdAt).format('MMMM Do YYYY, h:mm:ss a') }}</td>
     </template>
@@ -27,16 +27,16 @@
         moment,
         headers: [
           {
-            text: `Contribution ID`,
-            value: `memberContributionId`
+            text: `Deposit ID`,
+            value: `memberDepositId`
           },
           {
             text: `Payment Method`,
             value: `paymentMethod.paymentMethod`
           },
           {
-            text: `Contribution Amount`,
-            value: `contributionAmount`
+            text: `Deposit Amount`,
+            value: `depositAmount`
           },
           {
             text: `Comment`,
@@ -54,9 +54,7 @@
       };
     },
     props: {
-      contributions: Array
-    },
-    methods: {
+      deposits: Array
     }
   };
 </script>

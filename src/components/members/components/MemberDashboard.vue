@@ -32,7 +32,7 @@
       <v-layout row>
         <v-flex xs8>
           <p class="text-xs-left">
-            Contributions this month
+            Deposits this month
           </p>
         </v-flex>
         <v-flex xs4>
@@ -44,7 +44,7 @@
       <v-layout row>
         <v-flex xs8>
           <p class="text-xs-left">
-            Total Contributions
+            Total Deposits
           </p>
         </v-flex>
         <v-flex xs4>

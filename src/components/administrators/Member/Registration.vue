@@ -35,7 +35,7 @@
       </v-stepper-content>
       <v-stepper-content step="3">
 
-        <PaymentDetailsCapture />
+        <PaymentMethodsCapture />
 
         <v-btn
             color="primary"
@@ -85,7 +85,7 @@
 <script>
   import BasicDetailsCapture from '@/components/administrators/Member/BasicDetailsCapture'
   import AddressDetailsCapture from '@/components/administrators/AddressDetails/AddressDetailsCapture'
-  import PaymentDetailsCapture from '@/components/administrators/PaymentDetails/PaymentDetailsCapture'
+  import PaymentMethodsCapture from '@/components/administrators/PaymentMethods/PaymentMethodsCapture'
   import NomineeDetailsCapture from '@/components/administrators/Nominees/NomineeDetailsCapture'
   import UploadPassportPhoto from '@/components/administrators/Member/UploadPassportPhoto'
 
@@ -102,7 +102,7 @@
     components: {
       BasicDetailsCapture,
       AddressDetailsCapture,
-      PaymentDetailsCapture,
+      PaymentMethodsCapture,
       NomineeDetailsCapture,
       UploadPassportPhoto
     },

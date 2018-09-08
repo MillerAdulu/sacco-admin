@@ -5,6 +5,7 @@
         <v-autocomplete
             item-text="paymentMethod"
             item-value="paymentMethodId"
+            label="Payment Method"
             :items="paymentMethods"
             v-model="paymentMethodId"
         />
@@ -15,6 +16,7 @@
             item-value="memberId"
             :items="members"
             v-model="memberId"
+            label="Member ID"
         />
       </v-flex>
     </v-layout>

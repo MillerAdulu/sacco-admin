@@ -3,6 +3,8 @@ import axiosRetry from 'axios-retry'
 import { ExponentialBackoff } from 'simple-backoff'
 require(`dotenv`).config()
 
+import store from '../store'
+
 let backoff = new ExponentialBackoff({
   min: 10,
   factor: 2,
@@ -10,7 +12,7 @@ let backoff = new ExponentialBackoff({
 })
 
 const authHeader = {
-  'Authorization': `Bearer ${localStorage.getItem('loggedInUser') ? JSON.parse(localStorage.getItem('loggedInUser')).token : null}`,
+  'Authorization': `Bearer ${ store.getters.loggedInUser.token }`,
 }
 
 const HTTP = axios.create({

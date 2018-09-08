@@ -18,12 +18,12 @@
       <v-flex xs4>
         <v-card>
           <v-card-title>
-            Total Member Contributions
+            Total Member Deposits
             <v-spacer />
-            <v-btn to="admin/membercontributions">View All</v-btn>
+            <v-btn to="admin/memberdeposits">View All</v-btn>
           </v-card-title>
           <v-card-text>
-            <v-chip>{{ totalContributions }} KES</v-chip>
+            <v-chip>{{ totalDeposits }} KES</v-chip>
           </v-card-text>
         </v-card>
       </v-flex>
@@ -55,7 +55,7 @@ export default {
   data() {
     return {
       totalMembers: null,
-      totalContributions: null,
+      totalDeposits: null,
       totalMemberLoans: null
     };
   },
@@ -81,22 +81,22 @@ export default {
         });
       }
     },
-    fetchContributions() {
-      if (this.$can(`read`, `MemberContribution`)) {
-        HTTP.get(`/dashboard/contributions`)
+    fetchDeposits() {
+      if (this.$can(`read`, `MemberDeposit`)) {
+        HTTP.get(`/dashboard/deposits`)
           .then(response => {
-            this.totalContributions = response.data;
+            this.totalDeposits = response.data;
           })
           .catch(error => {
             this.$store.commit(`setSnackbar`, {
-              msg: `Unable to fetch contributions`,
+              msg: `Unable to fetch deposits`,
               type: `error`,
               model: true
             });
           });
       } else {
         this.$store.commit(`setSnackbar`, {
-          msg: `You don't have permissions to view contributions`,
+          msg: `You don't have permissions to view deposits`,
           type: `error`,
           model: true
         });
@@ -126,7 +126,7 @@ export default {
   },
   mounted() {
     this.fetchMembers();
-    this.fetchContributions();
+    this.fetchDeposits();
     this.fetchMemberLoans();
   }
 };

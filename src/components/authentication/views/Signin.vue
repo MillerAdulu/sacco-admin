@@ -114,7 +114,6 @@ export default {
               model: true
             });
           } else {
-          localStorage.setItem(`loggedInUser`, JSON.stringify(user));
           this.$store.commit(`setLoggedInUser`, response.data);
           this.$store.commit(`setSnackbar`, {
             type: `success`,
@@ -138,11 +137,11 @@ export default {
     },
     checkValidation() {
       if (
-        JSON.parse(localStorage.getItem(`loggedInUser`)) &&
-        JSON.parse(localStorage.getItem(`loggedInUser`)).token
+        this.$store.getters.loggedInUser &&
+        this.$store.getters.loggedInUser.token
       ) {
         this.redirectToDashboard(
-          JSON.parse(localStorage.getItem(`loggedInUser`)).accessLevel
+          this.$store.getters.loggedInUser.accessLevel
         );
       }
     },

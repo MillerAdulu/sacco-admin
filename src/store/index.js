@@ -13,8 +13,8 @@ export default new Vuex.Store({
     administratorLevel: null,
     newMemberRecordKey: null,
     stepperContinueEnabled: true,
-    loggedInUser: null,
-    
+    loggedInUser: {},
+
     isLoading: false,
     isReady: false,
     snackbar: {},
@@ -50,11 +50,20 @@ export default new Vuex.Store({
     setSnackbar: (state, payload) => {
       state.snackbar = payload
     },
-    
+
     setIsReady: set('isReady'),
     setIsLoading: set('isLoading'),
-    setUser: set('user')
-    
+    setUser: set('user'),
+
   },
-  plugins: [createPersistedState()]
+  plugins: [
+    createPersistedState({
+      reducer: state => ({
+        loggedInUser: {
+          accessLevel: state.loggedInUser.accessLevel,
+          token: state.loggedInUser.token
+        }
+      })
+    }),
+  ]
 })

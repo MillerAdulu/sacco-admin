@@ -99,7 +99,7 @@ export default {
       clipped: false,
       drawer: true,
       fixed: false,
-      loggedInState: JSON.parse(localStorage.getItem("loggedInUser")),
+      loggedInState: this.$store.getters.loggedInUser,
       items: [
         {
           action: "account_circle",
@@ -234,7 +234,7 @@ export default {
   },
   methods: {
     logOut() {
-      localStorage.removeItem("loggedInUser");
+      this.$store.commit("setLoggedInUser", {});
       this.$router.push(`/`);
     }
   },

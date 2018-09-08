@@ -67,7 +67,7 @@
     data() {
       return {
         memberId: this.$route.params.memberId,
-        member: {},
+        member: null,
         addressdetails: [],
         paymentmethods: [],
         deposits: [],
@@ -136,7 +136,7 @@
       },
       fetchPaymentMethods() {
         if (this.$can(`read`, `PaymentMethods`)) {
-          HTTP.get(`/paymentmethods/members/${this.memberId}`)
+          HTTP.get(`/paymentdetails/members/${this.memberId}`)
             .then(response => {
               this.paymentmethods = response.data;
             })

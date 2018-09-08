@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
+import store from '../store'
+
 import Dashboard from '@/components/administrators/Dashboard'
 import MemberDashboard from '@/components/members/components/MemberDashboard'
 import Registration from '@/components/administrators/Member/Registration'
@@ -171,7 +173,7 @@ router.beforeEach((to, from, next) => {
   
   if(to.path === `/login`) next()
   
-  if(!JSON.parse(localStorage.getItem('loggedInUser'))) next(`/login`)
+  if(!store.getters.loggedInUser.token) next(`/login`)
   
   next()
   

@@ -25,7 +25,7 @@
         <template slot="items" slot-scope="props">
           <td>{{ props.item.member.lastName }}</td>
           <td>{{ props.item.paymentMethod.paymentMethod }}</td>
-          <td>{{ props.item.contributionAmount }}</td>
+          <td>{{ props.item.depositAmount }}</td>
           <td>{{ props.item.createdAt }}</td>
           <td>
             <Can I="read" a="Member">

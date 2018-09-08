@@ -97,7 +97,7 @@
           
           this.startLoading()
 
-          HTTP.get(`membercontributions/members/accounts/all`)
+          HTTP.get(`memberdeposits/members/accounts/all`)
             .then(response => {
 
               this.accounts = response.data

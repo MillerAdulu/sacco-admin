@@ -152,7 +152,7 @@
         lastName: "last name",
         otherName: "other name",
         phoneNumber: "phone number",
-        proposedMonthlyDeposit: "proposed monthly Deposit",
+        proposedMonthlyDeposit: "proposed monthly deposit",
         kraPin: "KRA pin"
       }
     }

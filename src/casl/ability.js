@@ -2,10 +2,7 @@ import { AbilityBuilder } from '@casl/ability'
 import store from '../store'
 
 export default AbilityBuilder.define(can => {
-  switch (
-  localStorage.getItem('vuex') ? JSON.parse(
-    localStorage.getItem('vuex')
-  ).loggedInUser.accessLevel : '') {
+  switch (store.getters.loggedInUser.accessLevel) {
     case 'MEMBER': {
 
       const memberPermissions = ['read']

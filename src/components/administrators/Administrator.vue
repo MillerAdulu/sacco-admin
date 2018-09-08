@@ -92,156 +92,156 @@
 </template>
 
 <script>
-export default {
-  name: "Administrator",
-  data() {
-    return {
-      clipped: false,
-      drawer: true,
-      fixed: false,
-      loggedInState: this.$store.getters.loggedInUser,
-      items: [
-        {
-          action: "account_circle",
-          title: "Member Management",
-          items: [
-            {
-              action: "list",
-              title: "All Members",
-              routerName: "MemberList"
-            },
-            {
-              action: "add_circle",
-              title: "Register Member",
-              routerName: "Registration"
-            }
-          ]
-        },
-        {
-          action: "account_box",
-          title: "Account Management",
-          items: [
-            {
-              action: "list",
-              title: "Member Accounts",
-              routerName: "MemberAccounts"
-            },
-            {
-              action: "assignment_turned_in",
-              title: "Member Deposits",
-              routerName: "Deposits"
-            },
-            {
-              action: "add_circle",
-              title: "Add Deposit",
-              routerName: "AddDeposit"
-            }
-          ]
-        },
-        {
-          action: "monetization_on",
-          title: "Loan Management",
-          items: [
-            {
-              action: "list",
-              title: "All Loans",
-              routerName: `MemberLoans`
-            },
-            {
-              action: "add_circle",
-              title: "Issue Loan"
-            }
-          ]
-        },
-        {
-          action: "attach_money",
-          title: "Payments",
-          items: [
-            {
-              action: "list",
-              title: "All Payments"
-            },
-            {
-              action: "assignment_turned_in",
-              title: "View Payment Details"
-            },
-            {
-              action: "add_circle",
-              title: "Add Payment"
-            },
-            {
-              action: "gesture",
-              title: "Update Payment"
-            },
-            {
-              action: "remove_circle",
-              title: "Delete Payment"
-            }
-          ]
-        },
-        {
-          action: "account_balance_wallet",
-          title: "Payment Methods",
-          items: [
-            {
-              action: "list",
-              title: "All Methods"
-            },
-            {
-              action: "add_circle",
-              title: "Add Method"
-            },
-            {
-              action: "gesture",
-              title: "Update Method"
-            },
-            {
-              action: "remove_circle",
-              title: "Remove Method"
-            }
-          ]
-        },
-        {
-          action: "assignment",
-          title: "Report Generator",
-          items: [
-            {
-              action: "account_circle",
-              title: "All Members"
-            },
-            {
-              action: "account_box",
-              title: "All Accounts"
-            },
-            {
-              action: "monetization_on",
-              title: "All Loans"
-            },
-            {
-              action: "attach_money",
-              title: "All Payments"
-            },
-            {
-              action: "create",
-              title: "Custom Report"
-            }
-          ]
-        }
-      ],
-      miniVariant: false,
-      title: "Sacco"
-    };
-  },
-  methods: {
-    logOut() {
-      this.$store.commit("setLoggedInUser", {});
-      this.$router.push(`/`);
+  export default {
+    name: "Administrator",
+    data() {
+      return {
+        clipped: false,
+        drawer: true,
+        fixed: false,
+        loggedInState: this.$store.getters.loggedInUser,
+        items: [
+          {
+            action: "account_circle",
+            title: "Member Management",
+            items: [
+              {
+                action: "list",
+                title: "All Members",
+                routerName: "MemberList"
+              },
+              {
+                action: "add_circle",
+                title: "Register Member",
+                routerName: "Registration"
+              }
+            ]
+          },
+          {
+            action: "account_box",
+            title: "Account Management",
+            items: [
+              {
+                action: "list",
+                title: "Member Accounts",
+                routerName: "MemberAccounts"
+              },
+              {
+                action: "assignment_turned_in",
+                title: "Member Deposits",
+                routerName: "Deposits"
+              },
+              {
+                action: "add_circle",
+                title: "Add Deposit",
+                routerName: "AddDeposit"
+              }
+            ]
+          },
+          {
+            action: "monetization_on",
+            title: "Loan Management",
+            items: [
+              {
+                action: "list",
+                title: "All Loans",
+                routerName: `MemberLoans`
+              },
+              {
+                action: "add_circle",
+                title: "Issue Loan"
+              }
+            ]
+          },
+          {
+            action: "attach_money",
+            title: "Payments",
+            items: [
+              {
+                action: "list",
+                title: "All Payments"
+              },
+              {
+                action: "assignment_turned_in",
+                title: "View Payment Details"
+              },
+              {
+                action: "add_circle",
+                title: "Add Payment"
+              },
+              {
+                action: "gesture",
+                title: "Update Payment"
+              },
+              {
+                action: "remove_circle",
+                title: "Delete Payment"
+              }
+            ]
+          },
+          {
+            action: "account_balance_wallet",
+            title: "Payment Methods",
+            items: [
+              {
+                action: "list",
+                title: "All Methods"
+              },
+              {
+                action: "add_circle",
+                title: "Add Method"
+              },
+              {
+                action: "gesture",
+                title: "Update Method"
+              },
+              {
+                action: "remove_circle",
+                title: "Remove Method"
+              }
+            ]
+          },
+          {
+            action: "assignment",
+            title: "Report Generator",
+            items: [
+              {
+                action: "account_circle",
+                title: "All Members"
+              },
+              {
+                action: "account_box",
+                title: "All Accounts"
+              },
+              {
+                action: "monetization_on",
+                title: "All Loans"
+              },
+              {
+                action: "attach_money",
+                title: "All Payments"
+              },
+              {
+                action: "create",
+                title: "Custom Report"
+              }
+            ]
+          }
+        ],
+        miniVariant: false,
+        title: "Sacco"
+      };
+    },
+    methods: {
+      logOut() {
+        this.$store.commit("setLoggedInUser", {});
+        this.$router.push(`/`);
+      }
+    },
+    watch: {
+      loggedInState: function() {
+        this.$router.push("/");
+      }
     }
-  },
-  watch: {
-    loggedInState: function() {
-      this.$router.push("/");
-    }
-  }
-};
+  };
 </script>

@@ -8,30 +8,30 @@ const set = property => (store, payload) => (store[property] = payload)
 
 export default new Vuex.Store({
   state: {
-
+    
     administratorId: null,
     administratorLevel: null,
     newMemberRecordKey: null,
     stepperContinueEnabled: true,
     loggedInUser: {},
-
+    
     isLoading: false,
     isReady: false,
     snackbar: {},
-
+    
   },
   getters: {
-
+    
     administratorId: state => state.administratorId,
     administratorLevel: state => state.administratorLevel,
     newMemberRecordKey: state => state.newMemberRecordKey,
     stepperContinueEnabled: state => state.stepperContinueEnabled,
     loggedInUser: state => state.loggedInUser,
     snackbar: state => state.snackbar,
-
+    
   },
   mutations: {
-
+    
     loadAdminId: (state, payload) => {
       state.administratorId = payload
     },
@@ -50,11 +50,11 @@ export default new Vuex.Store({
     setSnackbar: (state, payload) => {
       state.snackbar = payload
     },
-
+    
     setIsReady: set('isReady'),
     setIsLoading: set('isLoading'),
     setUser: set('user'),
-
+    
   },
   plugins: [
     createPersistedState({
@@ -63,7 +63,8 @@ export default new Vuex.Store({
           accessLevel: state.loggedInUser.accessLevel,
           token: state.loggedInUser.token
         }
-      })
+      }),
+      storage: window.localStorage
     }),
   ]
 })

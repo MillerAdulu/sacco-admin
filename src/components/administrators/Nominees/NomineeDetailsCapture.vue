@@ -88,142 +88,142 @@
 </template>
 
 <script>
-import HTTP from "../../../api";
-import Parsers from "../../../helpers/parsers";
-import queryString from "querystring";
-import { Validator } from "vee-validate";
+  import HTTP from "../../../api";
+  import Parsers from "../../../helpers/parsers";
+  import queryString from "querystring";
+  import { Validator } from "vee-validate";
 
-const dictionary = {
-  en: {
-    attributes: {
-      identificationNumber: "ID/Passport Number",
-      firstName: "first name",
-      lastName: "last name",
-      otherName: "other name",
-      phoneNumber: "phone number",
-      proposedMonthlyContribution: "proposed monthly contribution"
+  const dictionary = {
+    en: {
+      attributes: {
+        identificationNumber: "ID/Passport Number",
+        firstName: "first name",
+        lastName: "last name",
+        otherName: "other name",
+        phoneNumber: "phone number",
+        proposedMonthlyContribution: "proposed monthly contribution"
+      }
     }
-  }
-};
+  };
 
-Validator.localize(dictionary);
+  Validator.localize(dictionary);
 
-export default {
-  $_veeValidate: {
-    validator: "new"
-  },
-  name: `NomineeDetailsCapture`,
-  data() {
-    return {
-      relationships: [],
-      identificationNumber: "",
-      relationshipId: "",
-      firstName: "",
-      lastName: "",
-      otherName: "",
-      phoneNumber: "",
-      email: "",
-      apiErrors: [],
-      validations: {
-        identificationNumber: "required|alpha_num|min:5",
-        relationshipId: "required",
-        firstName: "required|alpha_num|min:3",
-        lastName: "required|alpha_num|min:3",
-        otherName: "alpha_num|min:3",
-        phoneNumber: "required|numeric|min:9",
-        email: "email"
+  export default {
+    $_veeValidate: {
+      validator: "new"
+    },
+    name: `NomineeDetailsCapture`,
+    data() {
+      return {
+        relationships: [],
+        identificationNumber: "",
+        relationshipId: "",
+        firstName: "",
+        lastName: "",
+        otherName: "",
+        phoneNumber: "",
+        email: "",
+        apiErrors: [],
+        validations: {
+          identificationNumber: "required|alpha_num|min:5",
+          relationshipId: "required",
+          firstName: "required|alpha_num|min:3",
+          lastName: "required|alpha_num|min:3",
+          otherName: "alpha_num|min:3",
+          phoneNumber: "required|numeric|min:9",
+          email: "email"
+        },
+        btnLoading: false,
+        btnRegisterDisabled: false
+      };
+    },
+    methods: {
+      async addNominee() {
+        if (this.$can(`create`, `Nominee`)) {
+
+          this.startLoading()
+
+          this.$validator.validateAll();
+          let nominee = await Parsers.prepareDataObject({
+            member_id: this.$store.getters.newMemberRecordKey,
+            identification_number: this.identificationNumber,
+            relationship_id: this.relationshipId,
+            first_name: this.firstName,
+            last_name: this.lastName,
+            other_name: this.otherName,
+            phone_number: this.phoneNumber,
+            email: this.email
+          });
+          HTTP.post("nominees", queryString.stringify(nominee))
+            .then(response => {
+              this.$store.commit(`setSnackbar`, {
+                msg: `${
+                  this.lastName
+                  } added successfully. You can add another one`,
+                type: `success`,
+                model: true
+              });
+              this.stopLoading();
+
+              this.$store.commit("setStepperStatus", false);
+              this.btnRegisterDisabled = true;
+              this.clearNominee();
+            })
+            .catch(error => {
+              this.$store.commit(`setSnackbar`, {
+                msg: `Unable to add this nominee at this time`,
+                type: `error`,
+                model: true
+              });
+              this.stopLoading();
+            });
+        } else {
+          this.$store.commit(`setSnackbar`, {
+            msg: `You don't have permissions to add nominees`,
+            type: `error`,
+            model: true
+          });
+        }
       },
-      btnLoading: false,
-      btnRegisterDisabled: false
-    };
-  },
-  methods: {
-    async addNominee() {
-      if (this.$can(`create`, `Nominee`)) {
-        
-        this.startLoading()
-
-        this.$validator.validateAll();
-        let nominee = await Parsers.prepareDataObject({
-          member_id: this.$store.getters.newMemberRecordKey,
-          identification_number: this.identificationNumber,
-          relationship_id: this.relationshipId,
-          first_name: this.firstName,
-          last_name: this.lastName,
-          other_name: this.otherName,
-          phone_number: this.phoneNumber,
-          email: this.email
-        });
-        HTTP.post("nominees", queryString.stringify(nominee))
-          .then(response => {
-            this.$store.commit(`setSnackbar`, {
-              msg: `${
-                this.lastName
-              } added successfully. You can add another one`,
-              type: `success`,
-              model: true
+      getRelationships() {
+        if (this.$can(`read`, `Relationship`)) {
+          HTTP.get(`relationships`)
+            .then(response => {
+              this.relationships = response.data;
+            })
+            .catch(error => {
+              this.$store.commit(`setSnackbar`, {
+                msg: `Unable to load member relationships at this time`,
+                type: `error`,
+                model: true
+              });
             });
-            this.stopLoading();
-
-            this.$store.commit("setStepperStatus", false);
-            this.btnRegisterDisabled = true;
-            this.clearNominee();
-          })
-          .catch(error => {
-            this.$store.commit(`setSnackbar`, {
-              msg: `Unable to add this nominee at this time`,
-              type: `error`,
-              model: true
-            });
-            this.stopLoading();
+        } else {
+          this.$store.commit(`setSnackbar`, {
+            msg: `You don't have permissions to view member relationships`,
+            type: `error`,
+            model: true
           });
-      } else {
-        this.$store.commit(`setSnackbar`, {
-          msg: `You don't have permissions to add nominees`,
-          type: `error`,
-          model: true
-        });
+        }
+      },
+      clearNominee() {
+        this.identificationNumber = ``;
+        this.relationshipId = ``;
+        this.firstName = ``;
+        this.lastName = ``;
+        this.otherName = ``;
+        this.phoneNumber = ``;
+        this.email = ``;
+      },
+      startLoading() {
+        this.btnLoading = true;
+      },
+      stopLoading() {
+        this.btnLoading = false;
       }
     },
-    getRelationships() {
-      if (this.$can(`read`, `Relationship`)) {
-        HTTP.get(`relationships`)
-          .then(response => {
-            this.relationships = response.data;
-          })
-          .catch(error => {
-            this.$store.commit(`setSnackbar`, {
-              msg: `Unable to load member relationships at this time`,
-              type: `error`,
-              model: true
-            });
-          });
-      } else {
-        this.$store.commit(`setSnackbar`, {
-          msg: `You don't have permissions to view member relationships`,
-          type: `error`,
-          model: true
-        });
-      }
-    },
-    clearNominee() {
-      this.identificationNumber = ``;
-      this.relationshipId = ``;
-      this.firstName = ``;
-      this.lastName = ``;
-      this.otherName = ``;
-      this.phoneNumber = ``;
-      this.email = ``;
-    },
-    startLoading() {
-      this.btnLoading = true;
-    },
-    stopLoading() {
-      this.btnLoading = false;
+    created() {
+      this.getRelationships();
     }
-  },
-  created() {
-    this.getRelationships();
-  }
-};
+  };
 </script>

@@ -49,85 +49,85 @@
 </template>
 
 <script>
-import HTTP from "../../api";
-export default {
-  name: `Dashboard`,
-  data() {
-    return {
-      totalMembers: null,
-      totalDeposits: null,
-      totalMemberLoans: null
-    };
-  },
-  methods: {
-    fetchMembers() {
-      if (this.$can(`read`, `Member`)) {
-        HTTP.get(`/dashboard/members`)
-          .then(response => {
-            this.totalMembers = response.data;
-          })
-          .catch(error => {
-            this.$store.commit(`setSnackbar`, {
-              msg: `Unable to fetch members`,
-              type: `error`,
-              model: true
+  import HTTP from "../../api";
+  export default {
+    name: `Dashboard`,
+    data() {
+      return {
+        totalMembers: null,
+        totalDeposits: null,
+        totalMemberLoans: null
+      };
+    },
+    methods: {
+      fetchMembers() {
+        if (this.$can(`read`, `Member`)) {
+          HTTP.get(`/dashboard/members`)
+            .then(response => {
+              this.totalMembers = response.data;
+            })
+            .catch(error => {
+              this.$store.commit(`setSnackbar`, {
+                msg: `Unable to fetch members`,
+                type: `error`,
+                model: true
+              });
             });
+        } else {
+          this.$store.commit(`setSnackbar`, {
+            msg: `You don't have permissions to view members`,
+            type: `error`,
+            model: true
           });
-      } else {
-        this.$store.commit(`setSnackbar`, {
-          msg: `You don't have permissions to view members`,
-          type: `error`,
-          model: true
-        });
+        }
+      },
+      fetchDeposits() {
+        if (this.$can(`read`, `MemberDeposit`)) {
+          HTTP.get(`/dashboard/deposits`)
+            .then(response => {
+              this.totalDeposits = response.data;
+            })
+            .catch(error => {
+              this.$store.commit(`setSnackbar`, {
+                msg: `Unable to fetch deposits`,
+                type: `error`,
+                model: true
+              });
+            });
+        } else {
+          this.$store.commit(`setSnackbar`, {
+            msg: `You don't have permissions to view deposits`,
+            type: `error`,
+            model: true
+          });
+        }
+      },
+      fetchMemberLoans() {
+        if (this.$can(`read`, `MemberLoan`)) {
+          HTTP.get(`/dashboard/memberloans`)
+            .then(response => {
+              this.totalMemberLoans = response.data;
+            })
+            .catch(error => {
+              this.$store.commit(`setSnackbar`, {
+                msg: `Unable to fetch loans`,
+                type: `error`,
+                model: true
+              });
+            });
+        } else {
+          this.$store.commit(`setSnackbar`, {
+            msg: `You don't have permissions to view member loans`,
+            type: `error`,
+            model: true
+          });
+        }
       }
     },
-    fetchDeposits() {
-      if (this.$can(`read`, `MemberDeposit`)) {
-        HTTP.get(`/dashboard/deposits`)
-          .then(response => {
-            this.totalDeposits = response.data;
-          })
-          .catch(error => {
-            this.$store.commit(`setSnackbar`, {
-              msg: `Unable to fetch deposits`,
-              type: `error`,
-              model: true
-            });
-          });
-      } else {
-        this.$store.commit(`setSnackbar`, {
-          msg: `You don't have permissions to view deposits`,
-          type: `error`,
-          model: true
-        });
-      }
-    },
-    fetchMemberLoans() {
-      if (this.$can(`read`, `MemberLoan`)) {
-        HTTP.get(`/dashboard/memberloans`)
-          .then(response => {
-            this.totalMemberLoans = response.data;
-          })
-          .catch(error => {
-            this.$store.commit(`setSnackbar`, {
-              msg: `Unable to fetch loans`,
-              type: `error`,
-              model: true
-            });
-          });
-      } else {
-        this.$store.commit(`setSnackbar`, {
-          msg: `You don't have permissions to view member loans`,
-          type: `error`,
-          model: true
-        });
-      }
+    mounted() {
+      this.fetchMembers();
+      this.fetchDeposits();
+      this.fetchMemberLoans();
     }
-  },
-  mounted() {
-    this.fetchMembers();
-    this.fetchDeposits();
-    this.fetchMemberLoans();
-  }
-};
+  };
 </script>

@@ -6,9 +6,10 @@ require(`dotenv`).config()
 
 const app = express()
 
-app.use('/', serveStatic(path.join(
-  __dirname + `/dist/`
-)))
+app.use('/', serveStatic(
+  path.join(__dirname + `/dist/`)
+  )
+)
 
 app.get(/.*/, function (req, res) {
   res.sendFile(

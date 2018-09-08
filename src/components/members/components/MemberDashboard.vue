@@ -1,7 +1,7 @@
 <template>
   <v-card>
     <v-img
-    :src="loggedInMember.member.passportPhoto"
+        :src="loggedInMember.member.passportPhoto"
     />
     <v-card-title>Welcome back, {{ loggedInMember.member.lastName }}</v-card-title>
     <v-card-text>
@@ -71,41 +71,41 @@
 </template>
 
 <script>
-import HTTP from "../../../api";
+  import HTTP from "../../../api";
 
-export default {
-  name: `MemberDashboard`,
-  data() {
-    return {
-      loggedInMember: JSON.parse(localStorage.getItem("loggedInUser")),
-      member: null
-    };
-  },
-  methods: {
-    fetchMemberData() {
-      if (this.$can(`read`, `Member`)) {
-        HTTP.get(`members/${this.loggedInMember.member.memberId}`)
-          .then(response => {
-            this.member = response.data;
-          })
-          .catch(error => {
-            this.$store.commit(`setSnackbar`, {
-              msg: `Unable to load your data at this time`,
-              type: `error`,
-              model: true
+  export default {
+    name: `MemberDashboard`,
+    data() {
+      return {
+        loggedInMember: JSON.parse(localStorage.getItem("loggedInUser")),
+        member: null
+      };
+    },
+    methods: {
+      fetchMemberData() {
+        if (this.$can(`read`, `Member`)) {
+          HTTP.get(`members/${this.loggedInMember.member.memberId}`)
+            .then(response => {
+              this.member = response.data;
+            })
+            .catch(error => {
+              this.$store.commit(`setSnackbar`, {
+                msg: `Unable to load your data at this time`,
+                type: `error`,
+                model: true
+              });
             });
+        } else {
+          this.$store.commit(`setSnackbar`, {
+            msg: `You don't have permissions to view member details`,
+            type: `error`,
+            model: true
           });
-      } else {
-        this.$store.commit(`setSnackbar`, {
-          msg: `You don't have permissions to view member details`,
-          type: `error`,
-          model: true
-        });
+        }
       }
+    },
+    created() {
+      this.fetchMemberData();
     }
-  },
-  created() {
-    this.fetchMemberData();
-  }
-};
+  };
 </script>

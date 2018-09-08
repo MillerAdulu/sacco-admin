@@ -60,45 +60,45 @@
 </template>
 
 <script>
-import HTTP from "../../../api";
-import Guarantors from "@/components/administrators/MemberLoans/Guarantors";
+  import HTTP from "../../../api";
+  import Guarantors from "@/components/administrators/MemberLoans/Guarantors";
 
-export default {
-  name: `LoanDetails`,
-  data() {
-    return {
-      loanDetails: {}
-    };
-  },
-  components: {
-    Guarantors
-  },
-  methods: {
-    getLoanDetails() {
-      if (this.$can(`read`, `MemberLoan`)) {
-        HTTP.get(`loans/memberloans/${this.$route.params.memberLoanId}`)
-          .then(response => {
-            this.loanDetails = response.data;
-          })
-          .catch(error => {
-            this.$store.commit(`setSnackbar`, {
-              msg: `Unable to load this member loan`,
-              type: `error`,
-              model: true
+  export default {
+    name: `LoanDetails`,
+    data() {
+      return {
+        loanDetails: {}
+      };
+    },
+    components: {
+      Guarantors
+    },
+    methods: {
+      getLoanDetails() {
+        if (this.$can(`read`, `MemberLoan`)) {
+          HTTP.get(`loans/memberloans/${this.$route.params.memberLoanId}`)
+            .then(response => {
+              this.loanDetails = response.data;
+            })
+            .catch(error => {
+              this.$store.commit(`setSnackbar`, {
+                msg: `Unable to load this member loan`,
+                type: `error`,
+                model: true
+              });
             });
+        } else {
+          this.$store.commit(`setSnackbar`, {
+            msg: `You don't have permissions to view member loans`,
+            type: `error`,
+            model: true
           });
-      } else {
-        this.$store.commit(`setSnackbar`, {
-          msg: `You don't have permissions to view member loans`,
-          type: `error`,
-          model: true
-        });
+        }
       }
+    },
+    created() {
+      this.getLoanDetails();
     }
-  },
-  created() {
-    this.getLoanDetails();
-  }
-};
+  };
 </script>
 

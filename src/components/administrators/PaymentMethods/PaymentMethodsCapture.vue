@@ -52,125 +52,125 @@
 </template>
 
 <script>
-import HTTP from "../../../api";
-import Parsers from "../../../helpers/parsers";
+  import HTTP from "../../../api";
+  import Parsers from "../../../helpers/parsers";
 
-import queryString from "querystring";
+  import queryString from "querystring";
 
-export default {
-  name: `PaymentMethodsCaputure`,
-  data() {
-    return {
-      success: ``,
-      paymentMethod: null,
-      paymentMethods: [],
-      bankName: null,
-      bankAccountNumber: null,
-      bankCardNumber: null,
-      provider: null,
-      phoneNumber: null,
-      viewBank: false,
-      viewPhone: false,
-      btnLoading: false,
-    };
-  },
-  methods: {
-    displayMethodForm(method) {
-      if (method === 1) {
-        this.viewBank = true;
-        this.viewPhone = false;
-      }
-
-      if (method === 2) {
-        this.viewPhone = true;
-        this.viewBank = false;
-      }
+  export default {
+    name: `PaymentMethodsCaputure`,
+    data() {
+      return {
+        success: ``,
+        paymentMethod: null,
+        paymentMethods: [],
+        bankName: null,
+        bankAccountNumber: null,
+        bankCardNumber: null,
+        provider: null,
+        phoneNumber: null,
+        viewBank: false,
+        viewPhone: false,
+        btnLoading: false,
+      };
     },
-    async addPaymentDetails() {
-      if (this.$can(`create`, `PaymentDetails`)) {
-        
-        this.startLoading()
+    methods: {
+      displayMethodForm(method) {
+        if (method === 1) {
+          this.viewBank = true;
+          this.viewPhone = false;
+        }
 
-        let paymentDetails = await Parsers.prepareDataObject({
-          payment_method_id: this.paymentMethod,
-          member_id: this.$store.getters.newMemberRecordKey,
-          bank_name: this.bankName,
-          bank_account_number: this.bankAccountNumber,
-          card_number: this.bankCardNumber,
-          provider: this.provider,
-          phone_number: this.phoneNumber
-        });
-        HTTP.post("paymentdetails", queryString.stringify(paymentDetails))
-          .then(response => {
-            this.$store.commit("setStepperStatus", false);
-            this.clearPaymentDetails();
-            this.$store.commit(`setSnackbar`, {
-              msg: `Added! You can add other payment details`,
-              type: `success`,
-              model: true
-            });
+        if (method === 2) {
+          this.viewPhone = true;
+          this.viewBank = false;
+        }
+      },
+      async addPaymentDetails() {
+        if (this.$can(`create`, `PaymentMethods`)) {
 
-            this.stopLoading()
-            
-          })
-          .catch(error => {
-            this.$store.commit(`setSnackbar`, {
-              msg: `Unable to add payment details at this time`,
-              type: `error`,
-              model: true
-            });
-            
-            this.stopLoading()
+          this.startLoading()
 
+          let paymentDetails = await Parsers.prepareDataObject({
+            payment_method_id: this.paymentMethod,
+            member_id: this.$store.getters.newMemberRecordKey,
+            bank_name: this.bankName,
+            bank_account_number: this.bankAccountNumber,
+            card_number: this.bankCardNumber,
+            provider: this.provider,
+            phone_number: this.phoneNumber
           });
-      } else {
-        this.$store.commit(`setSnackbar`, {
-          msg: `You don't have permissions to add payment details`,
-          type: `error`,
-          model: true
-        });
-      }
-    },
+          HTTP.post("paymentdetails", queryString.stringify(paymentDetails))
+            .then(response => {
+              this.$store.commit("setStepperStatus", false);
+              this.clearPaymentDetails();
+              this.$store.commit(`setSnackbar`, {
+                msg: `Added! You can add other payment details`,
+                type: `success`,
+                model: true
+              });
 
-    clearPaymentDetails() {
-      (this.paymentMethod = null), (this.bankName = null);
-      this.bankAccountNumber = null;
-      this.bankCardNumber = null;
-      this.provider = null;
-      this.phoneNumber = null;
-    },
+              this.stopLoading()
 
-    getPaymentMethods() {
-      if (this.$can(`read`, `PaymentMethod`)) {
-        HTTP.get("paymentmethods")
-          .then(response => {
-            this.paymentMethods = response.data;
-          })
-          .catch(error => {
-            this.$store.commit(`setSnackbar`, {
-              msg: `Unable to fetch payment methods at this time`,
-              type: `error`,
-              model: true
+            })
+            .catch(error => {
+              this.$store.commit(`setSnackbar`, {
+                msg: `Unable to add payment details at this time`,
+                type: `error`,
+                model: true
+              });
+
+              this.stopLoading()
+
             });
+        } else {
+          this.$store.commit(`setSnackbar`, {
+            msg: `You don't have permissions to add payment details`,
+            type: `error`,
+            model: true
           });
-      } else {
-        this.$store.commit(`setSnackbar`, {
-          msg: `You don't have permissions to view payment methods`,
-          type: `error`,
-          model: true
-        });
+        }
+      },
+
+      clearPaymentDetails() {
+        (this.paymentMethod = null), (this.bankName = null);
+        this.bankAccountNumber = null;
+        this.bankCardNumber = null;
+        this.provider = null;
+        this.phoneNumber = null;
+      },
+
+      getPaymentMethods() {
+        if (this.$can(`read`, `PaymentMethods`)) {
+          HTTP.get("paymentmethods")
+            .then(response => {
+              this.paymentMethods = response.data;
+            })
+            .catch(error => {
+              this.$store.commit(`setSnackbar`, {
+                msg: `Unable to fetch payment methods at this time`,
+                type: `error`,
+                model: true
+              });
+            });
+        } else {
+          this.$store.commit(`setSnackbar`, {
+            msg: `You don't have permissions to view payment methods`,
+            type: `error`,
+            model: true
+          });
+        }
+      },
+      startLoading() {
+        this.btnLoading = true;
+      },
+      stopLoading() {
+        this.btnLoading = false;
       }
     },
-    startLoading() {
-      this.btnLoading = true;
-    },
-    stopLoading() {
-      this.btnLoading = false;
+    created() {
+      this.getPaymentMethods();
     }
-  },
-  created() {
-    this.getPaymentMethods();
-  }
-};
+  };
 </script>
 

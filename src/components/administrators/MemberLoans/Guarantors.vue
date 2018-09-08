@@ -53,17 +53,17 @@
     methods: {
       fetchGuarantors() {
         if(this.$can(`read`, `LoanGuarantor`)) {
-        HTTP.get(`loans/loan/${ this.$route.params.memberLoanId }`)
-          .then(response => {
-            this.loanGuarantors = response.data
-          })
-          .catch(error => {
-             this.$store.commit(`setSnackbar`, {
-            msg: `Unable to fetch loan guarantors at this moment`,
-            type: `error`,
-            model: true,
-          })
-          })
+          HTTP.get(`loans/loan/${ this.$route.params.memberLoanId }`)
+            .then(response => {
+              this.loanGuarantors = response.data
+            })
+            .catch(error => {
+              this.$store.commit(`setSnackbar`, {
+                msg: `Unable to fetch loan guarantors at this moment`,
+                type: `error`,
+                model: true,
+              })
+            })
         } else {
 
           this.$store.commit(`setSnackbar`, {

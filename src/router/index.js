@@ -20,7 +20,6 @@ import LoanDetails from '@/components/administrators/MemberLoans/Loan'
 import Addresses from '@/components/administrators/AddressDetails/Address'
 import EditAddress from '@/components/administrators/AddressDetails/EditAddress'
 import PaymentMethods from '@/components/administrators/PaymentMethods/PaymentMethods'
-import UploadPassportPhoto from '@/components/administrators/Member/UploadPassportPhoto'
 
 import Administrator from '@/components/administrators/Administrator'
 import MemberArea from '@/components/members/MemberArea'
@@ -109,10 +108,6 @@ const router = new Router({
           path: 'editaddress/:address',
           component: EditAddress,
         },
-        {
-          path: `upload`,
-          component: UploadPassportPhoto,
-        }
       ]
     },
     {

@@ -159,7 +159,7 @@ export default {
           if (!response.data) {
             this.$store.commit(`setSnackbar`, {
               type: `error`,
-              msg: `This username doesn't exists`,
+              msg: `This username doesn't exist`,
               model: true
             });
           } else {

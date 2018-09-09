@@ -2,8 +2,8 @@
   <v-card height="200px" flat>
     <div class="text-xs-center pa-0">
       <v-layout>
-        <v-flex xs8>Your {{ bottomNav }}</v-flex>
-        <v-flex xs-4>
+        <v-flex xs-4>{{ bottomNav }}</v-flex>
+        <v-flex xs-8>
           <v-btn @click="logOut">Log Out</v-btn>
           <v-dialog
               v-model="dialog"
@@ -11,6 +11,7 @@
           >
             <v-btn
                 slot="activator"
+                small
             >
               Add Deposit
             </v-btn>
@@ -36,8 +37,9 @@
                     color="primary"
                     flat
                     @click="addDeposit"
+                    small
                 >
-                  Add
+                  Add Deposit
                 </v-btn>
               </v-card-actions>
             </v-card>

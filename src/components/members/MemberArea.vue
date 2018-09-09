@@ -101,7 +101,7 @@
           flat
           value="Payment Methods"
           :to="{name: `PaymentMethodsProfile`, params: {
-          paymentmethods: paymentMethods
+          paymentmethods: paymentmethods
         }}"
       >
         <span>Payment Info</span>
@@ -123,7 +123,7 @@
         bottomNav: "Dashboard",
         loggedInUser: this.$store.getters.loggedInUser,
         addresses: [],
-        paymentMethods: [],
+        paymentmethods: [],
         dialog: false,
         depositAmount: null,
       };
@@ -181,7 +181,7 @@
         if (this.$can(`read`, `PaymentMethods`)) {
           HTTP.get(`/paymentdetails/members/${this.loggedInUser.member.memberId}`)
             .then(response => {
-              this.paymentMethods = response.data;
+              this.paymentmethods = response.data;
             })
             .catch(error => {
               this.$store.commit(`setSnackbar`, {

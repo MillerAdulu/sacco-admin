@@ -61,7 +61,7 @@
       <v-btn
           color="teal"
           flat
-          value="dashboard"
+          value="Dashboard"
           :to="{ name: `MemberDashboard`}"
       >
         <span>Profile</span>
@@ -71,7 +71,7 @@
       <v-btn
           color="teal"
           flat
-          value="deposits"
+          value="Deposits"
           :to="{name: `DepositProfile`}"
       >
         <span>Deposits</span>
@@ -90,7 +90,7 @@
       <v-btn
           color="teal"
           flat
-          value="addresses"
+          value="Addresses"
           :to="{name: `AddressProfile`, params: {addresses: addresses}}"
       >
         <span>Addresses</span>
@@ -99,9 +99,9 @@
       <v-btn
           color="teal"
           flat
-          value="payment details"
+          value="Payment Methods"
           :to="{name: `PaymentMethodsProfile`, params: {
-          paymentdetails: paymentMethods
+          paymentmethods: paymentMethods
         }}"
       >
         <span>Payment Info</span>

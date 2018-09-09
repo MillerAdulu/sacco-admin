@@ -25,7 +25,7 @@
         </v-flex>
         <v-flex xs4>
           <p>
-            {{ loggedInMember.phoneNumber }}
+            {{ loggedInMember.member.phoneNumber }}
           </p>
         </v-flex>
       </v-layout>

@@ -247,6 +247,7 @@
               this.stopLoading()
             })
             .catch(error => {
+              console.log(error.response.data)
               this.$store.commit(`setSnackbar`, {
                 msg: `You are unable to add this member at this time`,
                 type: `error`,

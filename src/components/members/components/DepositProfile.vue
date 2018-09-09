@@ -24,7 +24,7 @@
           </v-list-tile>
           <v-list-tile>
             <v-list-tile-content>Deposit Amount:</v-list-tile-content>
-            <v-list-tile-content class="align-end">{{ props.item.contributionAmount }}</v-list-tile-content>
+            <v-list-tile-content class="align-end">{{ props.item.depositAmount }}</v-list-tile-content>
           </v-list-tile>
           <v-list-tile>
             <v-list-tile-content>Deposit Amount:</v-list-tile-content>

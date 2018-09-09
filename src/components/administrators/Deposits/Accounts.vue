@@ -26,7 +26,7 @@
           <td>{{ props.item.member.lastName }}</td>
           <td>{{ props.item.member.firstName }}</td>
           <td>{{ props.item.member.otherName }}</td>
-          <td>{{ props.item.contributionTotal }}</td>
+          <td>{{ props.item.depositTotal }}</td>
           <td>
             <Can I="read" a="Member">
               <router-link :to='{name: `Member`, params: {
@@ -40,7 +40,7 @@
 
             <Can I="update" a="Member">
               <router-link :to='{name: `MemberUpdate`, params: {
-              memberId: props.item.memberContributionId
+              memberId: props.item.memberDepositId
               }}'>
                 <v-icon>
                   edit
@@ -79,8 +79,8 @@
             value: `member.otherName`,
           },
           {
-            text: `Total Contribution`,
-            value: `contributionTotal`
+            text: `Total Deposits`,
+            value: `depositTotal`
           },
           {
             text: `Actions`,

@@ -60,6 +60,7 @@ export default new Vuex.Store({
     createPersistedState({
       reducer: state => ({
         loggedInUser: {
+          member: state.loggedInUser.member,
           accessLevel: state.loggedInUser.accessLevel,
           token: state.loggedInUser.token
         }

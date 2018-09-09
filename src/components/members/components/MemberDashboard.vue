@@ -77,7 +77,7 @@
     name: `MemberDashboard`,
     data() {
       return {
-        loggedInMember: JSON.parse(localStorage.getItem("loggedInUser")),
+        loggedInMember: this.$store.getters.loggedInUser,
         member: null
       };
     },

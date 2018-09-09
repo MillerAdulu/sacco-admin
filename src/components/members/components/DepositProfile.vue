@@ -52,7 +52,7 @@
     data() {
       return {
         moment,
-        loggedInUser: JSON.parse(localStorage.getItem("loggedInUser")),
+        loggedInUser: this.$store.getters.loggedInUser,
         contributions: [],
         rowsPerPageItems: [4, 8, 12],
         pagination: {
@@ -63,7 +63,7 @@
     methods: {
       fetchDeposits() {
         if (this.$can(`read`, `MemberDeposit`)) {
-          HTTP.get(`membercontributions/members/${this.loggedInUser.member.memberId}`)
+          HTTP.get(`memberdeposits/members/${this.loggedInUser.member.memberId}`)
             .then(response => {
               this.contributions = response.data;
             })

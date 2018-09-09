@@ -119,7 +119,7 @@
     data() {
       return {
         bottomNav: "Dashboard",
-        loggedInUser: JSON.parse(localStorage.getItem("loggedInUser")),
+        loggedInUser: this.$store.getters.loggedInUser,
         addresses: [],
         paymentMethods: [],
         dialog: false,

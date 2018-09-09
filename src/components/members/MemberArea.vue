@@ -220,7 +220,7 @@
         }
       },
       logOut() {
-        localStorage.removeItem("loggedInUser");
+        this.$store.commit("setLoggedInUser", {});
         this.$router.push(`/`);
       }
     },

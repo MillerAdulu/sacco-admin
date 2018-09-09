@@ -20,7 +20,7 @@ import store from './store'
 import BaseSnackBar from './components/authentication/components/BaseSnackbar'
 
 const bugsnagClient = bugsnag('36dce60f50c734a61194e09802756103')
-// bugsnagClient.use(bugsnagVue(Vue))
+bugsnagClient.use(bugsnagVue(Vue))
 Vue.component('base-snackbar', BaseSnackBar)
 
 Vue.config.productionTip = false

@@ -4,7 +4,6 @@
       <v-layout>
         <v-flex xs-4>{{ bottomNav }}</v-flex>
         <v-flex xs-8>
-          <v-btn @click="logOut">Log Out</v-btn>
           <v-dialog
               v-model="dialog"
               width="500"
@@ -44,6 +43,7 @@
               </v-card-actions>
             </v-card>
           </v-dialog>
+          <v-btn @click="logOut" small>Log Out</v-btn>
         </v-flex>
       </v-layout>
       <v-fade-transition appear>

@@ -176,7 +176,7 @@ export default {
         });
     },
     enableFunctionality() {
-      this.setIsLoading(true);
+      this.setIsLoading(false);
     }
   },
   created() {

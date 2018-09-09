@@ -167,6 +167,8 @@ const router = new Router({
 router.beforeEach((to, from, next) => {
   
   if(to.path === `/login`) next()
+
+  if(to.path === `/` && store.getters.loggedInUser.token) next(`/login`)
   
   if(!store.getters.loggedInUser.token) next(`/login`)
   

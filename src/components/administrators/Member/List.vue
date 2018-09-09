@@ -28,7 +28,7 @@
           <td>{{ props.item.firstName }}</td>
           <td>{{ props.item.lastName }}</td>
           <td>{{ props.item.phoneNumber }}</td>
-          <td>{{ props.item.proposedMonthlyContribution }}</td>
+          <td>{{ props.item.proposedMonthlyDeposit }}</td>
           <td>
             <Can I="read" a="Member">
               <router-link :to='{name: `Member`, params: {
@@ -90,8 +90,8 @@
             value: `phoneNumber`
           },
           {
-            text: `Monthly Contribution`,
-            value: `proposedMonthlyContribution`
+            text: `Monthly Deposit`,
+            value: `proposedMonthlyDeposit`
           },
           {
             text: `Actions`,

@@ -26,7 +26,7 @@ export default AbilityBuilder.define(can => {
       can(memberPermissions, 'MemberDepositTotal')
       can(memberPermissions, 'MemberLoan')
       can(memberPermissions, 'Nominee')
-      can(memberPermissions, 'PaymentMethods')
+      can(memberPermissions, 'PaymentDetails')
       can(memberPermissions, 'PaymentMethod')
       can(memberPermissions, 'PostOffice')
       can(memberPermissions, 'Relationship')

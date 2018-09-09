@@ -174,10 +174,14 @@ export default {
             model: true
           });
         });
+    },
+    enableFunctionality() {
+      this.setIsLoading(true);
     }
   },
   created() {
     this.checkValidation();
+    this.enableFunctionality()
   }
 };
 </script>

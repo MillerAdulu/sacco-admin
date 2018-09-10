@@ -8,13 +8,10 @@
       name="email"
     />
 
-    <div class="mt-5 mb-3">Don't have an account? Request for one, it's simple!</div>
+    <div class="mt-5 mb-3">Login with your email or phone number</div>
 
     <v-layout align-center justify-space-between>
       <router-link to="/signup">
-        <base-link>
-          Request for account
-        </base-link>
       </router-link>
 
       <base-btn
@@ -34,7 +31,6 @@
   import { mapState } from 'vuex'
 
   import BaseBtn from '@/components/authentication/components/BaseBtn'
-  import BaseLink from '@/components/authentication/components/BaseLink'
 
   export default {
     computed: {
@@ -43,10 +39,6 @@
     mixins: [ProxyValue],
     components: {
       BaseBtn,
-      BaseLink,
     },
-    methods: {
-
-    }
   }
 </script>

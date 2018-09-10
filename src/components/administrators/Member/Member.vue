@@ -67,7 +67,7 @@
     data() {
       return {
         memberId: this.$route.params.memberId,
-        member: null,
+        member: {},
         addressdetails: [],
         paymentmethods: [],
         deposits: [],

@@ -10,14 +10,14 @@
 
     <div class="text-xs-left">
       <v-layout align-center justify-space-between>
-        <v-btn
+        <!-- <v-btn
           color="primary"
           class="v-btn--auth"
           flat
           small
         >
           Forgot password
-        </v-btn>
+        </v-btn> -->
 
         <v-btn
           :disabled="!value"
@@ -35,10 +35,8 @@
 </template>
 
 <script>
-  // Mixins
   import ProxyValue from '@/components/authentication/mixins/proxy-value'
 
-  // Utilities
   import { mapState } from 'vuex'
 
   export default {

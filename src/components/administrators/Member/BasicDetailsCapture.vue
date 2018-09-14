@@ -139,7 +139,7 @@
 </template>
 
 <script>
-  import HTTP from "../../../api";
+  
   import Parsers from "../../../helpers/parsers";
   import queryString from "querystring";
   import { Validator } from "vee-validate";
@@ -232,7 +232,7 @@
             gender: this.gender
           });
 
-          HTTP.post("members", queryString.stringify(newMember))
+          this.$http.post("members", queryString.stringify(newMember))
             .then(response => {
               this.$store.commit(`setSnackbar`, {
                 msg: `${this.lastName} has been added successfully`,
@@ -280,7 +280,7 @@
       },
       getMaritalStatuses() {
         if (this.$can(`read`, `MaritalStatus`)) {
-          HTTP.get(`maritalstatuses`)
+          this.$http.get(`maritalstatuses`)
             .then(response => {
               this.maritalStatuses = response.data;
             })

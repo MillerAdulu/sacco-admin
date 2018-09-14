@@ -37,7 +37,7 @@
 </template>
 
 <script>
-  import HTTP from '../../../api'
+  
 
   export default {
     name: `Guarantors`,
@@ -53,7 +53,7 @@
     methods: {
       fetchGuarantors() {
         if(this.$can(`read`, `LoanGuarantor`)) {
-          HTTP.get(`loans/loan/${ this.$route.params.memberLoanId }`)
+          this.$http.get(`loans/loan/${ this.$route.params.memberLoanId }`)
             .then(response => {
               this.loanGuarantors = response.data
             })

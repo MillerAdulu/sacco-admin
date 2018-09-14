@@ -11,7 +11,7 @@
   import "vue2-dropzone/dist/vue2Dropzone.min.css";
 
   import queryString from "querystring";
-  import HTTP, { authHeader } from "../../../api";
+  import { authHeader } from "../../../api/axios";
 
   export default {
     name: `UploadProfilePicture`,

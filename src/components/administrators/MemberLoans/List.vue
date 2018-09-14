@@ -52,7 +52,7 @@
 
 <script>
   import moment from "moment";
-  import HTTP from "../../../api";
+  
 
   export default {
     name: `MemberLoans`,
@@ -101,7 +101,7 @@
     methods: {
       fetchLoans() {
         if (this.$can(`read`, `MemberLoan`)) {
-          HTTP.get(`loans/memberloans`)
+          this.$http.get(`loans/memberloans`)
             .then(response => {
               this.memberLoans = response.data;
               this.dataLoading = false;

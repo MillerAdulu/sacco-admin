@@ -88,7 +88,7 @@
 </template>
 
 <script>
-  import HTTP from "../../../api";
+  
   import Parsers from "../../../helpers/parsers";
   import queryString from "querystring";
   import { Validator } from "vee-validate";
@@ -154,7 +154,7 @@
             phone_number: this.phoneNumber,
             email: this.email
           });
-          HTTP.post("nominees", queryString.stringify(nominee))
+          this.$http.post("nominees", queryString.stringify(nominee))
             .then(response => {
               this.$store.commit(`setSnackbar`, {
                 msg: `${
@@ -187,7 +187,7 @@
       },
       getRelationships() {
         if (this.$can(`read`, `Relationship`)) {
-          HTTP.get(`relationships`)
+          this.$http.get(`relationships`)
             .then(response => {
               this.relationships = response.data;
             })

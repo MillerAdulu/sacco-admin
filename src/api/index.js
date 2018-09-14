@@ -1,38 +1,8 @@
-import axios from 'axios'
-import axiosRetry from 'axios-retry'
-import { ExponentialBackoff } from 'simple-backoff'
-require(`dotenv`).config()
+import Vue from 'vue'
+import VueAxios from 'vue-axios'
 
-import store from '../store'
+import axios from './axios'
 
-let backoff = new ExponentialBackoff({
-  min: 10,
-  factor: 2,
-  jitter: 0
-})
+Vue.use(VueAxios, axios)
 
-const authHeader = {
-  'Authorization': `Bearer ${ store.getters.loggedInUser.token }`,
-}
-
-const HTTP = axios.create({
-  baseURL: `${process.env.VUE_APP_API_URL}`,
-  headers: {
-    'Content-Type': 'application/x-www-form-urlencoded',
-    'Accept': 'application/json',
-    ...authHeader
-  }
-})
-
-axiosRetry(HTTP, {
-  retries: 3,
-  retryDelay: function delay() {
-    return backoff.next()
-  }
-})
-
-export default HTTP
-
-export {
-  authHeader
-}
+// export default axios

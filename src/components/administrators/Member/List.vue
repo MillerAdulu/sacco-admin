@@ -56,7 +56,7 @@
   </v-container>
 </template>
 <script>
-  import HTTP from "../../../api";
+  
 
   export default {
     name: "MemberList",
@@ -107,7 +107,7 @@
         if (this.$can(`read`, `Member`)) {
           this.startLoading();
 
-          HTTP.get(`members`)
+          this.$http.get(`members`)
             .then(response => {
               this.members = response.data;
               this.stopLoading();

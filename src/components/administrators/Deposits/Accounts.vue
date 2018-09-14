@@ -57,7 +57,7 @@
 </template>
 
 <script>
-  import HTTP from '../../../api'
+  
 
   export default {
     name: `Accounts`,
@@ -97,7 +97,7 @@
           
           this.startLoading()
 
-          HTTP.get(`memberdeposits/members/accounts/all`)
+          this.$http.get(`memberdeposits/members/accounts/all`)
             .then(response => {
 
               this.accounts = response.data

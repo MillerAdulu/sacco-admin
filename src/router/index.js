@@ -27,6 +27,8 @@ import MemberArea from '@/components/members/MemberArea'
 import DepositProfile from '@/components/members/components/DepositProfile'
 import LoanProfile from '@/components/members/components/LoanProfile'
 
+import PaymentMethodsList from '@/components/administrators/PaymentMethods/List'
+
 import Auth from '@/components/authentication/views/Auth'
 import SignIn from '@/components/authentication/views/Signin'
 
@@ -105,6 +107,11 @@ const router = new Router({
           component: Dashboard,
         },
         {
+          path: `paymentmethods`,
+          name: `PaymentMethodsList`,
+          component: PaymentMethodsList
+        },
+        {
           path: 'editaddress/:address',
           component: EditAddress,
         },
@@ -168,9 +175,9 @@ router.beforeEach((to, from, next) => {
   
   if(to.path === `/login`) next()
 
-  if(to.path === `/` && store.getters.loggedInUser.token) next(`/login`)
+  if(to.path === `/` && localStorage.getItem('token')) next(`/login`)
   
-  if(!store.getters.loggedInUser.token) next(`/login`)
+  if(!localStorage.getItem('token')) next(`/login`)
   
   next()
   

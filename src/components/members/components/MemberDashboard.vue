@@ -71,7 +71,7 @@
 </template>
 
 <script>
-  import HTTP from "../../../api";
+  
 
   export default {
     name: `MemberDashboard`,
@@ -84,7 +84,7 @@
     methods: {
       fetchMemberData() {
         if (this.$can(`read`, `Member`)) {
-          HTTP.get(`members/${this.loggedInMember.member.memberId}`)
+          this.$http.get(`members/${this.loggedInMember.member.memberId}`)
             .then(response => {
               this.member = response.data;
             })

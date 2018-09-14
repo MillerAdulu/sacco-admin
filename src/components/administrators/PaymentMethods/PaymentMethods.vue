@@ -11,8 +11,8 @@
         slot-scope="props"
         xs12
         md6
-        lg4
-        xl3
+        lg6
+        xl6
     >
       <v-card>
         <v-card-title><h4>Payment Method: {{ props.item.paymentMethodName }}</h4></v-card-title>

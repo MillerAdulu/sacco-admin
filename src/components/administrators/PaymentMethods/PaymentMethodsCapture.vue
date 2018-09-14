@@ -52,7 +52,7 @@
 </template>
 
 <script>
-  import HTTP from "../../../api";
+  
   import Parsers from "../../../helpers/parsers";
 
   import queryString from "querystring";
@@ -100,7 +100,7 @@
             provider: this.provider,
             phone_number: this.phoneNumber
           });
-          HTTP.post("paymentdetails", queryString.stringify(paymentDetails))
+          this.$http.post("paymentdetails", queryString.stringify(paymentDetails))
             .then(response => {
               this.$store.commit("setStepperStatus", false);
               this.clearPaymentDetails();
@@ -142,7 +142,7 @@
 
       getPaymentMethods() {
         if (this.$can(`read`, `PaymentMethods`)) {
-          HTTP.get("paymentmethods")
+          this.$http.get("paymentmethods")
             .then(response => {
               this.paymentMethods = response.data;
             })

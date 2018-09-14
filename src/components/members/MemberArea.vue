@@ -113,7 +113,7 @@
 </template>
 
 <script>
-  import HTTP from "../../api";
+  
   import queryString from "querystring";
 
   export default {
@@ -136,7 +136,7 @@
           member_id: this.loggedInUser.member.memberId
         };
 
-        HTTP.post(
+        this.$http.post(
           `memberdeposits/account/lipanampesa`,
           queryString.stringify(data)
         )
@@ -158,7 +158,7 @@
       },
       fetchAddresses() {
         if (this.$can(`read`, `AddressDetails`)) {
-          HTTP.get(`/addressdetails/members/${this.loggedInUser.member.memberId}`)
+          this.$http.get(`/addressdetails/members/${this.loggedInUser.member.memberId}`)
             .then(response => {
               this.addresses = response.data;
             })
@@ -179,7 +179,7 @@
       },
       fetchPaymentMethods() {
         if (this.$can(`read`, `PaymentMethods`)) {
-          HTTP.get(`/paymentdetails/members/${this.loggedInUser.member.memberId}`)
+          this.$http.get(`/paymentdetails/members/${this.loggedInUser.member.memberId}`)
             .then(response => {
               this.paymentmethods = response.data;
             })
@@ -200,7 +200,7 @@
       },
       fetchMemberData() {
         if (this.$can(`read`, `Member`)) {
-          HTTP.get(`/members/${this.loggedInUser.member.memberId}`)
+          this.$http.get(`/members/${this.loggedInUser.member.memberId}`)
             .then(response => {
               this.member = response.data;
             })

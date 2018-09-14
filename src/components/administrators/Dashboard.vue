@@ -7,7 +7,7 @@
           <v-card-title>
             Total Members
             <v-spacer />
-            <v-btn to="admin/memberlist">View All</v-btn>
+            <v-btn to="admin/memberlist" small>View All</v-btn>
           </v-card-title>
           <v-card-text>
             <v-chip>{{ totalMembers }}</v-chip>
@@ -20,7 +20,7 @@
           <v-card-title>
             Total Member Deposits
             <v-spacer />
-            <v-btn to="admin/memberdeposits">View All</v-btn>
+            <v-btn to="admin/memberdeposits" small> View All</v-btn>
           </v-card-title>
           <v-card-text>
             <v-chip>{{ totalDeposits }} KES</v-chip>
@@ -33,7 +33,7 @@
           <v-card-title>
             Total Member Loans
             <v-spacer />
-            <v-btn to="admin/memberloans">View All</v-btn>
+            <v-btn to="admin/memberloans" small>View All</v-btn>
           </v-card-title>
           <v-card-text>
             <v-chip>{{ totalMemberLoans }} KES</v-chip>
@@ -49,7 +49,8 @@
 </template>
 
 <script>
-  import HTTP from "../../api";
+  
+
   export default {
     name: `Dashboard`,
     data() {
@@ -61,8 +62,8 @@
     },
     methods: {
       fetchMembers() {
-        if (this.$can(`read`, `Member`)) {
-          HTTP.get(`/dashboard/members`)
+        // if (this.$can(`read`, `Member`)) {
+          this.$http.get(`/dashboard/members`)
             .then(response => {
               this.totalMembers = response.data;
             })
@@ -73,17 +74,17 @@
                 model: true
               });
             });
-        } else {
-          this.$store.commit(`setSnackbar`, {
-            msg: `You don't have permissions to view members`,
-            type: `error`,
-            model: true
-          });
-        }
+        // } else {
+        //   this.$store.commit(`setSnackbar`, {
+        //     msg: `You don't have permissions to view members`,
+        //     type: `error`,
+        //     model: true
+        //   });
+        // }
       },
       fetchDeposits() {
-        if (this.$can(`read`, `MemberDeposit`)) {
-          HTTP.get(`/dashboard/deposits`)
+        // if (this.$can(`read`, `MemberDeposit`)) {
+          this.$http.get(`/dashboard/deposits`)
             .then(response => {
               this.totalDeposits = response.data;
             })
@@ -94,17 +95,17 @@
                 model: true
               });
             });
-        } else {
-          this.$store.commit(`setSnackbar`, {
-            msg: `You don't have permissions to view deposits`,
-            type: `error`,
-            model: true
-          });
-        }
+        // } else {
+        //   this.$store.commit(`setSnackbar`, {
+        //     msg: `You don't have permissions to view deposits`,
+        //     type: `error`,
+        //     model: true
+        //   });
+        // }
       },
       fetchMemberLoans() {
-        if (this.$can(`read`, `MemberLoan`)) {
-          HTTP.get(`/dashboard/memberloans`)
+        // if (this.$can(`read`, `MemberLoan`)) {
+          this.$http.get(`/dashboard/memberloans`)
             .then(response => {
               this.totalMemberLoans = response.data;
             })
@@ -115,13 +116,13 @@
                 model: true
               });
             });
-        } else {
-          this.$store.commit(`setSnackbar`, {
-            msg: `You don't have permissions to view member loans`,
-            type: `error`,
-            model: true
-          });
-        }
+        // } else {
+        //   this.$store.commit(`setSnackbar`, {
+        //     msg: `You don't have permissions to view member loans`,
+        //     type: `error`,
+        //     model: true
+        //   });
+        // }
       }
     },
     mounted() {

@@ -1,14 +1,16 @@
 <template>
-  <v-app v-if="loggedInState">
+  <v-app v-if="loggedInState" >
     <v-navigation-drawer
+    
         persistent
         :mini-variant="miniVariant"
         :clipped="clipped"
         v-model="drawer"
         enable-resize-watcher
         fixed
-        app>
-      <v-list>
+        app
+        >
+      <v-list >
         <v-list-tile>
           <v-list-tile-action>
             <v-icon>bubble_chart</v-icon>
@@ -65,6 +67,7 @@
     <v-toolbar
         app
         :clipped-left="clipped"
+        color="primary"
     >
       <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
       <v-btn icon @click.stop="miniVariant = !miniVariant">
@@ -78,7 +81,7 @@
       </v-btn>
       <v-toolbar-title v-text="title"></v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn color="danger" @click="logOut">Log Out</v-btn>
+      <v-btn @click="logOut" color="error">Log Out</v-btn>
     </v-toolbar>
     <v-content>
 
@@ -185,7 +188,8 @@
             items: [
               {
                 action: "list",
-                title: "All Methods"
+                title: "All Methods",
+                routerName: `PaymentMethodsList`
               },
               {
                 action: "add_circle",
@@ -235,6 +239,7 @@
     methods: {
       logOut() {
         this.$store.commit("setLoggedInUser", {});
+        localStorage.clear();
         this.$router.push(`/`);
       }
     },

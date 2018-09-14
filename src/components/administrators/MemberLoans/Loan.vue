@@ -60,7 +60,7 @@
 </template>
 
 <script>
-  import HTTP from "../../../api";
+  
   import Guarantors from "@/components/administrators/MemberLoans/Guarantors";
 
   export default {
@@ -76,7 +76,7 @@
     methods: {
       getLoanDetails() {
         if (this.$can(`read`, `MemberLoan`)) {
-          HTTP.get(`loans/memberloans/${this.$route.params.memberLoanId}`)
+          this.$http.get(`loans/memberloans/${this.$route.params.memberLoanId}`)
             .then(response => {
               this.loanDetails = response.data;
             })

@@ -1,8 +1,13 @@
 import { AbilityBuilder } from '@casl/ability'
-import store from '../store'
 
 export default AbilityBuilder.define(can => {
-  switch (store.getters.loggedInUser.accessLevel) {
+  console.log(
+    localStorage.getItem('accessLevel')
+  )
+
+  switch (
+    localStorage.getItem('accessLevel')
+  ) {
     case 'MEMBER': {
 
       const memberPermissions = ['read']

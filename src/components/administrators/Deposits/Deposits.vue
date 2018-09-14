@@ -56,7 +56,7 @@
 </template>
 
 <script>
-  import HTTP from "../../../api";
+  
   import queryString from "querystring";
 
   export default {
@@ -91,7 +91,7 @@
         if (this.$can(`read`, `MemberDeposit`)) {
           this.startLoading();
 
-          HTTP.get(`memberdeposits`)
+          this.$http.get(`memberdeposits`)
             .then(response => {
               this.deposits = response.data;
               this.stopLoading();

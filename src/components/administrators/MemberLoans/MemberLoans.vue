@@ -9,7 +9,6 @@
       <td>{{ props.item.loanType.loanTypeName }}</td>
       <td>{{ props.item.loanAmount }}</td>
       <td>{{ props.item.loanRepaymentStatus.loanRepaymentStatus }}</td>
-      <td>{{ props.item.repaymentPeriod }}</td>
       <td>{{ moment(props.item.createdAt).format('MMMM Do YYYY, h:mm:ss a') }}</td>
       <td>
         <router-link :to="`/admin/memberloans/${ props.item.memberLoanId }`"><v-icon>list</v-icon></router-link>
@@ -46,10 +45,6 @@
           {
             text: `Repayment Status`,
             value: `loanRepaymentStatus.loanRepaymentStatus`,
-          },
-          {
-            text: `Repayment Period`,
-            value: `repaymentPeriod`,
           },
           {
             text: `Date Taken`,

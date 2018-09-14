@@ -68,7 +68,7 @@
     methods: {
       fetchLoans() {
         if (this.$can(`read`, `MemberLoan`)) {
-          HTTP.get(`loans/member/${this.loggedInUser.member.memberId}`)
+          this.$http.get(`loans/member/${this.loggedInUser.member.memberId}`)
             .then(response => {
               this.memberloans = response.data;
             })

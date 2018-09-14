@@ -24,13 +24,12 @@
         <v-tabs
             grow
             v-model="activeTab"
-            fixed-tabs
         >
           <v-tab
               v-for="tab in tabs"
               :key="tabs.indexOf(tab)"
           > {{ tab }} </v-tab>
-          <v-tabs-items>
+          <v-tabs-items cycle>
             <v-tab-item>
               <Addresses :addresses="addressdetails" />
             </v-tab-item>
@@ -55,7 +54,7 @@
 </template>
 
 <script>
-  import HTTP from "../../../api";
+  
 
   import Addresses from "@/components/administrators/AddressDetails/Address";
   import PaymentMethods from "@/components/administrators/PaymentMethods/PaymentMethods";
@@ -94,7 +93,7 @@
     methods: {
       fetchMember() {
         if (this.$can(`read`, `Member`)) {
-          HTTP.get(`members/${this.memberId}`)
+          this.$http.get(`members/${this.memberId}`)
             .then(response => {
               this.member = response.data;
             })
@@ -115,7 +114,7 @@
       },
       fetchAddressDetails() {
         if (this.$can(`read`, `AddressDetails`)) {
-          HTTP.get(`/addressdetails/members/${this.memberId}`)
+          this.$http.get(`/addressdetails/members/${this.memberId}`)
             .then(response => {
               this.addressdetails = response.data;
             })
@@ -136,7 +135,7 @@
       },
       fetchPaymentMethods() {
         if (this.$can(`read`, `PaymentMethods`)) {
-          HTTP.get(`/paymentdetails/members/${this.memberId}`)
+          this.$http.get(`/paymentdetails/members/${this.memberId}`)
             .then(response => {
               this.paymentmethods = response.data;
             })
@@ -157,7 +156,7 @@
       },
       fetchNominees() {
         if (this.$can(`read`, `Nominee`)) {
-          HTTP.get(`/nominees/members/${this.memberId}`)
+          this.$http.get(`/nominees/members/${this.memberId}`)
             .then(response => {
               this.nominees = response.data;
             })
@@ -178,7 +177,7 @@
       },
       fetchDeposits() {
         if (this.$can(`read`, `MemberDeposit`)) {
-          HTTP.get(`/memberdeposits/members/${this.memberId}`)
+          this.$http.get(`/memberdeposits/members/${this.memberId}`)
             .then(response => {
               this.deposits = response.data;
             })
@@ -199,7 +198,7 @@
       },
       fetchLoans() {
         if (this.$can(`read`, `MemberLoan`)) {
-          HTTP.get(`loans/member/${this.memberId}`)
+          this.$http.get(`loans/member/${this.memberId}`)
             .then(response => {
               this.loans = response.data;
             })

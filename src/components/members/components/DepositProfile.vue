@@ -44,7 +44,7 @@
 <script>
   import moment from "moment";
 
-  import HTTP from "../../../api";
+  
 
   export default {
     name: `DepositProfile`,
@@ -63,7 +63,7 @@
     methods: {
       fetchDeposits() {
         if (this.$can(`read`, `MemberDeposit`)) {
-          HTTP.get(`memberdeposits/members/${this.loggedInUser.member.memberId}`)
+          this.$http.get(`memberdeposits/members/${this.loggedInUser.member.memberId}`)
             .then(response => {
               this.contributions = response.data;
             })

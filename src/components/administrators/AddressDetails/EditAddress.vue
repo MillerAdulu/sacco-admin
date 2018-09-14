@@ -105,7 +105,7 @@
 </template>
 
 <script>
-  import HTTP from "../../../api";
+  
   import Parsers from "../../../helpers/parsers";
   import queryString from "querystring";
   import { Validator } from "vee-validate";
@@ -159,7 +159,7 @@
     methods: {
       getCounties() {
         if (this.$can(`read`, `County`)) {
-          HTTP.get("counties")
+          this.$http.get("counties")
             .then(response => {
               this.counties = response.data;
             })
@@ -180,7 +180,7 @@
       },
       getConstituencies(county) {
         if (this.$can(`read`, `County`)) {
-          HTTP.get(`constituencies/county/${county}`)
+          this.$http.get(`constituencies/county/${county}`)
             .then(response => {
               this.constituencies = response.data;
             })
@@ -201,7 +201,7 @@
       },
       getLocalities(constituency) {
         if (this.$can(`read`, `Locality`)) {
-          HTTP.get(`localities/constituency/${constituency}`)
+          this.$http.get(`localities/constituency/${constituency}`)
             .then(response => {
               this.localities = response.data;
             })
@@ -222,7 +222,7 @@
       },
       getPostOffices() {
         if (this.$can(`read`, `PostOffice`)) {
-          HTTP.get(`postoffices`)
+          this.$http.get(`postoffices`)
             .then(response => {
               this.postOffices = response.data;
             })
@@ -243,7 +243,7 @@
       },
       getAddressToEdit() {
         if (this.$can(`update`, `AddressDetails`)) {
-          HTTP.get(`addressdetails/${this.$route.params.address}`)
+          this.$http.get(`addressdetails/${this.$route.params.address}`)
             .then(response => {
               this.address = response.data;
             })

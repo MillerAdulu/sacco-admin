@@ -11,8 +11,8 @@
         slot-scope="props"
         xs12
         md6
-        lg4
-        xl3
+        lg6
+        xl6
     >
       <v-card>
         <v-card-title><h4>Address</h4></v-card-title>
@@ -56,10 +56,10 @@
           </v-list-tile>
           <v-list-tile>
             <Can I="update" a="AddressDetails">
-              <v-btn  @click="editAddress(props.item.addressDetailId)">Edit</v-btn>
+              <v-btn  @click="editAddress(props.item.addressDetailId)" color="accent">Edit</v-btn>
             </Can>
             <Can I="delete" a="AddressDetails">
-              <v-btn  @click="deleteAddress(props.item)" :loading="btnLoading">Delete</v-btn>
+              <v-btn  @click="deleteAddress(props.item)" :loading="btnLoading" color="error">Delete</v-btn>
             </Can>
           </v-list-tile>
         </v-list>
@@ -70,7 +70,7 @@
 </template>
 
 <script>
-  import HTTP from "../../../api";
+  
   import { mapMutations } from "vuex";
   export default {
     data() {
@@ -90,7 +90,7 @@
         if (this.$can(`delete`, `AddressDetails`)) {
           this.startLoading();
 
-          HTTP.delete(`addressdetails/${address.addressDetailId}`)
+          this.$http.delete(`addressdetails/${address.addressDetailId}`)
             .then(response => {
               let snackbar = {
                 msg: response

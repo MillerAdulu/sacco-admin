@@ -224,7 +224,8 @@
               },
               {
                 action: "list",
-                title: "Counties"
+                title: "Counties",
+                routerName: "CountiesList"
               },
               {
                 action: "list",

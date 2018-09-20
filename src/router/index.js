@@ -28,6 +28,7 @@ import DepositProfile from '@/components/members/components/DepositProfile'
 import LoanProfile from '@/components/members/components/LoanProfile'
 
 import PaymentMethodsList from '@/components/administrators/PaymentMethods/List'
+import CountiesList from '@/components/administrators/Management/Counties'
 
 import Auth from '@/components/authentication/views/Auth'
 import SignIn from '@/components/authentication/views/Signin'
@@ -119,6 +120,12 @@ const router = new Router({
           path: `maritalstatuses`,
           name: `MaritalStatusesList`,
           component: MaritalStatusesList,
+          props: true
+        },
+        {
+          path: `counties`,
+          name: `CountiesList`,
+          component: CountiesList,
           props: true
         }
       ]

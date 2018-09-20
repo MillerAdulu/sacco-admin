@@ -109,6 +109,7 @@
 <script>
   
   import SaccoAPI from '@/api'
+  import fetchCountiesMixin from '@/components/administrators/mixins/counties'
   import Parsers from "../../../helpers/parsers";
   import queryString from "querystring";
   import { Validator } from "vee-validate";
@@ -162,27 +163,6 @@
       this.getPostOffices();
     },
     methods: {
-      getCounties() {
-        // if (this.$can(`read`, `County`)) {
-          SaccoAPI.get("counties")
-            .then(response => {
-              this.counties = response.data;
-            })
-            .catch(error => {
-              this.$store.commit(`setSnackbar`, {
-                msg: `Unable to fetch counties at this time`,
-                type: `error`,
-                model: true
-              });
-            });
-        // } else {
-        //   this.$store.commit(`setSnackbar`, {
-        //     msg: `You don't have permissions to view counties`,
-        //     type: `error`,
-        //     model: true
-        //   });
-        // }
-      },
       getConstituencies(county) {
         // if (this.$can(`read`, `County`)) {
           SaccoAPI.get(`constituencies/county/${county}`)
@@ -307,6 +287,9 @@
       stopLoading() {
         this.btnLoading = false;
       }
-    }
+    },
+    mixins: [
+      fetchCountiesMixin,
+    ]
   };
 </script>

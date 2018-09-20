@@ -56,7 +56,7 @@
   </v-container>
 </template>
 <script>
-  
+  import SaccoAPI from '@/api'
 
   export default {
     name: "MemberList",
@@ -104,10 +104,10 @@
     },
     methods: {
       fetchMembers() {
-        if (this.$can(`read`, `Member`)) {
+        // if (this.$can(`read`, `Member`)) {
           this.startLoading();
 
-          this.$http.get(`members`)
+          SaccoAPI.get(`members`)
             .then(response => {
               this.members = response.data;
               this.stopLoading();
@@ -121,13 +121,13 @@
 
               this.stopLoading();
             });
-        } else {
-          this.$store.commit(`setSnackbar`, {
-            msg: `You don't have permissions to view members`,
-            type: `error`,
-            model: true
-          });
-        }
+        // } else {
+        //   this.$store.commit(`setSnackbar`, {
+        //     msg: `You don't have permissions to view members`,
+        //     type: `error`,
+        //     model: true
+        //   });
+        // }
       },
       startLoading() {
         this.dataLoading = true;

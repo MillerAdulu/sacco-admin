@@ -89,6 +89,7 @@
 
 <script>
   
+  import SaccoAPI from '@/api'
   import Parsers from "../../../helpers/parsers";
   import queryString from "querystring";
   import { Validator } from "vee-validate";
@@ -139,7 +140,7 @@
     },
     methods: {
       async addNominee() {
-        if (this.$can(`create`, `Nominee`)) {
+        // if (this.$can(`create`, `Nominee`)) {
 
           this.startLoading()
 
@@ -154,7 +155,7 @@
             phone_number: this.phoneNumber,
             email: this.email
           });
-          this.$http.post("nominees", queryString.stringify(nominee))
+          SaccoAPI.post("nominees", queryString.stringify(nominee))
             .then(response => {
               this.$store.commit(`setSnackbar`, {
                 msg: `${
@@ -177,17 +178,17 @@
               });
               this.stopLoading();
             });
-        } else {
-          this.$store.commit(`setSnackbar`, {
-            msg: `You don't have permissions to add nominees`,
-            type: `error`,
-            model: true
-          });
-        }
+        // } else {
+        //   this.$store.commit(`setSnackbar`, {
+        //     msg: `You don't have permissions to add nominees`,
+        //     type: `error`,
+        //     model: true
+        //   });
+        // }
       },
       getRelationships() {
-        if (this.$can(`read`, `Relationship`)) {
-          this.$http.get(`relationships`)
+        // if (this.$can(`read`, `Relationship`)) {
+          SaccoAPI.get(`relationships`)
             .then(response => {
               this.relationships = response.data;
             })
@@ -198,13 +199,13 @@
                 model: true
               });
             });
-        } else {
-          this.$store.commit(`setSnackbar`, {
-            msg: `You don't have permissions to view member relationships`,
-            type: `error`,
-            model: true
-          });
-        }
+        // } else {
+        //   this.$store.commit(`setSnackbar`, {
+        //     msg: `You don't have permissions to view member relationships`,
+        //     type: `error`,
+        //     model: true
+        //   });
+        // }
       },
       clearNominee() {
         this.identificationNumber = ``;

@@ -58,6 +58,7 @@
 
 <script>
   
+  import SaccoAPI from '@/api'
 
   export default {
     name: `Accounts`,
@@ -93,11 +94,11 @@
     },
     methods: {
       fetchAccountData(){
-        if(this.$can('read', 'MemberAccount')) {
+        // if(this.$can('read', 'MemberAccount')) {
           
           this.startLoading()
 
-          this.$http.get(`memberdeposits/members/accounts/all`)
+          SaccoAPI.get(`memberdeposits/members/accounts/all`)
             .then(response => {
 
               this.accounts = response.data
@@ -115,17 +116,17 @@
               this.stopLoading()
             })
 
-        } else {
+        // } else {
 
-          this.$store.commit(`setSnackbar`, {
-            msg: `You dont' have permission to view this section`,
-            type: `error`,
-            model: true,
-          })
+        //   this.$store.commit(`setSnackbar`, {
+        //     msg: `You dont' have permission to view this section`,
+        //     type: `error`,
+        //     model: true,
+        //   })
           
-          this.stopLoading()
+        //   this.stopLoading()
 
-        }
+        // }
 
       },
       startLoading() {

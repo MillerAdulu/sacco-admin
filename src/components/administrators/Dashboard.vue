@@ -49,7 +49,7 @@
 </template>
 
 <script>
-  
+  import SaccoAPI from '@/api'
 
   export default {
     name: `Dashboard`,
@@ -63,7 +63,7 @@
     methods: {
       fetchMembers() {
         // if (this.$can(`read`, `Member`)) {
-          this.$http.get(`/dashboard/members`)
+          SaccoAPI.get(`/dashboard/members`)
             .then(response => {
               this.totalMembers = response.data;
             })
@@ -75,16 +75,16 @@
               });
             });
         // } else {
-        //   this.$store.commit(`setSnackbar`, {
-        //     msg: `You don't have permissions to view members`,
-        //     type: `error`,
-        //     model: true
-        //   });
+          // this.$store.commit(`setSnackbar`, {
+          //   msg: `You don't have permissions to view members`,
+          //   type: `error`,
+          //   model: true
+          // });
         // }
       },
       fetchDeposits() {
         // if (this.$can(`read`, `MemberDeposit`)) {
-          this.$http.get(`/dashboard/deposits`)
+          SaccoAPI.get(`/dashboard/deposits`)
             .then(response => {
               this.totalDeposits = response.data;
             })
@@ -96,16 +96,16 @@
               });
             });
         // } else {
-        //   this.$store.commit(`setSnackbar`, {
-        //     msg: `You don't have permissions to view deposits`,
-        //     type: `error`,
-        //     model: true
-        //   });
+          // this.$store.commit(`setSnackbar`, {
+          //   msg: `You don't have permissions to view deposits`,
+          //   type: `error`,
+          //   model: true
+          // });
         // }
       },
       fetchMemberLoans() {
         // if (this.$can(`read`, `MemberLoan`)) {
-          this.$http.get(`/dashboard/memberloans`)
+          SaccoAPI.get(`/dashboard/memberloans`)
             .then(response => {
               this.totalMemberLoans = response.data;
             })
@@ -117,11 +117,11 @@
               });
             });
         // } else {
-        //   this.$store.commit(`setSnackbar`, {
-        //     msg: `You don't have permissions to view member loans`,
-        //     type: `error`,
-        //     model: true
-        //   });
+          // this.$store.commit(`setSnackbar`, {
+          //   msg: `You don't have permissions to view member loans`,
+          //   type: `error`,
+          //   model: true
+          // });
         // }
       }
     },

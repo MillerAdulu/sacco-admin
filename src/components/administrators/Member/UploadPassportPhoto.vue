@@ -11,7 +11,7 @@
   import "vue2-dropzone/dist/vue2Dropzone.min.css";
 
   import queryString from "querystring";
-  import { authHeader } from "../../../api/axios";
+  import { authHeader } from "../../../api";
 
   export default {
     name: `UploadProfilePicture`,
@@ -27,7 +27,7 @@
           paramName: "passport_photo",
           maxFiles: 1,
           acceptedFiles: "image/*",
-          headers: authHeader
+          headers: {'Authorization': `Bearer ${ localStorage.token }`}
         }
       };
     },

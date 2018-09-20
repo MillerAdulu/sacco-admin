@@ -3,9 +3,7 @@
 </template>
 
 <script>
-
-  
-
+  import SaccoAPI from '@/api'
   export default {
     data() {
       return {
@@ -14,7 +12,7 @@
     },
     methods: {
       fetchMember() {
-        this.$http.get('members/'+this.$route.params.memberId)
+        SaccoAPI.get('members/'+this.$route.params.memberId)
           .then(response => {
 
           })

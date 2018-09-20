@@ -53,6 +53,7 @@
 
 <script>
   
+  import SaccoAPI from '@/api'
   import Parsers from "../../../helpers/parsers";
 
   import queryString from "querystring";
@@ -87,7 +88,7 @@
         }
       },
       async addPaymentDetails() {
-        if (this.$can(`create`, `PaymentMethods`)) {
+        // if (this.$can(`create`, `PaymentMethods`)) {
 
           this.startLoading()
 
@@ -100,7 +101,7 @@
             provider: this.provider,
             phone_number: this.phoneNumber
           });
-          this.$http.post("paymentdetails", queryString.stringify(paymentDetails))
+          SaccoAPI.post("paymentdetails", queryString.stringify(paymentDetails))
             .then(response => {
               this.$store.commit("setStepperStatus", false);
               this.clearPaymentDetails();
@@ -123,13 +124,13 @@
               this.stopLoading()
 
             });
-        } else {
-          this.$store.commit(`setSnackbar`, {
-            msg: `You don't have permissions to add payment details`,
-            type: `error`,
-            model: true
-          });
-        }
+        // } else {
+        //   this.$store.commit(`setSnackbar`, {
+        //     msg: `You don't have permissions to add payment details`,
+        //     type: `error`,
+        //     model: true
+        //   });
+        // }
       },
 
       clearPaymentDetails() {
@@ -141,8 +142,8 @@
       },
 
       getPaymentMethods() {
-        if (this.$can(`read`, `PaymentMethods`)) {
-          this.$http.get("paymentmethods")
+        // if (this.$can(`read`, `PaymentMethods`)) {
+          SaccoAPI.get("paymentmethods")
             .then(response => {
               this.paymentMethods = response.data;
             })
@@ -153,13 +154,13 @@
                 model: true
               });
             });
-        } else {
-          this.$store.commit(`setSnackbar`, {
-            msg: `You don't have permissions to view payment methods`,
-            type: `error`,
-            model: true
-          });
-        }
+        // } else {
+        //   this.$store.commit(`setSnackbar`, {
+        //     msg: `You don't have permissions to view payment methods`,
+        //     type: `error`,
+        //     model: true
+        //   });
+        // }
       },
       startLoading() {
         this.btnLoading = true;

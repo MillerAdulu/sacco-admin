@@ -140,6 +140,7 @@
 
 <script>
   
+  import SaccoAPI from '@/api'
   import Parsers from "../../../helpers/parsers";
   import queryString from "querystring";
   import { Validator } from "vee-validate";
@@ -212,7 +213,7 @@
       },
 
       async registerMember() {
-        if (this.$can(`create`, `Member`)) {
+        // if (this.$can(`create`, `Member`)) {
 
           this.startLoading()
 
@@ -232,7 +233,7 @@
             gender: this.gender
           });
 
-          this.$http.post("members", queryString.stringify(newMember))
+          SaccoAPI.post("members", queryString.stringify(newMember))
             .then(response => {
               this.$store.commit(`setSnackbar`, {
                 msg: `${this.lastName} has been added successfully`,
@@ -247,7 +248,6 @@
               this.stopLoading()
             })
             .catch(error => {
-              console.log(error.response.data)
               this.$store.commit(`setSnackbar`, {
                 msg: `You are unable to add this member at this time`,
                 type: `error`,
@@ -256,13 +256,13 @@
 
               this.stopLoading();
             });
-        } else {
-          this.$store.commit(`setSnackbar`, {
-            msg: `You don't have permissions to add members`,
-            type: `error`,
-            model: true
-          });
-        }
+        // } else {
+        //   this.$store.commit(`setSnackbar`, {
+        //     msg: `You don't have permissions to add members`,
+        //     type: `error`,
+        //     model: true
+        //   });
+        // }
       },
       clearForm() {
         this.identificationNumber = ``;
@@ -279,8 +279,8 @@
         this.$validator.reset();
       },
       getMaritalStatuses() {
-        if (this.$can(`read`, `MaritalStatus`)) {
-          this.$http.get(`maritalstatuses`)
+        // if (this.$can(`read`, `MaritalStatus`)) {
+          SaccoAPI.get(`maritalstatuses`)
             .then(response => {
               this.maritalStatuses = response.data;
             })
@@ -291,13 +291,13 @@
                 model: true
               });
             });
-        } else {
-          this.$store.commit(`setSnackbar`, {
-            msg: `You don't have permissions to view marital statuses`,
-            type: `error`,
-            model: true
-          });
-        }
+        // } else {
+        //   this.$store.commit(`setSnackbar`, {
+        //     msg: `You don't have permissions to view marital statuses`,
+        //     type: `error`,
+        //     model: true
+        //   });
+        // }
       },
       startLoading() {
         this.btnLoading = true;

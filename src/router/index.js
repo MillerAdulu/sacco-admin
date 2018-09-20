@@ -175,9 +175,9 @@ router.beforeEach((to, from, next) => {
   
   if(to.path === `/login`) next()
 
-  if(to.path === `/` && localStorage.getItem('token')) next(`/login`)
+  if(to.path === `/` && localStorage.token) next(`/login`)
   
-  if(!localStorage.getItem('token')) next(`/login`)
+  if(!localStorage.token) next(`/login`)
   
   next()
   

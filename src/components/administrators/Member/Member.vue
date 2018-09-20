@@ -17,7 +17,9 @@
         <v-spacer />
         <img
             :src="member.passportPhoto"
+            
         />
+        <v-progress-circular indeterminate color="grey lighten-5"/>
       </v-layout>
       <v-divider light></v-divider>
       <v-card-actions class="pa-3">
@@ -55,7 +57,7 @@
 
 <script>
   
-
+  import SaccoAPI from '@/api'
   import Addresses from "@/components/administrators/AddressDetails/Address";
   import PaymentMethods from "@/components/administrators/PaymentMethods/PaymentMethods";
   import ShowNominees from "@/components/administrators/Nominees/ShowNominees";
@@ -92,8 +94,8 @@
     },
     methods: {
       fetchMember() {
-        if (this.$can(`read`, `Member`)) {
-          this.$http.get(`members/${this.memberId}`)
+        // if (this.$can(`read`, `Member`)) {
+          SaccoAPI.get(`members/${this.memberId}`)
             .then(response => {
               this.member = response.data;
             })
@@ -104,17 +106,17 @@
                 model: true
               });
             });
-        } else {
-          this.$store.commit(`setSnackbar`, {
-            msg: `You don't have permissions to view members`,
-            type: `error`,
-            model: true
-          });
-        }
+        // } else {
+        //   this.$store.commit(`setSnackbar`, {
+        //     msg: `You don't have permissions to view members`,
+        //     type: `error`,
+        //     model: true
+        //   });
+        // }
       },
       fetchAddressDetails() {
-        if (this.$can(`read`, `AddressDetails`)) {
-          this.$http.get(`/addressdetails/members/${this.memberId}`)
+        // if (this.$can(`read`, `AddressDetails`)) {
+          SaccoAPI.get(`/addressdetails/members/${this.memberId}`)
             .then(response => {
               this.addressdetails = response.data;
             })
@@ -125,17 +127,17 @@
                 model: true
               });
             });
-        } else {
-          this.$store.commit(`setSnackbar`, {
-            msg: `You don't have permissions to view address details`,
-            type: `error`,
-            model: true
-          });
-        }
+        // } else {
+        //   this.$store.commit(`setSnackbar`, {
+        //     msg: `You don't have permissions to view address details`,
+        //     type: `error`,
+        //     model: true
+        //   });
+        // }
       },
       fetchPaymentMethods() {
-        if (this.$can(`read`, `PaymentMethods`)) {
-          this.$http.get(`/paymentdetails/members/${this.memberId}`)
+        // if (this.$can(`read`, `PaymentMethods`)) {
+          SaccoAPI.get(`/paymentdetails/members/${this.memberId}`)
             .then(response => {
               this.paymentmethods = response.data;
             })
@@ -146,17 +148,17 @@
                 model: true
               });
             });
-        } else {
-          this.$store.commit(`setSnackbar`, {
-            msg: `You don't have permissions to view payment methods`,
-            type: `error`,
-            model: true
-          });
-        }
+        // } else {
+        //   this.$store.commit(`setSnackbar`, {
+        //     msg: `You don't have permissions to view payment methods`,
+        //     type: `error`,
+        //     model: true
+        //   });
+        // }
       },
       fetchNominees() {
-        if (this.$can(`read`, `Nominee`)) {
-          this.$http.get(`/nominees/members/${this.memberId}`)
+        // if (this.$can(`read`, `Nominee`)) {
+          SaccoAPI.get(`/nominees/members/${this.memberId}`)
             .then(response => {
               this.nominees = response.data;
             })
@@ -167,17 +169,17 @@
                 model: true
               });
             });
-        } else {
-          this.$store.commit(`setSnackbar`, {
-            msg: `You don't have permissions to view nominees`,
-            type: `error`,
-            model: true
-          });
-        }
+        // } else {
+        //   this.$store.commit(`setSnackbar`, {
+        //     msg: `You don't have permissions to view nominees`,
+        //     type: `error`,
+        //     model: true
+        //   });
+        // }
       },
       fetchDeposits() {
-        if (this.$can(`read`, `MemberDeposit`)) {
-          this.$http.get(`/memberdeposits/members/${this.memberId}`)
+        // if (this.$can(`read`, `MemberDeposit`)) {
+          SaccoAPI.get(`/memberdeposits/members/${this.memberId}`)
             .then(response => {
               this.deposits = response.data;
             })
@@ -188,17 +190,17 @@
                 model: true
               });
             });
-        } else {
-          this.$store.commit(`setSnackbar`, {
-            msg: `You don't have permissions to view member deposits`,
-            type: `error`,
-            model: true
-          });
-        }
+        // } else {
+        //   this.$store.commit(`setSnackbar`, {
+        //     msg: `You don't have permissions to view member deposits`,
+        //     type: `error`,
+        //     model: true
+        //   });
+        // }
       },
       fetchLoans() {
-        if (this.$can(`read`, `MemberLoan`)) {
-          this.$http.get(`loans/member/${this.memberId}`)
+        // if (this.$can(`read`, `MemberLoan`)) {
+          SaccoAPI.get(`loans/member/${this.memberId}`)
             .then(response => {
               this.loans = response.data;
             })
@@ -209,13 +211,13 @@
                 model: true
               });
             });
-        } else {
-          this.$store.commit(`setSnackbar`, {
-            msg: `You don't have permissions to view member loans`,
-            type: `error`,
-            model: true
-          });
-        }
+        // } else {
+        //   this.$store.commit(`setSnackbar`, {
+        //     msg: `You don't have permissions to view member loans`,
+        //     type: `error`,
+        //     model: true
+        //   });
+        // }
       }
     },
     created() {

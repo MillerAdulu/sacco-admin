@@ -1,10 +1,8 @@
 import { AbilityBuilder } from '@casl/ability'
 
-export default AbilityBuilder.define(can => {
-  console.log(
-    localStorage.getItem('accessLevel')
-  )
+// let userAccessLevel = JSON.parse()
 
+export default AbilityBuilder.define(can => {
   switch (
     localStorage.getItem('accessLevel')
   ) {
@@ -102,3 +100,11 @@ export default AbilityBuilder.define(can => {
     }
   }
 })
+
+function setAccessLevel(accessLevel) {
+  userAccessLevel = accessLevel
+}
+
+export {
+  setAccessLevel
+}

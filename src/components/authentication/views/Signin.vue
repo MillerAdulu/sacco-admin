@@ -76,10 +76,6 @@ import { mapMutations } from "vuex";
 import axios from "axios";
 import queryString from "querystring";
 
-import {
-  setLoggedInUserData
-  } from '@/helpers/forage'
-
 export default {
   components: {
     BaseCard,
@@ -121,12 +117,13 @@ export default {
           this.$store.commit(`setLoggedInUser`, response.data);
           localStorage.setItem(`token`, response.data.token)
           localStorage.setItem(`accessLevel`, response.data.accessLevel)
-          setLoggedInUserData(response.data)
+
           this.$store.commit(`setSnackbar`, {
             type: `success`,
             msg: `Successfully signed in user ${this.username}`,
             model: true
           });
+
           this.redirectToDashboard(user.accessLevel);
           }
         })
@@ -144,7 +141,6 @@ export default {
     },
     checkValidation() {
       if (
-        
         localStorage.getItem('token')
       ) {
         this.redirectToDashboard(
@@ -174,10 +170,9 @@ export default {
           }
         })
         .catch(error => {
-          console.log(error)
           this.$store.commit(`setSnackbar`, {
             type: `error`,
-            msg: `Unable to log you in`,
+            msg: `Unable to check your username`,
             model: true
           });
         });

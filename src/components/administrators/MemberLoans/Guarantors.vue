@@ -37,8 +37,7 @@
 </template>
 
 <script>
-  
-
+  import SaccoAPI from '@/api'
   export default {
     name: `Guarantors`,
     data() {
@@ -52,8 +51,8 @@
     },
     methods: {
       fetchGuarantors() {
-        if(this.$can(`read`, `LoanGuarantor`)) {
-          this.$http.get(`loans/loan/${ this.$route.params.memberLoanId }`)
+        // if(this.$can(`read`, `LoanGuarantor`)) {
+          SaccoAPI.get(`loans/loan/${ this.$route.params.memberLoanId }`)
             .then(response => {
               this.loanGuarantors = response.data
             })
@@ -64,15 +63,15 @@
                 model: true,
               })
             })
-        } else {
+        // } else {
 
-          this.$store.commit(`setSnackbar`, {
-            msg: `You don't have permissions to view loan guarantors`,
-            type: `error`,
-            model: true,
-          })
+        //   this.$store.commit(`setSnackbar`, {
+        //     msg: `You don't have permissions to view loan guarantors`,
+        //     type: `error`,
+        //     model: true,
+        //   })
 
-        }
+        // }
       }
     },
     created() {

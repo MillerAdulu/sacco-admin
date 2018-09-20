@@ -56,7 +56,7 @@
 </template>
 
 <script>
-  
+  import SaccoAPI from '@/api'
   import queryString from "querystring";
 
   export default {
@@ -88,10 +88,10 @@
     },
     methods: {
       fetchAccountData() {
-        if (this.$can(`read`, `MemberDeposit`)) {
+        // if (this.$can(`read`, `MemberDeposit`)) {
           this.startLoading();
 
-          this.$http.get(`memberdeposits`)
+          SaccoAPI.get(`memberdeposits`)
             .then(response => {
               this.deposits = response.data;
               this.stopLoading();
@@ -105,13 +105,13 @@
 
               this.stopLoading();
             });
-        } else {
-          this.$store.commit(`setSnackbar`, {
-            msg: `You don't have permissions to view deposits`,
-            type: `error`,
-            model: true
-          });
-        }
+        // } else {
+        //   this.$store.commit(`setSnackbar`, {
+        //     msg: `You don't have permissions to view deposits`,
+        //     type: `error`,
+        //     model: true
+        //   });
+        // }
       },
       startLoading() {
         this.dataLoading = true;

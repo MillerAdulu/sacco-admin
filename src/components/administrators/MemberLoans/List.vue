@@ -51,9 +51,8 @@
 </template>
 
 <script>
+  import SaccoAPI from '@/api'
   import moment from "moment";
-  
-
   export default {
     name: `MemberLoans`,
     data() {
@@ -100,8 +99,8 @@
     },
     methods: {
       fetchLoans() {
-        if (this.$can(`read`, `MemberLoan`)) {
-          this.$http.get(`loans/memberloans`)
+        // if (this.$can(`read`, `MemberLoan`)) {
+          SaccoAPI.get(`loans/memberloans`)
             .then(response => {
               this.memberLoans = response.data;
               this.dataLoading = false;
@@ -113,13 +112,13 @@
                 model: true
               });
             });
-        } else {
-          this.$store.commit(`setSnackbar`, {
-            msg: `You don't have permissions to view members loans`,
-            type: `error`,
-            model: true
-          });
-        }
+        // } else {
+        //   this.$store.commit(`setSnackbar`, {
+        //     msg: `You don't have permissions to view members loans`,
+        //     type: `error`,
+        //     model: true
+        //   });
+        // }
       },
       startLoading() {
         this.dataLoading = true;

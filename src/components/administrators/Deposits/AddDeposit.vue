@@ -44,6 +44,7 @@
 </template>
 
 <script>
+import SaccoAPI from '@/api'
 import queryString from "querystring";
 import fetchPaymentMethodsMixin from '@/components/administrators/mixins/paymentMethods'
 
@@ -63,10 +64,10 @@ export default {
 
   methods: {
     addMemberDeposit() {
-      if (this.$can(`create`, `MemberDeposit`)) {
+      // if (this.$can(`create`, `MemberDeposit`)) {
         this.startLoading();
 
-        this.$http
+        SaccoAPI
           .post(
             `memberdeposits`,
             queryString.stringify({
@@ -93,17 +94,17 @@ export default {
             });
             this.stopLoading();
           });
-      } else {
-        this.$store.commit(`setSnackbar`, {
-          msg: `You don't have permissions to add a deposit`,
-          type: `error`,
-          model: true
-        });
-      }
+      // } else {
+      //   this.$store.commit(`setSnackbar`, {
+      //     msg: `You don't have permissions to add a deposit`,
+      //     type: `error`,
+      //     model: true
+      //   });
+      // }
     },
     fetchMembers() {
-      if (this.$can(`read`, `Member`)) {
-        this.$http
+      // if (this.$can(`read`, `Member`)) {
+        SaccoAPI
           .get(`members`)
           .then(response => {
             this.members = response.data;
@@ -115,13 +116,13 @@ export default {
               model: true
             });
           });
-      } else {
-        this.$store.commit(`setSnackbar`, {
-          msg: `You don't have permissions to view members`,
-          type: `error`,
-          model: true
-        });
-      }
+      // } else {
+      //   this.$store.commit(`setSnackbar`, {
+      //     msg: `You don't have permissions to view members`,
+      //     type: `error`,
+      //     model: true
+      //   });
+      // }
     },
     
     startLoading() {

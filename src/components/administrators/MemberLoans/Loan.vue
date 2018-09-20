@@ -61,6 +61,7 @@
 
 <script>
   
+  import SaccoAPI from '@/api'
   import Guarantors from "@/components/administrators/MemberLoans/Guarantors";
 
   export default {
@@ -75,8 +76,8 @@
     },
     methods: {
       getLoanDetails() {
-        if (this.$can(`read`, `MemberLoan`)) {
-          this.$http.get(`loans/memberloans/${this.$route.params.memberLoanId}`)
+        // if (this.$can(`read`, `MemberLoan`)) {
+          SaccoAPI.get(`loans/memberloans/${this.$route.params.memberLoanId}`)
             .then(response => {
               this.loanDetails = response.data;
             })
@@ -87,13 +88,13 @@
                 model: true
               });
             });
-        } else {
-          this.$store.commit(`setSnackbar`, {
-            msg: `You don't have permissions to view member loans`,
-            type: `error`,
-            model: true
-          });
-        }
+        // } else {
+        //   this.$store.commit(`setSnackbar`, {
+        //     msg: `You don't have permissions to view member loans`,
+        //     type: `error`,
+        //     model: true
+        //   });
+        // }
       }
     },
     created() {

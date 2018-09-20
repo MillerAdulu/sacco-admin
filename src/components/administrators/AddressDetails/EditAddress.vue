@@ -106,6 +106,7 @@
 
 <script>
   
+  import SaccoAPI from '@/api'
   import Parsers from "../../../helpers/parsers";
   import queryString from "querystring";
   import { Validator } from "vee-validate";
@@ -158,8 +159,8 @@
     },
     methods: {
       getCounties() {
-        if (this.$can(`read`, `County`)) {
-          this.$http.get("counties")
+        // if (this.$can(`read`, `County`)) {
+          SaccoAPI.get("counties")
             .then(response => {
               this.counties = response.data;
             })
@@ -170,17 +171,17 @@
                 model: true
               });
             });
-        } else {
-          this.$store.commit(`setSnackbar`, {
-            msg: `You don't have permissions to view counties`,
-            type: `error`,
-            model: true
-          });
-        }
+        // } else {
+        //   this.$store.commit(`setSnackbar`, {
+        //     msg: `You don't have permissions to view counties`,
+        //     type: `error`,
+        //     model: true
+        //   });
+        // }
       },
       getConstituencies(county) {
-        if (this.$can(`read`, `County`)) {
-          this.$http.get(`constituencies/county/${county}`)
+        // if (this.$can(`read`, `County`)) {
+          SaccoAPI.get(`constituencies/county/${county}`)
             .then(response => {
               this.constituencies = response.data;
             })
@@ -191,17 +192,17 @@
                 model: true
               });
             });
-        } else {
-          this.$store.commit(`setSnackbar`, {
-            msg: `You don't have permissions to view constituencies`,
-            type: `error`,
-            model: true
-          });
-        }
+        // } else {
+        //   this.$store.commit(`setSnackbar`, {
+        //     msg: `You don't have permissions to view constituencies`,
+        //     type: `error`,
+        //     model: true
+        //   });
+        // }
       },
       getLocalities(constituency) {
-        if (this.$can(`read`, `Locality`)) {
-          this.$http.get(`localities/constituency/${constituency}`)
+        // if (this.$can(`read`, `Locality`)) {
+          SaccoAPI.get(`localities/constituency/${constituency}`)
             .then(response => {
               this.localities = response.data;
             })
@@ -212,17 +213,17 @@
                 model: true
               });
             });
-        } else {
-          this.$store.commit(`setSnackbar`, {
-            msg: `You don't have permissions to view localities`,
-            type: `error`,
-            model: true
-          });
-        }
+        // } else {
+        //   this.$store.commit(`setSnackbar`, {
+        //     msg: `You don't have permissions to view localities`,
+        //     type: `error`,
+        //     model: true
+        //   });
+        // }
       },
       getPostOffices() {
-        if (this.$can(`read`, `PostOffice`)) {
-          this.$http.get(`postoffices`)
+        // if (this.$can(`read`, `PostOffice`)) {
+          SaccoAPI.get(`postoffices`)
             .then(response => {
               this.postOffices = response.data;
             })
@@ -233,17 +234,17 @@
                 model: true
               });
             });
-        } else {
-          this.$store.commit(`setSnackbar`, {
-            msg: `You don't have permissions to view post offices`,
-            type: `error`,
-            model: true
-          });
-        }
+        // } else {
+        //   this.$store.commit(`setSnackbar`, {
+        //     msg: `You don't have permissions to view post offices`,
+        //     type: `error`,
+        //     model: true
+        //   });
+        // }
       },
       getAddressToEdit() {
-        if (this.$can(`update`, `AddressDetails`)) {
-          this.$http.get(`addressdetails/${this.$route.params.address}`)
+        // if (this.$can(`update`, `AddressDetails`)) {
+          SaccoAPI.get(`addressdetails/${this.$route.params.address}`)
             .then(response => {
               this.address = response.data;
             })
@@ -255,14 +256,14 @@
               };
               this.$store.commit(`setSnackbar`, snackbar);
             });
-        } else {
-          let snackbar = {
-            msg: `You don't have permissions to edit this address`,
-            type: `error`,
-            model: true
-          };
-          this.$store.commit(`setSnackbar`, snackbar);
-        }
+        // } else {
+        //   let snackbar = {
+        //     msg: `You don't have permissions to edit this address`,
+        //     type: `error`,
+        //     model: true
+        //   };
+        //   this.$store.commit(`setSnackbar`, snackbar);
+        // }
       },
       editAddress() {},
       cancelEdit() {

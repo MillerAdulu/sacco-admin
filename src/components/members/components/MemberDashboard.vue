@@ -71,8 +71,7 @@
 </template>
 
 <script>
-  
-
+  import SaccoAPI from '@/api'
   export default {
     name: `MemberDashboard`,
     data() {
@@ -83,8 +82,8 @@
     },
     methods: {
       fetchMemberData() {
-        if (this.$can(`read`, `Member`)) {
-          this.$http.get(`members/${this.loggedInMember.member.memberId}`)
+        // if (this.$can(`read`, `Member`)) {
+          SaccoAPI.get(`members/${this.loggedInMember.member.memberId}`)
             .then(response => {
               this.member = response.data;
             })
@@ -95,13 +94,13 @@
                 model: true
               });
             });
-        } else {
-          this.$store.commit(`setSnackbar`, {
-            msg: `You don't have permissions to view member details`,
-            type: `error`,
-            model: true
-          });
-        }
+        // } else {
+        //   this.$store.commit(`setSnackbar`, {
+        //     msg: `You don't have permissions to view member details`,
+        //     type: `error`,
+        //     model: true
+        //   });
+        // }
       }
     },
     created() {

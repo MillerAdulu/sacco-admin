@@ -17,7 +17,6 @@ import App from './components/App'
 import router from './router'
 import store from './store'
 import BaseSnackBar from './components/authentication/components/BaseSnackbar'
-import axios from '@/api'
 
 const bugsnagClient = bugsnag('36dce60f50c734a61194e09802756103')
 bugsnagClient.use(bugsnagVue(Vue))
@@ -43,6 +42,6 @@ Vue.use(Laue)
 new Vue({
   render: h => h(App),
   router,
-  axios,
-  store
+  store,
+  ability
 }).$mount('#app')

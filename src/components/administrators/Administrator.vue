@@ -183,29 +183,6 @@
             ]
           },
           {
-            action: "account_balance_wallet",
-            title: "Payment Methods",
-            items: [
-              {
-                action: "list",
-                title: "All Methods",
-                routerName: `PaymentMethodsList`
-              },
-              {
-                action: "add_circle",
-                title: "Add Method"
-              },
-              {
-                action: "gesture",
-                title: "Update Method"
-              },
-              {
-                action: "remove_circle",
-                title: "Remove Method"
-              }
-            ]
-          },
-          {
             action: "assignment",
             title: "Report Generator",
             items: [
@@ -230,7 +207,44 @@
                 title: "Custom Report"
               }
             ]
-          }
+          },
+          {
+            action: "settings",
+            title: "Management",
+            items: [
+              {
+                action: "list",
+                title: "Payment Methods",
+                routerName: `PaymentMethodsList`
+              },
+              {
+                action: "list",
+                title: "Marital Statuses",
+                routerName: `MaritalStatusesList`
+              },
+              {
+                action: "list",
+                title: "Counties"
+              },
+              {
+                action: "list",
+                title: "Consitituencies"
+              },
+              {
+                action: "list",
+                title: "Localities"
+              },
+              {
+                action: "list",
+                title: "Post Offices"
+              },
+              
+              {
+                action: "list",
+                title: "Relationships"
+              }
+            ]
+          },
         ],
         miniVariant: false,
         title: "Sacco"

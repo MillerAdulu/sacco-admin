@@ -20,7 +20,7 @@ import LoanDetails from '@/components/administrators/MemberLoans/Loan'
 import Addresses from '@/components/administrators/AddressDetails/Address'
 import EditAddress from '@/components/administrators/AddressDetails/EditAddress'
 import PaymentMethods from '@/components/administrators/PaymentMethods/PaymentMethods'
-
+import MaritalStatusesList from '@/components/administrators/Management/MaritalStatuses'
 import Administrator from '@/components/administrators/Administrator'
 import MemberArea from '@/components/members/MemberArea'
 
@@ -115,6 +115,12 @@ const router = new Router({
           path: 'editaddress/:address',
           component: EditAddress,
         },
+        {
+          path: `maritalstatuses`,
+          name: `MaritalStatusesList`,
+          component: MaritalStatusesList,
+          props: true
+        }
       ]
     },
     {
@@ -147,7 +153,7 @@ const router = new Router({
           name: `PaymentMethodsProfile`,
           component: PaymentMethods,
           props: true
-        }
+        },
       ],
       
     },

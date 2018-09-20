@@ -2,16 +2,16 @@
   <v-container>
   <v-data-table
     :headers="headers"
-    :items="paymentMethods"
+    :items="maritalStatuses"
     :loading="dataLoading"
     hide-actions
     class="elevation-1"
   >
   <v-progress-linear slot="progress" color="blue" indeterminate />
     <template slot="items" slot-scope="props">
-      <td class="text-xs-right">{{ props.item.paymentMethodId }}</td>
-      <td class="text-xs-right">{{ props.item.paymentMethod }}</td>
-      <td class="text-xs-right">{{ moment(props.item.createdAt).format('MMMM Do YYYY, h:mm:ss a') }}</td>
+      <td class="text-xs-left">{{ props.item.maritalStatusId }}</td>
+      <td class="text-xs-left">{{ props.item.maritalStatus }}</td>
+      <td class="text-xs-left">{{ moment(props.item.createdAt).format('MMMM Do YYYY, h:mm:ss a') }}</td>
     </template>
   </v-data-table>
   </v-container>
@@ -19,22 +19,22 @@
 
 <script>
 import moment from "moment";
-import fetchPaymentMethodsMixin from '@/components/administrators/mixins/paymentMethods'
+import maritalStatusMixin from '@/components/administrators/mixins/maritalStatuses'
 
 export default {
-  name: `PaymentMethodsList`,
+  name: `MaritalStatusesList`,
   data() {
     return {
       moment,
       dataLoading: true,
       headers: [
         {
-          text: "Payment Method ID",
-          value: "paymentMethodId",
+          text: "Marital Status ID",
+          value: "maritalStatusId",
         },
         {
-          text: "Payment Method",
-          value: "paymentMethod",
+          text: "Marital Status",
+          value: "maritalStatus",
         },
         {
           text: "Added On",
@@ -43,11 +43,11 @@ export default {
       ]
     };
   },
-  mixins: [fetchPaymentMethodsMixin],
+  mixins: [maritalStatusMixin],
   methods: {
     stopLoading() {
       this.dataLoading = false
     }
-  }
+  },
 };
 </script>

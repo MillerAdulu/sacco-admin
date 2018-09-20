@@ -145,6 +145,8 @@
   import queryString from "querystring";
   import { Validator } from "vee-validate";
 
+  import maritalStatusMixin from '@/components/administrators/mixins/maritalStatuses'
+
   const dictionary = {
     en: {
       attributes: {
@@ -278,27 +280,7 @@
         this.kraPin = ``;
         this.$validator.reset();
       },
-      getMaritalStatuses() {
-        // if (this.$can(`read`, `MaritalStatus`)) {
-          SaccoAPI.get(`maritalstatuses`)
-            .then(response => {
-              this.maritalStatuses = response.data;
-            })
-            .catch(error => {
-              this.$store.commit(`setSnackbar`, {
-                msg: `Unable to fetch marriage statuses at this time`,
-                type: `error`,
-                model: true
-              });
-            });
-        // } else {
-        //   this.$store.commit(`setSnackbar`, {
-        //     msg: `You don't have permissions to view marital statuses`,
-        //     type: `error`,
-        //     model: true
-        //   });
-        // }
-      },
+      
       startLoading() {
         this.btnLoading = true;
       },
@@ -308,7 +290,10 @@
     },
     created() {
       this.getMaritalStatuses();
-    }
+    },
+    mixins: [
+      maritalStatusMixin,
+    ]
   };
 </script>
 

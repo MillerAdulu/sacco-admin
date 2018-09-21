@@ -1,7 +1,6 @@
 <template>
   <v-app v-if="loggedInState" >
     <v-navigation-drawer
-    
         persistent
         :mini-variant="miniVariant"
         :clipped="clipped"
@@ -10,7 +9,7 @@
         fixed
         app
         >
-      <v-list >
+      <v-list class="pt-0">
         <v-list-tile>
           <v-list-tile-action>
             <v-icon>bubble_chart</v-icon>
@@ -150,64 +149,64 @@
                 title: "All Loans",
                 routerName: `MemberLoans`
               },
-              {
-                action: "add_circle",
-                title: "Issue Loan"
-              }
+              // {
+              //   action: "add_circle",
+              //   title: "Issue Loan"
+              // }
             ]
           },
-          {
-            action: "attach_money",
-            title: "Payments",
-            items: [
-              {
-                action: "list",
-                title: "All Payments"
-              },
-              {
-                action: "assignment_turned_in",
-                title: "View Payment Details"
-              },
-              {
-                action: "add_circle",
-                title: "Add Payment"
-              },
-              {
-                action: "gesture",
-                title: "Update Payment"
-              },
-              {
-                action: "remove_circle",
-                title: "Delete Payment"
-              }
-            ]
-          },
-          {
-            action: "assignment",
-            title: "Report Generator",
-            items: [
-              {
-                action: "account_circle",
-                title: "All Members"
-              },
-              {
-                action: "account_box",
-                title: "All Accounts"
-              },
-              {
-                action: "monetization_on",
-                title: "All Loans"
-              },
-              {
-                action: "attach_money",
-                title: "All Payments"
-              },
-              {
-                action: "create",
-                title: "Custom Report"
-              }
-            ]
-          },
+          // {
+          //   action: "attach_money",
+          //   title: "Payments",
+          //   items: [
+          //     {
+          //       action: "list",
+          //       title: "All Payments"
+          //     },
+          //     {
+          //       action: "assignment_turned_in",
+          //       title: "View Payment Details"
+          //     },
+          //     {
+          //       action: "add_circle",
+          //       title: "Add Payment"
+          //     },
+          //     {
+          //       action: "gesture",
+          //       title: "Update Payment"
+          //     },
+          //     {
+          //       action: "remove_circle",
+          //       title: "Delete Payment"
+          //     }
+          //   ]
+          // },
+          // {
+          //   action: "assignment",
+          //   title: "Report Generator",
+          //   items: [
+          //     {
+          //       action: "account_circle",
+          //       title: "All Members"
+          //     },
+          //     {
+          //       action: "account_box",
+          //       title: "All Accounts"
+          //     },
+          //     {
+          //       action: "monetization_on",
+          //       title: "All Loans"
+          //     },
+          //     {
+          //       action: "attach_money",
+          //       title: "All Payments"
+          //     },
+          //     {
+          //       action: "create",
+          //       title: "Custom Report"
+          //     }
+          //   ]
+          // },
           {
             action: "settings",
             title: "Management",

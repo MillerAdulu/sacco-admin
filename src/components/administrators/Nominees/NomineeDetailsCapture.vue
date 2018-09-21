@@ -90,6 +90,7 @@
 <script>
   
   import SaccoAPI from '@/api'
+  import fetchMemberRelationshipsMixin from '@/components/administrators/mixins/memberrelationships'
   import Parsers from "../../../helpers/parsers";
   import queryString from "querystring";
   import { Validator } from "vee-validate";
@@ -116,7 +117,6 @@
     name: `NomineeDetailsCapture`,
     data() {
       return {
-        relationships: [],
         identificationNumber: "",
         relationshipId: "",
         firstName: "",
@@ -186,27 +186,6 @@
         //   });
         // }
       },
-      getRelationships() {
-        // if (this.$can(`read`, `Relationship`)) {
-          SaccoAPI.get(`relationships`)
-            .then(response => {
-              this.relationships = response.data;
-            })
-            .catch(error => {
-              this.$store.commit(`setSnackbar`, {
-                msg: `Unable to load member relationships at this time`,
-                type: `error`,
-                model: true
-              });
-            });
-        // } else {
-        //   this.$store.commit(`setSnackbar`, {
-        //     msg: `You don't have permissions to view member relationships`,
-        //     type: `error`,
-        //     model: true
-        //   });
-        // }
-      },
       clearNominee() {
         this.identificationNumber = ``;
         this.relationshipId = ``;
@@ -223,6 +202,9 @@
         this.btnLoading = false;
       }
     },
+    mixins: [
+      fetchMemberRelationshipsMixin,
+    ],
     created() {
       this.getRelationships();
     }

@@ -2,16 +2,16 @@
   <v-container>
   <v-data-table
     :headers="headers"
-    :items="paymentMethods"
+    :items="relationships"
     :loading="dataLoading"
     hide-actions
     class="elevation-1"
   >
   <v-progress-linear slot="progress" color="blue" indeterminate />
     <template slot="items" slot-scope="props">
-      <td class="text-xs-right">{{ props.item.paymentMethodId }}</td>
-      <td class="text-xs-right">{{ props.item.paymentMethod }}</td>
-      <td class="text-xs-right">{{ moment(props.item.createdAt).format('MMMM Do YYYY, h:mm:ss a') }}</td>
+      <td class="text-xs-left">{{ props.item.relationshipId }}</td>
+      <td class="text-xs-left">{{ props.item.relationshipName }}</td>
+      <td class="text-xs-left">{{ moment(props.item.createdAt).format('MMMM Do YYYY, h:mm:ss a') }}</td>
     </template>
   </v-data-table>
   </v-container>
@@ -19,22 +19,22 @@
 
 <script>
 import moment from "moment";
-import fetchPaymentMethodsMixin from '@/components/administrators/mixins/paymentMethods'
+import fetchMemberRelationshipsMixin from '@/components/administrators/mixins/memberrelationships'
 
 export default {
-  name: `PaymentMethodsList`,
+  name: `ConstituencyList`,
   data() {
     return {
       moment,
       dataLoading: true,
       headers: [
         {
-          text: "Payment Method ID",
-          value: "paymentMethodId",
+          text: "Relationship ID",
+          value: "relationshipId",
         },
         {
-          text: "Payment Method",
-          value: "paymentMethod",
+          text: "Relationship",
+          value: "relationshipName",
         },
         {
           text: "Added On",
@@ -43,11 +43,16 @@ export default {
       ]
     };
   },
-  mixins: [fetchPaymentMethodsMixin],
+  mixins: [
+    fetchMemberRelationshipsMixin,
+  ],
   methods: {
     stopLoading() {
       this.dataLoading = false
     }
+  },
+  created() {
+    this.getRelationships()
   }
 };
 </script>

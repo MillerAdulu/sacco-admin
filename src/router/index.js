@@ -25,11 +25,12 @@ import MemberArea from '@/components/members/MemberArea'
 import DepositProfile from '@/components/members/components/DepositProfile'
 import LoanProfile from '@/components/members/components/LoanProfile'
 
-import PaymentMethodsList from '@/components/administrators/PaymentMethods/List'
+import PaymentMethodsList from '@/components/administrators/Management/PaymentMethods'
 import CountiesList from '@/components/administrators/Management/Counties'
 import ConstituencyList from '@/components/administrators/Management/Constituencies'
 import LocalityList from '@/components/administrators/Management/Localities'
 import PostOfficeList from '@/components/administrators/Management/PostOffices'
+import MemberRelationshipsList from '@/components/administrators/Management/MemberRelationships'
 
 import Auth from '@/components/authentication/views/Auth'
 import SignIn from '@/components/authentication/views/Signin'
@@ -142,6 +143,11 @@ const router = new Router({
           name: `PostOfficeList`,
           component: PostOfficeList,
         },
+        {
+          path: `memberrelationships`,
+          name: 'MemberRelationshipsList',
+          component: MemberRelationshipsList
+        }
       ]
     },
     {

@@ -245,7 +245,8 @@
               
               {
                 action: "list",
-                title: "Relationships"
+                title: "Member Relationships",
+                routerName: "MemberRelationshipsList"
               }
             ]
           },

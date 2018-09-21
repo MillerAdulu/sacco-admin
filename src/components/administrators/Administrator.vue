@@ -260,10 +260,5 @@
     mixins:[
       logOutMixin,
     ],
-    watch: {
-      loggedInState: function() {
-        this.$router.push("/");
-      }
-    }
   };
 </script>

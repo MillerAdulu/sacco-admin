@@ -239,7 +239,8 @@
               },
               {
                 action: "list",
-                title: "Post Offices"
+                title: "Post Offices",
+                routerName: "PostOfficeList"
               },
               
               {

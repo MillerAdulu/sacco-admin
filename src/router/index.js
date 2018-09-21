@@ -29,6 +29,7 @@ import PaymentMethodsList from '@/components/administrators/PaymentMethods/List'
 import CountiesList from '@/components/administrators/Management/Counties'
 import ConstituencyList from '@/components/administrators/Management/Constituencies'
 import LocalityList from '@/components/administrators/Management/Localities'
+import PostOfficeList from '@/components/administrators/Management/PostOffices'
 
 import Auth from '@/components/authentication/views/Auth'
 import SignIn from '@/components/authentication/views/Signin'
@@ -135,6 +136,11 @@ const router = new Router({
           path: `localities`,
           name: `LocalityList`,
           component: LocalityList,
+        },
+        {
+          path: `postoffices`,
+          name: `PostOfficeList`,
+          component: PostOfficeList,
         },
       ]
     },

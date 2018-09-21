@@ -110,6 +110,7 @@
   
   import SaccoAPI from '@/api'
   import fetchCountiesMixin from '@/components/administrators/mixins/counties'
+  import fetchPostOfficesMixin from '@/components/administrators/mixins/postoffices'
   import Parsers from "../../../helpers/parsers";
   import queryString from "querystring";
   import { Validator } from "vee-validate";
@@ -146,7 +147,6 @@
 
         constituencies: [],
         localities: [],
-        postOffices: [],
 
         validations: {
           street: `required|alpha_num|min:3`,
@@ -199,27 +199,6 @@
         // } else {
         //   this.$store.commit(`setSnackbar`, {
         //     msg: `You don't have permissions to view localities`,
-        //     type: `error`,
-        //     model: true
-        //   });
-        // }
-      },
-      getPostOffices() {
-        // if (this.$can(`read`, `PostOffice`)) {
-          SaccoAPI.get(`postoffices`)
-            .then(response => {
-              this.postOffices = response.data;
-            })
-            .catch(error => {
-              this.$store.commit(`setSnackbar`, {
-                msg: `Unable to fetch post offices at this time`,
-                type: `error`,
-                model: true
-              });
-            });
-        // } else {
-        //   this.$store.commit(`setSnackbar`, {
-        //     msg: `You don't have permissions to view post offices`,
         //     type: `error`,
         //     model: true
         //   });
@@ -289,6 +268,7 @@
     },
     mixins: [
       fetchCountiesMixin,
+      fetchPostOfficesMixin
     ]
   };
 </script>

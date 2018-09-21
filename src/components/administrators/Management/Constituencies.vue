@@ -23,7 +23,7 @@ import moment from "moment";
 import constituenciesMixin from '@/components/administrators/mixins/constituencies'
 
 export default {
-  name: `MaritalStatusesList`,
+  name: `ConstituencyList`,
   data() {
     return {
       moment,

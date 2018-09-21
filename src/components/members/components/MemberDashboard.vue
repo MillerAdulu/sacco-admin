@@ -22,7 +22,7 @@
           </p>
         </v-flex>
         <v-flex xs4>
-          <p>
+          <p class="text-xs-right">
             {{ loggedInMember.member.phoneNumber }}
           </p>
         </v-flex>

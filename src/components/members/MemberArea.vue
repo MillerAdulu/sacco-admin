@@ -84,6 +84,47 @@
     <v-toolbar color="primary" dark fixed app>
       <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
       <v-toolbar-title>Sacco</v-toolbar-title>
+      <v-divider />
+      <v-dialog
+      v-model="dialog"
+      width="500"
+    >
+      <v-btn
+        slot="activator"
+        color="success"
+        dark
+      >
+        Add Deposit
+      </v-btn>
+
+      <v-card>
+        <v-card-title
+          class="headline grey lighten-2"
+          primary-title
+        >
+          Privacy Policy
+        </v-card-title>
+
+        <v-card-text>
+          This will allow you to add a deposit via mpesa <br>
+          <v-text-field v-model="depositAmount" />
+        </v-card-text>
+
+        <v-divider></v-divider>
+
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn
+            color="error"
+            flat
+            :loading="depositing"
+            @click="addDeposit"
+          >
+            Deposit
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
     </v-toolbar>
     <v-content>
         <v-layout>
@@ -118,10 +159,12 @@
         paymentmethods: [],
         dialog: false,
         depositAmount: null,
+        depositing: false,
       };
     },
     methods: {
       addDeposit() {
+        this.depositing = true
         let data = {
           deposit_amount: this.depositAmount,
           phone_number: this.loggedInUser.phoneNumber,
@@ -138,6 +181,7 @@
               type: `success`,
               model: true
             });
+            this.finishDeposit()
           })
           .catch(error => {
             bugsnagClient.notify(error)
@@ -147,8 +191,9 @@
               type: `error`,
               model: true
             });
+
+            this.finishDeposit()
           });
-        this.dialog = false;
       },
       fetchAddresses() {
         // if (this.$can(`read`, `AddressDetails`)) {
@@ -219,6 +264,10 @@
         //   });
         // }
       },
+      finishDeposit() {
+        this.dialog = false;
+        this.depositing = false
+      }
     },
     mixins: [
       logOutMixin,

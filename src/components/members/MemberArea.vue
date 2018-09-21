@@ -66,7 +66,7 @@
             <v-icon>account_balance_wallet</v-icon>
           </v-list-tile-action>
           <v-list-tile-content>
-            <v-list-tile-title>Payment Methods`</v-list-tile-title>
+            <v-list-tile-title>Payment Methods</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
 

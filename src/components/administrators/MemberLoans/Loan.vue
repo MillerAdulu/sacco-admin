@@ -60,7 +60,7 @@
 </template>
 
 <script>
-  
+  import bugsnagClient from '@/helpers/errorreporting'
   import SaccoAPI from '@/api'
   import Guarantors from "@/components/administrators/MemberLoans/Guarantors";
 
@@ -82,6 +82,8 @@
               this.loanDetails = response.data;
             })
             .catch(error => {
+              bugsnagClient.notify(error)
+              
               this.$store.commit(`setSnackbar`, {
                 msg: `Unable to load this member loan`,
                 type: `error`,

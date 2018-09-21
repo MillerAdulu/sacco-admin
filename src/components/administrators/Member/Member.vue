@@ -57,6 +57,7 @@
 
 <script>
   
+  import bugsnagClient from '@/helpers/errorreporting'
   import SaccoAPI from '@/api'
   import Addresses from "@/components/administrators/AddressDetails/Address";
   import PaymentMethods from "@/components/administrators/PaymentMethods/PaymentMethods";
@@ -100,6 +101,8 @@
               this.member = response.data;
             })
             .catch(error => {
+              bugsnagClient.notify(error)
+
               this.$store.commit(`setSnackbar`, {
                 msg: `Unable to load this member at this time`,
                 type: `error`,
@@ -121,6 +124,8 @@
               this.addressdetails = response.data;
             })
             .catch(error => {
+              bugsnagClient.notify(error)
+
               this.$store.commit(`setSnackbar`, {
                 msg: `Unable to load this member's addresses at this time`,
                 type: `error`,
@@ -142,6 +147,8 @@
               this.paymentmethods = response.data;
             })
             .catch(error => {
+              bugsnagClient.notify(error)
+
               this.$store.commit(`setSnackbar`, {
                 msg: `Unable to load this member's payment methods at this time`,
                 type: `error`,
@@ -163,6 +170,8 @@
               this.nominees = response.data;
             })
             .catch(error => {
+              bugsnagClient.notify(error)
+
               this.$store.commit(`setSnackbar`, {
                 msg: `Unable to load this member's nominees at this time`,
                 type: `error`,
@@ -184,6 +193,8 @@
               this.deposits = response.data;
             })
             .catch(error => {
+              bugsnagClient.notify(error)
+
               this.$store.commit(`setSnackbar`, {
                 msg: `Unable to load this member's deposits at this time`,
                 type: `error`,
@@ -205,6 +216,8 @@
               this.loans = response.data;
             })
             .catch(error => {
+              bugsnagClient.notify(error)
+              
               this.$store.commit(`setSnackbar`, {
                 msg: `Unable to load this member's loans at this time`,
                 type: `error`,

@@ -50,6 +50,7 @@
 </template>
 
 <script>
+  import bugsnagClient from '@/helpers/errorreporting'
   import SaccoAPI from '@/api'
   import moment from "moment";
 
@@ -74,6 +75,8 @@
               this.memberloans = response.data;
             })
             .catch(error => {
+              bugsnagClient.notify(error)
+              
               this.$store.commit(`setSnackbar`, {
                 msg: `Unable to display your loans at this time`,
                 type: `error`,

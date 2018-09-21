@@ -56,6 +56,7 @@
   </v-container>
 </template>
 <script>
+  import bugsnagClient from '@/helpers/errorreporting'
   import SaccoAPI from '@/api'
 
   export default {
@@ -113,6 +114,8 @@
               this.stopLoading();
             })
             .catch(error => {
+              bugsnagClient.notify(error)
+              
               this.$store.commit(`setSnackbar`, {
                 msg: `Unable to fetch members at this time`,
                 type: `error`,

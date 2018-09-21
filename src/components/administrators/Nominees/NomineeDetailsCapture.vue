@@ -89,6 +89,7 @@
 
 <script>
   
+  import bugsnagClient from '@/helpers/errorreporting'
   import SaccoAPI from '@/api'
   import fetchMemberRelationshipsMixin from '@/components/administrators/mixins/memberrelationships'
   import Parsers from "../../../helpers/parsers";
@@ -171,6 +172,8 @@
               this.clearNominee();
             })
             .catch(error => {
+              bugsnagClient.notify(error)
+              
               this.$store.commit(`setSnackbar`, {
                 msg: `Unable to add this nominee at this time`,
                 type: `error`,

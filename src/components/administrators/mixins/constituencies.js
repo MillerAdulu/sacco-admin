@@ -1,4 +1,5 @@
 import SaccoAPI from '@/api'
+import bugsnagClient from '@/helpers/errorreporting'
 
 export default {
   data() {
@@ -15,6 +16,8 @@ export default {
             this.stopLoading()
           })
           .catch(error => {
+            bugsnagClient.notify(error)
+            
             this.$store.commit(`setSnackbar`, {
               msg: `Unable to fetch constituencies at this time`,
               type: `error`,

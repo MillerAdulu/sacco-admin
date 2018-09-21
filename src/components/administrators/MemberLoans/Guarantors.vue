@@ -37,6 +37,7 @@
 </template>
 
 <script>
+  import bugsnagClient from '@/helpers/errorreporting'
   import SaccoAPI from '@/api'
   export default {
     name: `Guarantors`,
@@ -57,6 +58,8 @@
               this.loanGuarantors = response.data
             })
             .catch(error => {
+              bugsnagClient.notify(error)
+              
               this.$store.commit(`setSnackbar`, {
                 msg: `Unable to fetch loan guarantors at this moment`,
                 type: `error`,

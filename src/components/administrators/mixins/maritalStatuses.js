@@ -1,4 +1,6 @@
 import SaccoAPI from '@/api'
+import bugsnagClient from '@/helpers/errorreporting'
+
 export default {
   data() {
     return {
@@ -14,6 +16,8 @@ export default {
             this.stopLoading()
           })
           .catch(error => {
+            bugsnagClient.notify(error)
+            
             this.$store.commit(`setSnackbar`, {
               msg: `Unable to fetch marriage statuses at this time`,
               type: `error`,

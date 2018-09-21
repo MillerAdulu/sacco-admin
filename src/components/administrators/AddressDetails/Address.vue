@@ -71,6 +71,7 @@
 
 <script>
   
+  import bugsnagClient from '@/helpers/errorreporting'
   import { mapMutations } from "vuex";
   import SaccoAPI from '@/api'
 
@@ -106,6 +107,8 @@
               this.stopLoading();
             })
             .catch(error => {
+              bugsnagClient.notify(error)
+
               let snackbar = {
                 msg: `Currently unable to delete this address`,
                 type: `error`,

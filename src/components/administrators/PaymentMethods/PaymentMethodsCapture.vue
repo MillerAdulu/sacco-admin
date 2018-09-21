@@ -53,6 +53,7 @@
 
 <script>
   
+  import bugsnagClient from '@/helpers/errorreporting'
   import SaccoAPI from '@/api'
   import Parsers from "../../../helpers/parsers";
 
@@ -115,6 +116,8 @@
 
             })
             .catch(error => {
+              bugsnagClient.notify(error)
+
               this.$store.commit(`setSnackbar`, {
                 msg: `Unable to add payment details at this time`,
                 type: `error`,
@@ -148,6 +151,8 @@
               this.paymentMethods = response.data;
             })
             .catch(error => {
+              bugsnagClient.notify(error)
+              
               this.$store.commit(`setSnackbar`, {
                 msg: `Unable to fetch payment methods at this time`,
                 type: `error`,

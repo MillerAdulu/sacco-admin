@@ -113,6 +113,7 @@
 </template>
 
 <script>
+  import bugsnagClient from '@/helpers/errorreporting'
   import SaccoAPI from '@/api'
   import queryString from "querystring";
 
@@ -148,6 +149,8 @@
             });
           })
           .catch(error => {
+            bugsnagClient.notify(error)
+
             this.$store.commit(`setSnackbar`, {
               msg: `Unable to add deposits at this time`,
               type: `error`,
@@ -163,6 +166,8 @@
               this.addresses = response.data;
             })
             .catch(error => {
+              bugsnagClient.notify(error)
+
               this.$store.commit(`setSnackbar`, {
                 msg: `Unable to load address details at this time`,
                 type: `error`,
@@ -184,6 +189,8 @@
               this.paymentmethods = response.data;
             })
             .catch(error => {
+              bugsnagClient.notify(error)
+
               this.$store.commit(`setSnackbar`, {
                 msg: `Unable to load payment details at this time`,
                 type: `error`,
@@ -205,6 +212,8 @@
               this.member = response.data;
             })
             .catch(error => {
+              bugsnagClient.notify(error)
+              
               this.$store.commit(`setSnackbar`, {
                 msg: `Unable to load your details at this time`,
                 type: `error`,

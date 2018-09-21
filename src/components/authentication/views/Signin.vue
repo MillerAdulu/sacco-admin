@@ -67,6 +67,8 @@
 </template>
 
 <script>
+
+import bugsnagClient from '@/helpers/errorreporting'
 import BaseCard from "@/components/authentication/components/BaseCard";
 import BaseFooter from "@/components/authentication/components/BaseFooter";
 import PartialEmail from "@/components/authentication/components/PartialEmail";
@@ -106,46 +108,44 @@ export default {
       })
         .then(response => {
           const user = response.data;
-          if(!user) {
-            this.setIsLoading(false)
+          if (!user) {
+            this.setIsLoading(false);
             this.$store.commit(`setSnackbar`, {
               type: `error`,
               msg: `Wrong password`,
               model: true
             });
           } else {
-          this.$store.commit(`setLoggedInUser`, response.data);
-          localStorage.setItem(`token`, response.data.token)
-          localStorage.setItem(`accessLevel`, response.data.accessLevel)
+            this.$store.commit(`setLoggedInUser`, response.data);
+            localStorage.setItem(`token`, response.data.token);
+            localStorage.setItem(`accessLevel`, response.data.accessLevel);
 
-          this.$store.commit(`setSnackbar`, {
-            type: `success`,
-            msg: `Successfully signed in user ${this.username}`,
-            model: true
-          });
+            this.$store.commit(`setSnackbar`, {
+              type: `success`,
+              msg: `Successfully signed in user ${this.username}`,
+              model: true
+            });
 
-          this.redirectToDashboard(user.accessLevel);
+            this.redirectToDashboard(user.accessLevel);
           }
         })
         .catch(error => {
+          bugsnagClient.notify(error);
+
           this.$store.commit(`setSnackbar`, {
             type: `error`,
             msg: `Unable to log you in`,
             model: true
           });
-        })
+        });
     },
     redirectToDashboard(accessLevel) {
       if (accessLevel == `MEMBER`) this.$router.push(`/member`);
       else this.$router.push(`/admin`);
     },
     checkValidation() {
-      if (
-        localStorage.getItem('token')
-      ) {
-        this.redirectToDashboard(
-          localStorage.getItem('accessLevel')
-        );
+      if (localStorage.getItem("token")) {
+        this.redirectToDashboard(localStorage.getItem("accessLevel"));
       }
     },
     checkUsername() {
@@ -158,7 +158,7 @@ export default {
         })
       })
         .then(response => {
-          this.setIsLoading(false);
+          this.enableFunctionality();
           if (!response.data) {
             this.$store.commit(`setSnackbar`, {
               type: `error`,
@@ -170,11 +170,16 @@ export default {
           }
         })
         .catch(error => {
+
+          bugsnagClient.notify(error);
+          
           this.$store.commit(`setSnackbar`, {
             type: `error`,
             msg: `Unable to check your username`,
             model: true
           });
+
+          this.enableFunctionality()
         });
     },
     enableFunctionality() {
@@ -183,7 +188,7 @@ export default {
   },
   created() {
     this.checkValidation();
-    this.enableFunctionality()
+    this.enableFunctionality();
   }
 };
 </script>

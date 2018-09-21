@@ -140,6 +140,7 @@
 
 <script>
   
+  import bugsnagClient from '@/helpers/errorreporting'
   import SaccoAPI from '@/api'
   import Parsers from "../../../helpers/parsers";
   import queryString from "querystring";
@@ -250,6 +251,8 @@
               this.stopLoading()
             })
             .catch(error => {
+              bugsnagClient.notify(error)
+              
               this.$store.commit(`setSnackbar`, {
                 msg: `You are unable to add this member at this time`,
                 type: `error`,

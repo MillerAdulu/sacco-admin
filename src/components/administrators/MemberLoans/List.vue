@@ -51,6 +51,7 @@
 </template>
 
 <script>
+  import bugsnagClient from '@/helpers/errorreporting'
   import SaccoAPI from '@/api'
   import moment from "moment";
   export default {
@@ -106,6 +107,8 @@
               this.dataLoading = false;
             })
             .catch(error => {
+              bugsnagClient.notify(error)
+              
               this.$store.commit(`setSnackbar`, {
                 msg: `Unable to load members loans at this time`,
                 type: `error`,

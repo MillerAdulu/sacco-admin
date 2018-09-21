@@ -3,6 +3,7 @@
 </template>
 
 <script>
+  import bugsnagClient from '@/helpers/errorreporting'
   import SaccoAPI from '@/api'
   export default {
     data() {
@@ -17,7 +18,7 @@
 
           })
           .catch(error => {
-
+            bugsnagClient.notify(error)
           })
       }
     },

@@ -71,6 +71,7 @@
 </template>
 
 <script>
+  import bugsnagClient from '@/helpers/errorreporting'
   import SaccoAPI from '@/api'
   export default {
     name: `MemberDashboard`,
@@ -88,6 +89,8 @@
               this.member = response.data;
             })
             .catch(error => {
+              bugsnagClient.notify(error)
+              
               this.$store.commit(`setSnackbar`, {
                 msg: `Unable to load your data at this time`,
                 type: `error`,

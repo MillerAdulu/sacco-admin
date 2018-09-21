@@ -44,6 +44,7 @@
 </template>
 
 <script>
+import bugsnagClient from '@/helpers/errorreporting'
 import SaccoAPI from '@/api'
 import queryString from "querystring";
 import fetchPaymentMethodsMixin from '@/components/administrators/mixins/paymentMethods'
@@ -87,6 +88,8 @@ export default {
             this.stopLoading();
           })
           .catch(error => {
+            bugsnagClient.notify(error)
+            
             this.$store.commit(`setSnackbar`, {
               msg: `Unable to add this deposit at this moment`,
               type: `error`,
@@ -110,6 +113,8 @@ export default {
             this.members = response.data;
           })
           .catch(error => {
+            bugsnagClient.notify(error)
+
             this.$store.commit(`setSnackbar`, {
               msg: `Unable to fetch members at this time`,
               type: `error`,

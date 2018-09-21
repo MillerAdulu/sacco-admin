@@ -49,6 +49,7 @@
 </template>
 
 <script>
+  import bugsnagClient from '@/helpers/errorreporting'
   import SaccoAPI from '@/api'
 
   export default {
@@ -68,6 +69,8 @@
               this.totalMembers = response.data;
             })
             .catch(error => {
+              bugsnagClient.notify(error)
+
               this.$store.commit(`setSnackbar`, {
                 msg: `Unable to fetch members`,
                 type: `error`,
@@ -89,6 +92,8 @@
               this.totalDeposits = response.data;
             })
             .catch(error => {
+              bugsnagClient.notify(error)
+
               this.$store.commit(`setSnackbar`, {
                 msg: `Unable to fetch deposits`,
                 type: `error`,
@@ -110,6 +115,8 @@
               this.totalMemberLoans = response.data;
             })
             .catch(error => {
+              bugsnagClient.notify(error)
+              
               this.$store.commit(`setSnackbar`, {
                 msg: `Unable to fetch loans`,
                 type: `error`,

@@ -42,6 +42,7 @@
 </template>
 
 <script>
+  import bugsnagClient from '@/helpers/errorreporting'
   import SaccoAPI from '@/api'
   import moment from "moment";
   export default {
@@ -66,6 +67,8 @@
               this.contributions = response.data;
             })
             .catch(error => {
+              bugsnagClient.notify(error)
+              
               this.$store.commit(`setSnackbar`, {
                 msg: `Unable to fetch your contributions at this time`,
                 type: `error`,

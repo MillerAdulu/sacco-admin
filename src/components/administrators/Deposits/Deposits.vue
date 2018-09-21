@@ -56,6 +56,7 @@
 </template>
 
 <script>
+  import bugsnagClient from '@/helpers/errorreporting'
   import SaccoAPI from '@/api'
   import queryString from "querystring";
 
@@ -97,6 +98,8 @@
               this.stopLoading();
             })
             .catch(error => {
+              bugsnagClient.notify(error)
+              
               this.$store.commit(`setSnackbar`, {
                 msg: `Unable to fetch member deposits at this time`,
                 type: `error`,

@@ -108,6 +108,7 @@
 
 <script>
   
+  import bugsnagClient from '@/helpers/errorreporting'
   import SaccoAPI from '@/api'
   import fetchCountiesMixin from '@/components/administrators/mixins/counties'
   import fetchPostOfficesMixin from '@/components/administrators/mixins/postoffices'
@@ -169,6 +170,8 @@
               this.constituencies = response.data;
             })
             .catch(error => {
+              bugsnagClient.notify(error)
+
               this.$store.commit(`setSnackbar`, {
                 msg: `Unable to fetch constituencies at this time`,
                 type: `error`,
@@ -190,6 +193,7 @@
               this.localities = response.data;
             })
             .catch(error => {
+              bugsnagClient.notify(error)
               this.$store.commit(`setSnackbar`, {
                 msg: `Unable to fetch localities at this time`,
                 type: `error`,
@@ -233,6 +237,7 @@
               this.stopLoading()
             })
             .catch(error => {
+              bugsnagClient.notify(error)
               this.$store.commit(`setSnackbar`, {
                 msg: `Unable to add addresses at this time`,
                 type: `error`,

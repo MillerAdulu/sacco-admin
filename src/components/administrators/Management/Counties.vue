@@ -22,7 +22,7 @@ import moment from "moment";
 import countiesMixin from '@/components/administrators/mixins/counties'
 
 export default {
-  name: `MaritalStatusesList`,
+  name: `CountiesList`,
   data() {
     return {
       moment,

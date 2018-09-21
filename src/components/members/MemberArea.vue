@@ -1,126 +1,97 @@
 <template>
-  <v-card height="200px" flat>
-    <div class="text-xs-center pa-0">
-      <v-layout>
-        <v-flex xs-4>{{ bottomNav }}</v-flex>
-        <v-flex xs-8>
-          <v-dialog
-              v-model="dialog"
-              width="500"
-          >
-            <v-btn
-                slot="activator"
-                small
-            >
-              Add Deposit
-            </v-btn>
-
-            <v-card>
-              <v-card-title
-                  class="headline grey lighten-2"
-                  primary-title
-              >
-                Add Deposit
-              </v-card-title>
-
-              <v-card-text>
-                This will allow you to add a deposit via mpesa <br>
-                <v-text-field v-model="depositAmount" />
-              </v-card-text>
-
-              <v-divider></v-divider>
-
-              <v-card-actions>
-                <v-spacer></v-spacer>
-                <v-btn
-                    color="primary"
-                    flat
-                    @click="addDeposit"
-                    small
-                >
-                  Add Deposit
-                </v-btn>
-              </v-card-actions>
-            </v-card>
-          </v-dialog>
-          <v-btn @click="logOut" small>Log Out</v-btn>
-        </v-flex>
-      </v-layout>
-      <v-fade-transition appear>
-        <router-view />
-      </v-fade-transition>
-    </div>
-
-    <v-bottom-nav
-        :active.sync="bottomNav"
-        :value="true"
-        fixed
-        color="black"
-        app
+    <v-app id="inspire">
+    <v-navigation-drawer
+      fixed
+      v-model="drawer"
+      app
     >
-      <v-btn
-          color="teal"
-          flat
-          value="Dashboard"
-          :to="{ name: `MemberDashboard`}"
+    <v-list dense class="pt-0">
+      <v-list-tile
+        v-for="item in items"
+        :key="item.title"
+        :to="{name: item.routerName}"
+        append
       >
-        <span>Profile</span>
-        <v-icon>account_circle</v-icon>
-      </v-btn>
+        <v-list-tile-action>
+          <v-icon>{{ item.icon }}</v-icon>
+        </v-list-tile-action>
 
-      <v-btn
-          color="teal"
-          flat
-          value="Deposits"
-          :to="{name: `DepositProfile`}"
-      >
-        <span>Deposits</span>
-        <v-icon>monetization_on</v-icon>
-      </v-btn>
+        <v-list-tile-content>
+          <v-list-tile-title>{{ item.title }}</v-list-tile-title>
+        </v-list-tile-content>
+      </v-list-tile>
+      <v-list-tile @click="logOut">
+          <v-list-tile-action>
+            <v-icon>power_settings_new</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <v-list-tile-title>Log Out</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+    </v-list>
 
-      <v-btn
-          color="teal"
-          flat
-          value="loans"
-          :to="{name: `LoanProfile`}"
-      >
-        <span>Loans</span>
-        <v-icon>assignment_turned_in</v-icon>
-      </v-btn>
-      <v-btn
-          color="teal"
-          flat
-          value="Addresses"
-          :to="{name: `AddressProfile`, params: {addresses: addresses}}"
-      >
-        <span>Addresses</span>
-        <v-icon>place</v-icon>
-      </v-btn>
-      <v-btn
-          color="teal"
-          flat
-          value="Payment Methods"
-          :to="{name: `PaymentMethodsProfile`, params: {
-          paymentmethods: paymentmethods
-        }}"
-      >
-        <span>Payment Info</span>
-        <v-icon>account_balance_wallet</v-icon>
-      </v-btn>
-    </v-bottom-nav>
-    <base-snackbar />
-  </v-card>
+    </v-navigation-drawer>
+    <v-toolbar color="primary" dark fixed app>
+      <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
+      <v-toolbar-title>Application</v-toolbar-title>
+    </v-toolbar>
+    <v-content>
+      <v-container fluid fill-height>
+        <v-layout
+          justify-center
+          align-center
+        >
+
+          <router-view />
+
+        </v-layout>
+      </v-container>
+    </v-content>
+    <v-footer color="indigo" app inset>
+      <span class="white--text">&copy; 2017</span>
+    </v-footer>
+  </v-app>
 </template>
 
 <script>
   import bugsnagClient from '@/helpers/errorreporting'
   import SaccoAPI from '@/api'
   import queryString from "querystring";
+  import logOutMixin from '@/components/administrators/mixins/logout'
+
 
   export default {
     name: `MemberArea`,
     data() {
       return {
+        items: [
+          {
+            title: 'Dashboard',
+            icon: 'dashboard',
+            routerName: `MemberDashboard`
+            },
+            {
+              title: `Deposits`,
+              icon: `monetization_on`,
+              routerName: `DepositProfile`
+            },
+            {
+              title: `Loan`,
+              icon: `assignment_turned_in`,
+              routerName: `LoanProfile`
+            },
+            {
+              title: `Addresses`,
+              icon: `place`,
+              routerName: `AddressProfile`,
+            },
+            {
+              title: `Payment Methods`,
+              icon: `account_balance_wallet`,
+              routerName: `PaymentMethodsProfile`,
+            }
+        ],
+        right: null,
         bottomNav: "Dashboard",
         loggedInUser: this.$store.getters.loggedInUser,
         addresses: [],
@@ -228,11 +199,10 @@
         //   });
         // }
       },
-      logOut() {
-        this.$store.commit("setLoggedInUser", {});
-        this.$router.push(`/`);
-      }
     },
+    mixins: [
+      logOutMixin,
+    ],
     created() {
       this.fetchAddresses();
       this.fetchPaymentMethods();

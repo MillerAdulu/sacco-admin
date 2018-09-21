@@ -1,8 +1,6 @@
 <template>
+
   <v-card>
-    <v-img
-        :src="loggedInMember.member.passportPhoto"
-    />
     <v-card-title>Welcome back, {{ loggedInMember.member.lastName }}</v-card-title>
     <v-card-text>
       <v-layout row>

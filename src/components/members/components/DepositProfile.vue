@@ -10,9 +10,7 @@
         slot="item"
         slot-scope="props"
         xs12
-        sm6
-        md4
-        lg3
+        lg6
     >
       <v-card>
         <v-card-title><h5>Deposit ID: {{ props.item.memberDepositId }}</h5></v-card-title>

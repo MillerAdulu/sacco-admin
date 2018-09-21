@@ -229,7 +229,8 @@
               },
               {
                 action: "list",
-                title: "Consitituencies"
+                title: "Consitituencies",
+                routerName: "ConstituencyList"
               },
               {
                 action: "list",

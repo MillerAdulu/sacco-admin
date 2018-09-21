@@ -144,7 +144,6 @@
         postalAddress: null,
         btnLoading: false,
 
-        counties: [],
         constituencies: [],
         localities: [],
         postOffices: [],

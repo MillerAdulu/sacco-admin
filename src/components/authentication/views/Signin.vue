@@ -110,6 +110,7 @@ export default {
           const user = response.data;
           if (!user) {
             this.setIsLoading(false);
+            this.password = ``
             this.$store.commit(`setSnackbar`, {
               type: `error`,
               msg: `Wrong password`,

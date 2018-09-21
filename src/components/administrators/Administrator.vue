@@ -234,7 +234,8 @@
               },
               {
                 action: "list",
-                title: "Localities"
+                title: "Localities",
+                routerName: "LocalityList"
               },
               {
                 action: "list",

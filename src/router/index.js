@@ -1,8 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-import store from '../store'
-
 import Dashboard from '@/components/administrators/Dashboard'
 import MemberDashboard from '@/components/members/components/MemberDashboard'
 import Registration from '@/components/administrators/Member/Registration'
@@ -30,6 +28,7 @@ import LoanProfile from '@/components/members/components/LoanProfile'
 import PaymentMethodsList from '@/components/administrators/PaymentMethods/List'
 import CountiesList from '@/components/administrators/Management/Counties'
 import ConstituencyList from '@/components/administrators/Management/Constituencies'
+import LocalityList from '@/components/administrators/Management/Localities'
 
 import Auth from '@/components/authentication/views/Auth'
 import SignIn from '@/components/authentication/views/Signin'
@@ -131,7 +130,12 @@ const router = new Router({
           path: `constituencies`,
           name: `ConstituencyList`,
           component: ConstituencyList,
-        }
+        },
+        {
+          path: `localities`,
+          name: `LocalityList`,
+          component: LocalityList,
+        },
       ]
     },
     {

@@ -18,15 +18,13 @@
             Administrator
           </v-list-tile-title>
         </v-list-tile>
-        <v-list-tile>
+        <v-list-tile :to="{path: 'admin/'}">
           <v-list-tile-action>
             <v-icon>dashboard</v-icon>
           </v-list-tile-action>
           <v-list-tile-content>
             <v-list-tile-title>
-              <router-link to="/admin/">
                 Dashboard
-              </router-link>
             </v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
@@ -44,13 +42,12 @@
 
           <v-list-tile
               v-for="subItem in item.items"
-              :key="subItem.title">
+              :key="subItem.title"
+              :to='{ name: subItem.routerName }'>
 
             <v-list-tile-content>
               <v-list-tile-title>
-                <router-link :to='{ name: subItem.routerName }'>
                   {{ subItem.title }}
-                </router-link>
               </v-list-tile-title>
             </v-list-tile-content>
 
@@ -94,6 +91,7 @@
 </template>
 
 <script>
+  import logOutMixin from '@/components/administrators/mixins/logout'
   export default {
     name: "Administrator",
     data() {
@@ -259,13 +257,9 @@
         title: "Sacco"
       };
     },
-    methods: {
-      logOut() {
-        this.$store.commit("setLoggedInUser", {});
-        localStorage.clear();
-        this.$router.push(`/`);
-      }
-    },
+    mixins:[
+      logOutMixin,
+    ],
     watch: {
       loggedInState: function() {
         this.$router.push("/");

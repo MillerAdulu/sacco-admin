@@ -212,6 +212,11 @@
             title: "Management",
             items: [
               {
+                action: "assignment_turned_in",
+                title: "Reports",
+                routerName: `Reports`
+              },
+              {
                 action: "list",
                 title: "Payment Methods",
                 routerName: `PaymentMethodsList`

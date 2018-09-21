@@ -32,6 +32,8 @@ import LocalityList from '@/components/administrators/Management/Localities'
 import PostOfficeList from '@/components/administrators/Management/PostOffices'
 import MemberRelationshipsList from '@/components/administrators/Management/MemberRelationships'
 
+import Reports from '@/components/administrators/Reports/ReportGenerator'
+
 import Auth from '@/components/authentication/views/Auth'
 import SignIn from '@/components/authentication/views/Signin'
 
@@ -147,6 +149,11 @@ const router = new Router({
           path: `memberrelationships`,
           name: 'MemberRelationshipsList',
           component: MemberRelationshipsList
+        },
+        {
+          path: `reports`,
+          name: `Reports`,
+          component: Reports,
         }
       ]
     },

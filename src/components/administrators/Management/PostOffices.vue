@@ -1,9 +1,22 @@
 <template>
   <v-container>
+    <v-card>
+      <v-card-title>
+        All Post Offices
+        <v-spacer></v-spacer>
+        <v-text-field
+            v-model="search"
+            append-icon="search"
+            label="Search"
+            single-line
+            hide-details
+        />
+      </v-card-title>
   <v-data-table
     :headers="headers"
     :items="postOffices"
     :loading="dataLoading"
+    :search="search"
     hide-actions
     class="elevation-1"
   >
@@ -16,6 +29,8 @@
       <td class="text-xs-left">{{ moment(props.item.createdAt).format('MMMM Do YYYY, h:mm:ss a') }}</td>
     </template>
   </v-data-table>
+    </v-card>
+    <base-snackbar />
   </v-container>
 </template>
 
@@ -29,6 +44,7 @@ export default {
     return {
       moment,
       dataLoading: true,
+      search: ``,
       headers: [
         {
           text: "Post Office ID",

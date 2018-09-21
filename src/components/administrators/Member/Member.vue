@@ -11,7 +11,7 @@
             <v-divider light/>
             <div class="subheading"> Member ID: {{ member.memberId }} </div>
             <div class="subheading"> Gender: {{ member.gender ? `Male` : `Female` }} </div>
-            <div class="subheading" v-if="member"> Marital Status: {{ member.maritalStatusInfo.maritalStatus }} </div>
+            <div class="subheading" v-if="member.maritalStatusInfo.maritalStatus"> Marital Status: {{ member.maritalStatusInfo.maritalStatus }} </div>
           </div>
         </v-card-title>
         <v-spacer />

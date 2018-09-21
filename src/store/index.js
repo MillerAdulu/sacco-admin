@@ -19,7 +19,7 @@ export default new Vuex.Store({
     isLoading: false,
     isReady: false,
     snackbar: {},
-
+    
     token: localStorage.getItem('token') || '',
     
   },

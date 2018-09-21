@@ -1,11 +1,11 @@
 <template>
   <v-btn
-    v-on="$listeners"
-    v-bind="$attrs"
-    :small="!prominent"
-    color="primary"
-    class="v-btn--base"
-    depressed
+      v-on="$listeners"
+      v-bind="$attrs"
+      :small="!prominent"
+      color="primary"
+      class="v-btn--base"
+      depressed
   >
     <slot />
   </v-btn>

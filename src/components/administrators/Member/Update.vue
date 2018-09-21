@@ -5,6 +5,7 @@
 <script>
   import bugsnagClient from '@/helpers/errorreporting'
   import SaccoAPI from '@/api'
+
   export default {
     data() {
       return {
@@ -14,7 +15,7 @@
     methods: {
       fetchMember() {
         SaccoAPI.get('members/'+this.$route.params.memberId)
-          .then(response => {
+          .then(() => {
 
           })
           .catch(error => {

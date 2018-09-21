@@ -105,12 +105,9 @@
 </template>
 
 <script>
-  
+
   import SaccoAPI from '@/api'
-  import Parsers from "../../../helpers/parsers";
-  import queryString from "querystring";
-  import { Validator } from "vee-validate";
-  import { mapState } from "vuex";
+  import {Validator} from "vee-validate";
 
   const dictionary = {
     en: {
@@ -160,17 +157,17 @@
     methods: {
       getCounties() {
         // if (this.$can(`read`, `County`)) {
-          SaccoAPI.get("counties")
-            .then(response => {
-              this.counties = response.data;
-            })
-            .catch(error => {
-              this.$store.commit(`setSnackbar`, {
-                msg: `Unable to fetch counties at this time`,
-                type: `error`,
-                model: true
-              });
+        SaccoAPI.get("counties")
+          .then(response => {
+            this.counties = response.data;
+          })
+          .catch(() => {
+            this.$store.commit(`setSnackbar`, {
+              msg: `Unable to fetch counties at this time`,
+              type: `error`,
+              model: true
             });
+          });
         // } else {
         //   this.$store.commit(`setSnackbar`, {
         //     msg: `You don't have permissions to view counties`,
@@ -181,17 +178,17 @@
       },
       getConstituencies(county) {
         // if (this.$can(`read`, `County`)) {
-          SaccoAPI.get(`constituencies/county/${county}`)
-            .then(response => {
-              this.constituencies = response.data;
-            })
-            .catch(error => {
-              this.$store.commit(`setSnackbar`, {
-                msg: `Unable to fetch constituencies at this time`,
-                type: `error`,
-                model: true
-              });
+        SaccoAPI.get(`constituencies/county/${county}`)
+          .then(response => {
+            this.constituencies = response.data;
+          })
+          .catch(() => {
+            this.$store.commit(`setSnackbar`, {
+              msg: `Unable to fetch constituencies at this time`,
+              type: `error`,
+              model: true
             });
+          });
         // } else {
         //   this.$store.commit(`setSnackbar`, {
         //     msg: `You don't have permissions to view constituencies`,
@@ -202,17 +199,17 @@
       },
       getLocalities(constituency) {
         // if (this.$can(`read`, `Locality`)) {
-          SaccoAPI.get(`localities/constituency/${constituency}`)
-            .then(response => {
-              this.localities = response.data;
-            })
-            .catch(error => {
-              this.$store.commit(`setSnackbar`, {
-                msg: `Unable to fetch localities at this time`,
-                type: `error`,
-                model: true
-              });
+        SaccoAPI.get(`localities/constituency/${constituency}`)
+          .then(response => {
+            this.localities = response.data;
+          })
+          .catch(() => {
+            this.$store.commit(`setSnackbar`, {
+              msg: `Unable to fetch localities at this time`,
+              type: `error`,
+              model: true
             });
+          });
         // } else {
         //   this.$store.commit(`setSnackbar`, {
         //     msg: `You don't have permissions to view localities`,
@@ -223,17 +220,17 @@
       },
       getPostOffices() {
         // if (this.$can(`read`, `PostOffice`)) {
-          SaccoAPI.get(`postoffices`)
-            .then(response => {
-              this.postOffices = response.data;
-            })
-            .catch(error => {
-              this.$store.commit(`setSnackbar`, {
-                msg: `Unable to fetch post offices at this time`,
-                type: `error`,
-                model: true
-              });
+        SaccoAPI.get(`postoffices`)
+          .then(response => {
+            this.postOffices = response.data;
+          })
+          .catch(() => {
+            this.$store.commit(`setSnackbar`, {
+              msg: `Unable to fetch post offices at this time`,
+              type: `error`,
+              model: true
             });
+          });
         // } else {
         //   this.$store.commit(`setSnackbar`, {
         //     msg: `You don't have permissions to view post offices`,
@@ -244,18 +241,18 @@
       },
       getAddressToEdit() {
         // if (this.$can(`update`, `AddressDetails`)) {
-          SaccoAPI.get(`addressdetails/${this.$route.params.address}`)
-            .then(response => {
-              this.address = response.data;
-            })
-            .catch(error => {
-              let snackbar = {
-                msg: `Unable to fetch this address`,
-                type: `error`,
-                model: true
-              };
-              this.$store.commit(`setSnackbar`, snackbar);
-            });
+        SaccoAPI.get(`addressdetails/${this.$route.params.address}`)
+          .then(response => {
+            this.address = response.data;
+          })
+          .catch(() => {
+            let snackbar = {
+              msg: `Unable to fetch this address`,
+              type: `error`,
+              model: true
+            };
+            this.$store.commit(`setSnackbar`, snackbar);
+          });
         // } else {
         //   let snackbar = {
         //     msg: `You don't have permissions to edit this address`,

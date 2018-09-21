@@ -221,7 +221,7 @@ const router = new Router({
 router.beforeEach((to, from, next) => {
   
   if(to.path === `/login`) next()
-
+  
   if(to.path === `/` && localStorage.token) next(`/login`)
   
   if(!localStorage.token) next(`/login`)

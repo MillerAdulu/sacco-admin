@@ -54,6 +54,7 @@
   import bugsnagClient from '@/helpers/errorreporting'
   import SaccoAPI from '@/api'
   import moment from "moment";
+
   export default {
     name: `MemberLoans`,
     data() {
@@ -101,20 +102,20 @@
     methods: {
       fetchLoans() {
         // if (this.$can(`read`, `MemberLoan`)) {
-          SaccoAPI.get(`loans/memberloans`)
-            .then(response => {
-              this.memberLoans = response.data;
-              this.dataLoading = false;
-            })
-            .catch(error => {
-              bugsnagClient.notify(error)
-              
-              this.$store.commit(`setSnackbar`, {
-                msg: `Unable to load members loans at this time`,
-                type: `error`,
-                model: true
-              });
+        SaccoAPI.get(`loans/memberloans`)
+          .then(response => {
+            this.memberLoans = response.data;
+            this.dataLoading = false;
+          })
+          .catch(error => {
+            bugsnagClient.notify(error)
+
+            this.$store.commit(`setSnackbar`, {
+              msg: `Unable to load members loans at this time`,
+              type: `error`,
+              model: true
             });
+          });
         // } else {
         //   this.$store.commit(`setSnackbar`, {
         //     msg: `You don't have permissions to view members loans`,

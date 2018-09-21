@@ -44,28 +44,28 @@
 </template>
 
 <script>
-import bugsnagClient from '@/helpers/errorreporting'
-import SaccoAPI from '@/api'
-import queryString from "querystring";
-import fetchPaymentMethodsMixin from '@/components/administrators/mixins/paymentMethods'
+  import bugsnagClient from '@/helpers/errorreporting'
+  import SaccoAPI from '@/api'
+  import queryString from "querystring";
+  import fetchPaymentMethodsMixin from '@/components/administrators/mixins/paymentMethods'
 
-export default {
-  data() {
-    return {
-      memberId: "",
-      depositAmount: "",
-      paymentMethodId: "",
-      comment: "",
-      btnLoading: false,
+  export default {
+    data() {
+      return {
+        memberId: "",
+        depositAmount: "",
+        paymentMethodId: "",
+        comment: "",
+        btnLoading: false,
 
-      members: [],
-    };
-  },
-  mixins: [fetchPaymentMethodsMixin],
+        members: [],
+      };
+    },
+    mixins: [fetchPaymentMethodsMixin],
 
-  methods: {
-    addMemberDeposit() {
-      // if (this.$can(`create`, `MemberDeposit`)) {
+    methods: {
+      addMemberDeposit() {
+        // if (this.$can(`create`, `MemberDeposit`)) {
         this.startLoading();
 
         SaccoAPI
@@ -78,7 +78,7 @@ export default {
               comment: this.comment
             })
           )
-          .then(response => {
+          .then(() => {
             this.$store.commit("setSnackbar", {
               msg: `Deposit added successfully`,
               type: `success`,
@@ -97,16 +97,16 @@ export default {
             });
             this.stopLoading();
           });
-      // } else {
-      //   this.$store.commit(`setSnackbar`, {
-      //     msg: `You don't have permissions to add a deposit`,
-      //     type: `error`,
-      //     model: true
-      //   });
-      // }
-    },
-    fetchMembers() {
-      // if (this.$can(`read`, `Member`)) {
+        // } else {
+        //   this.$store.commit(`setSnackbar`, {
+        //     msg: `You don't have permissions to add a deposit`,
+        //     type: `error`,
+        //     model: true
+        //   });
+        // }
+      },
+      fetchMembers() {
+        // if (this.$can(`read`, `Member`)) {
         SaccoAPI
           .get(`members`)
           .then(response => {
@@ -121,24 +121,24 @@ export default {
               model: true
             });
           });
-      // } else {
-      //   this.$store.commit(`setSnackbar`, {
-      //     msg: `You don't have permissions to view members`,
-      //     type: `error`,
-      //     model: true
-      //   });
-      // }
+        // } else {
+        //   this.$store.commit(`setSnackbar`, {
+        //     msg: `You don't have permissions to view members`,
+        //     type: `error`,
+        //     model: true
+        //   });
+        // }
+      },
+
+      startLoading() {
+        this.btnLoading = true;
+      },
+      stopLoading() {
+        this.btnLoading = false;
+      }
     },
-    
-    startLoading() {
-      this.btnLoading = true;
-    },
-    stopLoading() {
-      this.btnLoading = false;
+    created() {
+      this.fetchMembers();
     }
-  },
-  created() {
-    this.fetchMembers();
-  }
-};
+  };
 </script>

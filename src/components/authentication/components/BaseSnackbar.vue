@@ -1,27 +1,25 @@
 <template>
   <v-snackbar
-    v-model="model"
-    :color="snackbar.type"
-    :timeout="5000"
-    right
+      v-model="model"
+      :color="snackbar.type"
+      :timeout="5000"
+      right
   >
     <v-icon
-      :dark="snackbar.type !== 'warning'"
-      class="mr-2"
-      v-text="icon"
+        :dark="snackbar.type !== 'warning'"
+        class="mr-2"
+        v-text="icon"
     />
     <span
-      :class="snackbar.type === 'warning' ? 'black--text' : 'white--text'"
-      v-text="snackbar.msg"
+        :class="snackbar.type === 'warning' ? 'black--text' : 'white--text'"
+        v-text="snackbar.msg"
     />
   </v-snackbar>
 </template>
 
 <script>
   // Utilities
-  import {
-    mapState
-  } from 'vuex'
+  import {mapState} from 'vuex'
 
   const ICON_MAP = {
     error: 'error',

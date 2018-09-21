@@ -11,24 +11,24 @@ export default {
     fetchPaymentMethods() {
       
       // if (this.$can(`read`, `PaymentMethods`)) {
-        
-        SaccoAPI
-          .get(`paymentmethods`)
-          .then(response => {
-            
-            this.paymentMethods = response.data;
-            this.stopLoading();
-          })
-          .catch(error => {
-            bugsnagClient.notify(error)
-            
-            this.stopLoading();
-            this.$store.commit(`setSnackbar`, {
-              msg: `Unable to fetch payment methods at this time`,
-              type: `error`,
-              model: true
-            });
+      
+      SaccoAPI
+        .get(`paymentmethods`)
+        .then(response => {
+          
+          this.paymentMethods = response.data;
+          this.stopLoading();
+        })
+        .catch(error => {
+          bugsnagClient.notify(error)
+          
+          this.stopLoading();
+          this.$store.commit(`setSnackbar`, {
+            msg: `Unable to fetch payment methods at this time`,
+            type: `error`,
+            model: true
           });
+        });
       // } else {
       //   this.stopLoading();
       //   this.$store.commit(`setSnackbar`, {

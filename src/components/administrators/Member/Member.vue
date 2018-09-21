@@ -17,7 +17,7 @@
         <v-spacer />
         <img
             :src="member.passportPhoto"
-            
+
         />
         <v-progress-circular indeterminate color="grey lighten-5"/>
       </v-layout>
@@ -56,7 +56,7 @@
 </template>
 
 <script>
-  
+
   import bugsnagClient from '@/helpers/errorreporting'
   import SaccoAPI from '@/api'
   import Addresses from "@/components/administrators/AddressDetails/Address";
@@ -96,19 +96,19 @@
     methods: {
       fetchMember() {
         // if (this.$can(`read`, `Member`)) {
-          SaccoAPI.get(`members/${this.memberId}`)
-            .then(response => {
-              this.member = response.data;
-            })
-            .catch(error => {
-              bugsnagClient.notify(error)
+        SaccoAPI.get(`members/${this.memberId}`)
+          .then(response => {
+            this.member = response.data;
+          })
+          .catch(error => {
+            bugsnagClient.notify(error)
 
-              this.$store.commit(`setSnackbar`, {
-                msg: `Unable to load this member at this time`,
-                type: `error`,
-                model: true
-              });
+            this.$store.commit(`setSnackbar`, {
+              msg: `Unable to load this member at this time`,
+              type: `error`,
+              model: true
             });
+          });
         // } else {
         //   this.$store.commit(`setSnackbar`, {
         //     msg: `You don't have permissions to view members`,
@@ -119,19 +119,19 @@
       },
       fetchAddressDetails() {
         // if (this.$can(`read`, `AddressDetails`)) {
-          SaccoAPI.get(`/addressdetails/members/${this.memberId}`)
-            .then(response => {
-              this.addressdetails = response.data;
-            })
-            .catch(error => {
-              bugsnagClient.notify(error)
+        SaccoAPI.get(`/addressdetails/members/${this.memberId}`)
+          .then(response => {
+            this.addressdetails = response.data;
+          })
+          .catch(error => {
+            bugsnagClient.notify(error)
 
-              this.$store.commit(`setSnackbar`, {
-                msg: `Unable to load this member's addresses at this time`,
-                type: `error`,
-                model: true
-              });
+            this.$store.commit(`setSnackbar`, {
+              msg: `Unable to load this member's addresses at this time`,
+              type: `error`,
+              model: true
             });
+          });
         // } else {
         //   this.$store.commit(`setSnackbar`, {
         //     msg: `You don't have permissions to view address details`,
@@ -142,19 +142,19 @@
       },
       fetchPaymentMethods() {
         // if (this.$can(`read`, `PaymentMethods`)) {
-          SaccoAPI.get(`/paymentdetails/members/${this.memberId}`)
-            .then(response => {
-              this.paymentmethods = response.data;
-            })
-            .catch(error => {
-              bugsnagClient.notify(error)
+        SaccoAPI.get(`/paymentdetails/members/${this.memberId}`)
+          .then(response => {
+            this.paymentmethods = response.data;
+          })
+          .catch(error => {
+            bugsnagClient.notify(error)
 
-              this.$store.commit(`setSnackbar`, {
-                msg: `Unable to load this member's payment methods at this time`,
-                type: `error`,
-                model: true
-              });
+            this.$store.commit(`setSnackbar`, {
+              msg: `Unable to load this member's payment methods at this time`,
+              type: `error`,
+              model: true
             });
+          });
         // } else {
         //   this.$store.commit(`setSnackbar`, {
         //     msg: `You don't have permissions to view payment methods`,
@@ -165,19 +165,19 @@
       },
       fetchNominees() {
         // if (this.$can(`read`, `Nominee`)) {
-          SaccoAPI.get(`/nominees/members/${this.memberId}`)
-            .then(response => {
-              this.nominees = response.data;
-            })
-            .catch(error => {
-              bugsnagClient.notify(error)
+        SaccoAPI.get(`/nominees/members/${this.memberId}`)
+          .then(response => {
+            this.nominees = response.data;
+          })
+          .catch(error => {
+            bugsnagClient.notify(error)
 
-              this.$store.commit(`setSnackbar`, {
-                msg: `Unable to load this member's nominees at this time`,
-                type: `error`,
-                model: true
-              });
+            this.$store.commit(`setSnackbar`, {
+              msg: `Unable to load this member's nominees at this time`,
+              type: `error`,
+              model: true
             });
+          });
         // } else {
         //   this.$store.commit(`setSnackbar`, {
         //     msg: `You don't have permissions to view nominees`,
@@ -188,19 +188,19 @@
       },
       fetchDeposits() {
         // if (this.$can(`read`, `MemberDeposit`)) {
-          SaccoAPI.get(`/memberdeposits/members/${this.memberId}`)
-            .then(response => {
-              this.deposits = response.data;
-            })
-            .catch(error => {
-              bugsnagClient.notify(error)
+        SaccoAPI.get(`/memberdeposits/members/${this.memberId}`)
+          .then(response => {
+            this.deposits = response.data;
+          })
+          .catch(error => {
+            bugsnagClient.notify(error)
 
-              this.$store.commit(`setSnackbar`, {
-                msg: `Unable to load this member's deposits at this time`,
-                type: `error`,
-                model: true
-              });
+            this.$store.commit(`setSnackbar`, {
+              msg: `Unable to load this member's deposits at this time`,
+              type: `error`,
+              model: true
             });
+          });
         // } else {
         //   this.$store.commit(`setSnackbar`, {
         //     msg: `You don't have permissions to view member deposits`,
@@ -211,19 +211,19 @@
       },
       fetchLoans() {
         // if (this.$can(`read`, `MemberLoan`)) {
-          SaccoAPI.get(`loans/member/${this.memberId}`)
-            .then(response => {
-              this.loans = response.data;
-            })
-            .catch(error => {
-              bugsnagClient.notify(error)
-              
-              this.$store.commit(`setSnackbar`, {
-                msg: `Unable to load this member's loans at this time`,
-                type: `error`,
-                model: true
-              });
+        SaccoAPI.get(`loans/member/${this.memberId}`)
+          .then(response => {
+            this.loans = response.data;
+          })
+          .catch(error => {
+            bugsnagClient.notify(error)
+
+            this.$store.commit(`setSnackbar`, {
+              msg: `Unable to load this member's loans at this time`,
+              type: `error`,
+              model: true
             });
+          });
         // } else {
         //   this.$store.commit(`setSnackbar`, {
         //     msg: `You don't have permissions to view member loans`,

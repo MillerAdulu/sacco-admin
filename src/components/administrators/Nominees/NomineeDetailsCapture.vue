@@ -88,13 +88,13 @@
 </template>
 
 <script>
-  
+
   import bugsnagClient from '@/helpers/errorreporting'
   import SaccoAPI from '@/api'
   import fetchMemberRelationshipsMixin from '@/components/administrators/mixins/memberrelationships'
   import Parsers from "../../../helpers/parsers";
   import queryString from "querystring";
-  import { Validator } from "vee-validate";
+  import {Validator} from "vee-validate";
 
   const dictionary = {
     en: {
@@ -143,44 +143,44 @@
       async addNominee() {
         // if (this.$can(`create`, `Nominee`)) {
 
-          this.startLoading()
+        this.startLoading()
 
-          this.$validator.validateAll();
-          let nominee = await Parsers.prepareDataObject({
-            member_id: this.$store.getters.newMemberRecordKey,
-            identification_number: this.identificationNumber,
-            relationship_id: this.relationshipId,
-            first_name: this.firstName,
-            last_name: this.lastName,
-            other_name: this.otherName,
-            phone_number: this.phoneNumber,
-            email: this.email
-          });
-          SaccoAPI.post("nominees", queryString.stringify(nominee))
-            .then(response => {
-              this.$store.commit(`setSnackbar`, {
-                msg: `${
-                  this.lastName
-                  } added successfully. You can add another one`,
-                type: `success`,
-                model: true
-              });
-              this.stopLoading();
-
-              this.$store.commit("setStepperStatus", false);
-              this.btnRegisterDisabled = true;
-              this.clearNominee();
-            })
-            .catch(error => {
-              bugsnagClient.notify(error)
-              
-              this.$store.commit(`setSnackbar`, {
-                msg: `Unable to add this nominee at this time`,
-                type: `error`,
-                model: true
-              });
-              this.stopLoading();
+        this.$validator.validateAll();
+        let nominee = await Parsers.prepareDataObject({
+          member_id: this.$store.getters.newMemberRecordKey,
+          identification_number: this.identificationNumber,
+          relationship_id: this.relationshipId,
+          first_name: this.firstName,
+          last_name: this.lastName,
+          other_name: this.otherName,
+          phone_number: this.phoneNumber,
+          email: this.email
+        });
+        SaccoAPI.post("nominees", queryString.stringify(nominee))
+          .then(() => {
+            this.$store.commit(`setSnackbar`, {
+              msg: `${
+                this.lastName
+                } added successfully. You can add another one`,
+              type: `success`,
+              model: true
             });
+            this.stopLoading();
+
+            this.$store.commit("setStepperStatus", false);
+            this.btnRegisterDisabled = true;
+            this.clearNominee();
+          })
+          .catch(error => {
+            bugsnagClient.notify(error)
+
+            this.$store.commit(`setSnackbar`, {
+              msg: `Unable to add this nominee at this time`,
+              type: `error`,
+              model: true
+            });
+            this.stopLoading();
+          });
         // } else {
         //   this.$store.commit(`setSnackbar`, {
         //     msg: `You don't have permissions to add nominees`,

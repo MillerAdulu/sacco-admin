@@ -52,7 +52,7 @@
 </template>
 
 <script>
-  
+
   import bugsnagClient from '@/helpers/errorreporting'
   import SaccoAPI from '@/api'
   import Parsers from "../../../helpers/parsers";
@@ -91,42 +91,42 @@
       async addPaymentDetails() {
         // if (this.$can(`create`, `PaymentMethods`)) {
 
-          this.startLoading()
+        this.startLoading()
 
-          let paymentDetails = await Parsers.prepareDataObject({
-            payment_method_id: this.paymentMethod,
-            member_id: this.$store.getters.newMemberRecordKey,
-            bank_name: this.bankName,
-            bank_account_number: this.bankAccountNumber,
-            card_number: this.bankCardNumber,
-            provider: this.provider,
-            phone_number: this.phoneNumber
-          });
-          SaccoAPI.post("paymentdetails", queryString.stringify(paymentDetails))
-            .then(response => {
-              this.$store.commit("setStepperStatus", false);
-              this.clearPaymentDetails();
-              this.$store.commit(`setSnackbar`, {
-                msg: `Added! You can add other payment details`,
-                type: `success`,
-                model: true
-              });
-
-              this.stopLoading()
-
-            })
-            .catch(error => {
-              bugsnagClient.notify(error)
-
-              this.$store.commit(`setSnackbar`, {
-                msg: `Unable to add payment details at this time`,
-                type: `error`,
-                model: true
-              });
-
-              this.stopLoading()
-
+        let paymentDetails = await Parsers.prepareDataObject({
+          payment_method_id: this.paymentMethod,
+          member_id: this.$store.getters.newMemberRecordKey,
+          bank_name: this.bankName,
+          bank_account_number: this.bankAccountNumber,
+          card_number: this.bankCardNumber,
+          provider: this.provider,
+          phone_number: this.phoneNumber
+        });
+        SaccoAPI.post("paymentdetails", queryString.stringify(paymentDetails))
+          .then(() => {
+            this.$store.commit("setStepperStatus", false);
+            this.clearPaymentDetails();
+            this.$store.commit(`setSnackbar`, {
+              msg: `Added! You can add other payment details`,
+              type: `success`,
+              model: true
             });
+
+            this.stopLoading()
+
+          })
+          .catch(error => {
+            bugsnagClient.notify(error)
+
+            this.$store.commit(`setSnackbar`, {
+              msg: `Unable to add payment details at this time`,
+              type: `error`,
+              model: true
+            });
+
+            this.stopLoading()
+
+          });
         // } else {
         //   this.$store.commit(`setSnackbar`, {
         //     msg: `You don't have permissions to add payment details`,
@@ -146,19 +146,19 @@
 
       getPaymentMethods() {
         // if (this.$can(`read`, `PaymentMethods`)) {
-          SaccoAPI.get("paymentmethods")
-            .then(response => {
-              this.paymentMethods = response.data;
-            })
-            .catch(error => {
-              bugsnagClient.notify(error)
-              
-              this.$store.commit(`setSnackbar`, {
-                msg: `Unable to fetch payment methods at this time`,
-                type: `error`,
-                model: true
-              });
+        SaccoAPI.get("paymentmethods")
+          .then(response => {
+            this.paymentMethods = response.data;
+          })
+          .catch(error => {
+            bugsnagClient.notify(error)
+
+            this.$store.commit(`setSnackbar`, {
+              msg: `Unable to fetch payment methods at this time`,
+              type: `error`,
+              model: true
             });
+          });
         // } else {
         //   this.$store.commit(`setSnackbar`, {
         //     msg: `You don't have permissions to view payment methods`,

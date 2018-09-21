@@ -1,6 +1,6 @@
 import axios from 'axios'
 import axiosRetry from 'axios-retry'
-import { ExponentialBackoff } from 'simple-backoff'
+import {ExponentialBackoff} from 'simple-backoff'
 
 require(`dotenv`).config()
 
@@ -20,10 +20,10 @@ const BaseConnection = axios.create({
 
 BaseConnection.interceptors.request.use(config => {
   let token = localStorage.getItem('token')
-    if(token){
-        config.headers.Authorization = `Bearer ${ token }`
-    }
-    return config
+  if(token){
+    config.headers.Authorization = `Bearer ${ token }`
+  }
+  return config
 }, err => {
   return Promise.reject(err)
 })

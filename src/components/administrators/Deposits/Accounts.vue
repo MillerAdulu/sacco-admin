@@ -57,7 +57,7 @@
 </template>
 
 <script>
-  
+
   import bugsnagClient from '@/helpers/errorreporting'
   import SaccoAPI from '@/api'
 
@@ -96,27 +96,27 @@
     methods: {
       fetchAccountData(){
         // if(this.$can('read', 'MemberAccount')) {
-          
-          this.startLoading()
 
-          SaccoAPI.get(`memberdeposits/members/accounts/all`)
-            .then(response => {
+        this.startLoading()
 
-              this.accounts = response.data
+        SaccoAPI.get(`memberdeposits/members/accounts/all`)
+          .then(response => {
 
-              this.stopLoading()
+            this.accounts = response.data
+
+            this.stopLoading()
+          })
+          .catch(error => {
+            bugsnagClient.notify(error)
+
+            this.$store.commit(`setSnackbar`, {
+              msg: `Unable to fetch these accounts at the moment`,
+              type: `error`,
+              model: true
             })
-            .catch(error => {
-              bugsnagClient.notify(error)
-              
-              this.$store.commit(`setSnackbar`, {
-                msg: `Unable to fetch these accounts at the moment`,
-                type: `error`,
-                model: true
-              })
 
-              this.stopLoading()
-            })
+            this.stopLoading()
+          })
 
         // } else {
 
@@ -125,7 +125,7 @@
         //     type: `error`,
         //     model: true,
         //   })
-          
+
         //   this.stopLoading()
 
         // }

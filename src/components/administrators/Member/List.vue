@@ -106,24 +106,24 @@
     methods: {
       fetchMembers() {
         // if (this.$can(`read`, `Member`)) {
-          this.startLoading();
+        this.startLoading();
 
-          SaccoAPI.get(`members`)
-            .then(response => {
-              this.members = response.data;
-              this.stopLoading();
-            })
-            .catch(error => {
-              bugsnagClient.notify(error)
-              
-              this.$store.commit(`setSnackbar`, {
-                msg: `Unable to fetch members at this time`,
-                type: `error`,
-                model: true
-              });
+        SaccoAPI.get(`members`)
+          .then(response => {
+            this.members = response.data;
+            this.stopLoading();
+          })
+          .catch(error => {
+            bugsnagClient.notify(error)
 
-              this.stopLoading();
+            this.$store.commit(`setSnackbar`, {
+              msg: `Unable to fetch members at this time`,
+              type: `error`,
+              model: true
             });
+
+            this.stopLoading();
+          });
         // } else {
         //   this.$store.commit(`setSnackbar`, {
         //     msg: `You don't have permissions to view members`,

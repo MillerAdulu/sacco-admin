@@ -71,6 +71,7 @@
 <script>
   import bugsnagClient from '@/helpers/errorreporting'
   import SaccoAPI from '@/api'
+
   export default {
     name: `MemberDashboard`,
     data() {
@@ -82,19 +83,19 @@
     methods: {
       fetchMemberData() {
         // if (this.$can(`read`, `Member`)) {
-          SaccoAPI.get(`members/${this.loggedInMember.member.memberId}`)
-            .then(response => {
-              this.member = response.data;
-            })
-            .catch(error => {
-              bugsnagClient.notify(error)
-              
-              this.$store.commit(`setSnackbar`, {
-                msg: `Unable to load your data at this time`,
-                type: `error`,
-                model: true
-              });
+        SaccoAPI.get(`members/${this.loggedInMember.member.memberId}`)
+          .then(response => {
+            this.member = response.data;
+          })
+          .catch(error => {
+            bugsnagClient.notify(error)
+
+            this.$store.commit(`setSnackbar`, {
+              msg: `Unable to load your data at this time`,
+              type: `error`,
+              model: true
             });
+          });
         // } else {
         //   this.$store.commit(`setSnackbar`, {
         //     msg: `You don't have permissions to view member details`,

@@ -70,9 +70,8 @@
 </template>
 
 <script>
-  
+
   import bugsnagClient from '@/helpers/errorreporting'
-  import { mapMutations } from "vuex";
   import SaccoAPI from '@/api'
 
   export default {
@@ -91,32 +90,32 @@
     methods: {
       deleteAddress(address) {
         // if (this.$can(`delete`, `AddressDetails`)) {
-          this.startLoading();
+        this.startLoading();
 
-          SaccoAPI.delete(`addressdetails/${address.addressDetailId}`)
-            .then(response => {
-              let snackbar = {
-                msg: response
-                  ? `This address has been deleted`
-                  : response.statusText,
-                type: `success`,
-                model: true
-              };
-              this.$store.commit(`setSnackbar`, snackbar);
-              this.addresses.pop(address);
-              this.stopLoading();
-            })
-            .catch(error => {
-              bugsnagClient.notify(error)
+        SaccoAPI.delete(`addressdetails/${address.addressDetailId}`)
+          .then(response => {
+            let snackbar = {
+              msg: response
+                ? `This address has been deleted`
+                : response.statusText,
+              type: `success`,
+              model: true
+            };
+            this.$store.commit(`setSnackbar`, snackbar);
+            this.addresses.pop(address);
+            this.stopLoading();
+          })
+          .catch(error => {
+            bugsnagClient.notify(error)
 
-              let snackbar = {
-                msg: `Currently unable to delete this address`,
-                type: `error`,
-                model: true
-              };
-              this.$store.commit(`setSnackbar`, snackbar);
-              this.stopLoading();
-            });
+            let snackbar = {
+              msg: `Currently unable to delete this address`,
+              type: `error`,
+              model: true
+            };
+            this.$store.commit(`setSnackbar`, snackbar);
+            this.stopLoading();
+          });
         // } else {
         //   let snackbar = {
         //     msg: `You don't have permissions to delete this address`,
@@ -129,7 +128,7 @@
       },
       editAddress(address) {
         // if (this.$can(`update`, `AddressDetails`)) {
-          this.$router.push(`/admin/editaddress/${address}`);
+        this.$router.push(`/admin/editaddress/${address}`);
         // } else {
         //   let snackbar = {
         //     msg: `You don't have permissions to edit this address`,

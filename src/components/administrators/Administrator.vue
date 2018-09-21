@@ -8,7 +8,7 @@
         enable-resize-watcher
         fixed
         app
-        >
+    >
       <v-list class="pt-0">
         <v-list-tile>
           <v-list-tile-action>
@@ -24,7 +24,7 @@
           </v-list-tile-action>
           <v-list-tile-content>
             <v-list-tile-title>
-                Dashboard
+              Dashboard
             </v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
@@ -47,7 +47,7 @@
 
             <v-list-tile-content>
               <v-list-tile-title>
-                  {{ subItem.title }}
+                {{ subItem.title }}
               </v-list-tile-title>
             </v-list-tile-content>
 
@@ -92,6 +92,7 @@
 
 <script>
   import logOutMixin from '@/components/administrators/mixins/logout'
+
   export default {
     name: "Administrator",
     data() {

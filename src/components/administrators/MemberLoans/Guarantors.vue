@@ -39,6 +39,7 @@
 <script>
   import bugsnagClient from '@/helpers/errorreporting'
   import SaccoAPI from '@/api'
+
   export default {
     name: `Guarantors`,
     data() {
@@ -53,19 +54,19 @@
     methods: {
       fetchGuarantors() {
         // if(this.$can(`read`, `LoanGuarantor`)) {
-          SaccoAPI.get(`loans/loan/${ this.$route.params.memberLoanId }`)
-            .then(response => {
-              this.loanGuarantors = response.data
+        SaccoAPI.get(`loans/loan/${ this.$route.params.memberLoanId }`)
+          .then(response => {
+            this.loanGuarantors = response.data
+          })
+          .catch(error => {
+            bugsnagClient.notify(error)
+
+            this.$store.commit(`setSnackbar`, {
+              msg: `Unable to fetch loan guarantors at this moment`,
+              type: `error`,
+              model: true,
             })
-            .catch(error => {
-              bugsnagClient.notify(error)
-              
-              this.$store.commit(`setSnackbar`, {
-                msg: `Unable to fetch loan guarantors at this moment`,
-                type: `error`,
-                model: true,
-              })
-            })
+          })
         // } else {
 
         //   this.$store.commit(`setSnackbar`, {

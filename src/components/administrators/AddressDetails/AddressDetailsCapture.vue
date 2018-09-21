@@ -107,14 +107,14 @@
 </template>
 
 <script>
-  
+
   import bugsnagClient from '@/helpers/errorreporting'
   import SaccoAPI from '@/api'
   import fetchCountiesMixin from '@/components/administrators/mixins/counties'
   import fetchPostOfficesMixin from '@/components/administrators/mixins/postoffices'
   import Parsers from "../../../helpers/parsers";
   import queryString from "querystring";
-  import { Validator } from "vee-validate";
+  import {Validator} from "vee-validate";
 
   const dictionary = {
     en: {
@@ -165,19 +165,19 @@
     methods: {
       getConstituencies(county) {
         // if (this.$can(`read`, `County`)) {
-          SaccoAPI.get(`constituencies/county/${county}`)
-            .then(response => {
-              this.constituencies = response.data;
-            })
-            .catch(error => {
-              bugsnagClient.notify(error)
+        SaccoAPI.get(`constituencies/county/${county}`)
+          .then(response => {
+            this.constituencies = response.data;
+          })
+          .catch(error => {
+            bugsnagClient.notify(error)
 
-              this.$store.commit(`setSnackbar`, {
-                msg: `Unable to fetch constituencies at this time`,
-                type: `error`,
-                model: true
-              });
+            this.$store.commit(`setSnackbar`, {
+              msg: `Unable to fetch constituencies at this time`,
+              type: `error`,
+              model: true
             });
+          });
         // } else {
         //   this.$store.commit(`setSnackbar`, {
         //     msg: `You don't have permissions to view constituencies`,
@@ -188,18 +188,18 @@
       },
       getLocalities(constituency) {
         // if (this.$can(`read`, `Locality`)) {
-          SaccoAPI.get(`localities/constituency/${constituency}`)
-            .then(response => {
-              this.localities = response.data;
-            })
-            .catch(error => {
-              bugsnagClient.notify(error)
-              this.$store.commit(`setSnackbar`, {
-                msg: `Unable to fetch localities at this time`,
-                type: `error`,
-                model: true
-              });
+        SaccoAPI.get(`localities/constituency/${constituency}`)
+          .then(response => {
+            this.localities = response.data;
+          })
+          .catch(error => {
+            bugsnagClient.notify(error)
+            this.$store.commit(`setSnackbar`, {
+              msg: `Unable to fetch localities at this time`,
+              type: `error`,
+              model: true
             });
+          });
         // } else {
         //   this.$store.commit(`setSnackbar`, {
         //     msg: `You don't have permissions to view localities`,
@@ -211,40 +211,40 @@
       async addAddress() {
         // if (this.$can(`create`, `AddressDetails`)) {
 
-          this.startLoading()
+        this.startLoading()
 
-          let address = await Parsers.prepareDataObject({
-            member_id: this.$store.getters.newMemberRecordKey,
-            county_id: this.county,
-            constituency_id: this.constituency,
-            locality_id: this.locality,
-            street: this.street,
-            building_name: this.buildingName,
-            floor: this.floor,
-            house_number: this.houseNumber,
-            post_office_id: this.postOfficeId,
-            postal_address: this.postalAddress
-          });
-          SaccoAPI.post(`addressdetails`, queryString.stringify(address))
-            .then(response => {
-              this.$store.commit(`setSnackbar`, {
-                msg: `Added! You can add more addresses`,
-                type: `success`,
-                model: true
-              });
-              this.$store.commit("setStepperStatus", false);
-              this.clearAddress();
-              this.stopLoading()
-            })
-            .catch(error => {
-              bugsnagClient.notify(error)
-              this.$store.commit(`setSnackbar`, {
-                msg: `Unable to add addresses at this time`,
-                type: `error`,
-                model: true
-              });
-              this.stopLoading()
+        let address = await Parsers.prepareDataObject({
+          member_id: this.$store.getters.newMemberRecordKey,
+          county_id: this.county,
+          constituency_id: this.constituency,
+          locality_id: this.locality,
+          street: this.street,
+          building_name: this.buildingName,
+          floor: this.floor,
+          house_number: this.houseNumber,
+          post_office_id: this.postOfficeId,
+          postal_address: this.postalAddress
+        });
+        SaccoAPI.post(`addressdetails`, queryString.stringify(address))
+          .then(() => {
+            this.$store.commit(`setSnackbar`, {
+              msg: `Added! You can add more addresses`,
+              type: `success`,
+              model: true
             });
+            this.$store.commit("setStepperStatus", false);
+            this.clearAddress();
+            this.stopLoading()
+          })
+          .catch(error => {
+            bugsnagClient.notify(error)
+            this.$store.commit(`setSnackbar`, {
+              msg: `Unable to add addresses at this time`,
+              type: `error`,
+              model: true
+            });
+            this.stopLoading()
+          });
         // } else {
         //   this.$store.commit(`setSnackbar`, {
         //     msg: `You don't have permissions to add address details`,

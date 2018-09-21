@@ -139,12 +139,12 @@
 </template>
 
 <script>
-  
+
   import bugsnagClient from '@/helpers/errorreporting'
   import SaccoAPI from '@/api'
   import Parsers from "../../../helpers/parsers";
   import queryString from "querystring";
-  import { Validator } from "vee-validate";
+  import {Validator} from "vee-validate";
 
   import maritalStatusMixin from '@/components/administrators/mixins/maritalStatuses'
 
@@ -218,49 +218,49 @@
       async registerMember() {
         // if (this.$can(`create`, `Member`)) {
 
-          this.startLoading()
+        this.startLoading()
 
-          await this.$validator.validateAll();
+        await this.$validator.validateAll();
 
-          let newMember = await Parsers.prepareDataObject({
-            identification_number: this.identificationNumber,
-            date_of_birth: this.dateOfBirth,
-            first_name: this.firstName,
-            last_name: this.lastName,
-            other_name: this.otherName,
-            phone_number: this.phoneNumber,
-            proposed_monthly_deposit: this.proposedMonthlyDeposit,
-            email: this.email,
-            kra_pin: this.kraPin,
-            marital_status_id: this.maritalStatus,
-            gender: this.gender
-          });
+        let newMember = await Parsers.prepareDataObject({
+          identification_number: this.identificationNumber,
+          date_of_birth: this.dateOfBirth,
+          first_name: this.firstName,
+          last_name: this.lastName,
+          other_name: this.otherName,
+          phone_number: this.phoneNumber,
+          proposed_monthly_deposit: this.proposedMonthlyDeposit,
+          email: this.email,
+          kra_pin: this.kraPin,
+          marital_status_id: this.maritalStatus,
+          gender: this.gender
+        });
 
-          SaccoAPI.post("members", queryString.stringify(newMember))
-            .then(response => {
-              this.$store.commit(`setSnackbar`, {
-                msg: `${this.lastName} has been added successfully`,
-                type: `success`,
-                model: true
-              });
-
-              this.$store.commit("setNewMemberRecordKey", response.data.memberId);
-              this.$store.commit("setStepperStatus", false);
-              this.clearForm();
-              this.btnRegisterDisabled = true;
-              this.stopLoading()
-            })
-            .catch(error => {
-              bugsnagClient.notify(error)
-              
-              this.$store.commit(`setSnackbar`, {
-                msg: `You are unable to add this member at this time`,
-                type: `error`,
-                model: true
-              });
-
-              this.stopLoading();
+        SaccoAPI.post("members", queryString.stringify(newMember))
+          .then(response => {
+            this.$store.commit(`setSnackbar`, {
+              msg: `${this.lastName} has been added successfully`,
+              type: `success`,
+              model: true
             });
+
+            this.$store.commit("setNewMemberRecordKey", response.data.memberId);
+            this.$store.commit("setStepperStatus", false);
+            this.clearForm();
+            this.btnRegisterDisabled = true;
+            this.stopLoading()
+          })
+          .catch(error => {
+            bugsnagClient.notify(error)
+
+            this.$store.commit(`setSnackbar`, {
+              msg: `You are unable to add this member at this time`,
+              type: `error`,
+              model: true
+            });
+
+            this.stopLoading();
+          });
         // } else {
         //   this.$store.commit(`setSnackbar`, {
         //     msg: `You don't have permissions to add members`,

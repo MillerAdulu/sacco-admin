@@ -1,6 +1,6 @@
 export default {
   props: ['value'],
-
+  
   computed: {
     internalValue: {
       get () {

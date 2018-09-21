@@ -18,5 +18,5 @@
     >
       Terms
     </a> -->
-    </div>
+  </div>
 </template>

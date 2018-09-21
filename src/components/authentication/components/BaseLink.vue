@@ -1,6 +1,6 @@
 <template>
   <span
-    class="body-2 primary--text"
+      class="body-2 primary--text"
   >
     <slot />
   </span>

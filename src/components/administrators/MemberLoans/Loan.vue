@@ -77,19 +77,19 @@
     methods: {
       getLoanDetails() {
         // if (this.$can(`read`, `MemberLoan`)) {
-          SaccoAPI.get(`loans/memberloans/${this.$route.params.memberLoanId}`)
-            .then(response => {
-              this.loanDetails = response.data;
-            })
-            .catch(error => {
-              bugsnagClient.notify(error)
-              
-              this.$store.commit(`setSnackbar`, {
-                msg: `Unable to load this member loan`,
-                type: `error`,
-                model: true
-              });
+        SaccoAPI.get(`loans/memberloans/${this.$route.params.memberLoanId}`)
+          .then(response => {
+            this.loanDetails = response.data;
+          })
+          .catch(error => {
+            bugsnagClient.notify(error)
+
+            this.$store.commit(`setSnackbar`, {
+              msg: `Unable to load this member loan`,
+              type: `error`,
+              model: true
             });
+          });
         // } else {
         //   this.$store.commit(`setSnackbar`, {
         //     msg: `You don't have permissions to view member loans`,

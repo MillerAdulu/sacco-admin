@@ -1,15 +1,15 @@
-import { AbilityBuilder } from '@casl/ability'
+import {AbilityBuilder} from '@casl/ability'
 
 // let userAccessLevel = JSON.parse()
 
 export default AbilityBuilder.define(can => {
   switch (
     localStorage.getItem('accessLevel')
-  ) {
+    ) {
     case 'MEMBER': {
-
+      
       const memberPermissions = ['read']
-
+      
       can(memberPermissions, 'Member')
       can(memberPermissions, 'MemberAccount')
       can(memberPermissions, 'AddressDetails')
@@ -34,12 +34,12 @@ export default AbilityBuilder.define(can => {
       can(memberPermissions, 'PostOffice')
       can(memberPermissions, 'Relationship')
       can(memberPermissions, 'User')
-
+      
       break
     }
     case 'CLERK': {
       const clerkPermissions = ['read', 'create']
-
+      
       can(clerkPermissions, 'Member')
       can(clerkPermissions, 'MemberAccount')
       can(clerkPermissions, 'AddressDetails')
@@ -63,13 +63,13 @@ export default AbilityBuilder.define(can => {
       can(clerkPermissions, 'PaymentMethod')
       can(clerkPermissions, 'PostOffice')
       can(clerkPermissions, 'Relationship')
-
+      
       break
     }
     case 'SUPER_ADMIN': {
-
+      
       const allPermissions = ['read', 'create', 'update', 'delete']
-
+      
       can(allPermissions, 'Member')
       can(allPermissions, 'MemberAccount')
       can(allPermissions, 'AddressDetails')
@@ -100,11 +100,3 @@ export default AbilityBuilder.define(can => {
     }
   }
 })
-
-function setAccessLevel(accessLevel) {
-  userAccessLevel = accessLevel
-}
-
-export {
-  setAccessLevel
-}

@@ -43,6 +43,7 @@
   import bugsnagClient from '@/helpers/errorreporting'
   import SaccoAPI from '@/api'
   import moment from "moment";
+
   export default {
     name: `DepositProfile`,
 
@@ -60,19 +61,19 @@
     methods: {
       fetchDeposits() {
         // if (this.$can(`read`, `MemberDeposit`)) {
-          SaccoAPI.get(`memberdeposits/members/${this.loggedInUser.member.memberId}`)
-            .then(response => {
-              this.contributions = response.data;
-            })
-            .catch(error => {
-              bugsnagClient.notify(error)
-              
-              this.$store.commit(`setSnackbar`, {
-                msg: `Unable to fetch your contributions at this time`,
-                type: `error`,
-                model: true
-              });
+        SaccoAPI.get(`memberdeposits/members/${this.loggedInUser.member.memberId}`)
+          .then(response => {
+            this.contributions = response.data;
+          })
+          .catch(error => {
+            bugsnagClient.notify(error)
+
+            this.$store.commit(`setSnackbar`, {
+              msg: `Unable to fetch your contributions at this time`,
+              type: `error`,
+              model: true
             });
+          });
         // } else {
         //   this.$store.commit(`setSnackbar`, {
         //     msg: `You don't have permissions to view member contributions`,

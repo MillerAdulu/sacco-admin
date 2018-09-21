@@ -64,71 +64,71 @@
     methods: {
       fetchMembers() {
         // if (this.$can(`read`, `Member`)) {
-          SaccoAPI.get(`/dashboard/members`)
-            .then(response => {
-              this.totalMembers = response.data;
-            })
-            .catch(error => {
-              bugsnagClient.notify(error)
+        SaccoAPI.get(`/dashboard/members`)
+          .then(response => {
+            this.totalMembers = response.data;
+          })
+          .catch(error => {
+            bugsnagClient.notify(error)
 
-              this.$store.commit(`setSnackbar`, {
-                msg: `Unable to fetch members`,
-                type: `error`,
-                model: true
-              });
+            this.$store.commit(`setSnackbar`, {
+              msg: `Unable to fetch members`,
+              type: `error`,
+              model: true
             });
+          });
         // } else {
-          // this.$store.commit(`setSnackbar`, {
-          //   msg: `You don't have permissions to view members`,
-          //   type: `error`,
-          //   model: true
-          // });
+        // this.$store.commit(`setSnackbar`, {
+        //   msg: `You don't have permissions to view members`,
+        //   type: `error`,
+        //   model: true
+        // });
         // }
       },
       fetchDeposits() {
         // if (this.$can(`read`, `MemberDeposit`)) {
-          SaccoAPI.get(`/dashboard/deposits`)
-            .then(response => {
-              this.totalDeposits = response.data;
-            })
-            .catch(error => {
-              bugsnagClient.notify(error)
+        SaccoAPI.get(`/dashboard/deposits`)
+          .then(response => {
+            this.totalDeposits = response.data;
+          })
+          .catch(error => {
+            bugsnagClient.notify(error)
 
-              this.$store.commit(`setSnackbar`, {
-                msg: `Unable to fetch deposits`,
-                type: `error`,
-                model: true
-              });
+            this.$store.commit(`setSnackbar`, {
+              msg: `Unable to fetch deposits`,
+              type: `error`,
+              model: true
             });
+          });
         // } else {
-          // this.$store.commit(`setSnackbar`, {
-          //   msg: `You don't have permissions to view deposits`,
-          //   type: `error`,
-          //   model: true
-          // });
+        // this.$store.commit(`setSnackbar`, {
+        //   msg: `You don't have permissions to view deposits`,
+        //   type: `error`,
+        //   model: true
+        // });
         // }
       },
       fetchMemberLoans() {
         // if (this.$can(`read`, `MemberLoan`)) {
-          SaccoAPI.get(`/dashboard/memberloans`)
-            .then(response => {
-              this.totalMemberLoans = response.data;
-            })
-            .catch(error => {
-              bugsnagClient.notify(error)
-              
-              this.$store.commit(`setSnackbar`, {
-                msg: `Unable to fetch loans`,
-                type: `error`,
-                model: true
-              });
+        SaccoAPI.get(`/dashboard/memberloans`)
+          .then(response => {
+            this.totalMemberLoans = response.data;
+          })
+          .catch(error => {
+            bugsnagClient.notify(error)
+
+            this.$store.commit(`setSnackbar`, {
+              msg: `Unable to fetch loans`,
+              type: `error`,
+              model: true
             });
+          });
         // } else {
-          // this.$store.commit(`setSnackbar`, {
-          //   msg: `You don't have permissions to view member loans`,
-          //   type: `error`,
-          //   model: true
-          // });
+        // this.$store.commit(`setSnackbar`, {
+        //   msg: `You don't have permissions to view member loans`,
+        //   type: `error`,
+        //   model: true
+        // });
         // }
       }
     },

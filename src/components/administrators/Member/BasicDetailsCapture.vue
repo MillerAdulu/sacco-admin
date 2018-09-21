@@ -129,7 +129,7 @@
     </v-layout>
 
     <v-layout row>
-      <v-btn  color="success" @click="registerMember" :disabled="btnRegisterDisabled" :loading="btnLoading">Register Member</v-btn>
+      <v-btn color="success" @click="registerMember" :disabled="btnRegisterDisabled" :loading="btnLoading">Register Member</v-btn>
       <v-btn color="error" @click="clearForm" :disabled="btnRegisterDisabled">Clear</v-btn>
     </v-layout>
 

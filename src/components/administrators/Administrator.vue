@@ -114,6 +114,11 @@
                 action: "add_circle",
                 title: "Register Member",
                 routerName: "Registration"
+              },
+              {
+                action: "build",
+                title: 'Reset Password',
+                routerName: "MemberPasswordReset"
               }
             ]
           },

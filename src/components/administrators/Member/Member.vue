@@ -1,7 +1,6 @@
 <template>
   <v-container>
-
-    <v-card>
+    <v-card v-if="member && member.maritalStatusInfo">
       <v-layout row>
         <v-card-title primary-title>
           <div>
@@ -17,7 +16,6 @@
         <v-spacer />
         <img
             :src="member.passportPhoto"
-
         />
         <v-progress-circular indeterminate color="grey lighten-5"/>
       </v-layout>

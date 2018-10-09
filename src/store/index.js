@@ -65,7 +65,8 @@ export default new Vuex.Store({
           member: state.loggedInUser.member,
           accessLevel: state.loggedInUser.accessLevel,
           token: state.loggedInUser.token
-        }
+        },
+        newMemberRecordKey: state.newMemberRecordKey
       })
     }),
   ]

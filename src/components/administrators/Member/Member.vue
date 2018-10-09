@@ -40,10 +40,16 @@
               <Deposits :deposits="deposits" />
             </v-tab-item>
             <v-tab-item>
+              <Deposits :deposits="deposits" />
+            </v-tab-item>
+            <v-tab-item>
               <MemberLoans :memberLoans="loans" />
             </v-tab-item>
             <v-tab-item>
               <ShowNominees :nominees="nominees" />
+            </v-tab-item>
+            <v-tab-item>
+              <UserOperations :memberId="member.memberId" />
             </v-tab-item>
           </v-tabs-items>
         </v-tabs>
@@ -62,6 +68,7 @@
   import ShowNominees from "@/components/administrators/Nominees/ShowNominees";
   import Deposits from "@/components/administrators/Deposits/MemberDeposits";
   import MemberLoans from "@/components/administrators/MemberLoans/MemberLoans";
+  import UserOperations from '@/components/administrators/Member/UserOperations';
 
   export default {
     data() {
@@ -78,8 +85,10 @@
           `Address(es)`,
           `Payment Methods`,
           `Deposits`,
+          `Shares`,
           `Loans`,
-          `Nominees`
+          `Nominees`,
+          `User Operations`
         ],
         apiErrors: []
       };
@@ -89,7 +98,8 @@
       PaymentMethods,
       ShowNominees,
       Deposits,
-      MemberLoans
+      MemberLoans,
+      UserOperations
     },
     methods: {
       fetchMember() {

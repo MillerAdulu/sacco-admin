@@ -34,8 +34,6 @@ import MemberRelationshipsList from '@/components/administrators/Management/Memb
 
 import Reports from '@/components/administrators/Reports/ReportGenerator'
 
-import MemberPasswordReset from '@/components/administrators/Member/PasswordReset'
-
 import Auth from '@/components/authentication/views/Auth'
 import SignIn from '@/components/authentication/views/Signin'
 
@@ -157,11 +155,6 @@ const router = new Router({
           name: `Reports`,
           component: Reports,
         },
-        {
-          path: `memberpasswordreset`,
-          name: `MemberPasswordReset`,
-          component: MemberPasswordReset
-        }
       ]
     },
     {

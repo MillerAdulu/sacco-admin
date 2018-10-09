@@ -1,50 +1,57 @@
 <template>
-  <v-form>
-    <v-layout row>
-      <v-text-field
-          required
-          label="Phone or Email"
-          v-model="username"
-          prepend-icon="text_format"
-          autofocus />
-    </v-layout>
-    <v-layout row>
-      <v-btn color="success" @click="resetMemberPassword" :loading="btnLoading">Reset</v-btn>
-    </v-layout>
+  <v-layout row>
+    <v-flex xs12>
+      <v-card>
+        <v-list>
+            <v-list-tile two-line @click="resetMemberPassword">
+              <v-list-tile-avatar>
+                <v-icon>build</v-icon>
+              </v-list-tile-avatar>
+              <v-list-tile-content>
+                <v-list-tile-title>Reset Password</v-list-tile-title>
+                <v-list-tile-sub-title>Click here to reset this member's password</v-list-tile-sub-title>
+              </v-list-tile-content>
+            </v-list-tile>
+        </v-list>
+      </v-card>
+    </v-flex>
     <base-snackbar />
-  </v-form>
+  </v-layout>
 </template>
 
 <script>
-  import queryString from "querystring";
+  import queryString from 'querystring';
   import SaccoAPI from '@/api'
   import bugsnagClient from '@/helpers/errorreporting'
 
   export default {
+    name: `UserOperations`,
     data() {
       return {
-        username: ``,
         btnLoading: false
       }
+    },
+    props: {
+      memberId: Number,
     },
     methods: {
       resetMemberPassword() {
         this.btnLoading = true
         SaccoAPI.post(`members/accounts/reset`, queryString.stringify({
-          username: this.username,
+          member_id: this.memberId,
         }))
           .then(response => {
             this.btnLoading = false
             if(response.data == null) {
               this.$store.commit(`setSnackbar`, {
-                msg: `${this.username} cannot be found`,
+                msg: `This member cannot be found`,
                 type: `error`,
                 model: true
               });
             }
             if(response.data) {
               this.$store.commit(`setSnackbar`, {
-                msg: `${this.username} will receive their password shortly`,
+                msg: `This member will receive their new password shortly`,
                 type: `success`,
                 model: true
               });

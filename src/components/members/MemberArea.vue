@@ -102,7 +102,7 @@
               class="headline grey lighten-2"
               primary-title
           >
-            Privacy Policy
+            Add Deposit
           </v-card-title>
 
           <v-card-text>
@@ -115,7 +115,15 @@
           <v-card-actions>
             <v-spacer></v-spacer>
             <v-btn
-                color="error"
+            color="error"
+            flat
+            @click="dialog = false"
+          >
+            Cancel
+          </v-btn>
+
+            <v-btn
+                color="green darken-1"
                 flat
                 :loading="depositing"
                 @click="addDeposit"
@@ -163,6 +171,10 @@
     },
     methods: {
       addDeposit() {
+        let depositAmount = Number(this.depositAmount);
+
+        if(depositAmount && Number.isInteger(depositAmount)) {
+
         this.depositing = true
         let data = {
           deposit_amount: this.depositAmount,
@@ -193,6 +205,15 @@
 
             this.finishDeposit()
           });
+        } else {
+          this.$store.commit(`setSnackbar`, {
+              msg: `Please enter a valid amount`,
+              type: `error`,
+              model: true
+          });
+
+          return
+        }
       },
       finishDeposit() {
         this.dialog = false;

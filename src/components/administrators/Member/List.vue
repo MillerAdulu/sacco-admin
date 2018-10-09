@@ -30,7 +30,7 @@
           <td>{{ props.item.phoneNumber }}</td>
           <td>{{ props.item.proposedMonthlyDeposit }}</td>
           <td>
-            <Can I="read" a="Member">
+            <!-- <Can I="read" a="Member"> -->
               <router-link :to='{name: `Member`, params: {
             memberId: props.item.memberId}
             }'>
@@ -38,7 +38,7 @@
                   list
                 </v-icon>
               </router-link>
-            </Can>
+            <!-- </Can> -->
             <!-- <Can I="update" a="Member">
               <router-link :to='{name: `MemberUpdate`, params: {
             memberId: props.item.memberId

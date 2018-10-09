@@ -15,9 +15,9 @@ import AddDeposit from '@/components/administrators/Deposits/AddDeposit'
 import MemberAccounts from '@/components/administrators/Deposits/Accounts'
 import MemberLoans from '@/components/administrators/MemberLoans/List'
 import LoanDetails from '@/components/administrators/MemberLoans/Loan'
-import Addresses from '@/components/administrators/AddressDetails/Address'
+import AddressProfile from '@/components/members/components/AddressProfile'
 import EditAddress from '@/components/administrators/AddressDetails/EditAddress'
-import PaymentMethods from '@/components/administrators/PaymentMethods/PaymentMethods'
+import PaymentMethodsProfile from '@/components/members/components/PaymentMethodsProfile'
 import MaritalStatusesList from '@/components/administrators/Management/MaritalStatuses'
 import Administrator from '@/components/administrators/Administrator'
 import MemberArea from '@/components/members/MemberArea'
@@ -186,14 +186,12 @@ const router = new Router({
         {
           path: `addresses`,
           name: `AddressProfile`,
-          component: Addresses,
-          props: true
+          component: AddressProfile,
         },
         {
           path: `paymentdetails`,
           name: `PaymentMethodsProfile`,
-          component: PaymentMethods,
-          props: true
+          component: PaymentMethodsProfile,
         },
       ],
       

@@ -1,7 +1,7 @@
 <template>
 
   <v-card>
-    <v-card-title>Welcome back, {{ loggedInMember.member.lastName }}</v-card-title>
+    <v-card-title>Welcome back, {{ loggedInMember.lastName }}</v-card-title>
     <v-card-text>
       <v-layout row>
         <v-flex xs8>
@@ -11,7 +11,7 @@
         </v-flex>
         <v-flex xs4>
           <p class="text-xs-right">
-            {{ loggedInMember.member.memberId }}
+            {{ loggedInMember.memberId }}
           </p>
         </v-flex>
       </v-layout>
@@ -23,7 +23,7 @@
         </v-flex>
         <v-flex xs4>
           <p class="text-xs-right">
-            {{ loggedInMember.member.phoneNumber }}
+            {{ loggedInMember.phoneNumber }}
           </p>
         </v-flex>
       </v-layout>
@@ -69,44 +69,12 @@
 </template>
 
 <script>
-  import bugsnagClient from '@/helpers/errorreporting'
-  import SaccoAPI from '@/api'
-
   export default {
     name: `MemberDashboard`,
     data() {
       return {
-        loggedInMember: this.$store.getters.loggedInUser,
-        member: null
+        loggedInMember: this.$store.getters.loggedInUser.member,
       };
     },
-    methods: {
-      fetchMemberData() {
-        // if (this.$can(`read`, `Member`)) {
-        SaccoAPI.get(`members/${this.loggedInMember.member.memberId}`)
-          .then(response => {
-            this.member = response.data;
-          })
-          .catch(error => {
-            bugsnagClient.notify(error)
-
-            this.$store.commit(`setSnackbar`, {
-              msg: `Unable to load your data at this time`,
-              type: `error`,
-              model: true
-            });
-          });
-        // } else {
-        //   this.$store.commit(`setSnackbar`, {
-        //     msg: `You don't have permissions to view member details`,
-        //     type: `error`,
-        //     model: true
-        //   });
-        // }
-      }
-    },
-    created() {
-      this.fetchMemberData();
-    }
   };
 </script>

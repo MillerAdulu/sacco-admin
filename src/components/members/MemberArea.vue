@@ -5,7 +5,7 @@
         v-model="drawer"
         app
     >
-      <v-img :src="member.passportPhoto"
+      <v-img :src="loggedInUser.passportPhoto"
              contain
       />
       <v-list dense class="pt-0">
@@ -47,7 +47,7 @@
         </v-list-tile>
 
         <v-list-tile
-            :to="{name: `AddressProfile`, params: {addresses: addresses}}"
+            :to="{name: `AddressProfile`}"
             append
         >
           <v-list-tile-action>
@@ -59,7 +59,7 @@
         </v-list-tile>
 
         <v-list-tile
-            :to="{name: `PaymentMethodsProfile`, params: {paymentmethods: paymentmethods}}"
+            :to="{name: `PaymentMethodsProfile`}"
             append
         >
           <v-list-tile-action>
@@ -153,8 +153,7 @@
         drawer: null,
         right: null,
         bottomNav: "Dashboard",
-        member: {},
-        loggedInUser: this.$store.getters.loggedInUser,
+        loggedInUser: this.$store.getters.loggedInUser.member,
         addresses: [],
         paymentmethods: [],
         dialog: false,
@@ -168,7 +167,7 @@
         let data = {
           deposit_amount: this.depositAmount,
           phone_number: this.loggedInUser.phoneNumber,
-          member_id: this.loggedInUser.member.memberId
+          member_id: this.loggedInUser.memberId
         };
 
         SaccoAPI.post(
@@ -195,75 +194,6 @@
             this.finishDeposit()
           });
       },
-      fetchAddresses() {
-        // if (this.$can(`read`, `AddressDetails`)) {
-        SaccoAPI.get(`/addressdetails/members/${this.loggedInUser.member.memberId}`)
-          .then(response => {
-            this.addresses = response.data;
-          })
-          .catch(error => {
-            bugsnagClient.notify(error)
-
-            this.$store.commit(`setSnackbar`, {
-              msg: `Unable to load address details at this time`,
-              type: `error`,
-              model: true
-            });
-          });
-        // } else {
-        //   this.$store.commit(`setSnackbar`, {
-        //     msg: `You don't have permissions to view address details`,
-        //     type: `error`,
-        //     model: true
-        //   });
-        // }
-      },
-      fetchPaymentMethods() {
-        // if (this.$can(`read`, `PaymentMethods`)) {
-        SaccoAPI.get(`/paymentdetails/members/${this.loggedInUser.member.memberId}`)
-          .then(response => {
-            this.paymentmethods = response.data;
-          })
-          .catch(error => {
-            bugsnagClient.notify(error)
-
-            this.$store.commit(`setSnackbar`, {
-              msg: `Unable to load payment details at this time`,
-              type: `error`,
-              model: true
-            });
-          });
-        // } else {
-        //   this.$store.commit(`setSnackbar`, {
-        //     msg: `You don't have permissions to view payment details`,
-        //     type: `error`,
-        //     model: true
-        //   });
-        // }
-      },
-      fetchMemberData() {
-        // if (this.$can(`read`, `Member`)) {
-        SaccoAPI.get(`/members/${this.loggedInUser.member.memberId}`)
-          .then(response => {
-            this.member = response.data;
-          })
-          .catch(error => {
-            bugsnagClient.notify(error)
-
-            this.$store.commit(`setSnackbar`, {
-              msg: `Unable to load your details at this time`,
-              type: `error`,
-              model: true
-            });
-          });
-        // } else {
-        //   this.$store.commit(`setSnackbar`, {
-        //     msg: `You don't have permissions to view member details`,
-        //     type: `error`,
-        //     model: true
-        //   });
-        // }
-      },
       finishDeposit() {
         this.dialog = false;
         this.depositing = false
@@ -272,11 +202,6 @@
     mixins: [
       logOutMixin,
     ],
-    created() {
-      this.fetchAddresses();
-      this.fetchPaymentMethods();
-      this.fetchMemberData();
-    }
   };
 </script>
 

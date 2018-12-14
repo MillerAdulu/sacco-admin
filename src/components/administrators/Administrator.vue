@@ -70,7 +70,7 @@
       
       <v-toolbar-title v-text="title"></v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn @click="logOut" color="button">Log Out</v-btn>
+      <v-btn @click="logOut" color="button" :loading="btnLoading">Log Out</v-btn>
     </v-toolbar>
     <v-content class="secondary">
 
@@ -249,7 +249,8 @@
           },
         ],
         miniVariant: false,
-        title: "Sacco"
+        title: "Sacco",
+        btnLoading: false,
       };
     },
     mixins:[

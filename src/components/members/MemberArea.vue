@@ -141,7 +141,7 @@
         </v-container>
       </v-layout>
     </v-content>
-    <v-footer color="indigo" app inset>
+    <v-footer :fixed="fixed" app class="secondary">
       <span class="white--text">&copy; Frog Technologies</span>
     </v-footer>
   </v-app>

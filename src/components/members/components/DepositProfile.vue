@@ -60,7 +60,7 @@
     },
     methods: {
       fetchDeposits() {
-        // if (this.$can(`read`, `MemberDeposit`)) {
+        if (this.$can(`read`, `MemberDeposit`)) {
         SaccoAPI.get(`memberdeposits/members/${this.loggedInUser.member.memberId}`)
           .then(response => {
             this.contributions = response.data;
@@ -74,13 +74,13 @@
               model: true
             });
           });
-        // } else {
-        //   this.$store.commit(`setSnackbar`, {
-        //     msg: `You don't have permissions to view member contributions`,
-        //     type: `error`,
-        //     model: true
-        //   });
-        // }
+        } else {
+          this.$store.commit(`setSnackbar`, {
+            msg: `You don't have permissions to view member contributions`,
+            type: `error`,
+            model: true
+          });
+        }
       }
     },
 

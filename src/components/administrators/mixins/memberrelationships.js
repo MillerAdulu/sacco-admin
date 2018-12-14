@@ -9,7 +9,7 @@ export default {
   },
   methods: {
     getRelationships() {
-      // if (this.$can(`read`, `Relationship`)) {
+      if (this.$can(`read`, `Relationship`)) {
       SaccoAPI.get(`relationships`)
         .then(response => {
           this.relationships = response.data;
@@ -25,13 +25,13 @@ export default {
           });
           this.stopLoading()
         });
-      // } else {
-      //   this.$store.commit(`setSnackbar`, {
-      //     msg: `You don't have permissions to view member relationships`,
-      //     type: `error`,
-      //     model: true
-      //   });
-      // }
+      } else {
+        this.$store.commit(`setSnackbar`, {
+          msg: `You don't have permissions to view member relationships`,
+          type: `error`,
+          model: true
+        });
+      }
     },
   }
 }

@@ -30,7 +30,7 @@
           <td>{{ props.item.phoneNumber }}</td>
           <td>{{ props.item.proposedMonthlyDeposit }}</td>
           <td>
-            <!-- <Can I="read" a="Member"> -->
+            <Can I="read" a="Member">
               <router-link :to='{name: `Member`, params: {
             memberId: props.item.memberId}
             }'>
@@ -38,8 +38,8 @@
                   list
                 </v-icon>
               </router-link>
-            <!-- </Can> -->
-            <!-- <Can I="update" a="Member">
+            </Can>
+            <Can I="update" a="Member">
               <router-link :to='{name: `MemberUpdate`, params: {
             memberId: props.item.memberId
             }}'>
@@ -47,7 +47,7 @@
                   edit
                 </v-icon>
               </router-link>
-            </Can> -->
+            </Can>
           </td>
         </template>
       </v-data-table>
@@ -105,7 +105,7 @@
     },
     methods: {
       fetchMembers() {
-        // if (this.$can(`read`, `Member`)) {
+        if (this.$can(`read`, `Member`)) {
         this.startLoading();
 
         SaccoAPI.get(`members`)
@@ -124,13 +124,13 @@
 
             this.stopLoading();
           });
-        // } else {
-        //   this.$store.commit(`setSnackbar`, {
-        //     msg: `You don't have permissions to view members`,
-        //     type: `error`,
-        //     model: true
-        //   });
-        // }
+        } else {
+          this.$store.commit(`setSnackbar`, {
+            msg: `You don't have permissions to view members`,
+            type: `error`,
+            model: true
+          });
+        }
       },
       startLoading() {
         this.dataLoading = true;

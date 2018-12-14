@@ -9,7 +9,7 @@ export default {
   },
   methods: {
     getMaritalStatuses() {
-      // if (this.$can(`read`, `MaritalStatus`)) {
+      if (this.$can(`read`, `MaritalStatus`)) {
       SaccoAPI.get(`maritalstatuses`)
         .then(response => {
           this.maritalStatuses = response.data;
@@ -25,13 +25,13 @@ export default {
           });
           this.stopLoading()
         });
-      // } else {
-      //   this.$store.commit(`setSnackbar`, {
-      //     msg: `You don't have permissions to view marital statuses`,
-      //     type: `error`,
-      //     model: true
-      //   });
-      // }
+      } else {
+        this.$store.commit(`setSnackbar`, {
+          msg: `You don't have permissions to view marital statuses`,
+          type: `error`,
+          model: true
+        });
+      }
     },
   },
   created() {

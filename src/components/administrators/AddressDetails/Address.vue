@@ -89,7 +89,7 @@
     },
     methods: {
       deleteAddress(address) {
-        // if (this.$can(`delete`, `AddressDetails`)) {
+        if (this.$can(`delete`, `AddressDetails`)) {
         this.startLoading();
 
         SaccoAPI.delete(`addressdetails/${address.addressDetailId}`)
@@ -116,28 +116,28 @@
             this.$store.commit(`setSnackbar`, snackbar);
             this.stopLoading();
           });
-        // } else {
-        //   let snackbar = {
-        //     msg: `You don't have permissions to delete this address`,
-        //     type: `error`,
-        //     model: true
-        //   };
+        } else {
+          let snackbar = {
+            msg: `You don't have permissions to delete this address`,
+            type: `error`,
+            model: true
+          };
 
-        //   this.$store.commit(`setSnackbar`, snackbar);
-        // }
+          this.$store.commit(`setSnackbar`, snackbar);
+        }
       },
       editAddress(address) {
-        // if (this.$can(`update`, `AddressDetails`)) {
+        if (this.$can(`update`, `AddressDetails`)) {
         this.$router.push(`/admin/editaddress/${address}`);
-        // } else {
-        //   let snackbar = {
-        //     msg: `You don't have permissions to edit this address`,
-        //     type: `error`,
-        //     model: true
-        //   };
+        } else {
+          let snackbar = {
+            msg: `You don't have permissions to edit this address`,
+            type: `error`,
+            model: true
+          };
 
-        //   this.$store.commit(`setSnackbar`, snackbar);
-        // }
+          this.$store.commit(`setSnackbar`, snackbar);
+        }
       },
       startLoading() {
         this.btnLoading = true;

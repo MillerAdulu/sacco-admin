@@ -9,7 +9,7 @@ export default {
   },
   methods: {
     getLocalities() {
-      // if (this.$can(`read`, `Locality`)) {
+      if (this.$can(`read`, `Locality`)) {
       SaccoAPI.get(`localities`)
         .then(response => {
           this.localities = response.data;
@@ -25,13 +25,13 @@ export default {
           });
           this.stopLoading()
         });
-      // } else {
-      //   this.$store.commit(`setSnackbar`, {
-      //     msg: `You don't have permissions to view localities`,
-      //     type: `error`,
-      //     model: true
-      //   });
-      // }
+      } else {
+        this.$store.commit(`setSnackbar`, {
+          msg: `You don't have permissions to view localities`,
+          type: `error`,
+          model: true
+        });
+      }
     },
   }
 }

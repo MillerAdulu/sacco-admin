@@ -216,7 +216,7 @@
       },
 
       async registerMember() {
-        // if (this.$can(`create`, `Member`)) {
+        if (this.$can(`create`, `Member`)) {
 
         this.startLoading()
 
@@ -261,13 +261,13 @@
 
             this.stopLoading();
           });
-        // } else {
-        //   this.$store.commit(`setSnackbar`, {
-        //     msg: `You don't have permissions to add members`,
-        //     type: `error`,
-        //     model: true
-        //   });
-        // }
+        } else {
+          this.$store.commit(`setSnackbar`, {
+            msg: `You don't have permissions to add members`,
+            type: `error`,
+            model: true
+          });
+        }
       },
       clearForm() {
         this.identificationNumber = ``;

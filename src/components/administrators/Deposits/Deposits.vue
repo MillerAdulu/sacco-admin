@@ -88,7 +88,7 @@
     },
     methods: {
       fetchAccountData() {
-        // if (this.$can(`read`, `MemberDeposit`)) {
+        if (this.$can(`read`, `MemberDeposit`)) {
         this.startLoading();
 
         SaccoAPI.get(`memberdeposits`)
@@ -107,13 +107,13 @@
 
             this.stopLoading();
           });
-        // } else {
-        //   this.$store.commit(`setSnackbar`, {
-        //     msg: `You don't have permissions to view deposits`,
-        //     type: `error`,
-        //     model: true
-        //   });
-        // }
+        } else {
+          this.$store.commit(`setSnackbar`, {
+            msg: `You don't have permissions to view deposits`,
+            type: `error`,
+            model: true
+          });
+        }
       },
       startLoading() {
         this.dataLoading = true;

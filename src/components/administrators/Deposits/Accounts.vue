@@ -95,7 +95,7 @@
     },
     methods: {
       fetchAccountData(){
-        // if(this.$can('read', 'MemberAccount')) {
+        if(this.$can('read', 'MemberAccount')) {
 
         this.startLoading()
 
@@ -118,17 +118,17 @@
             this.stopLoading()
           })
 
-        // } else {
+        } else {
 
-        //   this.$store.commit(`setSnackbar`, {
-        //     msg: `You dont' have permission to view this section`,
-        //     type: `error`,
-        //     model: true,
-        //   })
+          this.$store.commit(`setSnackbar`, {
+            msg: `You dont' have permission to view this section`,
+            type: `error`,
+            model: true,
+          })
 
-        //   this.stopLoading()
+          this.stopLoading()
 
-        // }
+        }
 
       },
       startLoading() {

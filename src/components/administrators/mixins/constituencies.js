@@ -9,7 +9,7 @@ export default {
   },
   methods: {
     getConstituencies() {
-      // if (this.$can(`read`, `County`)) {
+      if (this.$can(`read`, `County`)) {
       SaccoAPI.get(`constituencies`)
         .then(response => {
           this.constituencies = response.data;
@@ -25,13 +25,13 @@ export default {
           });
           this.stopLoading()
         });
-      // } else {
-      //   this.$store.commit(`setSnackbar`, {
-      //     msg: `You don't have permissions to view constituencies`,
-      //     type: `error`,
-      //     model: true
-      //   });
-      // }
+      } else {
+        this.$store.commit(`setSnackbar`, {
+          msg: `You don't have permissions to view constituencies`,
+          type: `error`,
+          model: true
+        });
+      }
     }
   }
 }

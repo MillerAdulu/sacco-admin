@@ -164,7 +164,7 @@
     },
     methods: {
       getConstituencies(county) {
-        // if (this.$can(`read`, `County`)) {
+        if (this.$can(`read`, `County`)) {
         SaccoAPI.get(`constituencies/county/${county}`)
           .then(response => {
             this.constituencies = response.data;
@@ -178,16 +178,16 @@
               model: true
             });
           });
-        // } else {
-        //   this.$store.commit(`setSnackbar`, {
-        //     msg: `You don't have permissions to view constituencies`,
-        //     type: `error`,
-        //     model: true
-        //   });
-        // }
+        } else {
+          this.$store.commit(`setSnackbar`, {
+            msg: `You don't have permissions to view constituencies`,
+            type: `error`,
+            model: true
+          });
+        }
       },
       getLocalities(constituency) {
-        // if (this.$can(`read`, `Locality`)) {
+        if (this.$can(`read`, `Locality`)) {
         SaccoAPI.get(`localities/constituency/${constituency}`)
           .then(response => {
             this.localities = response.data;
@@ -200,16 +200,16 @@
               model: true
             });
           });
-        // } else {
-        //   this.$store.commit(`setSnackbar`, {
-        //     msg: `You don't have permissions to view localities`,
-        //     type: `error`,
-        //     model: true
-        //   });
-        // }
+        } else {
+          this.$store.commit(`setSnackbar`, {
+            msg: `You don't have permissions to view localities`,
+            type: `error`,
+            model: true
+          });
+        }
       },
       async addAddress() {
-        // if (this.$can(`create`, `AddressDetails`)) {
+        if (this.$can(`create`, `AddressDetails`)) {
 
         this.startLoading()
 
@@ -245,13 +245,13 @@
             });
             this.stopLoading()
           });
-        // } else {
-        //   this.$store.commit(`setSnackbar`, {
-        //     msg: `You don't have permissions to add address details`,
-        //     type: `error`,
-        //     model: true
-        //   });
-        // }
+        } else {
+          this.$store.commit(`setSnackbar`, {
+            msg: `You don't have permissions to add address details`,
+            type: `error`,
+            model: true
+          });
+        }
       },
       clearAddress() {
         this.county = ``;

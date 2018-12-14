@@ -59,7 +59,7 @@
     },
     methods: {
       fetchPaymentMethods() {
-        // if (this.$can(`read`, `PaymentMethods`)) {
+        if (this.$can(`read`, `PaymentMethods`)) {
         SaccoAPI.get(`/paymentdetails/members/${this.$store.getters.loggedInUser.member.memberId}`)
           .then(response => {
             this.paymentmethods = response.data;
@@ -73,13 +73,13 @@
               model: true
             });
           });
-        // } else {
-        //   this.$store.commit(`setSnackbar`, {
-        //     msg: `You don't have permissions to view payment details`,
-        //     type: `error`,
-        //     model: true
-        //   });
-        // }
+        } else {
+          this.$store.commit(`setSnackbar`, {
+            msg: `You don't have permissions to view payment details`,
+            type: `error`,
+            model: true
+          });
+        }
       },
     },
     created() {

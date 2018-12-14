@@ -9,7 +9,7 @@ export default {
   },
   methods: {
     getPostOffices() {
-      // if (this.$can(`read`, `PostOffice`)) {
+      if (this.$can(`read`, `PostOffice`)) {
       SaccoAPI.get(`postoffices`)
         .then(response => {
           this.postOffices = response.data;
@@ -25,13 +25,13 @@ export default {
           });
           this.stopLoading()
         });
-      // } else {
-      //   this.$store.commit(`setSnackbar`, {
-      //     msg: `You don't have permissions to view post offices`,
-      //     type: `error`,
-      //     model: true
-      //   });
-      // }
+      } else {
+        this.$store.commit(`setSnackbar`, {
+          msg: `You don't have permissions to view post offices`,
+          type: `error`,
+          model: true
+        });
+      }
     },
   }
 }

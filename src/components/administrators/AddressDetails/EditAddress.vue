@@ -156,7 +156,7 @@
     },
     methods: {
       getCounties() {
-        // if (this.$can(`read`, `County`)) {
+        if (this.$can(`read`, `County`)) {
         SaccoAPI.get("counties")
           .then(response => {
             this.counties = response.data;
@@ -168,16 +168,16 @@
               model: true
             });
           });
-        // } else {
-        //   this.$store.commit(`setSnackbar`, {
-        //     msg: `You don't have permissions to view counties`,
-        //     type: `error`,
-        //     model: true
-        //   });
-        // }
+        } else {
+          this.$store.commit(`setSnackbar`, {
+            msg: `You don't have permissions to view counties`,
+            type: `error`,
+            model: true
+          });
+        }
       },
       getConstituencies(county) {
-        // if (this.$can(`read`, `County`)) {
+        if (this.$can(`read`, `County`)) {
         SaccoAPI.get(`constituencies/county/${county}`)
           .then(response => {
             this.constituencies = response.data;
@@ -189,16 +189,16 @@
               model: true
             });
           });
-        // } else {
-        //   this.$store.commit(`setSnackbar`, {
-        //     msg: `You don't have permissions to view constituencies`,
-        //     type: `error`,
-        //     model: true
-        //   });
-        // }
+        } else {
+          this.$store.commit(`setSnackbar`, {
+            msg: `You don't have permissions to view constituencies`,
+            type: `error`,
+            model: true
+          });
+        }
       },
       getLocalities(constituency) {
-        // if (this.$can(`read`, `Locality`)) {
+        if (this.$can(`read`, `Locality`)) {
         SaccoAPI.get(`localities/constituency/${constituency}`)
           .then(response => {
             this.localities = response.data;
@@ -210,16 +210,16 @@
               model: true
             });
           });
-        // } else {
-        //   this.$store.commit(`setSnackbar`, {
-        //     msg: `You don't have permissions to view localities`,
-        //     type: `error`,
-        //     model: true
-        //   });
-        // }
+        } else {
+          this.$store.commit(`setSnackbar`, {
+            msg: `You don't have permissions to view localities`,
+            type: `error`,
+            model: true
+          });
+        }
       },
       getPostOffices() {
-        // if (this.$can(`read`, `PostOffice`)) {
+        if (this.$can(`read`, `PostOffice`)) {
         SaccoAPI.get(`postoffices`)
           .then(response => {
             this.postOffices = response.data;
@@ -231,16 +231,16 @@
               model: true
             });
           });
-        // } else {
-        //   this.$store.commit(`setSnackbar`, {
-        //     msg: `You don't have permissions to view post offices`,
-        //     type: `error`,
-        //     model: true
-        //   });
-        // }
+        } else {
+          this.$store.commit(`setSnackbar`, {
+            msg: `You don't have permissions to view post offices`,
+            type: `error`,
+            model: true
+          });
+        }
       },
       getAddressToEdit() {
-        // if (this.$can(`update`, `AddressDetails`)) {
+        if (this.$can(`update`, `AddressDetails`)) {
         SaccoAPI.get(`addressdetails/${this.$route.params.address}`)
           .then(response => {
             this.address = response.data;
@@ -253,14 +253,14 @@
             };
             this.$store.commit(`setSnackbar`, snackbar);
           });
-        // } else {
-        //   let snackbar = {
-        //     msg: `You don't have permissions to edit this address`,
-        //     type: `error`,
-        //     model: true
-        //   };
-        //   this.$store.commit(`setSnackbar`, snackbar);
-        // }
+        } else {
+          let snackbar = {
+            msg: `You don't have permissions to edit this address`,
+            type: `error`,
+            model: true
+          };
+          this.$store.commit(`setSnackbar`, snackbar);
+        }
       },
       editAddress() {},
       cancelEdit() {

@@ -65,7 +65,7 @@
 
     methods: {
       addMemberDeposit() {
-        // if (this.$can(`create`, `MemberDeposit`)) {
+        if (this.$can(`create`, `MemberDeposit`)) {
         this.startLoading();
 
         SaccoAPI
@@ -97,16 +97,16 @@
             });
             this.stopLoading();
           });
-        // } else {
-        //   this.$store.commit(`setSnackbar`, {
-        //     msg: `You don't have permissions to add a deposit`,
-        //     type: `error`,
-        //     model: true
-        //   });
-        // }
+        } else {
+          this.$store.commit(`setSnackbar`, {
+            msg: `You don't have permissions to add a deposit`,
+            type: `error`,
+            model: true
+          });
+        }
       },
       fetchMembers() {
-        // if (this.$can(`read`, `Member`)) {
+        if (this.$can(`read`, `Member`)) {
         SaccoAPI
           .get(`members`)
           .then(response => {
@@ -121,13 +121,13 @@
               model: true
             });
           });
-        // } else {
-        //   this.$store.commit(`setSnackbar`, {
-        //     msg: `You don't have permissions to view members`,
-        //     type: `error`,
-        //     model: true
-        //   });
-        // }
+        } else {
+          this.$store.commit(`setSnackbar`, {
+            msg: `You don't have permissions to view members`,
+            type: `error`,
+            model: true
+          });
+        }
       },
 
       startLoading() {

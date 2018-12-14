@@ -141,7 +141,7 @@
     },
     methods: {
       async addNominee() {
-        // if (this.$can(`create`, `Nominee`)) {
+        if (this.$can(`create`, `Nominee`)) {
 
         this.startLoading()
 
@@ -181,13 +181,13 @@
             });
             this.stopLoading();
           });
-        // } else {
-        //   this.$store.commit(`setSnackbar`, {
-        //     msg: `You don't have permissions to add nominees`,
-        //     type: `error`,
-        //     model: true
-        //   });
-        // }
+        } else {
+          this.$store.commit(`setSnackbar`, {
+            msg: `You don't have permissions to add nominees`,
+            type: `error`,
+            model: true
+          });
+        }
       },
       clearNominee() {
         this.identificationNumber = ``;

@@ -69,7 +69,7 @@
     },
     methods: {
       fetchLoans() {
-        // if (this.$can(`read`, `MemberLoan`)) {
+        if (this.$can(`read`, `MemberLoan`)) {
         SaccoAPI.get(`loans/member/${this.loggedInUser.member.memberId}`)
           .then(response => {
             this.memberloans = response.data;
@@ -83,13 +83,13 @@
               model: true
             });
           });
-        // } else {
-        //   this.$store.commit(`setSnackbar`, {
-        //     msg: `You don't have permissions to view member loans`,
-        //     type: `error`,
-        //     model: true
-        //   });
-        // }
+        } else {
+          this.$store.commit(`setSnackbar`, {
+            msg: `You don't have permissions to view member loans`,
+            type: `error`,
+            model: true
+          });
+        }
       }
     }
   };

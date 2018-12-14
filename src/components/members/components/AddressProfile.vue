@@ -88,7 +88,7 @@
     },
     methods: {
       fetchAddresses() {
-        // if (this.$can(`read`, `AddressDetails`)) {
+        if (this.$can(`read`, `AddressDetails`)) {
         SaccoAPI.get(`/addressdetails/members/${this.$store.getters.loggedInUser.member.memberId}`)
           .then(response => {
             this.addresses = response.data;
@@ -102,13 +102,13 @@
               model: true
             });
           });
-        // } else {
-        //   this.$store.commit(`setSnackbar`, {
-        //     msg: `You don't have permissions to view address details`,
-        //     type: `error`,
-        //     model: true
-        //   });
-        // }
+        } else {
+          this.$store.commit(`setSnackbar`, {
+            msg: `You don't have permissions to view address details`,
+            type: `error`,
+            model: true
+          });
+        }
       },
     },
     created() {

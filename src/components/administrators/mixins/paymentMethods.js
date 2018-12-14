@@ -10,7 +10,7 @@ export default {
   methods: {
     fetchPaymentMethods() {
       
-      // if (this.$can(`read`, `PaymentMethods`)) {
+      if (this.$can(`read`, `PaymentMethods`)) {
       
       SaccoAPI
         .get(`paymentmethods`)
@@ -29,14 +29,14 @@ export default {
             model: true
           });
         });
-      // } else {
-      //   this.stopLoading();
-      //   this.$store.commit(`setSnackbar`, {
-      //     msg: `You don't have permissions to view payment methods`,
-      //     type: `error`,
-      //     model: true
-      //   });
-      // }
+      } else {
+        this.stopLoading();
+        this.$store.commit(`setSnackbar`, {
+          msg: `You don't have permissions to view payment methods`,
+          type: `error`,
+          model: true
+        });
+      }
     },
   },
   created() {

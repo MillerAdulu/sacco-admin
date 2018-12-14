@@ -89,7 +89,7 @@
         }
       },
       async addPaymentDetails() {
-        // if (this.$can(`create`, `PaymentMethods`)) {
+        if (this.$can(`create`, `PaymentMethods`)) {
 
         this.startLoading()
 
@@ -127,13 +127,13 @@
             this.stopLoading()
 
           });
-        // } else {
-        //   this.$store.commit(`setSnackbar`, {
-        //     msg: `You don't have permissions to add payment details`,
-        //     type: `error`,
-        //     model: true
-        //   });
-        // }
+        } else {
+          this.$store.commit(`setSnackbar`, {
+            msg: `You don't have permissions to add payment details`,
+            type: `error`,
+            model: true
+          });
+        }
       },
 
       clearPaymentDetails() {
@@ -145,7 +145,7 @@
       },
 
       getPaymentMethods() {
-        // if (this.$can(`read`, `PaymentMethods`)) {
+        if (this.$can(`read`, `PaymentMethods`)) {
         SaccoAPI.get("paymentmethods")
           .then(response => {
             this.paymentMethods = response.data;
@@ -159,13 +159,13 @@
               model: true
             });
           });
-        // } else {
-        //   this.$store.commit(`setSnackbar`, {
-        //     msg: `You don't have permissions to view payment methods`,
-        //     type: `error`,
-        //     model: true
-        //   });
-        // }
+        } else {
+          this.$store.commit(`setSnackbar`, {
+            msg: `You don't have permissions to view payment methods`,
+            type: `error`,
+            model: true
+          });
+        }
       },
       startLoading() {
         this.btnLoading = true;

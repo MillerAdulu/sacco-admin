@@ -9,7 +9,7 @@ export default {
   },
   methods: {
     getCounties() {
-      // if (this.$can(`read`, `County`)) {
+      if (this.$can(`read`, `County`)) {
       SaccoAPI.get("counties")
         .then(response => {
           this.counties = response.data;
@@ -25,13 +25,13 @@ export default {
           });
           this.stopLoading()
         });
-      // } else {
-      //   this.$store.commit(`setSnackbar`, {
-      //     msg: `You don't have permissions to view counties`,
-      //     type: `error`,
-      //     model: true
-      //   });
-      // }
+      } else {
+        this.$store.commit(`setSnackbar`, {
+          msg: `You don't have permissions to view counties`,
+          type: `error`,
+          model: true
+        });
+      }
     },
   }
 }

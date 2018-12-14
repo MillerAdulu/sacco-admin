@@ -148,10 +148,11 @@
                 title: "All Loans",
                 routerName: `MemberLoans`
               },
-              // {
-              //   action: "add_circle",
-              //   title: "Issue Loan"
-              // }
+              {
+                action: "add_circle",
+                title: "Issue Loan",
+                routerName: `IssueMemberLoan`
+              }
             ]
           },
           // {

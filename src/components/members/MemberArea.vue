@@ -91,7 +91,7 @@
       >
         <v-btn
             slot="activator"
-            color="success"
+            color="button"
             dark
         >
           Add Deposit
@@ -123,7 +123,7 @@
           </v-btn>
 
             <v-btn
-                color="green darken-1"
+                color="button darken-1"
                 flat
                 :loading="depositing"
                 @click="addDeposit"

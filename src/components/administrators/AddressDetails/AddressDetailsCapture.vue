@@ -97,7 +97,7 @@
     </v-card>
 
     <v-layout row>
-      <v-btn color="success" :loading="btnLoading" @click="addAddress">Add Address</v-btn>
+      <v-btn color="button" :loading="btnLoading" @click="addAddress">Add Address</v-btn>
       <v-btn color="error" @click="clearAddress">Clear Address</v-btn>
     </v-layout>
 

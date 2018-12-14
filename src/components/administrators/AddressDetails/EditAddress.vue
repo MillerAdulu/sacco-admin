@@ -97,7 +97,7 @@
     </v-card>
 
     <v-layout row>
-      <v-btn color="success" @click="editAddress">Edit Address</v-btn>
+      <v-btn color="button" @click="editAddress">Edit Address</v-btn>
       <v-btn color="error" @click="cancelEdit">Cancel</v-btn>
     </v-layout>
 

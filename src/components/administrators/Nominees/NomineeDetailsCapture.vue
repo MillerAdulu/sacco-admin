@@ -78,7 +78,7 @@
     </v-layout>
 
     <v-layout row>
-      <v-btn color="success" @click="addNominee" :disabled="btnRegisterDisabled" :loading="btnLoading">Add Nominee</v-btn>
+      <v-btn color="button" @click="addNominee" :disabled="btnRegisterDisabled" :loading="btnLoading">Add Nominee</v-btn>
       <v-btn color="error" @click="clearNominee" :disabled="btnRegisterDisabled">Clear Nominee</v-btn>
     </v-layout>
 

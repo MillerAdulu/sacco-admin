@@ -7,10 +7,10 @@
           <v-card-title>
             Total Members
             <v-spacer />
-            <v-btn to="admin/memberlist" small>View All</v-btn>
+            <v-btn to="admin/memberlist" small color="button">View All</v-btn>
           </v-card-title>
           <v-card-text>
-            <v-chip>{{ totalMembers }}</v-chip>
+            <v-chip color="chips">{{ totalMembers }}</v-chip>
           </v-card-text>
         </v-card>
       </v-flex>
@@ -20,10 +20,10 @@
           <v-card-title>
             Total Member Deposits
             <v-spacer />
-            <v-btn to="admin/memberdeposits" small> View All</v-btn>
+            <v-btn to="admin/memberdeposits" small color="button"> View All</v-btn>
           </v-card-title>
           <v-card-text>
-            <v-chip>{{ totalDeposits }} KES</v-chip>
+            <v-chip color="chips">{{ totalDeposits }} KES</v-chip>
           </v-card-text>
         </v-card>
       </v-flex>
@@ -33,10 +33,10 @@
           <v-card-title>
             Total Member Loans
             <v-spacer />
-            <v-btn to="admin/memberloans" small>View All</v-btn>
+            <v-btn to="admin/memberloans" small color="button">View All</v-btn>
           </v-card-title>
           <v-card-text>
-            <v-chip>{{ totalMemberLoans }} KES</v-chip>
+            <v-chip color="chips">{{ totalMemberLoans }} KES</v-chip>
           </v-card-text>
         </v-card>
       </v-flex>

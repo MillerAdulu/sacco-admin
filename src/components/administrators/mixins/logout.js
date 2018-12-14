@@ -1,9 +1,17 @@
+import SaccoAPI from '@/api';
+import bugsnagClient from "@/helpers/errorreporting";
+
 export default {
   methods: {
     logOut() {
-      this.$store.commit("setLoggedInUser", {});
+      SaccoAPI.get('logout').then(() => {
+        this.$store.commit("setLoggedInUser", {});
       localStorage.clear();
-      this.$router.push(`/`);
+        window.location.href = process.env.VUE_APP_OAUTH_URL
+      }).catch(error => {
+        bugsnagClient.notify(error);
+      })
+
     }
   }
 }

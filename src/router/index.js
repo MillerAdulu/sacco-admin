@@ -22,6 +22,8 @@ import MaritalStatusesList from '@/components/administrators/Management/MaritalS
 import Administrator from '@/components/administrators/Administrator'
 import MemberArea from '@/components/members/MemberArea'
 
+import Auth from '@/components/authentication/authenticate';
+
 import DepositProfile from '@/components/members/components/DepositProfile'
 import LoanProfile from '@/components/members/components/LoanProfile'
 
@@ -33,9 +35,6 @@ import PostOfficeList from '@/components/administrators/Management/PostOffices'
 import MemberRelationshipsList from '@/components/administrators/Management/MemberRelationships'
 
 import Reports from '@/components/administrators/Reports/ReportGenerator'
-
-import Auth from '@/components/authentication/views/Auth'
-import SignIn from '@/components/authentication/views/Signin'
 
 Vue.use(Router)
 
@@ -190,35 +189,23 @@ const router = new Router({
       
     },
     {
-      path: `/`,
+      path: `/auth/callback`,
       component: Auth,
-      children: [
-        {
-          path: `login`,
-          component: SignIn,
-        },
-      ]
+      props: (route) => ({
+        access_token: route.query.access_token
+      })
     },
-    {
-      path: `*`, redirect: `/login`
-    },
-    {
-      path: `/`,
-      redirect: `/login`
-    }
   ]
 })
 
-router.beforeEach((to, from, next) => {
+// router.beforeEach((to, from, next) => {
   
-  if(to.path === `/login`) next()
+//   if(!localStorage.token) next(
+//     window.location.href = 'http://127.0.0.1:8000/oauth/authorize?client_id=3&redirect_uri=http://localhost:8080/auth/callback&response_type=token&scope=*'
+//   )
   
-  if(to.path === `/` && localStorage.token) next(`/login`)
+//   next()
   
-  if(!localStorage.token) next(`/login`)
-  
-  next()
-  
-})
+// })
 
 export default router

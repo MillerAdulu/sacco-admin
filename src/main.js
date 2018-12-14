@@ -15,7 +15,7 @@ import App from './components/App'
 import router from './router'
 import store from './store'
 
-import BaseSnackBar from './components/authentication/components/BaseSnackbar'
+import BaseSnackBar from './components/authentication/BaseSnackbar'
 
 Vue.component('base-snackbar', BaseSnackBar)
 

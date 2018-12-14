@@ -80,7 +80,6 @@
         SaccoAPI.get(`loans/memberloans/${this.$route.params.memberLoanId}`)
           .then(response => {
             this.loanDetails = response.data;
-            console.log(this.loanDetails)
           })
           .catch(error => {
             bugsnagClient.notify(error)

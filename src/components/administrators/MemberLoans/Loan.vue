@@ -1,5 +1,5 @@
 <template>
-  <v-card>
+  <v-card v-if="loanDetails && loanDetails.member">
     <v-card-title><h4>Loan {{ loanDetails.memberLoanId }}</h4></v-card-title>
     <v-divider></v-divider>
     <v-list dense>
@@ -80,6 +80,7 @@
         SaccoAPI.get(`loans/memberloans/${this.$route.params.memberLoanId}`)
           .then(response => {
             this.loanDetails = response.data;
+            console.log(this.loanDetails)
           })
           .catch(error => {
             bugsnagClient.notify(error)

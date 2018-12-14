@@ -35,7 +35,7 @@
       </v-flex>
     </v-layout>
     <v-layout>
-      <v-btn block color="success" :loading="btnLoading" @click="addMemberDeposit">Add Member Deposit</v-btn>
+      <v-btn block color="button" :loading="btnLoading" @click="addMemberDeposit">Add Member Deposit</v-btn>
     </v-layout>
 
     <base-snackbar />

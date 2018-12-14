@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <v-card v-if="member && member.maritalStatusInfo">
+    <v-card v-if="member && member.maritalStatusInfo" color="nested">
       <v-layout row>
         <v-card-title primary-title>
           <div>

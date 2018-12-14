@@ -41,7 +41,7 @@
       </v-card-text>
     </v-card>
     <v-layout>
-      <v-btn color="success" :loading="btnLoading" @click="addPaymentDetails">Add Payment Details</v-btn>
+      <v-btn color="button" :loading="btnLoading" @click="addPaymentDetails">Add Payment Details</v-btn>
       <v-btn color="error" @click="clearPaymentDetails">Clear Payment Details</v-btn>
     </v-layout>
 

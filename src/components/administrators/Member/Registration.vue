@@ -16,7 +16,7 @@
       <v-stepper-content step="1">
         <BasicDetailsCapture />
         <v-btn
-            color="primary"
+            color="button"
             @click="next(2)"
             :disabled="this.$store.getters.stepperContinueEnabled">
           Continue
@@ -27,7 +27,7 @@
         <AddressDetailsCapture />
 
         <v-btn
-            color="primary"
+            color="button"
             @click="next(3)"
             :disabled="this.$store.getters.stepperContinueEnabled">
           Continue
@@ -38,7 +38,7 @@
         <PaymentMethodsCapture />
 
         <v-btn
-            color="primary"
+            color="button"
             @click="next(4)"
             :disabled="this.$store.getters.stepperContinueEnabled">
           Continue
@@ -50,7 +50,7 @@
         <UploadPassportPhoto />
 
         <v-btn
-            color="primary"
+            color="button"
             @click="next(5)"
             :disabled="this.$store.getters.stepperContinueEnabled">
           Continue
@@ -62,7 +62,7 @@
         <NomineeDetailsCapture />
 
         <v-btn
-            color="primary"
+            color="button"
             :to='{name: `Member`, params: {
             memberId: this.$store.getters.newMemberRecordKey }
             }'
@@ -71,7 +71,7 @@
         </v-btn>
 
         <v-btn
-            color="green"
+            color="button"
             to="/admin/register"
             :disabled="this.$store.getters.stepperContinueEnabled">
           Add New Member

@@ -15,13 +15,11 @@ export default {
       localStorage.setItem(`token`, this.access_token);
       SaccoAPI.get("user")
         .then(response => {
-          console.log(response.data);
           this.$store.commit(`setLoggedInUser`, response.data);
           localStorage.setItem(`accessLevel`, response.data.accessLevel);
           this.redirectToDashboard(localStorage.getItem('accessLevel'));
         })
         .catch(error => {
-          console.log(error)
           bugsnagClient.notify(error);
         });
     },

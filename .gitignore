@@ -22,4 +22,4 @@ yarn-error.log*
 *.sw*
 
 # Images
-src/assets/*
+# src/assets/*

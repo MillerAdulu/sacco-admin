@@ -10,7 +10,7 @@ export default {
   methods: {
     fetchPaymentMethods() {
       
-      if (this.$can(`read`, `PaymentMethods`)) {
+      if (this.$can(`read`, `PaymentMethod`)) {
       
       SaccoAPI
         .get(`paymentmethods`)

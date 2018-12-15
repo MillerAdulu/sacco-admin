@@ -89,7 +89,7 @@
         }
       },
       async addPaymentDetails() {
-        if (this.$can(`create`, `PaymentMethods`)) {
+        if (this.$can(`create`, `PaymentMethod`)) {
 
         this.startLoading()
 
@@ -145,7 +145,7 @@
       },
 
       getPaymentMethods() {
-        if (this.$can(`read`, `PaymentMethods`)) {
+        if (this.$can(`read`, `PaymentMethod`)) {
         SaccoAPI.get("paymentmethods")
           .then(response => {
             this.paymentMethods = response.data;

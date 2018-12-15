@@ -59,7 +59,7 @@
     },
     methods: {
       fetchPaymentMethods() {
-        if (this.$can(`read`, `PaymentMethods`)) {
+        if (this.$can(`read`, `PaymentMethod`)) {
         SaccoAPI.get(`/paymentdetails/members/${this.$store.getters.loggedInUser.member.memberId}`)
           .then(response => {
             this.paymentmethods = response.data;

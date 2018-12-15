@@ -255,6 +255,11 @@
                 title: "Issuing Statuses",
                 routerName: "IssuingStatusesList"
               },
+              {
+                action: 'list',
+                title: "Loan Types",
+                routerName: "LoanTypesList"
+              },
             ]
           },
         ],

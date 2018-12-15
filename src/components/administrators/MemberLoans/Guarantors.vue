@@ -21,11 +21,7 @@
             <v-list-tile-content>ID/Passport Number:</v-list-tile-content>
             <v-list-tile-content class="align-end">{{ props.item.identificationNumber }}</v-list-tile-content>
           </v-list-tile>
-          <v-list-tile>
-            <v-list-tile-content>Phone Number:</v-list-tile-content>
-            <v-list-tile-content class="align-end">{{ props.item.phoneNumber }}</v-list-tile-content>
-          </v-list-tile>
-          <v-list-tile>
+          <v-list-tile v-if="props.item.email">
             <v-list-tile-content>Email:</v-list-tile-content>
             <v-list-tile-content class="align-end">{{ props.item.email }}</v-list-tile-content>
           </v-list-tile>

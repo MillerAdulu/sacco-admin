@@ -132,6 +132,11 @@ export default {
           })
           .catch(error => {
             bugsnagClient.notify(error);
+            this.$store.commit(`setSnackbar`, {
+              msg: `Failed to update constituency!`,
+              type: `error`,
+              model: true
+            });
           });
       } else {
         this.$store.commit(`setSnackbar`, {

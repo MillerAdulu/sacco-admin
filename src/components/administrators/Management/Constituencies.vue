@@ -62,6 +62,9 @@
           <td
             class="text-xs-left"
           >{{ moment(props.item.createdAt).format('MMMM Do YYYY, h:mm:ss a') }}</td>
+          <td class="justify-center">
+            <v-icon medium @click="deleteItem(props.item)">delete</v-icon>
+          </td>
         </template>
       </v-data-table>
     </v-card>
@@ -101,6 +104,9 @@ export default {
         {
           text: "Added On",
           value: "createdAt"
+        },
+        {
+          text: 'Actions',
         }
       ],
       max15chars: v => v.length <= 15 || "Input too long!",
@@ -151,7 +157,38 @@ export default {
         type: `error`,
         model: true
       });
-    }
+    },
+    deleteItem(constituency) {
+      if (this.$can("delete", "Constituency")) {
+        const index = this.constituencies.indexOf(constituency);
+        if (confirm("Are you sure you want to delete this constituency?")) {
+          SaccoAPI.delete(`/constituencies/${constituency.constituencyId}`)
+            .then(() => {
+              this.$store.commit(`setSnackbar`, {
+                msg: `Deleted`,
+                type: `info`,
+                model: true
+              });
+              this.desserts.splice(index, 1);
+            })
+            .catch(error => {
+              
+              bugsnagClient.notify(error);
+              this.$store.commit(`setSnackbar`, {
+                msg: `Failed to delete constituency!`,
+                type: `error`,
+                model: true
+              });
+            });
+        }
+      } else {
+        this.$store.commit(`setSnackbar`, {
+          msg: `You don't have permissions to delete post offices`,
+          type: `warning`,
+          model: true
+        });
+      }
+    },
   },
   created() {
     this.getConstituencies();

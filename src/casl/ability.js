@@ -10,7 +10,7 @@ export default AbilityBuilder.define(can => {
       
       can(memberPermissions, 'Member')
       can(memberPermissions, 'MemberAccount')
-      can(memberPermissions, 'AddressDetails')
+      can(memberPermissions, 'AddressDetail')
       can(memberPermissions, 'BusinessNature')
       can(memberPermissions, 'Business')
       can(memberPermissions, 'Constituency')
@@ -27,7 +27,7 @@ export default AbilityBuilder.define(can => {
       can(memberPermissions, 'MemberDepositTotal')
       can(memberPermissions, 'MemberLoan')
       can(memberPermissions, 'Nominee')
-      can(memberPermissions, 'PaymentDetails')
+      can(memberPermissions, 'PaymentDetail')
       can(memberPermissions, 'PaymentMethod')
       can(memberPermissions, 'PostOffice')
       can(memberPermissions, 'Relationship')
@@ -40,7 +40,7 @@ export default AbilityBuilder.define(can => {
       
       can(clerkPermissions, 'Member')
       can(clerkPermissions, 'MemberAccount')
-      can(clerkPermissions, 'AddressDetails')
+      can(clerkPermissions, 'AddressDetail')
       can(clerkPermissions, 'BusinessNature')
       can(clerkPermissions, 'Business')
       can(clerkPermissions, 'Constituency')
@@ -58,7 +58,7 @@ export default AbilityBuilder.define(can => {
       can(clerkPermissions, 'MemberLoan')
       can(clerkPermissions, 'Nominee')
       can(clerkPermissions, 'PaymentMethod')
-      can(clerkPermissions, 'PaymentMethod')
+      can(clerkPermissions, 'PaymentDetail')
       can(clerkPermissions, 'PostOffice')
       can(clerkPermissions, 'Relationship')
       
@@ -70,7 +70,7 @@ export default AbilityBuilder.define(can => {
       
       can(allPermissions, 'Member')
       can(allPermissions, 'MemberAccount')
-      can(allPermissions, 'AddressDetails')
+      can(allPermissions, 'AddressDetail')
       can(allPermissions, 'BusinessNature')
       can(allPermissions, 'Business')
       can(allPermissions, 'Constituency')
@@ -88,6 +88,7 @@ export default AbilityBuilder.define(can => {
       can(allPermissions, 'MemberLoan')
       can(allPermissions, 'Nominee')
       can(allPermissions, 'PaymentMethod')
+      can(allPermissions, 'PaymentDetail')
       can(allPermissions, 'PostOffice')
       can(allPermissions, 'Relationship')
       can(allPermissions, 'User')

@@ -161,7 +161,7 @@
             this.$store.commit(`setSnackbar`, {
               msg: `${
                 this.lastName
-                } added successfully. You can add another one`,
+                } has been added successfully. You can add another nominee`,
               type: `success`,
               model: true
             });

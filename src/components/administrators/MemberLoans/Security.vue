@@ -13,13 +13,14 @@
             autofocus />
       </v-flex>
       <v-flex xs6 mx-2>
-        <v-autocomplete
-            item-text="relationshipName"
-            item-value="relationshipId"
-            :items="relationships"
-            v-model="relationshipId"
-            label="Relationship to the member"
-        />
+        <v-text-field
+          label="Email"
+          data-vv-name="email"
+          :error-messages="errors.collect('email')"
+          v-validate="validations.email"
+          v-model="email"
+          prepend-icon="email"
+        ></v-text-field>
       </v-flex>
     </v-layout>
 
@@ -66,20 +67,12 @@
             v-model="phoneNumber"
             prepend-icon="phone" />
       </v-flex>
-      <v-flex xs6 mx-2>
-        <v-text-field
-            label="Email"
-            data-vv-name="email"
-            :error-messages="errors.collect('email')"
-            v-validate="validations.email"
-            v-model="email"
-            prepend-icon="email"></v-text-field>
-      </v-flex>
+      <v-flex xs6 mx-2></v-flex>
     </v-layout>
 
     <v-layout row>
-      <v-btn color="button" @click="addNominee" :disabled="btnRegisterDisabled" :loading="btnLoading">Add Nominee</v-btn>
-      <v-btn color="error" @click="clearNominee" :disabled="btnRegisterDisabled">Clear Nominee</v-btn>
+      <v-btn color="button" @click="addGuarantor" :loading="btnLoading">Add Guarantor</v-btn>
+      <v-btn color="error" @click="clearGuarantor">Clear Guarantor</v-btn>
     </v-layout>
 
     <base-snackbar />
@@ -91,7 +84,6 @@
 
   import bugsnagClient from '@/helpers/errorreporting'
   import SaccoAPI from '@/api'
-  import fetchMemberRelationshipsMixin from '@/components/administrators/mixins/memberrelationships'
   import Parsers from "../../../helpers/parsers";
   import queryString from "querystring";
   import {Validator} from "vee-validate";
@@ -104,7 +96,6 @@
         lastName: "last name",
         otherName: "other name",
         phoneNumber: "phone number",
-        proposedMonthlyContribution: "proposed monthly contribution"
       }
     }
   };
@@ -115,7 +106,7 @@
     $_veeValidate: {
       validator: "new"
     },
-    name: `NomineeDetailsCapture`,
+    name: `LoanSecurity`,
     data() {
       return {
         identificationNumber: "",
@@ -136,32 +127,30 @@
           email: "email"
         },
         btnLoading: false,
-        btnRegisterDisabled: false
       };
     },
     methods: {
-      async addNominee() {
-        if (this.$can(`create`, `Nominee`)) {
+      async addGuarantor() {
+        if (this.$can(`create`, `LoanGuarantor`)) {
 
         this.startLoading()
 
         this.$validator.validateAll();
-        let nominee = await Parsers.prepareDataObject({
-          member_id: this.$store.getters.newMemberRecordKey,
+        let guarantor = await Parsers.prepareDataObject({
+          member_loan_id: this.$store.getters.newMemberRecordKey,
           identification_number: this.identificationNumber,
-          relationship_id: this.relationshipId,
           first_name: this.firstName,
           last_name: this.lastName,
           other_name: this.otherName,
           phone_number: this.phoneNumber,
           email: this.email
         });
-        SaccoAPI.post("nominees", queryString.stringify(nominee))
+        SaccoAPI.post("loans/guarantors", queryString.stringify(guarantor))
           .then(() => {
             this.$store.commit(`setSnackbar`, {
               msg: `${
                 this.lastName
-                } has been added successfully. You can add another nominee`,
+                } has been added successfully. You can add another guarantor`,
               type: `success`,
               model: true
             });
@@ -169,13 +158,13 @@
 
             this.$store.commit("setStepperStatus", false);
             this.btnRegisterDisabled = true;
-            this.clearNominee();
+            this.clearGuarantor();
           })
           .catch(error => {
             bugsnagClient.notify(error)
 
             this.$store.commit(`setSnackbar`, {
-              msg: `Unable to add this nominee at this time`,
+              msg: `Unable to add this guarantor at this time`,
               type: `error`,
               model: true
             });
@@ -183,15 +172,14 @@
           });
         } else {
           this.$store.commit(`setSnackbar`, {
-            msg: `You don't have permissions to add nominees`,
+            msg: `You don't have permissions to add guarantors`,
             type: `error`,
             model: true
           });
         }
       },
-      clearNominee() {
+      clearGuarantor() {
         this.identificationNumber = ``;
-        this.relationshipId = ``;
         this.firstName = ``;
         this.lastName = ``;
         this.otherName = ``;
@@ -205,11 +193,6 @@
         this.btnLoading = false;
       }
     },
-    mixins: [
-      fetchMemberRelationshipsMixin,
-    ],
-    created() {
-      this.getRelationships();
-    }
+    created() {}
   };
 </script>

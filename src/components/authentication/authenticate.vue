@@ -25,8 +25,8 @@ export default {
     },
     redirectToDashboard(accessLevel) {
       if (accessLevel == `MEMBER`)
-      this.$router.push(`/member`);
-      else this.$router.push(`/admin`);
+      window.location.href = process.env.VUE_APP_MEMBER_DASHBOARD
+      else window.location.href = process.env.VUE_APP_ADMIN_DASHBOARD
     }
   },
   props: {access_token: String,},

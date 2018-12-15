@@ -112,7 +112,7 @@
         this.$store.commit('setStepperStatus', true)
       }
     },
-    onCreated() {
+    created() {
       this.$store.commit("setStepperStatus", true)
     }
   };

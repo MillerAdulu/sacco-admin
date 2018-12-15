@@ -14,6 +14,7 @@ import Deposits from '@/components/administrators/Deposits/Deposits'
 import AddDeposit from '@/components/administrators/Deposits/AddDeposit'
 import MemberAccounts from '@/components/administrators/Deposits/Accounts'
 import MemberLoans from '@/components/administrators/MemberLoans/List'
+import IssueMemberLoan from '@/components/administrators/MemberLoans/Issue'
 import LoanDetails from '@/components/administrators/MemberLoans/Loan'
 import AddressProfile from '@/components/members/components/AddressProfile'
 import EditAddress from '@/components/administrators/AddressDetails/EditAddress'
@@ -99,6 +100,11 @@ const router = new Router({
           path: `memberloans`,
           name: `MemberLoans`,
           component: MemberLoans,
+        },
+        {
+          path: `memberloans/issue`,
+          name: 'IssueMemberLoan',
+          component: IssueMemberLoan,
         },
         {
           path: `memberloans/:memberLoanId`,

@@ -43,6 +43,9 @@
           <td
             class="text-xs-left"
           >{{ moment(props.item.createdAt).format('MMMM Do YYYY, h:mm:ss a') }}</td>
+          <td class="justify-center">
+            <v-icon medium @click="deleteItem(props.item)">delete</v-icon>
+          </td>
         </template>
       </v-data-table>
     </v-card>
@@ -78,6 +81,9 @@ export default {
         {
           text: "Added On",
           value: "createdAt"
+        },
+        {
+          text: "Actions"
         }
       ]
     };
@@ -123,6 +129,37 @@ export default {
         type: `error`,
         model: true
       });
+    },
+    deleteItem(relationship) {
+      if (this.$can("delete", "Relationship")) {
+        const index = this.relationships.indexOf(relationship);
+        if (confirm("Are you sure you want to delete this relationship?")) {
+          SaccoAPI.delete(`/relationships/${relationship.relationshipId}`)
+            .then(() => {
+              this.$store.commit(`setSnackbar`, {
+                msg: `Deleted`,
+                type: `info`,
+                model: true
+              });
+              this.desserts.splice(index, 1);
+            })
+            .catch(error => {
+              
+              bugsnagClient.notify(error);
+              this.$store.commit(`setSnackbar`, {
+                msg: `Failed to delete relationship!`,
+                type: `error`,
+                model: true
+              });
+            });
+        }
+      } else {
+        this.$store.commit(`setSnackbar`, {
+          msg: `You don't have permissions to delete relationships`,
+          type: `warning`,
+          model: true
+        });
+      }
     },
     stopLoading() {
       this.dataLoading = false;

@@ -244,6 +244,11 @@
                 action: "list",
                 title: "Member Relationships",
                 routerName: "MemberRelationshipsList"
+              },
+              {
+                action: 'list',
+                title: "Repayment Statuses",
+                routerName: "RepaymentStatusesList"
               }
             ]
           },

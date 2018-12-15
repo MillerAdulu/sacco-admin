@@ -24,12 +24,12 @@
         </v-flex>
         <v-flex xs6>
           <v-list-tile>
-            <v-list-tile-content>Repayment Method:</v-list-tile-content>
-            <v-list-tile-content class="align-end">{{ loanDetails.repaymentPeriod }}</v-list-tile-content>
+            <v-list-tile-content>Repayment Period:</v-list-tile-content>
+            <v-list-tile-content class="align-end">{{ loanDetails.repaymentPeriod }} months</v-list-tile-content>
           </v-list-tile>
           <v-list-tile>
             <v-list-tile-content>Contact:</v-list-tile-content>
-            <v-list-tile-content class="align-end">{{ loanDetails.member.phoneNumber }}</v-list-tile-content>
+            <v-list-tile-content class="align-end">+{{ loanDetails.member.phoneNumber }}</v-list-tile-content>
           </v-list-tile>
           <v-list-tile>
             <v-list-tile-content>Repayment Status:</v-list-tile-content>

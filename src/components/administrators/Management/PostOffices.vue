@@ -157,7 +157,7 @@ export default {
     deleteItem(postOffice) {
       if (this.$can("delete", "PostOffice")) {
         const index = this.postOffices.indexOf(postOffice);
-        if (confirm("Are you sure you want to delete this postOffice?")) {
+        if (confirm("Are you sure you want to delete this post office?")) {
           SaccoAPI.delete(`/postoffices/${postOffice.postOfficeId}`)
             .then(() => {
               this.$store.commit(`setSnackbar`, {

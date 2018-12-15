@@ -104,7 +104,6 @@ export default {
         }
       ],
       max15chars: v => v.length <= 15 || "Input too long!",
-      countyId: null
     };
   },
   mixins: [constituenciesMixin, countiesMixin],

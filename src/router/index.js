@@ -35,6 +35,7 @@ import PostOfficeList from '@/components/administrators/Management/PostOffices'
 import MemberRelationshipsList from '@/components/administrators/Management/MemberRelationships'
 
 import Reports from '@/components/administrators/Reports/ReportGenerator'
+import Landing from '@/components/Landing';
 
 Vue.use(Router)
 
@@ -195,6 +196,10 @@ const router = new Router({
         access_token: route.query.access_token
       })
     },
+    {
+      path: `/`,
+      component: Landing,
+    }
   ]
 })
 

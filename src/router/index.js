@@ -38,6 +38,7 @@ import MemberRelationshipsList from '@/components/administrators/Management/Memb
 import Reports from '@/components/administrators/Reports/ReportGenerator'
 
 import RepaymentStatusesList from '@/components/administrators/Management/RepaymentStatuses'
+import IssuingStatusesList from '@/components/administrators/Management/IssuingStatuses'
 
 Vue.use(Router)
 
@@ -161,6 +162,11 @@ const router = new Router({
           path: `repaymentstatuses`,
           name: 'RepaymentStatusesList',
           component: RepaymentStatusesList
+        },
+        {
+          path: `issuingstatuses`,
+          name: 'IssuingStatusesList',
+          component: IssuingStatusesList
         },
         {
           path: `reports`,

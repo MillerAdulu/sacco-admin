@@ -249,7 +249,12 @@
                 action: 'list',
                 title: "Repayment Statuses",
                 routerName: "RepaymentStatusesList"
-              }
+              },
+              {
+                action: 'list',
+                title: "Issuing Statuses",
+                routerName: "IssuingStatusesList"
+              },
             ]
           },
         ],

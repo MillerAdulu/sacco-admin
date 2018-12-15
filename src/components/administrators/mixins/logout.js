@@ -9,7 +9,7 @@ export default {
         this.btnLoading = false;
         this.$store.commit("setLoggedInUser", {});
       localStorage.clear();
-        window.location.href = process.env.VUE_APP_OAUTH_URL
+        window.location.href = process.env.VUE_APP_HOME
       }).catch(error => {
         this.btnLoading = false;
         bugsnagClient.notify(error);

@@ -33,7 +33,7 @@
               <v-text-field
                 slot="input"
                 v-model="props.item.constituencyName"
-                :rules="[max25chars]"
+                :rules="[max15chars]"
                 label="Edit"
                 single-line
                 counter
@@ -103,7 +103,7 @@ export default {
           value: "createdAt"
         }
       ],
-      max25chars: v => v.length <= 15 || "Input too long!",
+      max15chars: v => v.length <= 15 || "Input too long!",
       countyId: null
     };
   },

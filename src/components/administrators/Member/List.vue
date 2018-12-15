@@ -39,15 +39,6 @@
                 </v-icon>
               </router-link>
             </Can>
-            <Can I="update" a="Member">
-              <router-link :to='{name: `MemberUpdate`, params: {
-            memberId: props.item.memberId
-            }}'>
-                <v-icon>
-                  edit
-                </v-icon>
-              </router-link>
-            </Can>
           </td>
         </template>
       </v-data-table>

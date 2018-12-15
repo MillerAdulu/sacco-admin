@@ -11,7 +11,7 @@
             <v-img :src="require('../assets/vuetify.png')" alt="Vuetify.js" height="200"></v-img>
             <h1 class="white--text mb-2 display-1 text-xs-center">Sacco</h1>
             <div class="subheading mb-3 text-xs-center">Powered by Vuetify</div>
-            <v-btn class="blue lighten-2 mt-5" dark large :href="oAuthURL">Get Started</v-btn>
+            <v-btn class="blue lighten-2 mt-5" dark large :href="oAuthURL">Log in to your account</v-btn>
           </v-layout>
         </v-parallax>
       </section>

@@ -5,7 +5,7 @@
         v-model="drawer"
         app
     >
-      <v-img :src="loggedInUser.passportPhoto"
+      <v-img v-if="loggedInUser.passportPhoto" :src="loggedInUser.passportPhoto"
              contain
       />
       <v-list dense class="pt-0">
@@ -141,7 +141,7 @@
         </v-container>
       </v-layout>
     </v-content>
-    <v-footer :fixed="fixed" app class="secondary">
+    <v-footer fixed app class="secondary">
       <span class="white--text">&copy; Frog Technologies</span>
     </v-footer>
   </v-app>

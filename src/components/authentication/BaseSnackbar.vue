@@ -24,7 +24,7 @@
   const ICON_MAP = {
     error: 'error',
     info: 'info',
-    success: 'success',
+    success: 'done',
     warning: 'warning'
   }
 

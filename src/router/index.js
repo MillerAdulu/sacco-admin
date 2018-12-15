@@ -36,6 +36,7 @@ import PostOfficeList from '@/components/administrators/Management/PostOffices'
 import MemberRelationshipsList from '@/components/administrators/Management/MemberRelationships'
 
 import Reports from '@/components/administrators/Reports/ReportGenerator'
+import Landing from '@/components/Landing';
 
 import RepaymentStatusesList from '@/components/administrators/Management/RepaymentStatuses'
 import IssuingStatusesList from '@/components/administrators/Management/IssuingStatuses'
@@ -220,6 +221,10 @@ const router = new Router({
         access_token: route.query.access_token
       })
     },
+    {
+      path: `/`,
+      component: Landing,
+    }
   ]
 })
 

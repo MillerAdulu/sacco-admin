@@ -22,7 +22,24 @@
         <v-progress-linear slot="progress" color="blue" indeterminate/>
         <template slot="items" slot-scope="props">
           <td class="text-xs-left">{{ props.item.paymentMethodId }}</td>
-          <td class="text-xs-left">{{ props.item.paymentMethod }}</td>
+          <td class="text-xs-left">
+            <v-edit-dialog
+              :return-value.sync="props.item.paymentMethod"
+              lazy
+              @save="save(props.item)"
+              @cancel="cancel"
+            >
+              {{ props.item.paymentMethod }}
+              <v-text-field
+                slot="input"
+                v-model="props.item.paymentMethod"
+                :rules="[max10chars]"
+                label="Edit"
+                single-line
+                counter
+              ></v-text-field>
+            </v-edit-dialog>
+            </td>
           <td
             class="text-xs-left"
           >{{ moment(props.item.createdAt).format('MMMM Do YYYY, h:mm:ss a') }}</td>
@@ -48,6 +65,7 @@ export default {
   name: `PaymentMethodsList`,
   data() {
     return {
+      max10chars: v => v.length <= 10 || "Input too long!",
       moment,
       dataLoading: true,
       search: ``,
@@ -71,7 +89,48 @@ export default {
     };
   },
   mixins: [fetchPaymentMethodsMixin],
-  methods: {deleteItem(paymentMethod) {
+  methods: {
+    save(paymentMethod) {
+      if (this.$can(`update`, `PaymentMethod`)) {
+        let updateData = Parsers.prepareDataObject({
+          payment_method_name: paymentMethod.paymentMethod,
+        });
+
+        SaccoAPI.put(
+          `/paymentmethods/${paymentMethod.paymentMethodId}`,
+          queryString.stringify(updateData)
+        )
+          .then(() => {
+            this.$store.commit(`setSnackbar`, {
+              msg: `Payment method updated!`,
+              type: `success`,
+              model: true
+            });
+          })
+          .catch(error => {
+            bugsnagClient.notify(error);
+            this.$store.commit(`setSnackbar`, {
+              msg: `Failed to update payment method!`,
+              type: `error`,
+              model: true
+            });
+          });
+      } else {
+        this.$store.commit(`setSnackbar`, {
+          msg: `You don't have permissions to edit payment methods`,
+          type: `error`,
+          model: true
+        });
+      }
+    },
+    cancel() {
+      this.$store.commit(`setSnackbar`, {
+        msg: `Aborted`,
+        type: `error`,
+        model: true
+      });
+    },
+    deleteItem(paymentMethod) {
       if (this.$can("delete", "PaymentMethod")) {
         const index = this.paymentMethods.indexOf(paymentMethod);
         if (confirm("Are you sure you want to delete this payment method?")) {

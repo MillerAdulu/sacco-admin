@@ -31,6 +31,10 @@ export default {
   },
   props: {access_token: String,},
   created() {
+    currentUrl = window.location.pathname;
+
+    if(currentUrl.replace('#', '?')) this.$router.push(currentUrl);
+
     this.getUserInfo();
   }
 };

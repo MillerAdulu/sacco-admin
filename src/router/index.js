@@ -216,6 +216,17 @@ const router = new Router({
     },
     {
       path: `/auth/callback`,
+      beforeEnter: (to, from, next) => {
+        let url = window.location.href
+        if(url.includes('#')) {
+          let newUrl = url.replace('#', '?');
+          next({path: `/save${newUrl.substring(newUrl.indexOf('?'))}`})
+        }
+        next();
+      },
+    },
+    {
+      path: `/save`,
       component: Auth,
       props: (route) => ({
         access_token: route.query.access_token

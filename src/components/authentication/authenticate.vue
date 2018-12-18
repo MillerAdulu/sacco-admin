@@ -1,5 +1,17 @@
 <template>
-  <div>You are being authenticated ...</div>
+  <v-container fluid>
+    <v-layout column>
+      <v-flex xs12>
+        <div class="resultContainer">
+          <v-layout>
+            <div class="item elevation-5">
+              You are being logged in ...
+            </div>
+          </v-layout>
+        </div>
+      </v-flex>
+    </v-layout>
+  </v-container>
 </template>
 
 <script>
@@ -31,10 +43,6 @@ export default {
   },
   props: {access_token: String,},
   created() {
-    let currentUrl = window.location.pathname;
-
-    if(currentUrl.replace('#', '?')) this.$router.push(currentUrl);
-
     this.getUserInfo();
   }
 };

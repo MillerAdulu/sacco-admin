@@ -104,7 +104,6 @@
         lastName: "last name",
         otherName: "other name",
         phoneNumber: "phone number",
-        proposedMonthlyContribution: "proposed monthly contribution"
       }
     }
   };

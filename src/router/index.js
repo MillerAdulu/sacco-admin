@@ -41,6 +41,7 @@ import Landing from '@/components/Landing';
 import RepaymentStatusesList from '@/components/administrators/Management/RepaymentStatuses'
 import IssuingStatusesList from '@/components/administrators/Management/IssuingStatuses'
 import LoanTypesList from '@/components/administrators/Management/LoanTypes'
+import EditNominee from '@/components/administrators/Nominees/editnominee'
 
 Vue.use(Router)
 
@@ -85,6 +86,12 @@ const router = new Router({
           path: `addnominee`,
           name: `AddNominee`,
           component: NomineeDetailsCapture,
+        },
+        {
+          path: `editnominee`,
+          name: `EditNominee`,
+          component: EditNominee,
+          props: true,
         },
         {
           path: `memberdeposits`,

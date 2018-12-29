@@ -133,6 +133,27 @@
             ]
           },
           {
+            action: "account_box",
+            title: "Share Account Management",
+            items: [
+              {
+                action: "list",
+                title: "Member Share Accounts",
+                routerName: "MemberShareAccounts"
+              },
+              {
+                action: "assignment_turned_in",
+                title: "Member Deposits",
+                routerName: "ShareDeposits"
+              },
+              {
+                action: "add_circle",
+                title: "Add Deposit",
+                routerName: "AddShareDeposit"
+              }
+            ]
+          },
+          {
             action: "monetization_on",
             title: "Loan Management",
             items: [

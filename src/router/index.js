@@ -23,6 +23,10 @@ import MaritalStatusesList from '@/components/administrators/Management/MaritalS
 import Administrator from '@/components/administrators/Administrator'
 import MemberArea from '@/components/members/MemberArea'
 
+import ShareDeposits from '@/components/administrators/Shares/ShareDeposits'
+import AddShareDeposit from '@/components/administrators/Shares/AddShareDeposit'
+import MemberShareAccounts from '@/components/administrators/Shares/ShareAccounts'
+
 import Auth from '@/components/authentication/authenticate';
 
 import DepositProfile from '@/components/members/components/DepositProfile'
@@ -107,6 +111,21 @@ const router = new Router({
           path: `memberaccounts`,
           name: `MemberAccounts`,
           component: MemberAccounts,
+        },
+        {
+          path: `membersharedeposits`,
+          name: `ShareDeposits`,
+          component: ShareDeposits,
+        },
+        {
+          path: `adddeposit`,
+          name: `AddShareDeposit`,
+          component: AddShareDeposit,
+        },
+        {
+          path: `memberaccounts`,
+          name: `MemberShareAccounts`,
+          component: MemberShareAccounts,
         },
         {
           path: `memberloans`,

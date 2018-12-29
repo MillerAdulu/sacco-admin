@@ -92,6 +92,7 @@ export default AbilityBuilder.define(can => {
       can(allPermissions, 'PostOffice')
       can(allPermissions, 'Relationship')
       can(allPermissions, 'User')
+      can(allPermissions, 'MemberShare')
       break
     }
     default: {

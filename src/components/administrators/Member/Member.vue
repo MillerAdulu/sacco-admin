@@ -40,7 +40,7 @@
               <Deposits :deposits="deposits" />
             </v-tab-item>
             <v-tab-item>
-              <Deposits :deposits="deposits" />
+              <ShareDeposits :sharedeposits="sharedeposits" />
             </v-tab-item>
             <v-tab-item>
               <MemberLoans :memberLoans="loans" />
@@ -67,6 +67,7 @@
   import PaymentMethods from "@/components/administrators/PaymentMethods/PaymentMethods";
   import ShowNominees from "@/components/administrators/Nominees/ShowNominees";
   import Deposits from "@/components/administrators/Deposits/MemberDeposits";
+  import ShareDeposits from "@/components/administrators/Shares/MemberShareDeposits";
   import MemberLoans from "@/components/administrators/MemberLoans/MemberLoans";
   import UserOperations from '@/components/administrators/Member/UserOperations';
 
@@ -78,6 +79,7 @@
         addressdetails: [],
         paymentmethods: [],
         deposits: [],
+        sharedeposits: [],
         loans: [],
         nominees: [],
         activeTab: null,
@@ -98,6 +100,7 @@
       PaymentMethods,
       ShowNominees,
       Deposits,
+      ShareDeposits,
       MemberLoans,
       UserOperations
     },
@@ -217,6 +220,29 @@
           });
         }
       },
+      fetchShares() {
+        if (this.$can(`read`, `MemberShare`)) {
+        SaccoAPI.get(`/membershares/members/${this.memberId}`)
+          .then(response => {
+            this.sharedeposits = response.data;
+          })
+          .catch(error => {
+            bugsnagClient.notify(error)
+
+            this.$store.commit(`setSnackbar`, {
+              msg: `Unable to load this member's shares at this time`,
+              type: `error`,
+              model: true
+            });
+          });
+        } else {
+          this.$store.commit(`setSnackbar`, {
+            msg: `You don't have permissions to view member shares`,
+            type: `error`,
+            model: true
+          });
+        }
+      },
       fetchLoans() {
         if (this.$can(`read`, `MemberLoan`)) {
         SaccoAPI.get(`loans/member/${this.memberId}`)
@@ -247,6 +273,7 @@
       this.fetchPaymentMethods();
       this.fetchNominees();
       this.fetchDeposits();
+      this.fetchShares();
       this.fetchLoans();
     }
   };

@@ -35,6 +35,18 @@
         </v-list-tile>
 
         <v-list-tile
+            :to="{name: `ShareDepositProfile`}"
+            append
+        >
+          <v-list-tile-action>
+            <v-icon>monetization_on</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <v-list-tile-title>Share Deposits</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+
+        <v-list-tile
             :to="{name: `LoanProfile`}"
             append
         >

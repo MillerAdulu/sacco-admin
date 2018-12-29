@@ -30,6 +30,7 @@ import MemberShareAccounts from '@/components/administrators/Shares/ShareAccount
 import Auth from '@/components/authentication/authenticate';
 
 import DepositProfile from '@/components/members/components/DepositProfile'
+import ShareDepositProfile from '@/components/members/components/ShareProfile'
 import LoanProfile from '@/components/members/components/LoanProfile'
 
 import PaymentMethodsList from '@/components/administrators/Management/PaymentMethods'
@@ -221,6 +222,11 @@ const router = new Router({
           path: `deposits`,
           name: `DepositProfile`,
           component: DepositProfile,
+        },
+        {
+          path: `sharedeposits`,
+          name: `ShareDepositProfile`,
+          component: ShareDepositProfile,
         },
         {
           path: `loans`,

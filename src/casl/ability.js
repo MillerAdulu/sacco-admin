@@ -9,6 +9,7 @@ export default AbilityBuilder.define(can => {
       const memberPermissions = ['read']
       
       can(memberPermissions, 'Member')
+      can(memberPermissions, 'MemberShare')
       can(memberPermissions, 'MemberAccount')
       can(memberPermissions, 'AddressDetail')
       can(memberPermissions, 'BusinessNature')

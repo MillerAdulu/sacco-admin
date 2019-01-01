@@ -240,7 +240,7 @@
         }
       },
       getAddressToEdit() {
-        if (this.$can(`update`, `AddressDetails`)) {
+        if (this.$can(`update`, `AddressDetail`)) {
         SaccoAPI.get(`addressdetails/${this.$route.params.address}`)
           .then(response => {
             this.address = response.data;

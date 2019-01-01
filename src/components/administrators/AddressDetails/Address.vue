@@ -55,10 +55,10 @@
             <v-list-tile-content class="align-end">{{ props.item.postalAddress }}</v-list-tile-content>
           </v-list-tile>
           <v-list-tile>
-            <Can I="update" a="AddressDetails">
+            <Can I="update" a="AddressDetail">
               <v-btn  @click="editAddress(props.item.addressDetailId)" color="button">Edit</v-btn>
             </Can>
-            <Can I="delete" a="AddressDetails">
+            <Can I="delete" a="AddressDetail">
               <v-btn  @click="deleteAddress(props.item)" :loading="btnLoading" color="error">Delete</v-btn>
             </Can>
           </v-list-tile>
@@ -89,7 +89,7 @@
     },
     methods: {
       deleteAddress(address) {
-        if (this.$can(`delete`, `AddressDetails`)) {
+        if (this.$can(`delete`, `AddressDetail`)) {
         this.startLoading();
 
         SaccoAPI.delete(`addressdetails/${address.addressDetailId}`)
@@ -127,7 +127,7 @@
         }
       },
       editAddress(address) {
-        if (this.$can(`update`, `AddressDetails`)) {
+        if (this.$can(`update`, `AddressDetail`)) {
         this.$router.push(`/admin/editaddress/${address}`);
         } else {
           let snackbar = {

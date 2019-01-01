@@ -55,10 +55,10 @@
             <v-list-tile-content class="align-end">{{ props.item.postalAddress }}</v-list-tile-content>
           </v-list-tile>
           <v-list-tile>
-            <Can I="update" a="AddressDetails">
+            <Can I="update" a="AddressDetail">
               <v-btn  @click="editAddress(props.item.addressDetailId)" color="button">Edit</v-btn>
             </Can>
-            <Can I="delete" a="AddressDetails">
+            <Can I="delete" a="AddressDetail">
               <v-btn  @click="deleteAddress(props.item)" :loading="btnLoading" color="error">Delete</v-btn>
             </Can>
           </v-list-tile>
@@ -88,7 +88,7 @@
     },
     methods: {
       fetchAddresses() {
-        if (this.$can(`read`, `AddressDetails`)) {
+        if (this.$can(`read`, `AddressDetail`)) {
         SaccoAPI.get(`/addressdetails/members/${this.$store.getters.loggedInUser.member.memberId}`)
           .then(response => {
             this.addresses = response.data;

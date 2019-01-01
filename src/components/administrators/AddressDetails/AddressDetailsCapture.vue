@@ -209,7 +209,7 @@
         }
       },
       async addAddress() {
-        if (this.$can(`create`, `AddressDetails`)) {
+        if (this.$can(`create`, `AddressDetail`)) {
 
         this.startLoading()
 

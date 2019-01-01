@@ -129,7 +129,7 @@
         }
       },
       fetchAddressDetails() {
-        if (this.$can(`read`, `AddressDetails`)) {
+        if (this.$can(`read`, `AddressDetail`)) {
         SaccoAPI.get(`/addressdetails/members/${this.memberId}`)
           .then(response => {
             this.addressdetails = response.data;

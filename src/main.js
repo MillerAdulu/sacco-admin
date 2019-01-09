@@ -8,9 +8,6 @@ import {
   abilitiesPlugin,
   Can
 } from '@casl/vue'
-import {
-  Laue
-} from 'laue'
 
 import ability from './casl/ability'
 Vue.component('Can', Can)
@@ -41,7 +38,6 @@ Vue.use(Vuetify, {
 })
 
 Vue.use(VeeValidate)
-Vue.use(Laue)
 
 new Vue({
   render: h => h(App),

@@ -162,7 +162,7 @@
                 this.lastName
                 } has been added successfully. You can add another nominee`,
               type: `success`,
-              model: true
+              
             });
             this.stopLoading();
 
@@ -176,7 +176,7 @@
             this.$store.commit(`setSnackbar`, {
               msg: `Unable to add this nominee at this time`,
               type: `error`,
-              model: true
+              
             });
             this.stopLoading();
           });
@@ -184,7 +184,7 @@
           this.$store.commit(`setSnackbar`, {
             msg: `You don't have permissions to add nominees`,
             type: `error`,
-            model: true
+            
           });
         }
       },

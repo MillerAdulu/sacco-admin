@@ -175,14 +175,14 @@
             this.$store.commit(`setSnackbar`, {
               msg: `Unable to fetch constituencies at this time`,
               type: `error`,
-              model: true
+              
             });
           });
         } else {
           this.$store.commit(`setSnackbar`, {
             msg: `You don't have permissions to view constituencies`,
             type: `error`,
-            model: true
+            
           });
         }
       },
@@ -197,14 +197,14 @@
             this.$store.commit(`setSnackbar`, {
               msg: `Unable to fetch localities at this time`,
               type: `error`,
-              model: true
+              
             });
           });
         } else {
           this.$store.commit(`setSnackbar`, {
             msg: `You don't have permissions to view localities`,
             type: `error`,
-            model: true
+            
           });
         }
       },
@@ -230,7 +230,7 @@
             this.$store.commit(`setSnackbar`, {
               msg: `Added! You can add more addresses`,
               type: `success`,
-              model: true
+              
             });
             this.$store.commit("setStepperStatus", false);
             this.clearAddress();
@@ -241,7 +241,7 @@
             this.$store.commit(`setSnackbar`, {
               msg: `Unable to add addresses at this time`,
               type: `error`,
-              model: true
+              
             });
             this.stopLoading()
           });
@@ -249,7 +249,7 @@
           this.$store.commit(`setSnackbar`, {
             msg: `You don't have permissions to add address details`,
             type: `error`,
-            model: true
+            
           });
         }
       },

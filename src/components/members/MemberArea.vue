@@ -202,7 +202,7 @@
             this.$store.commit(`setSnackbar`, {
               msg: `Please wait to confirm your payment`,
               type: `success`,
-              model: true
+              
             });
             this.finishDeposit()
           })
@@ -212,7 +212,7 @@
             this.$store.commit(`setSnackbar`, {
               msg: `Unable to add deposits at this time`,
               type: `error`,
-              model: true
+              
             });
 
             this.finishDeposit()
@@ -221,7 +221,7 @@
           this.$store.commit(`setSnackbar`, {
               msg: `Please enter a valid amount`,
               type: `error`,
-              model: true
+              
           });
 
           return

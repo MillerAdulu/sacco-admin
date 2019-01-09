@@ -131,7 +131,7 @@ export default {
             this.$store.commit(`setSnackbar`, {
               msg: `Locality updated!`,
               type: `success`,
-              model: true
+              
             });
           })
           .catch(error => {
@@ -139,14 +139,14 @@ export default {
             this.$store.commit(`setSnackbar`, {
               msg: `Failed to update locality!`,
               type: `error`,
-              model: true
+              
             });
           });
       } else {
         this.$store.commit(`setSnackbar`, {
           msg: `You don't have permissions to edit localities`,
           type: `error`,
-          model: true
+          
         });
       }
     },
@@ -154,7 +154,7 @@ export default {
       this.$store.commit(`setSnackbar`, {
         msg: `Aborted`,
         type: `error`,
-        model: true
+        
       });
     },
     stopLoading() {
@@ -169,7 +169,7 @@ export default {
               this.$store.commit(`setSnackbar`, {
                 msg: `Deleted`,
                 type: `info`,
-                model: true
+                
               });
               this.desserts.splice(index, 1);
             })
@@ -179,7 +179,7 @@ export default {
               this.$store.commit(`setSnackbar`, {
                 msg: `Failed to delete locality!`,
                 type: `error`,
-                model: true
+                
               });
             });
         }
@@ -187,7 +187,7 @@ export default {
         this.$store.commit(`setSnackbar`, {
           msg: `You don't have permissions to delete post offices`,
           type: `warning`,
-          model: true
+          
         });
       }
     },

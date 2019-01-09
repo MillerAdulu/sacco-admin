@@ -99,14 +99,14 @@
             this.$store.commit(`setSnackbar`, {
               msg: `Unable to load address details at this time`,
               type: `error`,
-              model: true
+              
             });
           });
         } else {
           this.$store.commit(`setSnackbar`, {
             msg: `You don't have permissions to view address details`,
             type: `error`,
-            model: true
+            
           });
         }
       },

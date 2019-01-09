@@ -71,14 +71,14 @@
             this.$store.commit(`setSnackbar`, {
               msg: `Unable to fetch your share contributions at this time`,
               type: `error`,
-              model: true
+              
             });
           });
         } else {
           this.$store.commit(`setSnackbar`, {
             msg: `You don't have permissions to view member share contributions`,
             type: `error`,
-            model: true
+            
           });
         }
       }

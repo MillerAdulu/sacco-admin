@@ -126,7 +126,7 @@ export default {
             this.$store.commit(`setSnackbar`, {
               msg: `County updated!`,
               type: `success`,
-              model: true
+              
             });
           })
           .catch(error => {
@@ -134,14 +134,14 @@ export default {
             this.$store.commit(`setSnackbar`, {
               msg: `Failed to update county!`,
               type: `error`,
-              model: true
+              
             });
           });
       } else {
         this.$store.commit(`setSnackbar`, {
           msg: `You don't have permissions to edit counties`,
           type: `error`,
-          model: true
+          
         });
       }
     },
@@ -149,7 +149,7 @@ export default {
       this.$store.commit(`setSnackbar`, {
         msg: `Aborted`,
         type: `error`,
-        model: true
+        
       });
     },
     deleteItem(county) {
@@ -161,7 +161,7 @@ export default {
               this.$store.commit(`setSnackbar`, {
                 msg: `Deleted`,
                 type: `info`,
-                model: true
+                
               });
               this.desserts.splice(index, 1);
             })
@@ -171,7 +171,7 @@ export default {
               this.$store.commit(`setSnackbar`, {
                 msg: `Failed to delete county!`,
                 type: `error`,
-                model: true
+                
               });
             });
         }
@@ -179,7 +179,7 @@ export default {
         this.$store.commit(`setSnackbar`, {
           msg: `You don't have permissions to delete counties`,
           type: `warning`,
-          model: true
+          
         });
       }
     },

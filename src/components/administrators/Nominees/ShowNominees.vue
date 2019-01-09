@@ -78,7 +78,7 @@ export default {
         let snackbar = {
           msg: `You don't have permissions to edit nominees`,
           type: `error`,
-          model: true
+          
         };
 
         this.$store.commit(`setSnackbar`, snackbar);
@@ -95,7 +95,7 @@ export default {
                 ? `This nominee has been deleted`
                 : response.statusText,
               type: `success`,
-              model: true
+              
             });
             this.nominees.pop(nominee);
             this.stopLoading();
@@ -106,7 +106,7 @@ export default {
             this.$store.commit(`setSnackbar`, {
               msg: `Currently unable to delete this nominee`,
               type: `error`,
-              model: true
+              
             });
             this.stopLoading();
           });
@@ -114,7 +114,7 @@ export default {
         this.$store.commit(`setSnackbar`, {
           msg: `You don't have permissions to delete this nominee`,
           type: `error`,
-          model: true
+          
         });
       }
     },

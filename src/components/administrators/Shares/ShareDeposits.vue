@@ -102,7 +102,7 @@
             this.$store.commit(`setSnackbar`, {
               msg: `Unable to fetch member deposits at this time`,
               type: `error`,
-              model: true
+              
             });
 
             this.stopLoading();
@@ -111,7 +111,7 @@
           this.$store.commit(`setSnackbar`, {
             msg: `You don't have permissions to view deposits`,
             type: `error`,
-            model: true
+            
           });
         }
       },

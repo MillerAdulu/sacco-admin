@@ -104,7 +104,7 @@ export default {
             this.$store.commit(`setSnackbar`, {
               msg: `Member Relationship updated!`,
               type: `success`,
-              model: true
+              
             });
           })
           .catch(error => {
@@ -112,14 +112,14 @@ export default {
             this.$store.commit(`setSnackbar`, {
               msg: `Failed to update member relationship!`,
               type: `error`,
-              model: true
+              
             });
           });
       } else {
         this.$store.commit(`setSnackbar`, {
           msg: `You don't have permissions to edit member relationships`,
           type: `error`,
-          model: true
+          
         });
       }
     },
@@ -127,7 +127,7 @@ export default {
       this.$store.commit(`setSnackbar`, {
         msg: `Aborted`,
         type: `error`,
-        model: true
+        
       });
     },
     deleteItem(relationship) {
@@ -139,7 +139,7 @@ export default {
               this.$store.commit(`setSnackbar`, {
                 msg: `Deleted`,
                 type: `info`,
-                model: true
+                
               });
               this.desserts.splice(index, 1);
             })
@@ -149,7 +149,7 @@ export default {
               this.$store.commit(`setSnackbar`, {
                 msg: `Failed to delete relationship!`,
                 type: `error`,
-                model: true
+                
               });
             });
         }
@@ -157,7 +157,7 @@ export default {
         this.$store.commit(`setSnackbar`, {
           msg: `You don't have permissions to delete relationships`,
           type: `warning`,
-          model: true
+          
         });
       }
     },

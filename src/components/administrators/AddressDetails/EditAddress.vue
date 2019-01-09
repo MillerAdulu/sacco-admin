@@ -165,14 +165,14 @@
             this.$store.commit(`setSnackbar`, {
               msg: `Unable to fetch counties at this time`,
               type: `error`,
-              model: true
+              
             });
           });
         } else {
           this.$store.commit(`setSnackbar`, {
             msg: `You don't have permissions to view counties`,
             type: `error`,
-            model: true
+            
           });
         }
       },
@@ -186,14 +186,14 @@
             this.$store.commit(`setSnackbar`, {
               msg: `Unable to fetch constituencies at this time`,
               type: `error`,
-              model: true
+              
             });
           });
         } else {
           this.$store.commit(`setSnackbar`, {
             msg: `You don't have permissions to view constituencies`,
             type: `error`,
-            model: true
+            
           });
         }
       },
@@ -207,14 +207,14 @@
             this.$store.commit(`setSnackbar`, {
               msg: `Unable to fetch localities at this time`,
               type: `error`,
-              model: true
+              
             });
           });
         } else {
           this.$store.commit(`setSnackbar`, {
             msg: `You don't have permissions to view localities`,
             type: `error`,
-            model: true
+            
           });
         }
       },
@@ -228,14 +228,14 @@
             this.$store.commit(`setSnackbar`, {
               msg: `Unable to fetch post offices at this time`,
               type: `error`,
-              model: true
+              
             });
           });
         } else {
           this.$store.commit(`setSnackbar`, {
             msg: `You don't have permissions to view post offices`,
             type: `error`,
-            model: true
+            
           });
         }
       },
@@ -249,7 +249,7 @@
             let snackbar = {
               msg: `Unable to fetch this address`,
               type: `error`,
-              model: true
+              
             };
             this.$store.commit(`setSnackbar`, snackbar);
           });
@@ -257,7 +257,7 @@
           let snackbar = {
             msg: `You don't have permissions to edit this address`,
             type: `error`,
-            model: true
+            
           };
           this.$store.commit(`setSnackbar`, snackbar);
         }

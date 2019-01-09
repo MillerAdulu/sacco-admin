@@ -117,14 +117,14 @@
             this.$store.commit(`setSnackbar`, {
               msg: `Unable to load this member at this time`,
               type: `error`,
-              model: true
+              
             });
           });
         } else {
           this.$store.commit(`setSnackbar`, {
             msg: `You don't have permissions to view members`,
             type: `error`,
-            model: true
+            
           });
         }
       },
@@ -140,14 +140,14 @@
             this.$store.commit(`setSnackbar`, {
               msg: `Unable to load this member's addresses at this time`,
               type: `error`,
-              model: true
+              
             });
           });
         } else {
           this.$store.commit(`setSnackbar`, {
             msg: `You don't have permissions to view address details`,
             type: `error`,
-            model: true
+            
           });
         }
       },
@@ -163,14 +163,14 @@
             this.$store.commit(`setSnackbar`, {
               msg: `Unable to load this member's payment methods at this time`,
               type: `error`,
-              model: true
+              
             });
           });
         } else {
           this.$store.commit(`setSnackbar`, {
             msg: `You don't have permissions to view payment methods`,
             type: `error`,
-            model: true
+            
           });
         }
       },
@@ -186,14 +186,14 @@
             this.$store.commit(`setSnackbar`, {
               msg: `Unable to load this member's nominees at this time`,
               type: `error`,
-              model: true
+              
             });
           });
         } else {
           this.$store.commit(`setSnackbar`, {
             msg: `You don't have permissions to view nominees`,
             type: `error`,
-            model: true
+            
           });
         }
       },
@@ -209,14 +209,14 @@
             this.$store.commit(`setSnackbar`, {
               msg: `Unable to load this member's deposits at this time`,
               type: `error`,
-              model: true
+              
             });
           });
         } else {
           this.$store.commit(`setSnackbar`, {
             msg: `You don't have permissions to view member deposits`,
             type: `error`,
-            model: true
+            
           });
         }
       },
@@ -232,14 +232,14 @@
             this.$store.commit(`setSnackbar`, {
               msg: `Unable to load this member's shares at this time`,
               type: `error`,
-              model: true
+              
             });
           });
         } else {
           this.$store.commit(`setSnackbar`, {
             msg: `You don't have permissions to view member shares`,
             type: `error`,
-            model: true
+            
           });
         }
       },
@@ -255,14 +255,14 @@
             this.$store.commit(`setSnackbar`, {
               msg: `Unable to load this member's loans at this time`,
               type: `error`,
-              model: true
+              
             });
           });
         } else {
           this.$store.commit(`setSnackbar`, {
             msg: `You don't have permissions to view member loans`,
             type: `error`,
-            model: true
+            
           });
         }
       }

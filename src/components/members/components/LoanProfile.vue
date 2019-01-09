@@ -80,14 +80,14 @@
             this.$store.commit(`setSnackbar`, {
               msg: `Unable to display your loans at this time`,
               type: `error`,
-              model: true
+              
             });
           });
         } else {
           this.$store.commit(`setSnackbar`, {
             msg: `You don't have permissions to view member loans`,
             type: `error`,
-            model: true
+            
           });
         }
       }

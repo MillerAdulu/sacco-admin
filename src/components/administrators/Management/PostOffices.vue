@@ -128,7 +128,7 @@ export default {
             this.$store.commit(`setSnackbar`, {
               msg: `Post Office updated!`,
               type: `success`,
-              model: true
+              
             });
           })
           .catch(error => {
@@ -136,14 +136,14 @@ export default {
             this.$store.commit(`setSnackbar`, {
               msg: `Failed to update post office!`,
               type: `error`,
-              model: true
+              
             });
           });
       } else {
         this.$store.commit(`setSnackbar`, {
           msg: `You don't have permissions to edit post offices`,
           type: `error`,
-          model: true
+          
         });
       }
     },
@@ -151,7 +151,7 @@ export default {
       this.$store.commit(`setSnackbar`, {
         msg: `Aborted`,
         type: `error`,
-        model: true
+        
       });
     },
     deleteItem(postOffice) {
@@ -163,7 +163,7 @@ export default {
               this.$store.commit(`setSnackbar`, {
                 msg: `Deleted`,
                 type: `info`,
-                model: true
+                
               });
               this.desserts.splice(index, 1);
             })
@@ -173,7 +173,7 @@ export default {
               this.$store.commit(`setSnackbar`, {
                 msg: `Failed to delete post office!`,
                 type: `error`,
-                model: true
+                
               });
             });
         }
@@ -181,7 +181,7 @@ export default {
         this.$store.commit(`setSnackbar`, {
           msg: `You don't have permissions to delete post offices`,
           type: `warning`,
-          model: true
+          
         });
       }
     },

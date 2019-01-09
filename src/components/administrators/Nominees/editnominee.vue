@@ -174,7 +174,7 @@ export default {
             this.$store.commit(`setSnackbar`, {
               msg: `${this.lastName} has been updated successfully.`,
               type: `success`,
-              model: true
+              
             });
             this.stopLoading();
           })
@@ -184,7 +184,7 @@ export default {
             this.$store.commit(`setSnackbar`, {
               msg: `Unable to update this nominee at this time`,
               type: `error`,
-              model: true
+              
             });
             this.stopLoading();
           });
@@ -192,7 +192,7 @@ export default {
         this.$store.commit(`setSnackbar`, {
           msg: `You don't have permissions to update nominees`,
           type: `error`,
-          model: true
+          
         });
       }
     },

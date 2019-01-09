@@ -46,14 +46,14 @@
               this.$store.commit(`setSnackbar`, {
                 msg: `This member cannot be found`,
                 type: `error`,
-                model: true
+                
               });
             }
             if(response.data) {
               this.$store.commit(`setSnackbar`, {
                 msg: `This member will receive their new password shortly`,
                 type: `success`,
-                model: true
+                
               });
             }
           })
@@ -63,7 +63,7 @@
             this.$store.commit(`setSnackbar`, {
               msg: `Cannot reset password at this time`,
               type: `error`,
-              model: true
+              
             });
           })
       }

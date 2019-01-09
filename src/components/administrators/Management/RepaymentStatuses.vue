@@ -107,7 +107,7 @@ export default {
             this.$store.commit(`setSnackbar`, {
               msg: `Repayment Status updated!`,
               type: `success`,
-              model: true
+              
             });
           })
           .catch(error => {
@@ -115,14 +115,14 @@ export default {
             this.$store.commit(`setSnackbar`, {
               msg: `Failed to update repayment status!`,
               type: `error`,
-              model: true
+              
             });
           });
       } else {
         this.$store.commit(`setSnackbar`, {
           msg: `You don't have permissions to edit repayment statuses`,
           type: `error`,
-          model: true
+          
         });
       }
     },
@@ -130,7 +130,7 @@ export default {
       this.$store.commit(`setSnackbar`, {
         msg: `Aborted`,
         type: `error`,
-        model: true
+        
       });
     },
     deleteItem(repaymentStatus) {
@@ -142,7 +142,7 @@ export default {
               this.$store.commit(`setSnackbar`, {
                 msg: `Deleted`,
                 type: `info`,
-                model: true
+                
               });
               this.desserts.splice(index, 1);
             })
@@ -152,7 +152,7 @@ export default {
               this.$store.commit(`setSnackbar`, {
                 msg: `Failed to delete repayment status!`,
                 type: `error`,
-                model: true
+                
               });
             });
         }
@@ -160,7 +160,7 @@ export default {
         this.$store.commit(`setSnackbar`, {
           msg: `You don't have permissions to delete repayment status`,
           type: `warning`,
-          model: true
+          
         });
       }
     },

@@ -21,7 +21,7 @@ export default {
           this.$store.commit(`setSnackbar`, {
             msg: `Unable to fetch post offices at this time`,
             type: `error`,
-            model: true
+            
           });
           this.stopLoading()
         });
@@ -29,7 +29,7 @@ export default {
         this.$store.commit(`setSnackbar`, {
           msg: `You don't have permissions to view post offices`,
           type: `error`,
-          model: true
+          
         });
       }
     },

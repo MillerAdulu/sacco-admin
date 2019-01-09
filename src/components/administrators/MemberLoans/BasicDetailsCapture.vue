@@ -100,7 +100,7 @@ export default {
           this.$store.commit(`setSnackbar`, {
             msg: `This loans has been added successfully`,
             type: `success`,
-            model: true
+            
           });
 
           this.$store.commit("setNewMemberRecordKey", response.data.memberLoanId);
@@ -115,7 +115,7 @@ export default {
           this.$store.commit(`setSnackbar`, {
             msg: `This there was an error adding this loan`,
             type: `error`,
-            model: true
+            
           });
       });
     },
@@ -130,14 +130,14 @@ export default {
             this.$store.commit(`setSnackbar`, {
               msg: `Unable to load loan types at this time`,
               type: `error`,
-              model: true
+              
             });
           });
       } else {
         this.$store.commit(`setSnackbar`, {
           msg: `You don't have permissions to view loan types`,
           type: `error`,
-          model: true
+          
         });
       }
     },

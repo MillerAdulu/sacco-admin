@@ -99,7 +99,7 @@
                 ? `This address has been deleted`
                 : response.statusText,
               type: `success`,
-              model: true
+              
             };
             this.$store.commit(`setSnackbar`, snackbar);
             this.addresses.pop(address);
@@ -111,7 +111,7 @@
             let snackbar = {
               msg: `Currently unable to delete this address`,
               type: `error`,
-              model: true
+              
             };
             this.$store.commit(`setSnackbar`, snackbar);
             this.stopLoading();
@@ -120,7 +120,7 @@
           let snackbar = {
             msg: `You don't have permissions to delete this address`,
             type: `error`,
-            model: true
+            
           };
 
           this.$store.commit(`setSnackbar`, snackbar);
@@ -133,7 +133,7 @@
           let snackbar = {
             msg: `You don't have permissions to edit this address`,
             type: `error`,
-            model: true
+            
           };
 
           this.$store.commit(`setSnackbar`, snackbar);

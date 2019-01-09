@@ -60,7 +60,7 @@
             this.$store.commit(`setSnackbar`, {
               msg: `Unable to fetch loan guarantors at this moment`,
               type: `error`,
-              model: true,
+              
             })
           })
         } else {
@@ -68,7 +68,7 @@
           this.$store.commit(`setSnackbar`, {
             msg: `You don't have permissions to view loan guarantors`,
             type: `error`,
-            model: true,
+            
           })
 
         }

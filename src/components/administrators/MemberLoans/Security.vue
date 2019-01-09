@@ -152,7 +152,7 @@
                 this.lastName
                 } has been added successfully. You can add another guarantor`,
               type: `success`,
-              model: true
+              
             });
             this.stopLoading();
 
@@ -166,7 +166,7 @@
             this.$store.commit(`setSnackbar`, {
               msg: `Unable to add this guarantor at this time`,
               type: `error`,
-              model: true
+              
             });
             this.stopLoading();
           });
@@ -174,7 +174,7 @@
           this.$store.commit(`setSnackbar`, {
             msg: `You don't have permissions to add guarantors`,
             type: `error`,
-            model: true
+            
           });
         }
       },

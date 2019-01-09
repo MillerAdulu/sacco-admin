@@ -110,7 +110,7 @@
             this.$store.commit(`setSnackbar`, {
               msg: `Unable to fetch members at this time`,
               type: `error`,
-              model: true
+              
             });
 
             this.stopLoading();
@@ -119,7 +119,7 @@
           this.$store.commit(`setSnackbar`, {
             msg: `You don't have permissions to view members`,
             type: `error`,
-            model: true
+            
           });
         }
       },

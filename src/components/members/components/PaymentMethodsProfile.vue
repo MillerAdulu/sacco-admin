@@ -70,14 +70,14 @@
             this.$store.commit(`setSnackbar`, {
               msg: `Unable to load payment details at this time`,
               type: `error`,
-              model: true
+              
             });
           });
         } else {
           this.$store.commit(`setSnackbar`, {
             msg: `You don't have permissions to view payment details`,
             type: `error`,
-            model: true
+            
           });
         }
       },

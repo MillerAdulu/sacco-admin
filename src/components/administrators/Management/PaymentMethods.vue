@@ -104,7 +104,7 @@ export default {
             this.$store.commit(`setSnackbar`, {
               msg: `Payment method updated!`,
               type: `success`,
-              model: true
+              
             });
           })
           .catch(error => {
@@ -112,14 +112,14 @@ export default {
             this.$store.commit(`setSnackbar`, {
               msg: `Failed to update payment method!`,
               type: `error`,
-              model: true
+              
             });
           });
       } else {
         this.$store.commit(`setSnackbar`, {
           msg: `You don't have permissions to edit payment methods`,
           type: `error`,
-          model: true
+          
         });
       }
     },
@@ -127,7 +127,7 @@ export default {
       this.$store.commit(`setSnackbar`, {
         msg: `Aborted`,
         type: `error`,
-        model: true
+        
       });
     },
     deleteItem(paymentMethod) {
@@ -139,7 +139,7 @@ export default {
               this.$store.commit(`setSnackbar`, {
                 msg: `Deleted`,
                 type: `info`,
-                model: true
+                
               });
               this.desserts.splice(index, 1);
             })
@@ -149,7 +149,7 @@ export default {
               this.$store.commit(`setSnackbar`, {
                 msg: `Failed to delete payment method!`,
                 type: `error`,
-                model: true
+                
               });
             });
         }
@@ -157,7 +157,7 @@ export default {
         this.$store.commit(`setSnackbar`, {
           msg: `You don't have permissions to delete payment methods`,
           type: `warning`,
-          model: true
+          
         });
       }
     },

@@ -132,7 +132,7 @@ export default {
             this.$store.commit(`setSnackbar`, {
               msg: `Constituency updated!`,
               type: `success`,
-              model: true
+              
             });
           })
           .catch(error => {
@@ -140,14 +140,14 @@ export default {
             this.$store.commit(`setSnackbar`, {
               msg: `Failed to update constituency!`,
               type: `error`,
-              model: true
+              
             });
           });
       } else {
         this.$store.commit(`setSnackbar`, {
           msg: `You don't have permissions to edit constituencies`,
           type: `error`,
-          model: true
+          
         });
       }
     },
@@ -155,7 +155,7 @@ export default {
       this.$store.commit(`setSnackbar`, {
         msg: `Aborted`,
         type: `error`,
-        model: true
+        
       });
     },
     deleteItem(constituency) {
@@ -167,7 +167,7 @@ export default {
               this.$store.commit(`setSnackbar`, {
                 msg: `Deleted`,
                 type: `info`,
-                model: true
+                
               });
               this.desserts.splice(index, 1);
             })
@@ -177,7 +177,7 @@ export default {
               this.$store.commit(`setSnackbar`, {
                 msg: `Failed to delete constituency!`,
                 type: `error`,
-                model: true
+                
               });
             });
         }
@@ -185,7 +185,7 @@ export default {
         this.$store.commit(`setSnackbar`, {
           msg: `You don't have permissions to delete post offices`,
           type: `warning`,
-          model: true
+          
         });
       }
     },

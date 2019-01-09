@@ -261,7 +261,7 @@ export default {
             this.$store.commit(`setSnackbar`, {
               msg: `${this.lastName} has been added successfully`,
               type: `success`,
-              model: true
+              
             });
 
             this.$store.commit("setNewMemberRecordKey", response.data.memberId);
@@ -276,7 +276,7 @@ export default {
             this.$store.commit(`setSnackbar`, {
               msg: `You are unable to add this member at this time`,
               type: `error`,
-              model: true
+              
             });
 
             this.stopLoading();
@@ -285,7 +285,7 @@ export default {
         this.$store.commit(`setSnackbar`, {
           msg: `You don't have permissions to add members`,
           type: `error`,
-          model: true
+          
         });
       }
     },

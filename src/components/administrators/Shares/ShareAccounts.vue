@@ -102,7 +102,7 @@
             this.$store.commit(`setSnackbar`, {
               msg: `Unable to fetch these accounts at the moment`,
               type: `error`,
-              model: true
+              
             })
 
             this.stopLoading()
@@ -113,7 +113,7 @@
           this.$store.commit(`setSnackbar`, {
             msg: `You dont' have permission to view this section`,
             type: `error`,
-            model: true,
+            
           })
 
           this.stopLoading()

@@ -74,7 +74,7 @@ export default {
             this.$store.commit("setSnackbar", {
               msg: `Deposit added successfully`,
               type: `success`,
-              model: true
+              
             });
 
             this.stopLoading();
@@ -85,7 +85,7 @@ export default {
             this.$store.commit(`setSnackbar`, {
               msg: `Unable to add this deposit at this moment`,
               type: `error`,
-              model: true
+              
             });
             this.stopLoading();
           });
@@ -93,7 +93,7 @@ export default {
         this.$store.commit(`setSnackbar`, {
           msg: `You don't have permissions to add a deposit`,
           type: `error`,
-          model: true
+          
         });
       }
     },
@@ -109,14 +109,14 @@ export default {
             this.$store.commit(`setSnackbar`, {
               msg: `Unable to fetch members at this time`,
               type: `error`,
-              model: true
+              
             });
           });
       } else {
         this.$store.commit(`setSnackbar`, {
           msg: `You don't have permissions to view members`,
           type: `error`,
-          model: true
+          
         });
       }
     },

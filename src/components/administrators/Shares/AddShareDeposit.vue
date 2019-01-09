@@ -82,7 +82,7 @@
             this.$store.commit("setSnackbar", {
               msg: `Share Deposit added successfully`,
               type: `success`,
-              model: true
+              
             });
 
             this.stopLoading();
@@ -93,7 +93,7 @@
             this.$store.commit(`setSnackbar`, {
               msg: `Unable to add this share deposit at this moment`,
               type: `error`,
-              model: true
+              
             });
             this.stopLoading();
           });
@@ -101,7 +101,7 @@
           this.$store.commit(`setSnackbar`, {
             msg: `You don't have permissions to add a share deposit`,
             type: `error`,
-            model: true
+            
           });
         }
       },
@@ -118,14 +118,14 @@
             this.$store.commit(`setSnackbar`, {
               msg: `Unable to fetch members at this time`,
               type: `error`,
-              model: true
+              
             });
           });
         } else {
           this.$store.commit(`setSnackbar`, {
             msg: `You don't have permissions to view members`,
             type: `error`,
-            model: true
+            
           });
         }
       },

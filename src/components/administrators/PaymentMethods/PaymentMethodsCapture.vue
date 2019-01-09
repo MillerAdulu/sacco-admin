@@ -109,7 +109,7 @@
             this.$store.commit(`setSnackbar`, {
               msg: `Added! You can add other payment details`,
               type: `success`,
-              model: true
+              
             });
 
             this.stopLoading()
@@ -121,7 +121,7 @@
             this.$store.commit(`setSnackbar`, {
               msg: `Unable to add payment details at this time`,
               type: `error`,
-              model: true
+              
             });
 
             this.stopLoading()
@@ -131,7 +131,7 @@
           this.$store.commit(`setSnackbar`, {
             msg: `You don't have permissions to add payment details`,
             type: `error`,
-            model: true
+            
           });
         }
       },
@@ -156,14 +156,14 @@
             this.$store.commit(`setSnackbar`, {
               msg: `Unable to fetch payment methods at this time`,
               type: `error`,
-              model: true
+              
             });
           });
         } else {
           this.$store.commit(`setSnackbar`, {
             msg: `You don't have permissions to view payment methods`,
             type: `error`,
-            model: true
+            
           });
         }
       },

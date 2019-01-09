@@ -74,14 +74,14 @@
             this.$store.commit(`setSnackbar`, {
               msg: `Unable to fetch members`,
               type: `error`,
-              model: true
+              
             });
           });
         } else {
         this.$store.commit(`setSnackbar`, {
           msg: `You don't have permissions to view members`,
           type: `error`,
-          model: true
+          
         });
         }
       },
@@ -97,14 +97,14 @@
             this.$store.commit(`setSnackbar`, {
               msg: `Unable to fetch deposits`,
               type: `error`,
-              model: true
+              
             });
           });
         } else {
         this.$store.commit(`setSnackbar`, {
           msg: `You don't have permissions to view deposits`,
           type: `error`,
-          model: true
+          
         });
         }
       },
@@ -120,14 +120,14 @@
             this.$store.commit(`setSnackbar`, {
               msg: `Unable to fetch loans`,
               type: `error`,
-              model: true
+              
             });
           });
         } else {
         this.$store.commit(`setSnackbar`, {
           msg: `You don't have permissions to view member loans`,
           type: `error`,
-          model: true
+          
         });
         }
       }

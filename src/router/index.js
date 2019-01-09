@@ -119,7 +119,7 @@ const router = new Router({
           component: ShareDeposits,
         },
         {
-          path: `adddeposit`,
+          path: `addsharedeposit`,
           name: `AddShareDeposit`,
           component: AddShareDeposit,
         },

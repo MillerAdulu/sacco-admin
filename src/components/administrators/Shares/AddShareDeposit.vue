@@ -16,7 +16,7 @@
             item-value="memberId"
             :items="members"
             v-model="memberId"
-            label="Member ID"
+            label="Member"
         />
       </v-flex>
     </v-layout>

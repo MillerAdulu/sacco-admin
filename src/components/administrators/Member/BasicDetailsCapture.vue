@@ -260,8 +260,7 @@ export default {
           .then(response => {
             this.$store.commit(`setSnackbar`, {
               msg: `${this.lastName} has been added successfully`,
-              type: `success`,
-              
+              type: `success`
             });
 
             this.$store.commit("setNewMemberRecordKey", response.data.memberId);
@@ -275,8 +274,7 @@ export default {
 
             this.$store.commit(`setSnackbar`, {
               msg: `You are unable to add this member at this time`,
-              type: `error`,
-              
+              type: `error`
             });
 
             this.stopLoading();
@@ -284,8 +282,7 @@ export default {
       } else {
         this.$store.commit(`setSnackbar`, {
           msg: `You don't have permissions to add members`,
-          type: `error`,
-          
+          type: `error`
         });
       }
     },

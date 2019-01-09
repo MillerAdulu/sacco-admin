@@ -10,26 +10,26 @@ export default {
   methods: {
     getIssuingStatuses() {
       if (this.$can(`read`, `LoanIssuingStatus`)) {
-      SaccoAPI.get(`loans/issuingstatuses`)
-        .then(response => {
-          this.issuingStatuses = response.data;
-          this.stopLoading()
-        })
-        .catch(error => {
-          bugsnagClient.notify(error)
-          
-          this.$store.commit(`setSnackbar`, {
-            msg: `Unable to fetch loan issuing statuses at this time`,
-            type: `error`,
-            
+        SaccoAPI.get(`loans/issuingstatuses`)
+          .then(response => {
+            this.issuingStatuses = response.data;
+            this.stopLoading()
+          })
+          .catch(error => {
+            bugsnagClient.notify(error)
+
+            this.$store.commit(`setSnackbar`, {
+              msg: `Unable to fetch loan issuing statuses at this time`,
+              type: `error`,
+
+            });
+            this.stopLoading()
           });
-          this.stopLoading()
-        });
       } else {
         this.$store.commit(`setSnackbar`, {
           msg: `You don't have permissions to view issuing statuses`,
           type: `error`,
-          
+
         });
         this.stopLoading()
       }

@@ -1,7 +1,7 @@
 function prepareDataObject(bulkyObj) {
   let lightObj = {}
   Object.keys(bulkyObj).forEach(prop => {
-    if(bulkyObj[prop]) {
+    if (bulkyObj[prop]) {
       lightObj[prop] = bulkyObj[prop]
     }
   })
@@ -10,6 +10,6 @@ function prepareDataObject(bulkyObj) {
 
 
 
-export default  {
+export default {
   prepareDataObject
 }

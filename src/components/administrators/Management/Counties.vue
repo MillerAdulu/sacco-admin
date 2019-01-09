@@ -101,7 +101,7 @@ export default {
           value: "createdAt"
         },
         {
-          text: 'Actions',
+          text: "Actions"
         }
       ]
     };
@@ -125,31 +125,27 @@ export default {
           .then(() => {
             this.$store.commit(`setSnackbar`, {
               msg: `County updated!`,
-              type: `success`,
-              
+              type: `success`
             });
           })
           .catch(error => {
             bugsnagClient.notify(error);
             this.$store.commit(`setSnackbar`, {
               msg: `Failed to update county!`,
-              type: `error`,
-              
+              type: `error`
             });
           });
       } else {
         this.$store.commit(`setSnackbar`, {
           msg: `You don't have permissions to edit counties`,
-          type: `error`,
-          
+          type: `error`
         });
       }
     },
     cancel() {
       this.$store.commit(`setSnackbar`, {
         msg: `Aborted`,
-        type: `error`,
-        
+        type: `error`
       });
     },
     deleteItem(county) {
@@ -160,29 +156,25 @@ export default {
             .then(() => {
               this.$store.commit(`setSnackbar`, {
                 msg: `Deleted`,
-                type: `info`,
-                
+                type: `info`
               });
               this.desserts.splice(index, 1);
             })
             .catch(error => {
-              
               bugsnagClient.notify(error);
               this.$store.commit(`setSnackbar`, {
                 msg: `Failed to delete county!`,
-                type: `error`,
-                
+                type: `error`
               });
             });
         }
       } else {
         this.$store.commit(`setSnackbar`, {
           msg: `You don't have permissions to delete counties`,
-          type: `warning`,
-          
+          type: `warning`
         });
       }
-    },
+    }
   },
   created() {
     this.getCounties();

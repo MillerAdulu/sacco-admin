@@ -52,12 +52,10 @@ Vue.use(Router)
 
 const router = new Router({
   mode: 'history',
-  routes: [
-    {
+  routes: [{
       path: `/admin`,
       component: Administrator,
-      children: [
-        {
+      children: [{
           path: `addaddress`,
           name: `AddAddress`,
           component: AddressDetailsCapture,
@@ -212,8 +210,7 @@ const router = new Router({
     {
       path: `/member`,
       component: MemberArea,
-      children: [
-        {
+      children: [{
           path: ``,
           name: `MemberDashboard`,
           component: MemberDashboard,
@@ -244,15 +241,17 @@ const router = new Router({
           component: PaymentMethodsProfile,
         },
       ],
-      
+
     },
     {
       path: `/auth/callback`,
       beforeEnter: (to, from, next) => {
         let url = window.location.href
-        if(url.includes('#')) {
+        if (url.includes('#')) {
           let newUrl = url.replace('#', '?');
-          next({path: `/save${newUrl.substring(newUrl.indexOf('?'))}`})
+          next({
+            path: `/save${newUrl.substring(newUrl.indexOf('?'))}`
+          })
         }
         next();
       },
@@ -272,13 +271,13 @@ const router = new Router({
 })
 
 // router.beforeEach((to, from, next) => {
-  
+
 //   if(!localStorage.token) next(
 //     window.location.href = 'http://127.0.0.1:8000/oauth/authorize?client_id=3&redirect_uri=http://localhost:8080/auth/callback&response_type=token&scope=*'
 //   )
-  
+
 //   next()
-  
+
 // })
 
 export default router

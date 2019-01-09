@@ -59,8 +59,7 @@
                 v-model="props.item.constituency.constituencyId"
               />
             </v-edit-dialog>
-            
-            </td>
+          </td>
           <td
             class="text-xs-left"
           >{{ moment(props.item.createdAt).format('MMMM Do YYYY, h:mm:ss a') }}</td>
@@ -109,7 +108,7 @@ export default {
           value: "createdAt"
         },
         {
-          text: 'Actions',
+          text: "Actions"
         }
       ]
     };
@@ -130,31 +129,27 @@ export default {
           .then(() => {
             this.$store.commit(`setSnackbar`, {
               msg: `Locality updated!`,
-              type: `success`,
-              
+              type: `success`
             });
           })
           .catch(error => {
             bugsnagClient.notify(error);
             this.$store.commit(`setSnackbar`, {
               msg: `Failed to update locality!`,
-              type: `error`,
-              
+              type: `error`
             });
           });
       } else {
         this.$store.commit(`setSnackbar`, {
           msg: `You don't have permissions to edit localities`,
-          type: `error`,
-          
+          type: `error`
         });
       }
     },
     cancel() {
       this.$store.commit(`setSnackbar`, {
         msg: `Aborted`,
-        type: `error`,
-        
+        type: `error`
       });
     },
     stopLoading() {
@@ -168,29 +163,25 @@ export default {
             .then(() => {
               this.$store.commit(`setSnackbar`, {
                 msg: `Deleted`,
-                type: `info`,
-                
+                type: `info`
               });
               this.desserts.splice(index, 1);
             })
             .catch(error => {
-              
               bugsnagClient.notify(error);
               this.$store.commit(`setSnackbar`, {
                 msg: `Failed to delete locality!`,
-                type: `error`,
-                
+                type: `error`
               });
             });
         }
       } else {
         this.$store.commit(`setSnackbar`, {
           msg: `You don't have permissions to delete post offices`,
-          type: `warning`,
-          
+          type: `warning`
         });
       }
-    },
+    }
   },
   created() {
     this.getLocalities();

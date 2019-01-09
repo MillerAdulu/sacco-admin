@@ -10,26 +10,26 @@ export default {
   methods: {
     getRepaymentStatuses() {
       if (this.$can(`read`, `LoanRepaymentStatus`)) {
-      SaccoAPI.get(`loans/repaymentstatuses`)
-        .then(response => {
-          this.repaymentStatuses = response.data;
-          this.stopLoading()
-        })
-        .catch(error => {
-          bugsnagClient.notify(error)
-          
-          this.$store.commit(`setSnackbar`, {
-            msg: `Unable to fetch loan repayment statuses at this time`,
-            type: `error`,
-            
+        SaccoAPI.get(`loans/repaymentstatuses`)
+          .then(response => {
+            this.repaymentStatuses = response.data;
+            this.stopLoading()
+          })
+          .catch(error => {
+            bugsnagClient.notify(error)
+
+            this.$store.commit(`setSnackbar`, {
+              msg: `Unable to fetch loan repayment statuses at this time`,
+              type: `error`,
+
+            });
+            this.stopLoading()
           });
-          this.stopLoading()
-        });
       } else {
         this.$store.commit(`setSnackbar`, {
           msg: `You don't have permissions to view repayment statuses`,
           type: `error`,
-          
+
         });
         this.stopLoading()
       }

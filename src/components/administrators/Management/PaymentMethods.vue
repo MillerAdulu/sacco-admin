@@ -39,7 +39,7 @@
                 counter
               ></v-text-field>
             </v-edit-dialog>
-            </td>
+          </td>
           <td
             class="text-xs-left"
           >{{ moment(props.item.createdAt).format('MMMM Do YYYY, h:mm:ss a') }}</td>
@@ -93,7 +93,7 @@ export default {
     save(paymentMethod) {
       if (this.$can(`update`, `PaymentMethod`)) {
         let updateData = Parsers.prepareDataObject({
-          payment_method_name: paymentMethod.paymentMethod,
+          payment_method_name: paymentMethod.paymentMethod
         });
 
         SaccoAPI.put(
@@ -103,31 +103,27 @@ export default {
           .then(() => {
             this.$store.commit(`setSnackbar`, {
               msg: `Payment method updated!`,
-              type: `success`,
-              
+              type: `success`
             });
           })
           .catch(error => {
             bugsnagClient.notify(error);
             this.$store.commit(`setSnackbar`, {
               msg: `Failed to update payment method!`,
-              type: `error`,
-              
+              type: `error`
             });
           });
       } else {
         this.$store.commit(`setSnackbar`, {
           msg: `You don't have permissions to edit payment methods`,
-          type: `error`,
-          
+          type: `error`
         });
       }
     },
     cancel() {
       this.$store.commit(`setSnackbar`, {
         msg: `Aborted`,
-        type: `error`,
-        
+        type: `error`
       });
     },
     deleteItem(paymentMethod) {
@@ -138,26 +134,22 @@ export default {
             .then(() => {
               this.$store.commit(`setSnackbar`, {
                 msg: `Deleted`,
-                type: `info`,
-                
+                type: `info`
               });
               this.desserts.splice(index, 1);
             })
             .catch(error => {
-              
               bugsnagClient.notify(error);
               this.$store.commit(`setSnackbar`, {
                 msg: `Failed to delete payment method!`,
-                type: `error`,
-                
+                type: `error`
               });
             });
         }
       } else {
         this.$store.commit(`setSnackbar`, {
           msg: `You don't have permissions to delete payment methods`,
-          type: `warning`,
-          
+          type: `warning`
         });
       }
     },

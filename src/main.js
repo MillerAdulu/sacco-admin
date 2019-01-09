@@ -4,8 +4,13 @@ import 'material-design-icons-iconfont/dist/material-design-icons.css'
 import Vue from 'vue'
 import Vuetify from 'vuetify'
 import VeeValidate from 'vee-validate'
-import { abilitiesPlugin, Can } from '@casl/vue'
-import { Laue } from 'laue'
+import {
+  abilitiesPlugin,
+  Can
+} from '@casl/vue'
+import {
+  Laue
+} from 'laue'
 
 import ability from './casl/ability'
 Vue.component('Can', Can)
@@ -31,7 +36,7 @@ Vue.use(Vuetify, {
     info: "#2196f3",
     success: "#4caf50",
     button: "#d1a253",
-    chips: "#3e3f43" 
+    chips: "#3e3f43"
   }
 })
 

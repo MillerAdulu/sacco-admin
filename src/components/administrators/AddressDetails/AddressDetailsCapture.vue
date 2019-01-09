@@ -3,94 +3,101 @@
     <v-card>
       <v-card-title>Residential Address</v-card-title>
       <v-card-text>
-        <v-subheader>What county does the member reside in? </v-subheader>
+        <v-subheader>What county does the member reside in?</v-subheader>
         <v-autocomplete
-            item-text="countyName"
-            item-value="countyId"
-            @input="getConstituencies(county)"
-            :items="counties"
-            label="Select County"
-            v-model="county"/>
+          item-text="countyName"
+          item-value="countyId"
+          @input="getConstituencies(county)"
+          :items="counties"
+          label="Select County"
+          v-model="county"
+        />
       </v-card-text>
       <v-card-text v-if="county">
-        <v-subheader>What constituency does the member reside in? </v-subheader>
+        <v-subheader>What constituency does the member reside in?</v-subheader>
         <v-autocomplete
-            item-text="constituencyName"
-            item-value="constituencyId"
-            @input="getLocalities(constituency)"
-            :items="constituencies"
-            label="Select Constituency"
-            v-model="constituency"/>
+          item-text="constituencyName"
+          item-value="constituencyId"
+          @input="getLocalities(constituency)"
+          :items="constituencies"
+          label="Select Constituency"
+          v-model="constituency"
+        />
       </v-card-text>
       <v-card-text v-if="constituency">
-        <v-subheader>What locality does the member reside in? </v-subheader>
+        <v-subheader>What locality does the member reside in?</v-subheader>
         <v-autocomplete
-            item-text="localityName"
-            item-value="localityId"
-            label="Select Locality"
-            :items="localities"
-            v-model="locality"/>
+          item-text="localityName"
+          item-value="localityId"
+          label="Select Locality"
+          :items="localities"
+          v-model="locality"
+        />
       </v-card-text>
       <v-layout row>
         <v-flex xs6>
           <v-card-text>
-            <v-subheader>What is the member's post office? </v-subheader>
+            <v-subheader>What is the member's post office?</v-subheader>
             <v-autocomplete
-                label="Select Post Office"
-                item-text="postOfficeName"
-                item-value="postOfficeId"
-                :items="postOffices"
-                v-model="postOfficeId"/>
+              label="Select Post Office"
+              item-text="postOfficeName"
+              item-value="postOfficeId"
+              :items="postOffices"
+              v-model="postOfficeId"
+            />
           </v-card-text>
         </v-flex>
         <v-flex xs6>
           <v-card-text>
-            <v-subheader>What is the member's postal address? </v-subheader>
+            <v-subheader>What is the member's postal address?</v-subheader>
             <v-text-field
-                label="Post Office Address"
-                data-vv-name="postalAddress"
-                :error-messages="errors.collect('postalAddress')"
-                v-validate="validations.postalAddress"
-                v-model="postalAddress"/>
+              label="Post Office Address"
+              data-vv-name="postalAddress"
+              :error-messages="errors.collect('postalAddress')"
+              v-validate="validations.postalAddress"
+              v-model="postalAddress"
+            />
           </v-card-text>
         </v-flex>
-      </v-layout><v-layout row>
-      <v-flex xs6 mx-2>
-        <v-text-field
+      </v-layout>
+      <v-layout row>
+        <v-flex xs6 mx-2>
+          <v-text-field
             label="Street"
             v-model="street"
             data-vv-name="street"
             v-validate="validations.street"
             :error-messages="errors.collect('street')"
-        />
-      </v-flex>
-      <v-flex xs6 mx-2>
-        <v-text-field
-            data-vv-name="buildingName"
-            v-validate="validations.buildingName"
-            :error-messages="errors.collect('buildingName')"
-            label="Building Name"
-            v-model="buildingName"/>
-      </v-flex>
-    </v-layout>
-      <v-layout row>
-        <v-flex xs6 mx-2>
-          <v-text-field
-              required
-              label="Floor"
-              v-model="floor"
-              data-vv-name="floor"
-              v-validate="validations.floor"
-              :error-messages="errors.collect('floor')"
           />
         </v-flex>
         <v-flex xs6 mx-2>
           <v-text-field
-              label="House Number"
-              v-model="houseNumber"
-              data-vv-name="houseNumber"
-              v-validate="validations.houseNumber"
-              :error-messages="errors.collect('houseNumber')"
+            data-vv-name="buildingName"
+            v-validate="validations.buildingName"
+            :error-messages="errors.collect('buildingName')"
+            label="Building Name"
+            v-model="buildingName"
+          />
+        </v-flex>
+      </v-layout>
+      <v-layout row>
+        <v-flex xs6 mx-2>
+          <v-text-field
+            required
+            label="Floor"
+            v-model="floor"
+            data-vv-name="floor"
+            v-validate="validations.floor"
+            :error-messages="errors.collect('floor')"
+          />
+        </v-flex>
+        <v-flex xs6 mx-2>
+          <v-text-field
+            label="House Number"
+            v-model="houseNumber"
+            data-vv-name="houseNumber"
+            v-validate="validations.houseNumber"
+            :error-messages="errors.collect('houseNumber')"
           />
         </v-flex>
       </v-layout>
@@ -101,117 +108,110 @@
       <v-btn color="error" @click="clearAddress">Clear Address</v-btn>
     </v-layout>
 
-    <base-snackbar />
-
+    <base-snackbar/>
   </v-form>
 </template>
 
 <script>
+import bugsnagClient from "@/helpers/errorreporting";
+import SaccoAPI from "@/api";
+import fetchCountiesMixin from "@/components/administrators/mixins/counties";
+import fetchPostOfficesMixin from "@/components/administrators/mixins/postoffices";
+import Parsers from "../../../helpers/parsers";
+import queryString from "querystring";
+import { Validator } from "vee-validate";
 
-  import bugsnagClient from '@/helpers/errorreporting'
-  import SaccoAPI from '@/api'
-  import fetchCountiesMixin from '@/components/administrators/mixins/counties'
-  import fetchPostOfficesMixin from '@/components/administrators/mixins/postoffices'
-  import Parsers from "../../../helpers/parsers";
-  import queryString from "querystring";
-  import {Validator} from "vee-validate";
-
-  const dictionary = {
-    en: {
-      attributes: {
-        buildingName: `building name`,
-        houseNumber: `house number`,
-        postalAddress: `postal address`
-      }
+const dictionary = {
+  en: {
+    attributes: {
+      buildingName: `building name`,
+      houseNumber: `house number`,
+      postalAddress: `postal address`
     }
-  };
+  }
+};
 
-  Validator.localize(dictionary);
+Validator.localize(dictionary);
 
-  export default {
-    $_veeValidate: {
-      validator: `new`
-    },
-    name: `AddressDetailsCapture`,
-    data() {
-      return {
-        county: ``,
-        constituency: ``,
-        locality: ``,
-        street: null,
-        buildingName: null,
-        floor: null,
-        houseNumber: null,
-        postOfficeId: null,
-        postalAddress: null,
-        btnLoading: false,
+export default {
+  $_veeValidate: {
+    validator: `new`
+  },
+  name: `AddressDetailsCapture`,
+  data() {
+    return {
+      county: ``,
+      constituency: ``,
+      locality: ``,
+      street: null,
+      buildingName: null,
+      floor: null,
+      houseNumber: null,
+      postOfficeId: null,
+      postalAddress: null,
+      btnLoading: false,
 
-        constituencies: [],
-        localities: [],
+      constituencies: [],
+      localities: [],
 
-        validations: {
-          street: `required|alpha_num|min:3`,
-          buildingName: `required|alpha_num|min:3`,
-          floor: `required|numeric`,
-          houseNumber: `required|alpha_num|min:1`,
-          postalAddress: `numeric`
-        },
-      };
-    },
-    created() {
-      this.getCounties();
-      this.getPostOffices();
-    },
-    methods: {
-      getConstituencies(county) {
-        if (this.$can(`read`, `County`)) {
+      validations: {
+        street: `required|alpha_num|min:3`,
+        buildingName: `required|alpha_num|min:3`,
+        floor: `required|numeric`,
+        houseNumber: `required|alpha_num|min:1`,
+        postalAddress: `numeric`
+      }
+    };
+  },
+  created() {
+    this.getCounties();
+    this.getPostOffices();
+  },
+  methods: {
+    getConstituencies(county) {
+      if (this.$can(`read`, `County`)) {
         SaccoAPI.get(`constituencies/county/${county}`)
           .then(response => {
             this.constituencies = response.data;
           })
           .catch(error => {
-            bugsnagClient.notify(error)
+            bugsnagClient.notify(error);
 
             this.$store.commit(`setSnackbar`, {
               msg: `Unable to fetch constituencies at this time`,
-              type: `error`,
-              
+              type: `error`
             });
           });
-        } else {
-          this.$store.commit(`setSnackbar`, {
-            msg: `You don't have permissions to view constituencies`,
-            type: `error`,
-            
-          });
-        }
-      },
-      getLocalities(constituency) {
-        if (this.$can(`read`, `Locality`)) {
+      } else {
+        this.$store.commit(`setSnackbar`, {
+          msg: `You don't have permissions to view constituencies`,
+          type: `error`
+        });
+      }
+    },
+    getLocalities(constituency) {
+      if (this.$can(`read`, `Locality`)) {
         SaccoAPI.get(`localities/constituency/${constituency}`)
           .then(response => {
             this.localities = response.data;
           })
           .catch(error => {
-            bugsnagClient.notify(error)
+            bugsnagClient.notify(error);
             this.$store.commit(`setSnackbar`, {
               msg: `Unable to fetch localities at this time`,
-              type: `error`,
-              
+              type: `error`
             });
           });
-        } else {
-          this.$store.commit(`setSnackbar`, {
-            msg: `You don't have permissions to view localities`,
-            type: `error`,
-            
-          });
-        }
-      },
-      async addAddress() {
-        if (this.$can(`create`, `AddressDetail`)) {
-
-        this.startLoading()
+      } else {
+        this.$store.commit(`setSnackbar`, {
+          msg: `You don't have permissions to view localities`,
+          type: `error`
+        });
+      }
+    },
+    async addAddress() {
+      if (this.$can(`create`, `AddressDetail`)) {
+        this.startLoading();
 
         let address = await Parsers.prepareDataObject({
           member_id: this.$store.getters.newMemberRecordKey,
@@ -229,51 +229,45 @@
           .then(() => {
             this.$store.commit(`setSnackbar`, {
               msg: `Added! You can add more addresses`,
-              type: `success`,
-              
+              type: `success`
             });
             this.$store.commit("setStepperStatus", false);
             this.clearAddress();
-            this.stopLoading()
+            this.stopLoading();
           })
           .catch(error => {
-            bugsnagClient.notify(error)
+            bugsnagClient.notify(error);
             this.$store.commit(`setSnackbar`, {
               msg: `Unable to add addresses at this time`,
-              type: `error`,
-              
+              type: `error`
             });
-            this.stopLoading()
+            this.stopLoading();
           });
-        } else {
-          this.$store.commit(`setSnackbar`, {
-            msg: `You don't have permissions to add address details`,
-            type: `error`,
-            
-          });
-        }
-      },
-      clearAddress() {
-        this.county = ``;
-        this.constituency = ``;
-        this.locality = ``;
-        this.street = null;
-        this.buildingName = null;
-        this.floor = null;
-        this.houseNumber = null;
-        this.postOfficeId = null;
-        this.postalAddress = null;
-      },
-      startLoading() {
-        this.btnLoading = true;
-      },
-      stopLoading() {
-        this.btnLoading = false;
+      } else {
+        this.$store.commit(`setSnackbar`, {
+          msg: `You don't have permissions to add address details`,
+          type: `error`
+        });
       }
     },
-    mixins: [
-      fetchCountiesMixin,
-      fetchPostOfficesMixin
-    ]
-  };
+    clearAddress() {
+      this.county = ``;
+      this.constituency = ``;
+      this.locality = ``;
+      this.street = null;
+      this.buildingName = null;
+      this.floor = null;
+      this.houseNumber = null;
+      this.postOfficeId = null;
+      this.postalAddress = null;
+    },
+    startLoading() {
+      this.btnLoading = true;
+    },
+    stopLoading() {
+      this.btnLoading = false;
+    }
+  },
+  mixins: [fetchCountiesMixin, fetchPostOfficesMixin]
+};
 </script>

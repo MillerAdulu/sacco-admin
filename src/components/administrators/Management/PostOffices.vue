@@ -58,7 +58,7 @@
                 counter
               ></v-text-field>
             </v-edit-dialog>
-            </td>
+          </td>
           <td
             class="text-xs-left"
           >{{ moment(props.item.createdAt).format('MMMM Do YYYY, h:mm:ss a') }}</td>
@@ -106,7 +106,7 @@ export default {
           value: "createdAt"
         },
         {
-          text: 'Actions',
+          text: "Actions"
         }
       ]
     };
@@ -117,9 +117,9 @@ export default {
       if (this.$can(`update`, `PostOffice`)) {
         let updateData = Parsers.prepareDataObject({
           post_office_code: postOffice.postOfficeCode,
-          post_office_name: postOffice.postOfficeName,
+          post_office_name: postOffice.postOfficeName
         });
-        
+
         SaccoAPI.put(
           `/postoffices/${postOffice.postOfficeId}`,
           queryString.stringify(updateData)
@@ -127,31 +127,27 @@ export default {
           .then(() => {
             this.$store.commit(`setSnackbar`, {
               msg: `Post Office updated!`,
-              type: `success`,
-              
+              type: `success`
             });
           })
           .catch(error => {
             bugsnagClient.notify(error);
             this.$store.commit(`setSnackbar`, {
               msg: `Failed to update post office!`,
-              type: `error`,
-              
+              type: `error`
             });
           });
       } else {
         this.$store.commit(`setSnackbar`, {
           msg: `You don't have permissions to edit post offices`,
-          type: `error`,
-          
+          type: `error`
         });
       }
     },
     cancel() {
       this.$store.commit(`setSnackbar`, {
         msg: `Aborted`,
-        type: `error`,
-        
+        type: `error`
       });
     },
     deleteItem(postOffice) {
@@ -162,26 +158,22 @@ export default {
             .then(() => {
               this.$store.commit(`setSnackbar`, {
                 msg: `Deleted`,
-                type: `info`,
-                
+                type: `info`
               });
               this.desserts.splice(index, 1);
             })
             .catch(error => {
-              
               bugsnagClient.notify(error);
               this.$store.commit(`setSnackbar`, {
                 msg: `Failed to delete post office!`,
-                type: `error`,
-                
+                type: `error`
               });
             });
         }
       } else {
         this.$store.commit(`setSnackbar`, {
           msg: `You don't have permissions to delete post offices`,
-          type: `warning`,
-          
+          type: `warning`
         });
       }
     },

@@ -83,7 +83,7 @@ export default {
           value: "createdAt"
         },
         {
-          text: 'Actions',
+          text: "Actions"
         }
       ]
     };
@@ -106,31 +106,27 @@ export default {
           .then(() => {
             this.$store.commit(`setSnackbar`, {
               msg: `Loan type updated!`,
-              type: `success`,
-              
+              type: `success`
             });
           })
           .catch(error => {
             bugsnagClient.notify(error);
             this.$store.commit(`setSnackbar`, {
               msg: `Failed to update loan type!`,
-              type: `error`,
-              
+              type: `error`
             });
           });
       } else {
         this.$store.commit(`setSnackbar`, {
           msg: `You don't have permissions to edit loan types`,
-          type: `error`,
-          
+          type: `error`
         });
       }
     },
     cancel() {
       this.$store.commit(`setSnackbar`, {
         msg: `Aborted`,
-        type: `error`,
-        
+        type: `error`
       });
     },
     deleteItem(loanType) {
@@ -141,33 +137,28 @@ export default {
             .then(() => {
               this.$store.commit(`setSnackbar`, {
                 msg: `Deleted`,
-                type: `info`,
-                
+                type: `info`
               });
               this.desserts.splice(index, 1);
             })
             .catch(error => {
-              
               bugsnagClient.notify(error);
               this.$store.commit(`setSnackbar`, {
                 msg: `Failed to delete loan type!`,
-                type: `error`,
-                
+                type: `error`
               });
             });
         }
       } else {
         this.$store.commit(`setSnackbar`, {
           msg: `You don't have permissions to delete repayment status`,
-          type: `warning`,
-          
+          type: `warning`
         });
       }
-    },
+    }
   },
   created() {
-      this.getLoanTypes();
+    this.getLoanTypes();
   }
-  
 };
 </script>

@@ -10,26 +10,26 @@ export default {
   methods: {
     getLocalities() {
       if (this.$can(`read`, `Locality`)) {
-      SaccoAPI.get(`localities`)
-        .then(response => {
-          this.localities = response.data;
-          this.stopLoading()
-        })
-        .catch(error => {
-          bugsnagClient.notify(error)
-          
-          this.$store.commit(`setSnackbar`, {
-            msg: `Unable to fetch localities at this time`,
-            type: `error`,
-            
+        SaccoAPI.get(`localities`)
+          .then(response => {
+            this.localities = response.data;
+            this.stopLoading()
+          })
+          .catch(error => {
+            bugsnagClient.notify(error)
+
+            this.$store.commit(`setSnackbar`, {
+              msg: `Unable to fetch localities at this time`,
+              type: `error`,
+
+            });
+            this.stopLoading()
           });
-          this.stopLoading()
-        });
       } else {
         this.$store.commit(`setSnackbar`, {
           msg: `You don't have permissions to view localities`,
           type: `error`,
-          
+
         });
       }
     },

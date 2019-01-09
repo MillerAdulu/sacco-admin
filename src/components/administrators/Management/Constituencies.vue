@@ -106,10 +106,10 @@ export default {
           value: "createdAt"
         },
         {
-          text: 'Actions',
+          text: "Actions"
         }
       ],
-      max15chars: v => v.length <= 15 || "Input too long!",
+      max15chars: v => v.length <= 15 || "Input too long!"
     };
   },
   mixins: [constituenciesMixin, countiesMixin],
@@ -131,31 +131,27 @@ export default {
           .then(() => {
             this.$store.commit(`setSnackbar`, {
               msg: `Constituency updated!`,
-              type: `success`,
-              
+              type: `success`
             });
           })
           .catch(error => {
             bugsnagClient.notify(error);
             this.$store.commit(`setSnackbar`, {
               msg: `Failed to update constituency!`,
-              type: `error`,
-              
+              type: `error`
             });
           });
       } else {
         this.$store.commit(`setSnackbar`, {
           msg: `You don't have permissions to edit constituencies`,
-          type: `error`,
-          
+          type: `error`
         });
       }
     },
     cancel() {
       this.$store.commit(`setSnackbar`, {
         msg: `Aborted`,
-        type: `error`,
-        
+        type: `error`
       });
     },
     deleteItem(constituency) {
@@ -166,29 +162,25 @@ export default {
             .then(() => {
               this.$store.commit(`setSnackbar`, {
                 msg: `Deleted`,
-                type: `info`,
-                
+                type: `info`
               });
               this.desserts.splice(index, 1);
             })
             .catch(error => {
-              
               bugsnagClient.notify(error);
               this.$store.commit(`setSnackbar`, {
                 msg: `Failed to delete constituency!`,
-                type: `error`,
-                
+                type: `error`
               });
             });
         }
       } else {
         this.$store.commit(`setSnackbar`, {
           msg: `You don't have permissions to delete post offices`,
-          type: `warning`,
-          
+          type: `warning`
         });
       }
-    },
+    }
   },
   created() {
     this.getConstituencies();

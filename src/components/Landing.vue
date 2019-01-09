@@ -1,8 +1,7 @@
 <template>
   <div>
     <v-toolbar class="white">
-      <v-toolbar-title v-text="title">
-      </v-toolbar-title>
+      <v-toolbar-title v-text="title"></v-toolbar-title>
     </v-toolbar>
     <v-content>
       <section>
@@ -97,9 +96,7 @@
                 <v-card-title primary-title class="layout justify-center">
                   <div class="headline">Company info</div>
                 </v-card-title>
-                <v-card-text>
-                  We started long time ago, now we are here.
-                </v-card-text>
+                <v-card-text>We started long time ago, now we are here.</v-card-text>
               </v-card>
             </v-flex>
             <v-flex xs12 sm4 offset-sm1>
@@ -148,7 +145,7 @@ export default {
   data() {
     return {
       title: "Sacco",
-      oAuthURL: process.env.VUE_APP_OAUTH_URL,
+      oAuthURL: process.env.VUE_APP_OAUTH_URL
     };
   }
 };

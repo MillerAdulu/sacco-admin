@@ -4,9 +4,7 @@
       <v-flex xs12>
         <div class="resultContainer">
           <v-layout>
-            <div class="item elevation-5">
-              You are being logged in ...
-            </div>
+            <div class="item elevation-5">You are being logged in ...</div>
           </v-layout>
         </div>
       </v-flex>
@@ -29,7 +27,7 @@ export default {
         .then(response => {
           this.$store.commit(`setLoggedInUser`, response.data);
           localStorage.setItem(`accessLevel`, response.data.accessLevel);
-          this.redirectToDashboard(localStorage.getItem('accessLevel'));
+          this.redirectToDashboard(localStorage.getItem("accessLevel"));
         })
         .catch(error => {
           bugsnagClient.notify(error);
@@ -37,11 +35,11 @@ export default {
     },
     redirectToDashboard(accessLevel) {
       if (accessLevel == `MEMBER`)
-      window.location.href = process.env.VUE_APP_MEMBER_DASHBOARD
-      else window.location.href = process.env.VUE_APP_ADMIN_DASHBOARD
+        window.location.href = process.env.VUE_APP_MEMBER_DASHBOARD;
+      else window.location.href = process.env.VUE_APP_ADMIN_DASHBOARD;
     }
   },
-  props: {access_token: String,},
+  props: { access_token: String },
   created() {
     this.getUserInfo();
   }

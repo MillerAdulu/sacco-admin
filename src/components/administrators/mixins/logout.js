@@ -8,7 +8,7 @@ export default {
       SaccoAPI.get('logout').then(() => {
         this.btnLoading = false;
         this.$store.commit("setLoggedInUser", {});
-      localStorage.clear();
+        localStorage.clear();
         window.location.href = process.env.VUE_APP_HOME
       }).catch(error => {
         this.btnLoading = false;

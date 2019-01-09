@@ -64,21 +64,23 @@ export default {
   methods: {
     update(nominee) {
       if (this.$can(`update`, `Nominee`)) {
-        this.$router.push({name: `EditNominee`, params: {
-          nomineeId: nominee.nomineeId,
-          identificationNumber: nominee.identificationNumber,
-          relationship: nominee.relationship,
-          firstName: nominee.firstName,
-          lastName: nominee.lastName,
-          otherName: nominee.otherName,
-          phoneNumber: nominee.phoneNumber,
-          email: nominee.email,
-        }});
+        this.$router.push({
+          name: `EditNominee`,
+          params: {
+            nomineeId: nominee.nomineeId,
+            identificationNumber: nominee.identificationNumber,
+            relationship: nominee.relationship,
+            firstName: nominee.firstName,
+            lastName: nominee.lastName,
+            otherName: nominee.otherName,
+            phoneNumber: nominee.phoneNumber,
+            email: nominee.email
+          }
+        });
       } else {
         let snackbar = {
           msg: `You don't have permissions to edit nominees`,
-          type: `error`,
-          
+          type: `error`
         };
 
         this.$store.commit(`setSnackbar`, snackbar);
@@ -94,8 +96,7 @@ export default {
               msg: response
                 ? `This nominee has been deleted`
                 : response.statusText,
-              type: `success`,
-              
+              type: `success`
             });
             this.nominees.pop(nominee);
             this.stopLoading();
@@ -105,16 +106,14 @@ export default {
 
             this.$store.commit(`setSnackbar`, {
               msg: `Currently unable to delete this nominee`,
-              type: `error`,
-              
+              type: `error`
             });
             this.stopLoading();
           });
       } else {
         this.$store.commit(`setSnackbar`, {
           msg: `You don't have permissions to delete this nominee`,
-          type: `error`,
-          
+          type: `error`
         });
       }
     },

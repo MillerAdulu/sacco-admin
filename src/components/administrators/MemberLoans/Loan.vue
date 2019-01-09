@@ -102,15 +102,13 @@ export default {
 
             this.$store.commit(`setSnackbar`, {
               msg: `Unable to load this member loan`,
-              type: `error`,
-              
+              type: `error`
             });
           });
       } else {
         this.$store.commit(`setSnackbar`, {
           msg: `You don't have permissions to view member loans`,
-          type: `error`,
-          
+          type: `error`
         });
       }
     },

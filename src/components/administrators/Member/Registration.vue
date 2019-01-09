@@ -1,5 +1,4 @@
 <template>
-
   <v-stepper v-model="e1">
     <v-stepper-header>
       <v-stepper-step :complete="e1 > 1" step="1">Basic Details</v-stepper-step>
@@ -14,106 +13,95 @@
     </v-stepper-header>
     <v-stepper-items>
       <v-stepper-content step="1">
-        <BasicDetailsCapture />
+        <BasicDetailsCapture/>
         <v-btn
-            color="button"
-            @click="next(2)"
-            :disabled="this.$store.getters.stepperContinueEnabled">
-          Continue
-        </v-btn>
+          color="button"
+          @click="next(2)"
+          :disabled="this.$store.getters.stepperContinueEnabled"
+        >Continue</v-btn>
       </v-stepper-content>
       <v-stepper-content step="2">
-
-        <AddressDetailsCapture />
+        <AddressDetailsCapture/>
 
         <v-btn
-            color="button"
-            @click="next(3)"
-            :disabled="this.$store.getters.stepperContinueEnabled">
-          Continue
-        </v-btn>
+          color="button"
+          @click="next(3)"
+          :disabled="this.$store.getters.stepperContinueEnabled"
+        >Continue</v-btn>
       </v-stepper-content>
       <v-stepper-content step="3">
-
-        <PaymentMethodsCapture />
+        <PaymentMethodsCapture/>
 
         <v-btn
-            color="button"
-            @click="next(4)"
-            :disabled="this.$store.getters.stepperContinueEnabled">
-          Continue
-        </v-btn>
+          color="button"
+          @click="next(4)"
+          :disabled="this.$store.getters.stepperContinueEnabled"
+        >Continue</v-btn>
       </v-stepper-content>
 
       <v-stepper-content step="4">
-
-        <UploadPassportPhoto />
+        <UploadPassportPhoto/>
 
         <v-btn
-            color="button"
-            @click="next(5)"
-            :disabled="this.$store.getters.stepperContinueEnabled">
-          Continue
-        </v-btn>
+          color="button"
+          @click="next(5)"
+          :disabled="this.$store.getters.stepperContinueEnabled"
+        >Continue</v-btn>
       </v-stepper-content>
 
       <v-stepper-content step="5">
-
-        <NomineeDetailsCapture />
+        <NomineeDetailsCapture/>
 
         <v-btn
-            color="button"
-            :to='{name: `Member`, params: {
+          color="button"
+          :to="{name: `Member`, params: {
             memberId: this.$store.getters.newMemberRecordKey }
-            }'
-            :disabled="this.$store.getters.stepperContinueEnabled">
-          Finish
-        </v-btn>
+            }"
+          :disabled="this.$store.getters.stepperContinueEnabled"
+        >Finish</v-btn>
 
         <v-btn
-            color="button"
-            to="/admin/register"
-            :disabled="this.$store.getters.stepperContinueEnabled">
-          Add New Member
-        </v-btn>
-
+          color="button"
+          to="/admin/register"
+          :disabled="this.$store.getters.stepperContinueEnabled"
+        >Add New Member</v-btn>
       </v-stepper-content>
     </v-stepper-items>
   </v-stepper>
 </template>
 
 <script>
-  import BasicDetailsCapture from '@/components/administrators/Member/BasicDetailsCapture'
-  import AddressDetailsCapture from '@/components/administrators/AddressDetails/AddressDetailsCapture'
-  import PaymentMethodsCapture from '@/components/administrators/PaymentMethods/PaymentMethodsCapture'
-  import NomineeDetailsCapture from '@/components/administrators/Nominees/NomineeDetailsCapture'
-  import UploadPassportPhoto from '@/components/administrators/Member/UploadPassportPhoto'
+import BasicDetailsCapture from "@/components/administrators/Member/BasicDetailsCapture";
+import AddressDetailsCapture from "@/components/administrators/AddressDetails/AddressDetailsCapture";
+import PaymentMethodsCapture from "@/components/administrators/PaymentMethods/PaymentMethodsCapture";
+import NomineeDetailsCapture from "@/components/administrators/Nominees/NomineeDetailsCapture";
+import UploadPassportPhoto from "@/components/administrators/Member/UploadPassportPhoto";
 
-  export default {
-    data() {
-      return {
-        e1: 0
-      };
-    },
-    name: "RegistrationStepper",
-    props: {
-      msg: String
-    },
-    components: {
-      BasicDetailsCapture,
-      AddressDetailsCapture,
-      PaymentMethodsCapture,
-      NomineeDetailsCapture,
-      UploadPassportPhoto
-    },
-    methods: {
-      next(next) {
-        this.e1 = next
-        this.$store.commit('setStepperStatus', true)
-      }
-    },
-    created() {
-      this.$store.commit("setStepperStatus", true)
+export default {
+  data() {
+    return {
+      e1: 0
+    };
+  },
+  name: "RegistrationStepper",
+  props: {
+    msg: String
+  },
+  components: {
+    BasicDetailsCapture,
+    AddressDetailsCapture,
+    PaymentMethodsCapture,
+    NomineeDetailsCapture,
+    UploadPassportPhoto
+  },
+  methods: {
+    next(next) {
+      this.e1 = next;
+      this.$store.commit("setStepperStatus", true);
     }
-  };
+  },
+  created() {
+    this.$store.commit("setStepperStatus", true);
+  }
+};
 </script>

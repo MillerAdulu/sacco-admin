@@ -93,31 +93,30 @@ export default {
         loan_issuing_status_id: 1
       });
 
-      
-
-      SaccoAPI.post("loans/memberloans", queryString.stringify(newLoan)).then(
-        response => {
+      SaccoAPI.post("loans/memberloans", queryString.stringify(newLoan))
+        .then(response => {
           this.$store.commit(`setSnackbar`, {
             msg: `This loans has been added successfully`,
-            type: `success`,
-            
+            type: `success`
           });
 
-          this.$store.commit("setNewMemberRecordKey", response.data.memberLoanId);
+          this.$store.commit(
+            "setNewMemberRecordKey",
+            response.data.memberLoanId
+          );
           this.$store.commit("setStepperStatus", false);
 
           this.btnAddedDisabled = true;
           this.btnLoading = false;
-        }
-      ).catch(error => {
+        })
+        .catch(error => {
           this.btnLoading = false;
-          bugsnagClient.notify(error)
+          bugsnagClient.notify(error);
           this.$store.commit(`setSnackbar`, {
             msg: `This there was an error adding this loan`,
-            type: `error`,
-            
+            type: `error`
           });
-      });
+        });
     },
     getLoanTypes() {
       if (this.$can(`read`, `LoanType`)) {
@@ -129,15 +128,13 @@ export default {
             bugsnagClient.notify(error);
             this.$store.commit(`setSnackbar`, {
               msg: `Unable to load loan types at this time`,
-              type: `error`,
-              
+              type: `error`
             });
           });
       } else {
         this.$store.commit(`setSnackbar`, {
           msg: `You don't have permissions to view loan types`,
-          type: `error`,
-          
+          type: `error`
         });
       }
     },

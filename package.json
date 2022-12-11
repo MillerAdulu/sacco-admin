@@ -16,7 +16,7 @@
     "bugsnag-vue": "^1.0.1",
     "connect-history-api-fallback": "^1.5.0",
     "dotenv": "^6.0.0",
-    "express": "^4.16.3",
+    "express": "^4.17.3",
     "js-cookie": "^2.2.0",
     "moment": "^2.22.2",
     "serve-static": "^1.13.2",
